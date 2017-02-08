@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "handhack", "handhack.csproj", "{5057EF66-858C-4354-BD8F-A15733C1DD9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "handhack-android", "handhack-android\handhack-android.csproj", "{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5057EF66-858C-4354-BD8F-A15733C1DD9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5057EF66-858C-4354-BD8F-A15733C1DD9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5057EF66-858C-4354-BD8F-A15733C1DD9E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{5057EF66-858C-4354-BD8F-A15733C1DD9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5057EF66-858C-4354-BD8F-A15733C1DD9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5057EF66-858C-4354-BD8F-A15733C1DD9E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

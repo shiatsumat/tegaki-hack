@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+							xmlns:alias="http://schemas.android.com/apk/res/handhack-android.handhack_android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/dobar">
+		<Button
+				android:text="Undo"
+				android:id="@+id/undo"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+		<Button
+				android:text="Redo"
+				android:id="@+id/redo"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+	</LinearLayout>
+	<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/linebar">
+		<Button
+				android:text="Curve"
+				android:id="@+id/curve"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+		<Button
+				android:text="Line"
+				android:id="@+id/line"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+		<Button
+				android:text="Goodline"
+				android:id="@+id/goodline"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+	</LinearLayout>
+	<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/squarebar">
+		<Button
+		android:text="Square"
+		android:id="@+id/square"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent" />
+		<Button
+				android:text="Rectangle"
+				android:id="@+id/rectangle"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/circlebar">
+		<Button
+				android:text="Circle"
+				android:id="@+id/circle"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+		<Button
+				android:text="Oval"
+				android:id="@+id/oval"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+		<Button
+				android:text="Arc"
+				android:id="@+id/arc"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent" />
+	</LinearLayout>
+	<View
+				android:id="@+id/editcanvas"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@android:color/white"/>
+</LinearLayout>
