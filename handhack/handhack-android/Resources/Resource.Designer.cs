@@ -105,32 +105,32 @@ namespace handhack
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050005
-			public const int Circlelike = 2131034117;
+			// aapt resource value: 0x7f040005
+			public const int Circlelike = 2130968581;
 			
-			// aapt resource value: 0x7f050007
-			public const int Editcanvas = 2131034119;
+			// aapt resource value: 0x7f040007
+			public const int Editcanvas = 2130968583;
 			
-			// aapt resource value: 0x7f050003
-			public const int Linelike = 2131034115;
+			// aapt resource value: 0x7f040003
+			public const int Linelike = 2130968579;
 			
-			// aapt resource value: 0x7f050002
-			public const int Redo = 2131034114;
+			// aapt resource value: 0x7f040002
+			public const int Redo = 2130968578;
 			
-			// aapt resource value: 0x7f050004
-			public const int Squarelike = 2131034116;
+			// aapt resource value: 0x7f040004
+			public const int Squarelike = 2130968580;
 			
-			// aapt resource value: 0x7f050008
-			public const int Startedit = 2131034120;
+			// aapt resource value: 0x7f040008
+			public const int Startedit = 2130968584;
 			
-			// aapt resource value: 0x7f050006
-			public const int Textlike = 2131034118;
+			// aapt resource value: 0x7f040006
+			public const int Textlike = 2130968582;
 			
-			// aapt resource value: 0x7f050000
-			public const int Toolbar = 2131034112;
+			// aapt resource value: 0x7f040000
+			public const int Toolbar = 2130968576;
 			
-			// aapt resource value: 0x7f050001
-			public const int Undo = 2131034113;
+			// aapt resource value: 0x7f040001
+			public const int Undo = 2130968577;
 			
 			static Id()
 			{
@@ -157,25 +157,6 @@ namespace handhack
 			}
 			
 			private Layout()
-			{
-			}
-		}
-		
-		public partial class String
-		{
-			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
-			
-			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
-			
-			static String()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private String()
 			{
 			}
 		}

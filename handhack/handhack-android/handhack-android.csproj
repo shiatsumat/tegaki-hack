@@ -59,6 +59,7 @@
     <Compile Include="Logic\ShapeCreations\CirclelikeCreations.cs" />
     <Compile Include="Logic\ShapeCreations\LinelikeCreations.cs" />
     <Compile Include="Logic\ShapeCreations\ShapeCreation.cs" />
+    <Compile Include="Logic\ShapeCreations\TextlikeCreations.cs" />
     <Compile Include="Logic\ShapeCreations\SquarelikeCreations.cs" />
     <Compile Include="Logic\Shapes\Circlelikes.cs" />
     <Compile Include="Logic\Shapes\Linelikes.cs" />
@@ -67,16 +68,16 @@
     <Compile Include="Logic\Shapes\Textlikes.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sublogic\Data.cs" />
+    <Compile Include="Sublogic\Shapes\Circlelikes.cs" />
+    <Compile Include="Sublogic\Shapes\Linelikes.cs" />
+    <Compile Include="Sublogic\Shapes\Shape.cs" />
     <Compile Include="Views\Editcanvas.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\Edit.axml" />
     <AndroidResource Include="Resources\layout\Start.axml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
@@ -128,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Fancytext.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\values\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

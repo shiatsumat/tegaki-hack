@@ -1,3 +1,4 @@
+using System;
 using System.Xml;
 
 namespace handhack
@@ -22,10 +23,45 @@ namespace handhack
         }
     }
 
-    public partial struct Paint
+    public partial class Paint
     {
         public Color strokecolor, fillcolor;
         public Size<Internal> strokewidth;
+        public enum Linecap { Butt, Round, Square }
+        Linecap _strokelinecap;
+        public Linecap strokelinecap
+        {
+            get { return _strokelinecap; }
+            set
+            {
+                if (value < 0 || 3 <= (int)value)
+                {
+                    throw new InvalidOperationException("invalid strokelinecap for Paint");
+                }
+                _strokelinecap = value;
+            }
+        }
+        public enum Linejoin { Miter, Round, Bevel }
+        Linejoin _strokelinejoin;
+        public Linejoin strokelinejoin
+        {
+            get { return _strokelinejoin; }
+            set
+            {
+                if (value < 0 || 3 <= (int)value)
+                {
+                    throw new InvalidOperationException("invalid strokelinejoin for Paint");
+                }
+                _strokelinejoin = value;
+            }
+        }
+
+        public Paint(Color strokecolor, Size<Internal> strokewidth, Color fillcolor,
+            Linecap strokelinecap, Linejoin strokelinejoin)
+        {
+            this.strokecolor = strokecolor; this.strokewidth = strokewidth; this.fillcolor = fillcolor;
+            this.strokelinecap = strokelinecap; this.strokelinejoin = strokelinejoin;
+        }
 
         public void AddSvg(XmlDocument svg, XmlNode node, Transform<Internal, External> transform)
         {
@@ -39,7 +75,6 @@ namespace handhack
             fillcolorAttribute.Value = fillcolor.ToString();
             node.Attributes.Append(fillcolorAttribute);
         }
-
     }
 
     public static partial class Shapes
