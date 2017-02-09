@@ -2,18 +2,43 @@ using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Graphics;
+using Android.Content.Res;
+using Android.Views;
+
+using handhack_android;
 using static handhack_android.Shapes;
+
+using NativeColor = Android.Graphics.Color;
 
 namespace handhack_android
 {
     [Activity(Label = "EditActivity", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
     public class EditActivity : Activity
     {
-        public ImageButton undoButton, redoButton, linelikeButton, squarelikeButton, circlelikeButton;
+        public ImageButton undoButton, redoButton;
+        public ImageButton[] shapeButtons;
 
-        public Linelike linelike = Linelike.Freehand;
-        public Squarelike squarelike = Squarelike.Square;
-        public Circlelike circlelike = Circlelike.Circle;
+        public Editcanvas editcanvas;
+
+        public Shapesort shapesort = Shapesort.Linelike;
+        public int[] shapes = new int[] {
+            (int)Linelikeshape.Freehand, (int)Squarelikeshape.Square, (int)Circlelikeshape.Circle, (int)Textlikeshape.Text };
+        public Linelikeshape linelikeshape { get { return (Linelikeshape)shapes[0]; } set { shapes[0] = (int)value; } }
+        public Squarelikeshape squarelikeshape { get { return (Squarelikeshape)shapes[1]; } set { shapes[1] = (int)value; } }
+        public Circlelikeshape circlelikeshape { get { return (Circlelikeshape)shapes[2]; } set { shapes[2] = (int)value; } }
+        public Textlikeshape textlikeshape { get { return (Textlikeshape)shapes[3]; } set { shapes[3] = (int)value; } }
+
+        public readonly int[][] shapeicons = new int[][] {
+            new int[] { Resource.Drawable.Freehand, Resource.Drawable.Line, Resource.Drawable.Goodline },
+            new int[] { Resource.Drawable.Square, Resource.Drawable.Roundsquare, Resource.Drawable.Rectangle, Resource.Drawable.Roundrectangle },
+            new int[] { Resource.Drawable.Circle, Resource.Drawable.Oval, Resource.Drawable.Arc },
+            new int[] { Resource.Drawable.Text, Resource.Drawable.Fancytext }
+        };
+
+        public Transform<Internal, External> transform;
+
+        public ShapeCreation shapeCreation;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -23,66 +48,82 @@ namespace handhack_android
 
             undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
-            linelikeButton = FindViewById<ImageButton>(Resource.Id.Linelike);
-            linelikeButton.Click += (o, e) => {
-                linelike = NextLinelike(linelike); UpdateLinelike();
+
+            shapeButtons = new ImageButton[] {
+                FindViewById<ImageButton>(Resource.Id.Linelike),
+                FindViewById<ImageButton>(Resource.Id.Squarelike),
+                FindViewById<ImageButton>(Resource.Id.Circlelike),
+                FindViewById<ImageButton>(Resource.Id.Textlike)
             };
-            squarelikeButton = FindViewById<ImageButton>(Resource.Id.Squarelike);
-            squarelikeButton.Click += (o, e) => {
-                squarelike = NextSquarelike(squarelike); UpdateSquarelike();
+            for (int i = 0; i < shapesortNumber; i++)
+            {
+                var _shapesort = (Shapesort)i;
+                var _i = i;
+                shapeButtons[i].Click += (o, e) =>
+                {
+                    if (shapesort != _shapesort)
+                    {
+                        shapesort = _shapesort; UpdateShapesort();
+                    }
+                    else
+                    {
+                        shapes[_i] = NextShape(shapesort, shapes[_i]); UpdateShape(shapesort);
+                    }
+                };
+            }
+
+            UpdateShapesort();
+
+            editcanvas = FindViewById<Editcanvas>(Resource.Id.Editcanvas);
+            transform = new Transform<Internal, External>(editcanvas.Height / 30);
+            editcanvas.Touch += (o, e) =>
+            {
+                var p = new Point<External>(e.Event.XPrecision, e.Event.YPrecision).Untransform(transform);
+                switch (e.Event.Action & MotionEventActions.Mask)
+                {
+                    case MotionEventActions.Down:
+                        shapeCreation.Touchdown(p);
+                        break;
+                    case MotionEventActions.Move:
+                        shapeCreation.Touchmove(p);
+                        break;
+                    case MotionEventActions.Up:
+                        shapeCreation.Touchup(p);
+                        break;
+                }
             };
-            circlelikeButton = FindViewById<ImageButton>(Resource.Id.Circlelike);
-            circlelikeButton.Click += (o, e) => {
-                circlelike = NextCirclelike(circlelike); UpdateCirclelike();
+            editcanvas.onDraw += (canvas) =>
+            {
+                var paint = new Android.Graphics.Paint();
+                paint.Color = NativeColor.Black;
+                paint.TextSize = 100;
+                canvas.DrawText(string.Format("{0}x{1}", canvas.Width, canvas.Height), 100, 100, paint);
             };
         }
 
-        void UpdateLinelike()
+        void UpdateShapesort()
         {
-            switch (linelike)
+            if (shapesort < 0 || shapesortNumber <= (int)shapesort)
             {
-                case Linelike.Freehand:
-                    linelikeButton.SetImageResource(Resource.Drawable.Freehand);
-                    break;
-                case Linelike.Line:
-                    linelikeButton.SetImageResource(Resource.Drawable.Line);
-                    break;
-                case Linelike.Goodline:
-                    linelikeButton.SetImageResource(Resource.Drawable.Goodline);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("linelike is invalid");
+                throw new IndexOutOfRangeException("Shapesort is invalid");
+            }
+            for (int i = 0; i < shapesortNumber; i++)
+            {
+                shapeButtons[i].BackgroundTintList = (i != (int)shapesort) ? null :
+                    ColorStateList.ValueOf(NativeColor.Orange);
             }
         }
-        void UpdateSquarelike()
+
+        void UpdateShape(Shapesort shapesort)
         {
-            switch (squarelike)
+            var i = (int)shapesort;
+            if (shapes[i] < 0 || shapes[i] >= shapeNumbers[i])
             {
-                case Squarelike.Square:
-                    squarelikeButton.SetImageResource(Resource.Drawable.Square);
-                    break;
-                case Squarelike.Rectangle:
-                    squarelikeButton.SetImageResource(Resource.Drawable.Rectangle);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("squarelike is invalid");
+                throw new IndexOutOfRangeException(string.Format("{0} is invalid", shapesort.ToString()));
             }
-        }
-        void UpdateCirclelike()
-        {
-            switch (circlelike)
+            else
             {
-                case Circlelike.Circle:
-                    circlelikeButton.SetImageResource(Resource.Drawable.Circle);
-                    break;
-                case Circlelike.Oval:
-                    circlelikeButton.SetImageResource(Resource.Drawable.Oval);
-                    break;
-                case Circlelike.Arc:
-                    circlelikeButton.SetImageResource(Resource.Drawable.Arc);
-                    break;
-                default:
-                    throw new IndexOutOfRangeException("circlelike is invalid");
+                shapeButtons[i].SetImageResource(shapeicons[i][shapes[i]]);
             }
         }
     }

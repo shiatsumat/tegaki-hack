@@ -1,4 +1,3 @@
-using System;
 using Android.Content;
 using Android.Graphics;
 using Android.Util;
@@ -6,9 +5,12 @@ using Android.Views;
 
 namespace handhack_android
 {
+    public delegate void OnDrawDelegate(Canvas canvas);
 	public class Editcanvas : View
 	{
-		public Editcanvas(Context context, IAttributeSet attrs) :
+        public OnDrawDelegate onDraw;
+
+        public Editcanvas(Context context, IAttributeSet attrs) :
 			base(context, attrs)
 		{
 			Initialize();
@@ -28,10 +30,7 @@ namespace handhack_android
 		{
 			base.OnDraw(canvas);
 
-			var paint = new Paint();
-			paint.Color = Color.Black;
-			paint.TextSize = 100;
-			canvas.DrawText(String.Format("{0}x{1}", canvas.Width, canvas.Height), 100, 100, paint);
+            onDraw(canvas);
 		}
 	}
 }

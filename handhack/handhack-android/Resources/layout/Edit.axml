@@ -43,9 +43,16 @@
             android:layout_height="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
+        <ImageButton
+            android:id="@+id/Textlike"
+            android:src="@drawable/Text"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
     </LinearLayout>
     <handhack_android.Editcanvas
-        android:id="@+id/editcanvas"
+        android:id="@+id/Editcanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white" />

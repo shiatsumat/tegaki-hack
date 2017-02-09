@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using handhack_android;
 
 namespace handhack_android
 {
@@ -12,7 +13,8 @@ namespace handhack_android
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-			SetContentView(Resource.Layout.Start);
+
+            SetContentView(Resource.Layout.Start);
 
             starteditButton = FindViewById<Button>(Resource.Id.Startedit);
 

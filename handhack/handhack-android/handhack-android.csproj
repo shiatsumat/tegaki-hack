@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{57055CCD-F49B-4D7A-8A56-8CE2A05C0F0B}</ProjectGuid>
+    <ProjectGuid>{74A138E6-4F5A-4544-819E-5B4DA3F48AFB}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -53,15 +53,18 @@
   <ItemGroup>
     <Compile Include="Activities\EditActivity.cs" />
     <Compile Include="Activities\StartActivity.cs" />
-    <Compile Include="Logic\ShapeCreations\LinelikeCreations.cs" />
-    <Compile Include="Logic\Shapes\Shapes.cs" />
-    <Compile Include="Logic\Shapes\Linelikes.cs" />
-    <Compile Include="Logic\ShapeCreations\SquarelikeCreations.cs" />
-    <Compile Include="Logic\Shapes\Circlelikes.cs" />
+    <Compile Include="Logic\Data.cs" />
     <Compile Include="Logic\Geometry.cs" />
     <Compile Include="Logic\Math.cs" />
     <Compile Include="Logic\ShapeCreations\CirclelikeCreations.cs" />
+    <Compile Include="Logic\ShapeCreations\LinelikeCreations.cs" />
+    <Compile Include="Logic\ShapeCreations\ShapeCreation.cs" />
+    <Compile Include="Logic\ShapeCreations\SquarelikeCreations.cs" />
+    <Compile Include="Logic\Shapes\Circlelikes.cs" />
+    <Compile Include="Logic\Shapes\Linelikes.cs" />
+    <Compile Include="Logic\Shapes\Shape.cs" />
     <Compile Include="Logic\Shapes\Squarelikes.cs" />
+    <Compile Include="Logic\Shapes\Textlikes.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Editcanvas.cs" />
@@ -69,14 +72,11 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\Edit.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Edit.axml" />
+    <AndroidResource Include="Resources\layout\Start.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Start.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />
@@ -85,31 +85,22 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\values\" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Undo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Redo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Freehand.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Goodline.png" />
+    <AndroidResource Include="Resources\drawable\Arc.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Arc.png" />
+    <AndroidResource Include="Resources\drawable\Freehand.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Square.png" />
+    <AndroidResource Include="Resources\drawable\Goodline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Oval.png" />
@@ -118,7 +109,25 @@
     <AndroidResource Include="Resources\drawable\Rectangle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Logo.png" />
+    <AndroidResource Include="Resources\drawable\Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Roundrectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Roundsquare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Fancytext.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
