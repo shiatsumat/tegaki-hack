@@ -3,9 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageView
+        android:background="@drawable/Logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
     <Button
-        android:id="@+id/edit"
+        android:id="@+id/Startedit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Edit" />
+        android:text="Start Edit" />
 </LinearLayout>

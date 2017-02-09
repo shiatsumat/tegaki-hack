@@ -1,69 +1,65 @@
-using System;
+using static System.Math;
 
 namespace handhack_android
 {
-	public struct Point
+    public struct Complex
 	{
-		public double x, y;
+		public double re, im;
+		public double norm => Sqrt(re * re + im * im);
+		public double arg => Atan2(im, re); // (-ƒÎ, +ƒÎ]
 
-		public Point(double x, double y)
+		public Complex(double re, double im = 0)
 		{
-			this.x = x; this.y = y;
+			this.re = re; this.im = im;
 		}
-		public static Point operator+(Point p, DPoint v)
-		{
-			return new Point(p.x + v.dx, p.y + v.dy);
-		}
-		public static Point operator+(DPoint v, Point p)
-		{
-			return new Point(v.dx + p.x, v.dy + p.y);
-		}
-		public static Point operator-(Point p, DPoint v)
-		{
-			return new Point(p.x - v.dx, p.y - v.dy);
-		}
-		public static DPoint operator-(Point p, Point q)
-		{
-			return new DPoint(p.x - q.x, p.y - q.y);
-		} 
-		public static double distance(Point p, Point q)
-		{
-			return (p - q).norm;
-		}
-		public static Point divide(Point p, Point q, double a, double b)
-		{
-			return new Point((p.x * b + q.x + a) / (a + b), (p.y * b + q.y + a) / (a + b));
-		}
-	}
 
-	public struct DPoint
-	{
-		public double dx, dy;
-
-		public DPoint(double dx, double dy)
+		public static Complex operator +(Complex z, Complex w)
 		{
-			this.dx = dx; this.dy = dy;
+			return new Complex(z.re + w.re, z.im + w.im);
 		}
-		public static DPoint operator+(DPoint v, DPoint w)
+		public static Complex operator +(Complex z, double a)
 		{
-			return new DPoint(v.dx + w.dx, v.dy + w.dy);
+			return new Complex(z.re + a, z.im);
 		}
-		public static DPoint operator-(DPoint v, DPoint w)
+		public static Complex operator +(double a, Complex z)
 		{
-			return new DPoint(v.dx - w.dx, v.dy - w.dy);
+			return new Complex(a + z.re, z.im);
 		}
-		public static DPoint operator *(double a, DPoint v)
+		public static Complex operator -(Complex z, Complex w)
 		{
-			return new DPoint(a * v.dx, a * v.dy);
+			return new Complex(z.re - w.re, z.im - w.im);
 		}
-		public static DPoint operator*(DPoint v, double a)
+		public static Complex operator -(Complex z, double a)
 		{
-			return new DPoint(v.dx * a, v.dy * a);
+			return new Complex(z.re - a, z.im);
 		}
-		public static DPoint operator /(DPoint v, double a)
+		public static Complex operator -(double a, Complex z)
 		{
-			return new DPoint(v.dx / a, v.dy / a);
+			return new Complex(a - z.re, -z.im);
 		}
-		public double norm { get { return Math.Sqrt(dx * dx + dy * dy); }  }
+		public static Complex operator *(Complex z, Complex w)
+		{
+			return new Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re);
+		}
+		public static Complex operator *(Complex z, double a)
+		{
+			return new Complex(z.re * a, z.im * a);
+		}
+		public static Complex operator *(double a, Complex z)
+		{
+			return new Complex(a * z.re, a * z.im);
+		}
+		public static Complex operator /(Complex z, Complex w)
+		{
+			return new Complex((z.re * w.re + z.im * w.im) / (w.norm * w.norm), (-z.re * w.im + z.im * w.re) / (w.norm * w.norm));
+		}
+		public static Complex operator /(Complex z, double a)
+		{
+			return new Complex(z.re / a, z.im / a);
+		}
+		public static Complex operator /(double a, Complex z)
+		{
+			return new Complex((a * z.re) / (z.norm * z.norm), (-a * z.im) / (z.norm * z.norm));
+		}
 	}
 }

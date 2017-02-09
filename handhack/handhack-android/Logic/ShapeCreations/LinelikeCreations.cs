@@ -1,0 +1,3 @@
+namespace handhack_android
+{
+}

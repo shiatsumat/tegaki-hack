@@ -45,7 +45,40 @@ namespace handhack_android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int Arc = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int Circle = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int Freehand = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int Goodline = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Icon = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int Line = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int Logo = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int Oval = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int Rectangle = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int Redo = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int Square = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int Undo = 2130837515;
 			
 			static Drawable()
 			{
@@ -60,53 +93,29 @@ namespace handhack_android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f04000d
-			public const int arc = 2130968589;
-			
-			// aapt resource value: 0x7f04000b
-			public const int circle = 2130968587;
-			
-			// aapt resource value: 0x7f04000a
-			public const int circlebar = 2130968586;
-			
-			// aapt resource value: 0x7f040004
-			public const int curve = 2130968580;
-			
-			// aapt resource value: 0x7f040000
-			public const int dobar = 2130968576;
-			
-			// aapt resource value: 0x7f04000f
-			public const int edit = 2130968591;
-			
-			// aapt resource value: 0x7f04000e
-			public const int editcanvas = 2130968590;
-			
-			// aapt resource value: 0x7f040006
-			public const int goodline = 2130968582;
-			
 			// aapt resource value: 0x7f040005
-			public const int line = 2130968581;
+			public const int Circlelike = 2130968581;
 			
 			// aapt resource value: 0x7f040003
-			public const int linebar = 2130968579;
-			
-			// aapt resource value: 0x7f04000c
-			public const int oval = 2130968588;
-			
-			// aapt resource value: 0x7f040009
-			public const int rectangle = 2130968585;
+			public const int Linelike = 2130968579;
 			
 			// aapt resource value: 0x7f040002
-			public const int redo = 2130968578;
+			public const int Redo = 2130968578;
 			
-			// aapt resource value: 0x7f040008
-			public const int square = 2130968584;
+			// aapt resource value: 0x7f040004
+			public const int Squarelike = 2130968580;
 			
 			// aapt resource value: 0x7f040007
-			public const int squarebar = 2130968583;
+			public const int Startedit = 2130968583;
+			
+			// aapt resource value: 0x7f040000
+			public const int Toolbar = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int undo = 2130968577;
+			public const int Undo = 2130968577;
+			
+			// aapt resource value: 0x7f040006
+			public const int editcanvas = 2130968582;
 			
 			static Id()
 			{
@@ -125,7 +134,7 @@ namespace handhack_android
 			public const int Edit = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int Start = 2130903041;
 			
 			static Layout()
 			{

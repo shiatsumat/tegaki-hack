@@ -1,35 +1,89 @@
-
+using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using static handhack_android.Shapes;
 
 namespace handhack_android
 {
-	[Activity(Label = "EditActivity")]
-	public class EditActivity : Activity
-	{
-		Button undoButton, redoButton;
-		Button curveButton, lineButton, goodlineButton;
-		Button squareButton, rectangleButton;
-		Button circleButton, ovalButton, arcButton;
+    [Activity(Label = "EditActivity", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
+    public class EditActivity : Activity
+    {
+        public ImageButton undoButton, redoButton, linelikeButton, squarelikeButton, circlelikeButton;
 
-		protected override void OnCreate(Bundle bundle)
-		{
-			base.OnCreate(bundle);
+        public Linelike linelike = Linelike.Freehand;
+        public Squarelike squarelike = Squarelike.Square;
+        public Circlelike circlelike = Circlelike.Circle;
 
-			SetContentView(Resource.Layout.Edit);
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
 
-			undoButton = FindViewById<Button>(Resource.Id.undo);
-			redoButton = FindViewById<Button>(Resource.Id.redo);
+            SetContentView(Resource.Layout.Edit);
 
-			curveButton = FindViewById<Button>(Resource.Id.curve);
-			lineButton = FindViewById<Button>(Resource.Id.line);
-			goodlineButton = FindViewById<Button>(Resource.Id.goodline);
-			squareButton = FindViewById<Button>(Resource.Id.square);
-			rectangleButton = FindViewById<Button>(Resource.Id.rectangle);
-			circleButton = FindViewById<Button>(Resource.Id.circle);
-			ovalButton = FindViewById<Button>(Resource.Id.oval);
-			arcButton = FindViewById<Button>(Resource.Id.arc);
-		}
-	}
+            undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
+            redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
+            linelikeButton = FindViewById<ImageButton>(Resource.Id.Linelike);
+            linelikeButton.Click += (o, e) => {
+                linelike = NextLinelike(linelike); UpdateLinelike();
+            };
+            squarelikeButton = FindViewById<ImageButton>(Resource.Id.Squarelike);
+            squarelikeButton.Click += (o, e) => {
+                squarelike = NextSquarelike(squarelike); UpdateSquarelike();
+            };
+            circlelikeButton = FindViewById<ImageButton>(Resource.Id.Circlelike);
+            circlelikeButton.Click += (o, e) => {
+                circlelike = NextCirclelike(circlelike); UpdateCirclelike();
+            };
+        }
+
+        void UpdateLinelike()
+        {
+            switch (linelike)
+            {
+                case Linelike.Freehand:
+                    linelikeButton.SetImageResource(Resource.Drawable.Freehand);
+                    break;
+                case Linelike.Line:
+                    linelikeButton.SetImageResource(Resource.Drawable.Line);
+                    break;
+                case Linelike.Goodline:
+                    linelikeButton.SetImageResource(Resource.Drawable.Goodline);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("linelike is invalid");
+            }
+        }
+        void UpdateSquarelike()
+        {
+            switch (squarelike)
+            {
+                case Squarelike.Square:
+                    squarelikeButton.SetImageResource(Resource.Drawable.Square);
+                    break;
+                case Squarelike.Rectangle:
+                    squarelikeButton.SetImageResource(Resource.Drawable.Rectangle);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("squarelike is invalid");
+            }
+        }
+        void UpdateCirclelike()
+        {
+            switch (circlelike)
+            {
+                case Circlelike.Circle:
+                    circlelikeButton.SetImageResource(Resource.Drawable.Circle);
+                    break;
+                case Circlelike.Oval:
+                    circlelikeButton.SetImageResource(Resource.Drawable.Oval);
+                    break;
+                case Circlelike.Arc:
+                    circlelikeButton.SetImageResource(Resource.Drawable.Arc);
+                    break;
+                default:
+                    throw new IndexOutOfRangeException("circlelike is invalid");
+            }
+        }
+    }
 }
