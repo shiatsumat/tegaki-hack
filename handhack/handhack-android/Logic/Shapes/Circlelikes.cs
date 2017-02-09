@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 
-namespace handhack_android
+namespace handhack
 {
     public partial class Oval : Shape
     {

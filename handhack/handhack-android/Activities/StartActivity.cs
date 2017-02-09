@@ -1,9 +1,9 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using handhack_android;
+using handhack;
 
-namespace handhack_android
+namespace handhack
 {
 	[Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
 	public class StartActivity : Activity

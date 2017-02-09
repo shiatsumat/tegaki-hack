@@ -1,3 +1,3 @@
-namespace handhack_android
+namespace handhack
 {
 }

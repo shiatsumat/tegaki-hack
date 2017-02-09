@@ -1,4 +1,4 @@
-namespace handhack_android
+namespace handhack
 {
 	class Square
 	{

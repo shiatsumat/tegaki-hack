@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace handhack_android
+namespace handhack
 {
     public partial struct Point<Pers>
 	{

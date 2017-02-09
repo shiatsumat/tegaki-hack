@@ -51,7 +51,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
     </LinearLayout>
-    <handhack_android.Editcanvas
+    <handhack.Editcanvas
         android:id="@+id/Editcanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

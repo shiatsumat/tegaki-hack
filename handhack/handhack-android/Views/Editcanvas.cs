@@ -3,7 +3,7 @@ using Android.Graphics;
 using Android.Util;
 using Android.Views;
 
-namespace handhack_android
+namespace handhack
 {
     public delegate void OnDrawDelegate(Canvas canvas);
 	public class Editcanvas : View

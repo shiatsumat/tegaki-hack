@@ -1,4 +1,4 @@
-namespace handhack_android
+namespace handhack
 {
     public partial interface ShapeCreation
     {

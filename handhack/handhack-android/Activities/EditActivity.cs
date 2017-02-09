@@ -2,16 +2,14 @@ using System;
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using Android.Graphics;
 using Android.Content.Res;
 using Android.Views;
 
-using handhack_android;
-using static handhack_android.Shapes;
+using static handhack.Shapes;
 
 using NativeColor = Android.Graphics.Color;
 
-namespace handhack_android
+namespace handhack
 {
     [Activity(Label = "EditActivity", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
     public class EditActivity : Activity

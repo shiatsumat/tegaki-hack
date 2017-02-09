@@ -1,6 +1,6 @@
 using static System.Math;
 
-namespace handhack_android
+namespace handhack
 {
     public partial struct Complex
 	{
