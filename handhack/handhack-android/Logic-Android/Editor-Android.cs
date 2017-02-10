@@ -4,7 +4,7 @@ namespace handhack
 {
     public partial class Editor : IDrawable
     {
-        public void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             canvas.Draw(grid, transform);
             foreach (var shape in shapes)

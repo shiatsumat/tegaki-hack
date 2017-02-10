@@ -1,20 +1,26 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
 namespace handhack
 {
+    [StructLayout(LayoutKind.Explicit)]
     public partial struct Color
     {
+        [FieldOffset(0)]
         public uint rgba;
-        public byte r { get { return (byte)((rgba & 0xFF000000) >> 24); } set { rgba = (rgba & 0x00FFFFFF) | ((uint)value << 24); } }
-        public byte g { get { return (byte)((rgba & 0x00FF0000) >> 16); } set { rgba = (rgba & 0xFF00FFFF) | ((uint)value << 16); } }
-        public byte b { get { return (byte)((rgba & 0x0000FF00) >> 8); } set { rgba = (rgba & 0xFFFF00FF) | ((uint)value << 8); } }
-        public byte a { get { return (byte)((rgba & 0x000000FF) >> 0); } set { rgba = (rgba & 0xFFFFFF00) | ((uint)value << 0); } }
+        [FieldOffset(0)]
+        public byte r;
+        [FieldOffset(1)]
+        public byte g;
+        [FieldOffset(2)]
+        public byte b;
+        [FieldOffset(3)]
+        public byte a;
 
         public Color(byte r, byte g, byte b, byte a)
         {
-            rgba = 0;
-            this.r = r; this.g = g; this.b = b; this.a = a;
+            rgba = 0; this.r = r; this.g = g; this.b = b; this.a = a;
         }
 
         public override string ToString()
@@ -29,6 +35,12 @@ namespace handhack
     {
         public Color strokecolor, fillcolor;
         public Size<Internal> strokewidth;
+        public Size<External> strokewidthAlt;
+        public float calculateStrokewidth(Transform<Internal, External> transform)
+        {
+            if (strokewidth.value > 0) return strokewidth.Transform(transform).value;
+            else return strokewidthAlt.value;
+        }
         Linecap _strokelinecap;
         public Linecap strokelinecap
         {
@@ -50,20 +62,24 @@ namespace handhack
             }
         }
 
-        public Paint(Color strokecolor, Size<Internal> strokewidth, Color fillcolor,
-            Linecap strokelinecap, Linejoin strokelinejoin)
+        public Paint(Color strokecolor, Size<Internal> strokewidth, Color fillcolor = default(Color),
+            Size<External> strokewidthAlt = default(Size<External>), Linecap strokelinecap = Linecap.Butt, Linejoin strokelinejoin = Linejoin.Miter)
         {
             this.strokecolor = strokecolor; this.strokewidth = strokewidth; this.fillcolor = fillcolor;
-            this.strokelinecap = strokelinecap; this.strokelinejoin = strokelinejoin;
+            this.strokewidthAlt = strokewidthAlt; this.strokelinecap = strokelinecap; this.strokelinejoin = strokelinejoin;
+        }
+        public Paint(Paint paint)
+            : this(paint.strokecolor, paint.strokewidth, paint.fillcolor, paint.strokewidthAlt, paint.strokelinecap, paint.strokelinejoin)
+        {
         }
     }
     public static partial class PaintStatic
     {
-        public static XElement AddSvg<X>(this XElement element, Paint paint, Transform<Internal, X> transform) where X : External
+        public static XElement AddSvg(this XElement element, Paint paint, Transform<Internal, External> transform)
         {
             element.Add(
                 new XAttribute("stroke-color", paint.strokecolor.ToString()),
-                new XAttribute("stroke", paint.strokewidth.Transform(transform).value.ToString()),
+                new XAttribute("stroke", paint.calculateStrokewidth(transform).ToString()),
                 new XAttribute("fill-color", paint.fillcolor.ToString()),
                 new XAttribute("stroke-linecap", paint.strokelinecap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", paint.strokelinejoin.ToString().ToLower()));

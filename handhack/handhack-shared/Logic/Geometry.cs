@@ -192,7 +192,7 @@ namespace handhack
 
     public static partial class GeometryStatic
     {
-        public static XElement AddSvg<X>(this XElement element, Point<Internal> p, string xname, string yname, Transform<Internal, X> transform) where X : External
+        public static XElement AddSvg(this XElement element, Point<Internal> p, string xname, string yname, Transform<Internal, External> transform)
         {
             var pT = p.Transform(transform);
             element.Add(
@@ -200,7 +200,7 @@ namespace handhack
                 new XAttribute(yname, pT.y.ToString()));
             return element;
         }
-        public static XElement AddSvg<X>(this XElement element, DPoint<Internal> v, string dxname, string dyname, Transform<Internal, X> transform) where X : External
+        public static XElement AddSvg(this XElement element, DPoint<Internal> v, string dxname, string dyname, Transform<Internal, External> transform)
         {
             var vT = v.Transform(transform);
             element.Add(
@@ -208,7 +208,7 @@ namespace handhack
                 new XAttribute(dyname, vT.dy.ToString()));
             return element;
         }
-        public static XElement AddSvg<X>(this XElement element, Size<Internal> a, string name, Transform<Internal, X> transform) where X : External
+        public static XElement AddSvg(this XElement element, Size<Internal> a, string name, Transform<Internal, External> transform)
         {
             element.Add(
                 new XAttribute(name, a.Transform(transform).ToString()));

@@ -7,11 +7,11 @@ namespace handhack
 {
     public partial interface IShape : IDrawable
     {
-        void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External;
+        void AddSvg(XElement element, Transform<Internal, External> transform);
     }
     public static partial class DrawdataStatic
     {
-        public static XElement AddSvg<X>(this XElement element, IShape shape, Transform<Internal, X> transform) where X : External
+        public static XElement AddSvg(this XElement element, IShape shape, Transform<Internal, External> transform)
         {
             shape.AddSvg(element, transform);
             return element;
@@ -27,7 +27,7 @@ namespace handhack
             this.shapes = shapes;
         }
 
-        public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
+        public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
             var gElement = new XElement("g");
             foreach (var shape in shapes)
@@ -60,7 +60,7 @@ namespace handhack
             this.paint = paint; this.points = points; this.bezier = bezier; this.closed = closed;
         }
 
-        public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
+        public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
             if (points.Count >= 2)
             {
@@ -115,7 +115,7 @@ namespace handhack
             this.paint = paint; this.center = center; this.radii = radii;
         }
 
-        public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
+        public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
             element.Add(new XElement("ellipse")
                 .AddSvg(paint, transform)
@@ -181,7 +181,7 @@ namespace handhack
             this.paint = paint; this.center = center; this.radii = radii; this.startAngle = startAngle; this.sweepAngle = sweepAngle; this.useCenter = useCenter;
         }
 
-        public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
+        public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
             var dString = string.Format("M {0} A {1} 0 {2} 0 {3}", startPoint.Transform(transform), radii.Transform(transform), sweepAngle >= 180 ? 1 : 0, endPoint.Transform(transform));
             if (useCenter)

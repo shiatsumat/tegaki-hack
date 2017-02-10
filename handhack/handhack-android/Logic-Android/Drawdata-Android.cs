@@ -6,11 +6,11 @@ namespace handhack
 {
     public partial interface IDrawable
     {
-        void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External;
+        void Draw(Canvas canvas, Transform<Internal, External> transform);
     }
     public static partial class DrawdataStatic
     {
-        public static void Draw<X>(this Canvas canvas, IDrawable drawable, Transform<Internal, X> transform) where X : External
+        public static void Draw(this Canvas canvas, IDrawable drawable, Transform<Internal, External> transform)
         {
             drawable.Draw(canvas, transform);
         }
@@ -23,12 +23,12 @@ namespace handhack
 
     public partial class Paint
     {
-        public NativePaint strokePaint<X>(Transform<Internal, X> transform) where X : External
+        public NativePaint strokePaint(Transform<Internal, External> transform)
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
             res.Color = strokecolor.native;
-            res.StrokeWidth = strokewidth.value == 0 ? 1 : strokewidth.Transform(transform).value;
+            res.StrokeWidth = calculateStrokewidth(transform);
             switch (strokelinecap)
             {
                 case Linecap.Butt:
@@ -55,7 +55,7 @@ namespace handhack
             }
             return res;
         }
-        public NativePaint fillPaint<X>(Transform<Internal, X> transform) where X : External
+        public NativePaint fillPaint(Transform<Internal, External> transform)
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Fill);

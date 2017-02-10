@@ -5,7 +5,7 @@ namespace handhack
 {
     public partial class ShapeGroup : IShape
     {
-        public void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             foreach(var shape in shapes)
             {
@@ -16,7 +16,7 @@ namespace handhack
 
     public partial class Polyline : IShape
     {
-        public void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             if (points.Count >= 2)
             {
@@ -54,7 +54,7 @@ namespace handhack
 
     public partial class Oval : IShape
     {
-        public void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             var p = center.Transform(transform);
             var r = radii.Transform(transform);
@@ -65,7 +65,7 @@ namespace handhack
 
     public partial class OvalArc : IShape
     {
-        public void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             var p = center.Transform(transform);
             var r = radii.Transform(transform);

@@ -29,10 +29,8 @@ namespace handhack
             this.size = size;
             shapes = new List<IShape>();
             redoshapes = new List<IShape>();
-            paint = new Paint(new Color(0, 255, 0, 255), new Size<Internal>(0.5f), new Color(255, 255, 0, 128),
-                Linecap.Round, Linejoin.Round);
-            gridpaint = new Paint(new Color(192, 192, 192, 255), default(Size<Internal>), new Color(0, 0, 0, 0),
-                Linecap.Butt, Linejoin.Miter);
+            paint = new Paint(new Color(0, 255, 0, 255), new Size<Internal>(0.5f), new Color(255, 255, 0, 128));
+            gridpaint = new Paint(new Color(192, 192, 192, 255), default(Size<Internal>), new Color(0, 0, 0, 0), new Size<External>(1));
             shapeCreator = new FreehandCreator(paint);
 
             shapeCreator.editted += () =>
