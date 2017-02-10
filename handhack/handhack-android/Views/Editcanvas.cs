@@ -29,7 +29,6 @@ namespace handhack
 		protected override void OnDraw(Canvas canvas)
 		{
 			base.OnDraw(canvas);
-
             onDraw(canvas);
 		}
 	}

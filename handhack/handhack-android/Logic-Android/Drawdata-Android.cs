@@ -1,8 +1,21 @@
+using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
 using NativePaint = Android.Graphics.Paint;
 
 namespace handhack
 {
+    public partial interface IDrawable
+    {
+        void Draw<X>(Canvas canvas, Transform<Internal, X> transform) where X : External;
+    }
+    public static partial class DrawdataStatic
+    {
+        public static void Draw<X>(this Canvas canvas, IDrawable drawable, Transform<Internal, X> transform) where X : External
+        {
+            drawable.Draw(canvas, transform);
+        }
+    }
+
     public partial struct Color
     {
         public NativeColor native => new NativeColor(r, g, b, a);
@@ -15,7 +28,7 @@ namespace handhack
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
             res.Color = strokecolor.native;
-            res.StrokeWidth = strokewidth.Transform(transform).value;
+            res.StrokeWidth = strokewidth.value == 0 ? 1 : strokewidth.Transform(transform).value;
             switch (strokelinecap)
             {
                 case Linecap.Butt:

@@ -14,7 +14,6 @@ namespace handhack
 			base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Start);
-
             starteditButton = FindViewById<Button>(Resource.Id.Startedit);
 
             starteditButton.Click += (o, e) => { StartActivity(typeof(EditActivity)); };

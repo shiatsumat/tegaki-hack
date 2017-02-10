@@ -10,10 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Drawdata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Editor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Geometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Math.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Shape.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Usershape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Util.cs" />
   </ItemGroup>

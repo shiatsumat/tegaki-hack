@@ -7,9 +7,9 @@ namespace handhack
     {
         public uint rgba;
         public byte r { get { return (byte)((rgba & 0xFF000000) >> 24); } set { rgba = (rgba & 0x00FFFFFF) | ((uint)value << 24); } }
-        public byte g { get { return (byte)((rgba & 0xFF000000) >> 16); } set { rgba = (rgba & 0x00FFFFFF) | ((uint)value << 16); } }
-        public byte b { get { return (byte)((rgba & 0xFF000000) >> 8); } set { rgba = (rgba & 0x00FFFFFF) | ((uint)value << 8); } }
-        public byte a { get { return (byte)((rgba & 0xFF000000) >> 0); } set { rgba = (rgba & 0x00FFFFFF) | ((uint)value << 0); } }
+        public byte g { get { return (byte)((rgba & 0x00FF0000) >> 16); } set { rgba = (rgba & 0xFF00FFFF) | ((uint)value << 16); } }
+        public byte b { get { return (byte)((rgba & 0x0000FF00) >> 8); } set { rgba = (rgba & 0xFFFF00FF) | ((uint)value << 8); } }
+        public byte a { get { return (byte)((rgba & 0x000000FF) >> 0); } set { rgba = (rgba & 0xFFFFFF00) | ((uint)value << 0); } }
 
         public Color(byte r, byte g, byte b, byte a)
         {
@@ -23,35 +23,29 @@ namespace handhack
         }
     }
 
+    public enum Linecap { Butt, Round, Square }
+    public enum Linejoin { Miter, Round, Bevel }
     public partial class Paint
     {
         public Color strokecolor, fillcolor;
         public Size<Internal> strokewidth;
-        public enum Linecap { Butt, Round, Square }
         Linecap _strokelinecap;
         public Linecap strokelinecap
         {
             get { return _strokelinecap; }
             set
             {
-                if (value < 0 || 3 <= (int)value)
-                {
-                    throw new InvalidOperationException("invalid strokelinecap for Paint");
-                }
+                if (value < 0 || 3 <= (int)value) throw new InvalidOperationException("invalid strokelinecap for Paint");
                 _strokelinecap = value;
             }
         }
-        public enum Linejoin { Miter, Round, Bevel }
         Linejoin _strokelinejoin;
         public Linejoin strokelinejoin
         {
             get { return _strokelinejoin; }
             set
             {
-                if (value < 0 || 3 <= (int)value)
-                {
-                    throw new InvalidOperationException("invalid strokelinejoin for Paint");
-                }
+                if (value < 0 || 3 <= (int)value) throw new InvalidOperationException("invalid strokelinejoin for Paint");
                 _strokelinejoin = value;
             }
         }

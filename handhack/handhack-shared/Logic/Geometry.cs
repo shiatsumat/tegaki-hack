@@ -3,198 +3,172 @@ using System.Xml.Linq;
 
 namespace handhack
 {
-    public partial struct Point<Pers> where Pers : IPers
-	{
-		public float _x, _y;
-        public float x
-        {
-            get { pers.MakeSureNoninternal(); return _x; }
-            set { pers.MakeSureNoninternal();_x = value; }
-        }
-        public float y
-        {
-            get { pers.MakeSureNoninternal(); return _y; }
-            set { pers.MakeSureNoninternal(); _y = value; }
-        }
-        Pers pers;
-		public Complex complex => new Complex(_x, _y);
-        public Size<Pers> X { get { return new Size<Pers>(_x); } set { _x = value._value; } }
-        public Size<Pers> Y { get { return new Size<Pers>(_y); } set { _y = value._value; } }
+    public partial struct Point<Pers>
+    {
+        public float x, y;
+        public Complex complex => new Complex(x, y);
+        public Size<Pers> X { get { return new Size<Pers>(x); } set { x = value.value; } }
+        public Size<Pers> Y { get { return new Size<Pers>(y); } set { y = value.value; } }
 
         public Point(float x, float y)
-		{
-			this._x = x; this._y = y; pers = default(Pers);
-		}
-		public Point(Complex z)
-		{
-            _x = z.re; _y = z.im; pers = default(Pers);
-        }
-		public static Point<Pers> operator +(Point<Pers> p, DPoint<Pers> v)
-		{
-			return new Point<Pers>(p.complex + v.complex);
-		}
-		public static Point<Pers> operator +(DPoint<Pers> v, Point<Pers> p)
-		{
-			return new Point<Pers>(v.complex + p.complex);
-		}
-		public static Point<Pers> operator -(Point<Pers> p, DPoint<Pers> v)
-		{
-			return new Point<Pers>(p.complex - v.complex);
-		}
-		public static DPoint<Pers> operator -(Point<Pers> p, Point<Pers> q)
-		{
-			return new DPoint<Pers>(p.complex - q.complex);
-		}
-		public float distance(Point<Pers> p)
-		{
-			return (this - p).norm;
-		}
-		public static Point<Pers> divide(Point<Pers> p, Point<Pers> q, float a, float b)
-		{
-			return new Point<Pers>((p.complex * b + q.complex * a) / (a + b));
-		}
-		public static Point<Pers> midpoint(Point<Pers> p, Point<Pers> q)
-		{
-			return divide(p, q, 1, 1);
-		}
-
-		public Point<Pers2> Transform<Pers2>(Transform<Pers, Pers2> transform) where Pers2 : IPers
-		{
-            var v = this - transform.originS;
-			return transform.originT + new DPoint<Pers2>(v._dx * transform.scalex, v._dy * transform.scaley);
-		}
-		public Point<Pers2> Untransform<Pers2>(Transform<Pers2, Pers> transform) where Pers2 : IPers
         {
-			var v = this - transform.originT;
-			return transform.originS + new DPoint<Pers2>(v._dx / transform.scalex, v._dy / transform.scaley);
+            this.x = x; this.y = y;
+        }
+        public Point(Complex z)
+        {
+            x = z.re; y = z.im;
+        }
+        public static Point<Pers> operator +(Point<Pers> p, DPoint<Pers> v)
+        {
+            return new Point<Pers>(p.complex + v.complex);
+        }
+        public static Point<Pers> operator +(DPoint<Pers> v, Point<Pers> p)
+        {
+            return new Point<Pers>(v.complex + p.complex);
+        }
+        public static Point<Pers> operator -(Point<Pers> p, DPoint<Pers> v)
+        {
+            return new Point<Pers>(p.complex - v.complex);
+        }
+        public static DPoint<Pers> operator -(Point<Pers> p, Point<Pers> q)
+        {
+            return new DPoint<Pers>(p.complex - q.complex);
+        }
+        public float distance(Point<Pers> p)
+        {
+            return (this - p).norm;
+        }
+        public static Point<Pers> divide(Point<Pers> p, Point<Pers> q, float a, float b)
+        {
+            return new Point<Pers>((p.complex * b + q.complex * a) / (a + b));
+        }
+        public static Point<Pers> midpoint(Point<Pers> p, Point<Pers> q)
+        {
+            return divide(p, q, 1, 1);
+        }
+
+        public Point<Pers2> Transform<Pers2>(Transform<Pers, Pers2> transform)
+        {
+            var v = this - transform.originS;
+            return transform.originT + new DPoint<Pers2>(v.dx * transform.scalex, v.dy * transform.scaley);
+        }
+        public Point<Pers2> Untransform<Pers2>(Transform<Pers2, Pers> transform)
+        {
+            var v = this - transform.originT;
+            return transform.originS + new DPoint<Pers2>(v.dx / transform.scalex, v.dy / transform.scaley);
         }
 
         override public string ToString()
         {
-            pers.MakeSureNoninternal();
-            return string.Format("{0} {1}", _x, _y);
+            return string.Format("{0} {1}", x, y);
         }
     }
 
-	public partial struct DPoint<Pers> where Pers : IPers
-	{
-		public float _dx, _dy;
-        public float dx
-        {
-            get { pers.MakeSureNoninternal(); return _dx; }
-            set { pers.MakeSureNoninternal(); _dx = value; }
-        }
-        public float dy
-        {
-            get { pers.MakeSureNoninternal(); return _dy; }
-            set { pers.MakeSureNoninternal(); _dy = value; }
-        }
-        Pers pers;
-        public Complex complex => new Complex(_dx, _dy);
-		public float norm => complex.norm;
+    public partial struct DPoint<Pers>
+    {
+        public float dx, dy;
+        public Complex complex => new Complex(dx, dy);
+        public float norm => complex.norm;
         public float arg => complex.arg;
-        public Size<Pers> DX { get { return new Size<Pers>(_dx); } set { _dx = value._value; } }
-        public Size<Pers> DY { get { return new Size<Pers>(_dy); } set { _dy = value._value; } }
+        public Size<Pers> DX { get { return new Size<Pers>(dx); } set { dx = value.value; } }
+        public Size<Pers> DY { get { return new Size<Pers>(dy); } set { dy = value.value; } }
 
         public DPoint(float dx, float dy)
-		{
-			this._dx = dx; this._dy = dy; pers = default(Pers);
+        {
+            this.dx = dx; this.dy = dy;
         }
-		public DPoint(Complex z)
-		{
-            _dx = z.re; _dy = z.im; pers = default(Pers);
+        public DPoint(Complex z)
+        {
+            dx = z.re; dy = z.im;
         }
-		public static DPoint<Pers> operator +(DPoint<Pers> v, DPoint<Pers> w)
-		{
-			return new DPoint<Pers>(v.complex + w.complex);
-		}
-		public static DPoint<Pers> operator -(DPoint<Pers> v, DPoint<Pers> w)
-		{
-			return new DPoint<Pers>(v.complex - w.complex);
-		}
-		public static DPoint<Pers> operator *(float a, DPoint<Pers> v)
-		{
-			return new DPoint<Pers>(a * v.complex);
-		}
-		public static DPoint<Pers> operator *(DPoint<Pers> v, float a)
-		{
-			return new DPoint<Pers>(v.complex * a);
-		}
-		public static DPoint<Pers> operator /(DPoint<Pers> v, float a)
-		{
-			return new DPoint<Pers>(v.complex / a);
+        public static DPoint<Pers> operator +(DPoint<Pers> v, DPoint<Pers> w)
+        {
+            return new DPoint<Pers>(v.complex + w.complex);
+        }
+        public static DPoint<Pers> operator -(DPoint<Pers> v, DPoint<Pers> w)
+        {
+            return new DPoint<Pers>(v.complex - w.complex);
+        }
+        public static DPoint<Pers> operator *(float a, DPoint<Pers> v)
+        {
+            return new DPoint<Pers>(a * v.complex);
+        }
+        public static DPoint<Pers> operator *(DPoint<Pers> v, float a)
+        {
+            return new DPoint<Pers>(v.complex * a);
+        }
+        public static DPoint<Pers> operator /(DPoint<Pers> v, float a)
+        {
+            return new DPoint<Pers>(v.complex / a);
         }
 
-        public DPoint<Pers2> Transform<Pers2>(Transform<Pers, Pers2> transform) where Pers2 : IPers
+        public DPoint<Pers2> Transform<Pers2>(Transform<Pers, Pers2> transform)
         {
-            return new DPoint<Pers2>(_dx * transform.scalex, _dy * transform.scaley);
+            return new DPoint<Pers2>(dx * transform.scalex, dy * transform.scaley);
         }
-        public DPoint<Pers2> Untransform<Pers2>(Transform<Pers2, Pers> transform) where Pers2 : IPers
+        public DPoint<Pers2> Untransform<Pers2>(Transform<Pers2, Pers> transform)
         {
-            return new DPoint<Pers2>(_dx / transform.scalex, _dy / transform.scaley);
+            return new DPoint<Pers2>(dx / transform.scalex, dy / transform.scaley);
         }
 
         override public string ToString()
         {
-            pers.MakeSureNoninternal();
-            return string.Format("{0} {1}", _dx, _dy);
+            return string.Format("{0} {1}", dx, dy);
         }
     }
 
-    public partial struct Size<Pers> where Pers : IPers
+    public partial struct Size<Pers>
     {
-        public float _value;
-        public float value
-        {
-            get { pers.MakeSureNoninternal(); return _value; }
-            set { pers.MakeSureNoninternal(); _value = value; }
-        }
-        Pers pers;
+        public float value;
 
         public Size(float value)
         {
-            this._value = value; pers = default(Pers);
+            this.value = value;
         }
-        public static Size<Pers> operator+(Size<Pers> s, Size<Pers> t)
+        public static Size<Pers> operator +(Size<Pers> s, Size<Pers> t)
         {
-            return new Size<Pers>(s._value + t._value);
+            return new Size<Pers>(s.value + t.value);
         }
         public static Size<Pers> operator -(Size<Pers> s, Size<Pers> t)
         {
-            return new Size<Pers>(s._value - t._value);
+            return new Size<Pers>(s.value - t.value);
         }
         public static Size<Pers> operator *(float a, Size<Pers> s)
         {
-            return new Size<Pers>(a * s._value);
+            return new Size<Pers>(a * s.value);
         }
         public static Size<Pers> operator *(Size<Pers> s, float a)
         {
-            return new Size<Pers>(s._value * a);
+            return new Size<Pers>(s.value * a);
         }
         public static Size<Pers> operator /(Size<Pers> s, float a)
         {
-            return new Size<Pers>(s._value / a);
+            return new Size<Pers>(s.value / a);
         }
 
-        public Size<Pers2> Transform<Pers2>(Transform<Pers, Pers2> transform) where Pers2 : IPers
+        public Size<Pers2> Transform<Pers2>(Transform<Pers, Pers2> transform)
         {
-            return new Size<Pers2>(_value * transform.scale);
+            return new Size<Pers2>(value * transform.scale);
         }
-        public Size<Pers2> Untransform<Pers2>(Transform<Pers2, Pers> transform) where Pers2 : IPers
+        public Size<Pers2> Untransform<Pers2>(Transform<Pers2, Pers> transform)
         {
-            return new Size<Pers2>(_value / transform.scale);
+            return new Size<Pers2>(value / transform.scale);
         }
 
         override public string ToString()
         {
-            pers.MakeSureNoninternal();
-            return _value.ToString();
+            return value.ToString();
         }
     }
 
-	public partial struct Transform<PersS, PersT> where PersS : IPers where PersT : IPers
+    public partial class Transform<PersS, PersT>
     {
-        public float scale;
+        public float _scale;
+        public float scale
+        {
+            get { return _scale; }
+            set { if (value <= 0) throw new InvalidOperationException("scale is not positive for Transform"); _scale = value; }
+        }
         public bool flipx, flipy;
         public Point<PersS> originS;
         public Point<PersT> originT;
@@ -207,27 +181,14 @@ namespace handhack
             this.scale = scale; this.flipx = flipx; this.flipy = flipy; this.originS = originS; this.originT = originT;
         }
 
-        public static Transform<Pers, Pers> Identity<Pers>() where Pers : IPers
+        public static Transform<Pers, Pers> Identity<Pers>()
         {
             return new Transform<Pers, Pers>(1, false, false);
         }
-	}
+    }
 
-    public interface IPers
-    {
-        void MakeSureNoninternal();
-    }
-    public class Internal : IPers
-    {
-        public void MakeSureNoninternal()
-        {
-            throw new InvalidProgramException("MakeSureNoninternal faied: The Pers is Internal!");
-        }
-    }
-    public class External : IPers
-    {
-        public void MakeSureNoninternal() { }
-    }
+    public class Internal { }
+    public class External { }
 
     public static partial class GeometryStatic
     {
@@ -254,7 +215,7 @@ namespace handhack
             return element;
         }
 
-        static Point<Pers> Control<Pers>(Point<Pers> p, Point<Pers> q, Point<Pers> r) where Pers : IPers
+        static Point<Pers> InterpolateHelper<Pers>(Point<Pers> p, Point<Pers> q, Point<Pers> r)
         {
             var dpq = p.distance(q);
             var dqr = q.distance(r);
@@ -263,13 +224,13 @@ namespace handhack
             var smooth_value = 1.0f;
             return q + smooth_value * t * (r - p);
         }
-        public static Point<Pers> InterpolateCon<Pers>(Point<Pers> p0, Point<Pers> p1, Point<Pers> p2, Point<Pers> p3) where Pers : IPers
+        public static Point<Pers> InterpolateCon<Pers>(Point<Pers> p0, Point<Pers> p1, Point<Pers> p2, Point<Pers> p3)
         {
-            return Control(p0, p1, p2);
+            return InterpolateHelper(p0, p1, p2);
         }
-        public static Point<Pers> InterpolateTrol<Pers>(Point<Pers> p0, Point<Pers> p1, Point<Pers> p2, Point<Pers> p3) where Pers : IPers
+        public static Point<Pers> InterpolateTrol<Pers>(Point<Pers> p0, Point<Pers> p1, Point<Pers> p2, Point<Pers> p3)
         {
-            return Control(p3, p2, p1);
+            return InterpolateHelper(p3, p2, p1);
         }
     }
 }

@@ -1,14 +1,15 @@
 using System;
 using System.Xml.Linq;
+using System.Collections.Generic;
 using static handhack.GeometryStatic;
 
 namespace handhack
 {
-    public partial interface IShape
+    public partial interface IShape : IDrawable
     {
         void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External;
     }
-    public static partial class ShapeStatic
+    public static partial class DrawdataStatic
     {
         public static XElement AddSvg<X>(this XElement element, IShape shape, Transform<Internal, X> transform) where X : External
         {
@@ -17,10 +18,30 @@ namespace handhack
         }
     }
 
+    public partial class ShapeGroup : IShape
+    {
+        public IShape[] shapes;
+
+        public ShapeGroup(IShape[] shapes)
+        {
+            this.shapes = shapes;
+        }
+
+        public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
+        {
+            var gElement = new XElement("g");
+            foreach (var shape in shapes)
+            {
+                gElement.AddSvg(shape, transform);
+            }
+            element.Add(gElement);
+        }
+    }
+
     public partial class Polyline : IShape
     {
         public Paint paint;
-        public Point<Internal>[] points;
+        public List<Point<Internal>> points;
         public Point<Internal> startPoint
         {
             get { return points[0]; }
@@ -28,24 +49,24 @@ namespace handhack
         }
         public Point<Internal> endPoint
         {
-            get { return points[points.Length - 1]; }
-            set { points[points.Length - 1] = value; }
+            get { return points[points.Count - 1]; }
+            set { points[points.Count - 1] = value; }
         }
         public bool bezier;
         public bool closed;
 
-        public Polyline(Paint paint, Point<Internal>[] vertices, bool bezier, bool closed)
+        public Polyline(Paint paint, List<Point<Internal>> points, bool bezier = false, bool closed = false)
         {
-            this.paint = paint; this.points = vertices; this.bezier = bezier; this.closed = closed;
+            this.paint = paint; this.points = points; this.bezier = bezier; this.closed = closed;
         }
 
         public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
         {
-            if (points.Length >= 2)
+            if (points.Count >= 2)
             {
                 var dString = "";
                 dString += string.Format("M {0}", startPoint);
-                for (int i = 1; closed ? i < points.Length : i < points.Length + 1; i++)
+                for (int i = 1; closed ? i < points.Count : i < points.Count + 1; i++)
                 {
                     if (!bezier)
                     {
@@ -58,7 +79,7 @@ namespace handhack
                             startPoint;
                         var p1 = points.LoopGet(i - 1);
                         var p2 = points.LoopGet(i);
-                        var p3 = closed || i < points.Length - 1 ?
+                        var p3 = closed || i < points.Count - 1 ?
                             points.LoopGet(i + 1) :
                             endPoint;
                         var conT = InterpolateCon(p0, p1, p2, p3).Transform(transform);
@@ -79,15 +100,12 @@ namespace handhack
         public Paint paint;
         public Point<Internal> center;
         DPoint<Internal> _radii;
-        public virtual DPoint<Internal> radii
+        public DPoint<Internal> radii
         {
             get { return _radii; }
             set
             {
-                if (value._dx < 0 || value._dy < 0)
-                {
-                    throw new InvalidOperationException("negative radius for Oval");
-                }
+                if (value.dx < 0 || value.dy < 0) throw new InvalidOperationException("negative radius for Oval");
                 _radii = value;
             }
         }
@@ -111,15 +129,12 @@ namespace handhack
         public Paint paint;
         public Point<Internal> center;
         DPoint<Internal> _radii;
-        public virtual DPoint<Internal> radii
+        public DPoint<Internal> radii
         {
             get { return _radii; }
             set
             {
-                if (value._dx < 0 || value._dy < 0)
-                {
-                    throw new InvalidOperationException("negative radius for OvalArc");
-                }
+                if (value.dx < 0 || value.dy < 0) throw new InvalidOperationException("negative radius for OvalArc");
                 _radii = value;
             }
         }
@@ -129,10 +144,7 @@ namespace handhack
             get { return _startAngle; }
             set
             {
-                if (value <= -180 || 180 < value)
-                {
-                    throw new InvalidOperationException("invalid startAngle for OvalArc");
-                }
+                if (value <= -180 || 180 < value) throw new InvalidOperationException("invalid startAngle for OvalArc");
                 _startAngle = value;
             }
         }
@@ -142,28 +154,25 @@ namespace handhack
             get { return _sweepAngle; }
             set
             {
-                if (value < 0 || 360 < value)
-                {
-                    throw new InvalidOperationException("invalid sweepAngle for OvalArc");
-                }
+                if (value < 0 || 360 < value) throw new InvalidOperationException("invalid sweepAngle for OvalArc");
                 _sweepAngle = value;
             }
         }
         public bool useCenter;
-        public Point<Internal> start
+        public Point<Internal> startPoint
         {
             get
             {
                 var polar = Complex.Polar(startAngle);
-                return center + new DPoint<Internal>(polar.re * radii._dx, polar.im * radii._dy);
+                return center + new DPoint<Internal>(polar.re * radii.dx, polar.im * radii.dy);
             }
         }
-        public Point<Internal> end
+        public Point<Internal> endPoint
         {
             get
             {
                 var polar = Complex.Polar(startAngle + sweepAngle);
-                return center + new DPoint<Internal>(polar.re * radii._dx, polar.im * radii._dy);
+                return center + new DPoint<Internal>(polar.re * radii.dx, polar.im * radii.dy);
             }
         }
 
@@ -174,10 +183,10 @@ namespace handhack
 
         public void AddSvg<X>(XElement element, Transform<Internal, X> transform) where X : External
         {
-            var dString = string.Format("M {0} A {1} 0 {2} 0 {3}", start.Transform(transform), radii.Transform(transform), sweepAngle >= 180 ? 1 : 0, end.Transform(transform));
+            var dString = string.Format("M {0} A {1} 0 {2} 0 {3}", startPoint.Transform(transform), radii.Transform(transform), sweepAngle >= 180 ? 1 : 0, endPoint.Transform(transform));
             if (useCenter)
             {
-                dString += string.Format("L {0} L {1}", center, start);
+                dString += string.Format("L {0} L {1}", center, startPoint);
             }
             element.Add(new XElement("path",
                 new XAttribute("d", dString)));
