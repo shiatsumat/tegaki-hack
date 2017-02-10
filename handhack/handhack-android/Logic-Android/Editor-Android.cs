@@ -11,7 +11,7 @@ namespace handhack
             {
                 canvas.Draw(shape, transform);
             }
-            if (shapeCreator != null && shapeCreator.shape != null)
+            if (shapeCreator != null)
             {
                 canvas.Draw(shapeCreator.shape, transform);
             }

@@ -194,18 +194,22 @@ namespace handhack
     public partial struct SizeEither
     {
         float _value;
-        bool isInternal;
+        bool _isInternal;
+        public SizeEither(float value, bool isInternal)
+        {
+            _value = value; _isInternal = isInternal;
+        }
         public SizeEither(Size<Internal> a)
         {
-            _value = a.value; isInternal = true;
+            _value = a.value; _isInternal = true;
         }
         public SizeEither(Size<External> a)
         {
-            _value = a.value; isInternal = false;
+            _value = a.value; _isInternal = false;
         }
         public float Value(Transform<Internal, External> transform)
         {
-            if (isInternal) return _value * transform.scale;
+            if (_isInternal) return _value * transform.scale;
             else return _value;
         }
     }

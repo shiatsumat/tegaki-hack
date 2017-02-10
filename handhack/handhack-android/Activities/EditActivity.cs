@@ -26,7 +26,7 @@ namespace handhack
             editcanvas.Touch += (o, e) =>
             {
                 transform.scale = editcanvas.Height / 30.0f;
-                var p = new Point<External>(e.Event.XPrecision, e.Event.YPrecision).Untransform(transform);
+                var p = new Point<External>(e.Event.GetX(), e.Event.GetY()).Untransform(transform);
                 switch (e.Event.Action & MotionEventActions.Mask)
                 {
                     case MotionEventActions.Down:

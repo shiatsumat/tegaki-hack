@@ -7,7 +7,7 @@ namespace handhack
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            foreach(var shape in shapes)
+            foreach (var shape in shapes)
             {
                 canvas.Draw(shape, transform);
             }

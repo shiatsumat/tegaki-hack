@@ -29,13 +29,18 @@ namespace handhack
             this.size = size;
             shapes = new List<IShape>();
             redoshapes = new List<IShape>();
-            paint = new Paint(new Color(0, 255, 0, 255), new SizeEither(new Size<Internal>(0.5f)), new Color(255, 255, 0, 128));
-            gridpaint = new Paint(new Color(192, 192, 192, 255), new SizeEither(new Size<External>(1)), new Color(0, 0, 0, 0));
+            paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
+            gridpaint = new Paint(new Color(0xf5f5f5ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
             shapeCreator = new FreehandCreator(paint);
 
-            shapeCreator.editted += () =>
+            shapeCreator.edited += () =>
             {
                 redoshapes.Clear();
+                Update();
+            };
+            shapeCreator.finished += () =>
+            {
+                shapes.Add(shapeCreator.shape);
                 Update();
             };
         }

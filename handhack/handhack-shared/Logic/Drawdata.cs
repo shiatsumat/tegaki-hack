@@ -4,23 +4,32 @@ using System.Xml.Linq;
 
 namespace handhack
 {
-    [StructLayout(LayoutKind.Explicit)]
     public partial struct Color
     {
-        [FieldOffset(0)]
-        public uint rgba;
-        [FieldOffset(0)]
         public byte r;
-        [FieldOffset(1)]
         public byte g;
-        [FieldOffset(2)]
         public byte b;
-        [FieldOffset(3)]
         public byte a;
+        public uint rgba
+        {
+            get { return ((uint)r << 24) + ((uint)g << 16) + ((uint)b << 8) + (uint)a; }
+            set
+            {
+                r = (byte)((value & 0xFF000000) >> 24);
+                g = (byte)((value & 0x00FF0000) >> 16);
+                b = (byte)((value & 0x0000FF00) >> 8);
+                a = (byte)(value & 0x000000FF);
+            }
+        }
 
+        public Color(uint rgba)
+        {
+            r = g = b = a = 0;
+            this.rgba = rgba;
+        }
         public Color(byte r, byte g, byte b, byte a)
         {
-            rgba = 0; this.r = r; this.g = g; this.b = b; this.a = a;
+            this.r = r; this.g = g; this.b = b; this.a = a;
         }
 
         public override string ToString()
