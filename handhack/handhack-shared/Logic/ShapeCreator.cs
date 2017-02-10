@@ -38,14 +38,11 @@ namespace handhack
     }
     public partial class FreehandCreator : AShapeCreator
     {
-        public List<Point<Internal>> points;
-
         public FreehandCreator(Paint paint) : base(paint) { }
         public override void Start()
         {
             base.Start();
-            points = new List<Point<Internal>>();
-            shape = new Polyline(paint, points, true);
+            shape = new Polyline(paint, new List<Point<Internal>>(), true);
         }
         public override void Touch(Touchevent touchevent, Point<Internal> p)
         {
@@ -66,7 +63,8 @@ namespace handhack
         }
         void AddPoint(Point<Internal> p)
         {
-            if (points.Count > 0 && points[points.Count - 1].distance(p) < 1e-2) return;
+            var points = ((Polyline)shape).points;
+            if (points.Count > 0 && points[points.Count - 1].distance(p) < 1e-4) return;
             points.Add(p);
             edited();
         }

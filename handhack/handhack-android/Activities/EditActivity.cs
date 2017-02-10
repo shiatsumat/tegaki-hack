@@ -25,7 +25,10 @@ namespace handhack
             freehandButton = FindViewById<ImageButton>(Resource.Id.Freehand);
             lineButton = FindViewById<ImageButton>(Resource.Id.Line);
             circleButton = FindViewById<ImageButton>(Resource.Id.Circle);
-            editor = new Editor(new DPoint<Internal>(30, 30));
+            editor = new Editor(new DPoint<Internal>(30, 30),
+                () => { editcanvas.Invalidate(); },
+                (b) => { undoButton.Enabled = b; },
+                (b) => { redoButton.Enabled = b; });
 
             editcanvas.Touch += (o, e) =>
             {
@@ -51,15 +54,10 @@ namespace handhack
             };
             undoButton.Click += (o, e) => editor.Undo();
             redoButton.Click += (o, e) => editor.Redo();
-            editor.update += () => { editcanvas.Invalidate(); };
-            editor.setUndoAbility += (b) => { undoButton.Enabled = b; };
-            editor.setRedoAbility += (b) => { redoButton.Enabled = b; };
 
             freehandButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Freehand); };
             lineButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Line); };
             circleButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Circle); };
-
-            editor.Update();
         }
     }
 }

@@ -15,44 +15,56 @@ namespace handhack
         public Size<Internal> Width { get { return new Size<Internal>(width); } set { width = value.value; } }
         public float height { get { return size.dy; } set { size.dy = value; } }
         public Size<Internal> Height { get { return new Size<Internal>(height); } set { height = value.value; } }
-        List<IShape> shapes, redoshapes;
+        List<IShape> drawnShapes, undrawnShapes, redoShapes;
         public Paint paint, gridpaint;
         AShapeCreator shapeCreator;
         ShapeCreator shapeCreatorId;
         IShape grid;
 
-        public bool undoable { get { return shapes.Count > 0; } }
-        public bool redoable { get { return redoshapes.Count > 0; } }
-
         public Action update;
         public BoolAction setUndoAbility, setRedoAbility;
 
-        public Editor(DPoint<Internal> size)
+        public Editor(DPoint<Internal> size, Action update, BoolAction setUndoAbility, BoolAction setRedoAbility)
         {
             this.size = size;
-            shapes = new List<IShape>();
-            redoshapes = new List<IShape>();
+            drawnShapes = new List<IShape>();
+            undrawnShapes = new List<IShape>();
+            redoShapes = new List<IShape>();
             paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             gridpaint = new Paint(new Color(0xf5f5f5ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
 
             ChangeShapeCreator(ShapeCreator.Freehand);
+
+            this.update = update;
+            this.setUndoAbility = setUndoAbility;
+            this.setRedoAbility = setRedoAbility;
+            setUndoAbility(false);
+            setRedoAbility(false);
         }
 
         public void Undo()
         {
-            if (shapes.Count > 0)
+            if (drawnShapes.Count > 0 && undrawnShapes.Count == 0)
             {
-                redoshapes.Add(shapes.Pop());
+                redoShapes.Add(drawnShapes.Pop());
+                setRedoAbility(true);
+                setUndoAbility(drawnShapes.Count > 0);
+                undrawnShapes = drawnShapes;
+                drawnShapes = new List<IShape>();
+                ResetSecondCanvas();
                 Update();
             }
+            else throw new InvalidOperationException("Editor Not Undoable!");
         }
         public void Redo()
         {
-            if (redoshapes.Count > 0)
+            if (redoShapes.Count > 0)
             {
-                shapes.Add(redoshapes.Pop());
+                undrawnShapes.Add(redoShapes.Pop());
+                setRedoAbility(redoShapes.Count > 0);
                 Update();
             }
+            else throw new InvalidOperationException("Editor Not Redoable!");
         }
         public void Touch(Touchevent touchevent, Point<Internal> p)
         {
@@ -63,9 +75,6 @@ namespace handhack
         }
         public void Update()
         {
-            setUndoAbility(undoable);
-            setRedoAbility(redoable);
-            SetGrid();
             update();
         }
         void SetGrid()
@@ -102,12 +111,13 @@ namespace handhack
             }
             shapeCreator.edited += () =>
             {
-                redoshapes.Clear();
+                redoShapes.Clear();
+                setRedoAbility(false);
                 Update();
             };
             shapeCreator.finish += () =>
             {
-                if (shapeCreator.shape != null) shapes.Add(shapeCreator.shape);
+                if (shapeCreator.shape != null) undrawnShapes.Add(shapeCreator.shape);
                 Update();
             };
         }
