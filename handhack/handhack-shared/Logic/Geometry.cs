@@ -161,7 +161,7 @@ namespace handhack
         }
     }
 
-    public partial class Transform<PersS, PersT>
+    public partial struct Transform<PersS, PersT>
     {
         public float _scale;
         public float scale
@@ -178,7 +178,8 @@ namespace handhack
 
         public Transform(float scale, bool flipx = false, bool flipy = false, Point<PersS> originS = default(Point<PersS>), Point<PersT> originT = default(Point<PersT>))
         {
-            this.scale = scale; this.flipx = flipx; this.flipy = flipy; this.originS = originS; this.originT = originT;
+            if (scale <= 0) throw new InvalidOperationException("scale is not positive for Transform");
+            _scale = scale; this.flipx = flipx; this.flipy = flipy; this.originS = originS; this.originT = originT;
         }
 
         public static Transform<Pers, Pers> Identity<Pers>()
@@ -187,8 +188,27 @@ namespace handhack
         }
     }
 
-    public class Internal { }
-    public class External { }
+    public struct Internal { }
+    public struct External { }
+
+    public partial struct SizeEither
+    {
+        float _value;
+        bool isInternal;
+        public SizeEither(Size<Internal> a)
+        {
+            _value = a.value; isInternal = true;
+        }
+        public SizeEither(Size<External> a)
+        {
+            _value = a.value; isInternal = false;
+        }
+        public float Value(Transform<Internal, External> transform)
+        {
+            if (isInternal) return _value * transform.scale;
+            else return _value;
+        }
+    }
 
     public static partial class GeometryStatic
     {

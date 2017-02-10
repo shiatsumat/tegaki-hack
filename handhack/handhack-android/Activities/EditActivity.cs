@@ -25,7 +25,7 @@ namespace handhack
 
             editcanvas.Touch += (o, e) =>
             {
-                transform = new Transform<Internal, External>(editcanvas.Height / 30f);
+                transform.scale = editcanvas.Height / 30.0f;
                 var p = new Point<External>(e.Event.XPrecision, e.Event.YPrecision).Untransform(transform);
                 switch (e.Event.Action & MotionEventActions.Mask)
                 {
@@ -42,7 +42,7 @@ namespace handhack
             };
             editcanvas.onDraw += (canvas) =>
             {
-                transform = new Transform<Internal, External>(editcanvas.Height / 30);
+                transform.scale = editcanvas.Height / 30.0f;
                 canvas.Draw(editor, transform);
             };
             undoButton.Click += (o, e) => editor.Undo();

@@ -28,7 +28,7 @@ namespace handhack
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
             res.Color = strokecolor.native;
-            res.StrokeWidth = calculateStrokewidth(transform);
+            res.StrokeWidth = strokewidth.Value(transform);
             switch (strokelinecap)
             {
                 case Linecap.Butt:

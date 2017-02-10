@@ -34,13 +34,7 @@ namespace handhack
     public partial class Paint
     {
         public Color strokecolor, fillcolor;
-        public Size<Internal> strokewidth;
-        public Size<External> strokewidthAlt;
-        public float calculateStrokewidth(Transform<Internal, External> transform)
-        {
-            if (strokewidth.value > 0) return strokewidth.Transform(transform).value;
-            else return strokewidthAlt.value;
-        }
+        public SizeEither strokewidth;
         Linecap _strokelinecap;
         public Linecap strokelinecap
         {
@@ -62,16 +56,16 @@ namespace handhack
             }
         }
 
-        public Paint(Color strokecolor, Size<Internal> strokewidth, Color fillcolor = default(Color),
-            Size<External> strokewidthAlt = default(Size<External>), Linecap strokelinecap = Linecap.Butt, Linejoin strokelinejoin = Linejoin.Miter)
+        public Paint(Color strokecolor, SizeEither strokewidth, Color fillcolor = default(Color),
+            Linecap strokelinecap = Linecap.Butt, Linejoin strokelinejoin = Linejoin.Miter)
         {
             this.strokecolor = strokecolor; this.strokewidth = strokewidth; this.fillcolor = fillcolor;
-            this.strokewidthAlt = strokewidthAlt; this.strokelinecap = strokelinecap; this.strokelinejoin = strokelinejoin;
+            this.strokelinecap = strokelinecap; this.strokelinejoin = strokelinejoin;
         }
         public Paint(Paint paint)
-            : this(paint.strokecolor, paint.strokewidth, paint.fillcolor, paint.strokewidthAlt, paint.strokelinecap, paint.strokelinejoin)
-        {
-        }
+            : this(paint.strokecolor, paint.strokewidth, paint.fillcolor,
+                  paint.strokelinecap, paint.strokelinejoin)
+        { }
     }
     public static partial class PaintStatic
     {
@@ -79,7 +73,7 @@ namespace handhack
         {
             element.Add(
                 new XAttribute("stroke-color", paint.strokecolor.ToString()),
-                new XAttribute("stroke", paint.calculateStrokewidth(transform).ToString()),
+                new XAttribute("stroke", paint.strokewidth.Value(transform).ToString()),
                 new XAttribute("fill-color", paint.fillcolor.ToString()),
                 new XAttribute("stroke-linecap", paint.strokelinecap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", paint.strokelinejoin.ToString().ToLower()));
