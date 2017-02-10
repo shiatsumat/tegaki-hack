@@ -1,12 +1,11 @@
 using System;
-using System.Xml;
-using Android.Graphics;
+using System.Xml.Linq;
 
 namespace handhack
 {
     public partial class Freehand : Shape
     {
-        public void AddSvg(XmlDocument svg, XmlNode node, Transform<Internal, External> transform)
+        public void AddSvg<X>(XElement element, Transform<Internal, X> transform)
         {
             throw new NotImplementedException();
         }
@@ -22,14 +21,11 @@ namespace handhack
             this.paint = paint; this.start = start; this.end = end;
         }
 
-        public void AddSvg(XmlDocument svg, XmlNode node, Transform<Internal, External> transform)
+        public void AddSvg<X>(XElement element, Transform<Internal, X> transform)
         {
-            var path = svg.CreateElement("path");
-            var d = svg.CreateAttribute("d");
-            d.Value = string.Format("M {0} L {1}", start, end);
-            path.Attributes.Append(d);
-            paint.AddSvg(svg, path, transform);
-            node.AppendChild(path);
+            element.Add(new XElement("path",
+                new XAttribute("d", string.Format("M {0} L {1}", start, end)))
+                .AddSvg(paint, transform));
         }
     }
 }

@@ -1,5 +1,4 @@
 using Android.Graphics;
-using NativePaint = Android.Graphics.Paint;
 
 namespace handhack
 {

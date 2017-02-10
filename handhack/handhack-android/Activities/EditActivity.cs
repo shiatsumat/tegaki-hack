@@ -5,7 +5,7 @@ using Android.Widget;
 using Android.Content.Res;
 using Android.Views;
 
-using static handhack.Shapes;
+using static handhack.UsershapeStatic;
 
 using NativeColor = Android.Graphics.Color;
 

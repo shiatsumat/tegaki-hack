@@ -1,5 +1,5 @@
 using System;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace handhack
 {
@@ -26,13 +26,12 @@ namespace handhack
             this.paint = paint; this.center = center; this.radii = radii;
         }
 
-        public void AddSvg(XmlDocument svg, XmlNode node, Transform<Internal, External> transform)
+        public void AddSvg<X>(XElement element, Transform<Internal, X> transform)
         {
-            var ellipse = svg.CreateElement("ellipse");
-            paint.AddSvg(svg, ellipse, transform);
-            center.AddSvg(svg, ellipse, "cx", "cy", transform);
-            radii.AddSvg(svg, ellipse, "rx", "ry", transform);
-            node.AppendChild(ellipse);
+            element.Add(new XElement("ellipse")
+                .AddSvg(paint, transform)
+                .AddSvg(center, "cx", "cy", transform)
+                .AddSvg(radii, "rx", "ry", transform));
         }
     }
 
@@ -102,18 +101,15 @@ namespace handhack
             this.paint = paint; this.center = center; this.radii = radii; this.startAngle = startAngle; this.sweepAngle = sweepAngle; this.useCenter = useCenter;
         }
 
-        public void AddSvg(XmlDocument svg, XmlNode node, Transform<Internal, External> transform)
+        public void AddSvg<X>(XElement element, Transform<Internal, X> transform)
         {
-            var path = svg.CreateElement("path");
-            var d = svg.CreateAttribute("d");
-            d.Value = string.Format("M {0} A {1} 0 {2} 0 {3}", start.Transform(transform), radii.Transform(transform), sweepAngle >= 180 ? 1 : 0, end.Transform(transform));
+            var dString = string.Format("M {0} A {1} 0 {2} 0 {3}", start.Transform(transform), radii.Transform(transform), sweepAngle >= 180 ? 1 : 0, end.Transform(transform));
             if (useCenter)
             {
-                d.Value += string.Format("L {0} L {1}", center, start);
+                dString += string.Format("L {0} L {1}", center, start);
             }
-            path.Attributes.Append(d);
-            paint.AddSvg(svg, path, transform);
-            node.AppendChild(path);
+            element.Add(new XElement("path",
+                new XAttribute("d", dString)));
         }
     }
 }

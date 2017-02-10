@@ -1,6 +1,3 @@
-using System;
-using System.Xml;
-using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
 using NativePaint = Android.Graphics.Paint;
 

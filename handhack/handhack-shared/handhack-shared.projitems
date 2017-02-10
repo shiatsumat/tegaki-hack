@@ -9,7 +9,7 @@
     <Import_RootNamespace>handhack</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Drawdata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Geometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Math.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\CirclelikeCreations.cs" />
@@ -22,5 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Shape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Squarelikes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Textlikes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Usershape.cs" />
   </ItemGroup>
 </Project>

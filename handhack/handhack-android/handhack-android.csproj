@@ -69,9 +69,7 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
       <Link>Resources\drawable\Arc.png</Link>

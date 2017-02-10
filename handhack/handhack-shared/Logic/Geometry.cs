@@ -1,4 +1,4 @@
-using System.Xml;
+using System.Xml.Linq;
 
 namespace handhack
 {
@@ -57,19 +57,6 @@ namespace handhack
 			return transform.originS + new DPoint<Pers2>(v.dx / transform.scalex, v.dy / transform.scaley);
         }
 
-        public void AddSvg<Pers2>(XmlDocument svg, XmlNode node, string xname, string yname, Transform<Pers, Pers2> transform)
-        {
-            var p = Transform(transform);
-
-            var xAttribute = svg.CreateAttribute(xname);
-            xAttribute.Value = p.x.ToString();
-            svg.AppendChild(xAttribute);
-
-            var yAttribute = svg.CreateAttribute(yname);
-            yAttribute.Value = p.y.ToString();
-            svg.AppendChild(yAttribute);
-        }
-
         override public string ToString()
         {
             return string.Format("{0} {1}", x, y);
@@ -123,19 +110,6 @@ namespace handhack
             return new DPoint<Pers2>(dx / transform.scalex, dy / transform.scaley);
         }
 
-        public void AddSvg<Pers2>(XmlDocument svg, XmlNode node, string dxname, string dyname, Transform<Pers, Pers2> transform)
-        {
-            var v = Transform(transform);
-
-            var dxAttribute = svg.CreateAttribute(dxname);
-            dxAttribute.Value = v.dx.ToString();
-            svg.AppendChild(dxAttribute);
-
-            var dyAttribute = svg.CreateAttribute(dyname);
-            dyAttribute.Value = v.dy.ToString();
-            svg.AppendChild(dyAttribute);
-        }
-
         override public string ToString()
         {
             return string.Format("{0} {1}", dx, dy);
@@ -179,14 +153,6 @@ namespace handhack
         {
             return new Size<Pers2>(value / transform.scale);
         }
-
-        public void AddSvg<Pers2>(XmlDocument svg, XmlNode node, string name, Transform<Pers, Pers2> transform)
-        {
-            var v = Transform(transform);
-            var attribute = svg.CreateAttribute(name);
-            attribute.Value = v.value.ToString();
-            svg.AppendChild(attribute);
-        }
     }
 
 	public partial struct Transform<PersS, PersT>
@@ -203,8 +169,39 @@ namespace handhack
         {
             this.scale = scale; this.flipx = flipx; this.flipy = flipy; this.originS = originS; this.originT = originT;
         }
+
+        public static Transform<Pers, Pers> Identity<Pers>()
+        {
+            return new Transform<Pers, Pers>(1, false, false);
+        }
 	}
 
 	public struct Internal { }
     public struct External { }
+
+    public static partial class GeometryStatic
+    {
+        public static XElement AddSvg<X>(this XElement element, Point<Internal> p, string xname, string yname, Transform<Internal, X> transform)
+        {
+            var pt = p.Transform(transform);
+            element.Add(
+                new XAttribute(xname, pt.x.ToString()),
+                new XAttribute(yname, pt.y.ToString()));
+            return element;
+        }
+        public static XElement AddSvg<X>(this XElement element, DPoint<Internal> v, string dxname, string dyname, Transform<Internal, X> transform)
+        {
+            var vt = v.Transform(transform);
+            element.Add(
+                new XAttribute(dxname, vt.dx.ToString()),
+                new XAttribute(dyname, vt.dy.ToString()));
+            return element;
+        }
+        public static XElement AddSvg<X>(this XElement element, Size<Internal> a, string name, Transform<Internal, X> transform)
+        {
+            element.Add(
+                new XAttribute(name, a.Transform(transform).ToString()));
+            return element;
+        }
+    }
 }

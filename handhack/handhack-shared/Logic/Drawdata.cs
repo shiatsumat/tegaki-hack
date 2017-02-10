@@ -1,5 +1,5 @@
 using System;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace handhack
 {
@@ -62,35 +62,18 @@ namespace handhack
             this.strokecolor = strokecolor; this.strokewidth = strokewidth; this.fillcolor = fillcolor;
             this.strokelinecap = strokelinecap; this.strokelinejoin = strokelinejoin;
         }
-
-        public void AddSvg(XmlDocument svg, XmlNode node, Transform<Internal, External> transform)
-        {
-            var strokecolorAttribute = svg.CreateAttribute("stroke-color");
-            strokecolorAttribute.Value = strokecolor.ToString();
-            node.Attributes.Append(strokecolorAttribute);
-            var strokewidthAttribute = svg.CreateAttribute("stroke");
-            strokewidthAttribute.Value = strokewidth.Transform(transform).value.ToString();
-            node.Attributes.Append(strokewidthAttribute);
-            var fillcolorAttribute = svg.CreateAttribute("fill-color");
-            fillcolorAttribute.Value = fillcolor.ToString();
-            node.Attributes.Append(fillcolorAttribute);
-        }
     }
-
-    public static partial class Shapes
+    public static partial class PaintStatic
     {
-        public enum Shapesort { Linelike, Squarelike, Circlelike, Textlike }
-        public const int shapesortNumber = 4;
-        public static readonly int[] shapeNumbers = new int[] { 3, 4, 3, 2 };
-
-        public enum Linelikeshape { Freehand, Line, Goodline }
-        public enum Squarelikeshape { Square, Roundsquare, Rectangle, Roundrectangle }
-        public enum Circlelikeshape { Circle, Oval, Arc }
-        public enum Textlikeshape { Text, Fancytext }
-
-        public static int NextShape(Shapesort shapesort, int nowshape)
+        public static XElement AddSvg<X>(this XElement element, Paint paint, Transform<Internal, X> transform)
         {
-            return (nowshape + 1) % shapeNumbers[(int)shapesort];
+            element.Add(
+                new XAttribute("stroke-color", paint.strokecolor.ToString()),
+                new XAttribute("stroke", paint.strokewidth.Transform(transform).value.ToString()),
+                new XAttribute("fill-color", paint.fillcolor.ToString()),
+                new XAttribute("stroke-linecap", paint.strokelinecap.ToString().ToLower()),
+                new XAttribute("stroke-linejoin", paint.strokelinejoin.ToString().ToLower()));
+            return element;
         }
     }
 }

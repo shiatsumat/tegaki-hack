@@ -1,11 +1,10 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using handhack;
 
 namespace handhack
 {
-	[Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
+    [Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
 	public class StartActivity : Activity
 	{
 		Button starteditButton;
