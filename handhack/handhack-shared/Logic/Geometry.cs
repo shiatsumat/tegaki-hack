@@ -58,7 +58,7 @@ namespace handhack
             return transform.originS + new DPoint<Pers2>(v.dx / transform.scalex, v.dy / transform.scaley);
         }
 
-        override public string ToString()
+        public override string ToString()
         {
             return string.Format("{0} {1}", x, y);
         }
@@ -111,7 +111,7 @@ namespace handhack
             return new DPoint<Pers2>(dx / transform.scalex, dy / transform.scaley);
         }
 
-        override public string ToString()
+        public override string ToString()
         {
             return string.Format("{0} {1}", dx, dy);
         }
@@ -155,7 +155,7 @@ namespace handhack
             return new Size<Pers2>(value / transform.scale);
         }
 
-        override public string ToString()
+        public override string ToString()
         {
             return value.ToString();
         }

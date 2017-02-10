@@ -12,6 +12,7 @@ namespace handhack
         ImageButton undoButton, redoButton;
         Editor editor;
         Transform<Internal, External> transform;
+        ImageButton freehandButton, lineButton, circleButton;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -21,6 +22,9 @@ namespace handhack
             editcanvas = FindViewById<Editcanvas>(Resource.Id.Editcanvas);
             undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
+            freehandButton = FindViewById<ImageButton>(Resource.Id.Freehand);
+            lineButton = FindViewById<ImageButton>(Resource.Id.Line);
+            circleButton = FindViewById<ImageButton>(Resource.Id.Circle);
             editor = new Editor(new DPoint<Internal>(30, 30));
 
             editcanvas.Touch += (o, e) =>
@@ -50,6 +54,10 @@ namespace handhack
             editor.update += () => { editcanvas.Invalidate(); };
             editor.setUndoAbility += (b) => { undoButton.Enabled = b; };
             editor.setRedoAbility += (b) => { redoButton.Enabled = b; };
+
+            freehandButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Freehand); };
+            lineButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Line); };
+            circleButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Circle); };
 
             editor.Update();
         }

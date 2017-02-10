@@ -4,6 +4,8 @@ using static handhack.UtilStatic;
 
 namespace handhack
 {
+    public enum ShapeCreator { Freehand, Line, Circle }
+
     public enum Touchevent { Down, Move, Up }
 
     public partial class Editor : IDrawable
@@ -15,7 +17,8 @@ namespace handhack
         public Size<Internal> Height { get { return new Size<Internal>(height); } set { height = value.value; } }
         List<IShape> shapes, redoshapes;
         public Paint paint, gridpaint;
-        public AShapeCreator shapeCreator;
+        AShapeCreator shapeCreator;
+        ShapeCreator shapeCreatorId;
         IShape grid;
 
         public bool undoable { get { return shapes.Count > 0; } }
@@ -31,18 +34,8 @@ namespace handhack
             redoshapes = new List<IShape>();
             paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             gridpaint = new Paint(new Color(0xf5f5f5ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
-            shapeCreator = new FreehandCreator(paint);
 
-            shapeCreator.edited += () =>
-            {
-                redoshapes.Clear();
-                Update();
-            };
-            shapeCreator.finished += () =>
-            {
-                shapes.Add(shapeCreator.shape);
-                Update();
-            };
+            ChangeShapeCreator(ShapeCreator.Freehand);
         }
 
         public void Undo()
@@ -75,8 +68,7 @@ namespace handhack
             SetGrid();
             update();
         }
-
-        public void SetGrid()
+        void SetGrid()
         {
             var shapes = new List<IShape>();
             for (float x = 0; x <= width; x++)
@@ -88,6 +80,40 @@ namespace handhack
                 shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(0, y), new Point<Internal>(width, y))));
             }
             grid = new ShapeGroup(shapes.ToArray());
+        }
+
+        public void ChangeShapeCreator(ShapeCreator shapeCreatorId)
+        {
+            if (shapeCreator != null) shapeCreator.Bye();
+            this.shapeCreatorId = shapeCreatorId;
+            switch (shapeCreatorId)
+            {
+                case ShapeCreator.Freehand:
+                    shapeCreator = new FreehandCreator(paint);
+                    break;
+                case ShapeCreator.Line:
+                    shapeCreator = new LineCreator(paint);
+                    break;
+                case ShapeCreator.Circle:
+                    shapeCreator = new CircleCreator(paint);
+                    break;
+                default:
+                    break;
+            }
+            shapeCreator.edited += () =>
+            {
+                redoshapes.Clear();
+                Update();
+            };
+            shapeCreator.finish += () =>
+            {
+                if (shapeCreator.shape != null) shapes.Add(shapeCreator.shape);
+                Update();
+            };
+        }
+        public void ResetShapeCreator()
+        {
+            ChangeShapeCreator(shapeCreatorId);
         }
     }
 }

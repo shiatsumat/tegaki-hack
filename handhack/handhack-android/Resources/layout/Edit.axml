@@ -23,29 +23,22 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
         <ImageButton
-            android:id="@+id/Linelike"
+            android:id="@+id/Freehand"
             android:src="@drawable/Freehand"
             android:layout_width="@android:dimen/app_icon_size"
             android:layout_height="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
         <ImageButton
-            android:id="@+id/Squarelike"
-            android:src="@drawable/Square"
+            android:id="@+id/Line"
+            android:src="@drawable/Line"
             android:layout_width="@android:dimen/app_icon_size"
             android:layout_height="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
         <ImageButton
-            android:id="@+id/Circlelike"
+            android:id="@+id/Circle"
             android:src="@drawable/Circle"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Textlike"
-            android:src="@drawable/Text"
             android:layout_width="@android:dimen/app_icon_size"
             android:layout_height="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
