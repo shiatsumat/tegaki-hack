@@ -36,7 +36,7 @@ namespace handhack
 
         public Transform<Internal, External> transform;
 
-        public ShapeCreation shapeCreation;
+        public IShapeCreation shapeCreation;
 
         protected override void OnCreate(Bundle bundle)
         {

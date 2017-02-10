@@ -12,16 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Drawdata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Geometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Math.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\CirclelikeCreations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\LinelikeCreations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\ShapeCreation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\SquarelikeCreations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\TextlikeCreations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Circlelikes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Linelikes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Shape.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Squarelikes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Textlikes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Usershape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Util.cs" />
   </ItemGroup>
 </Project>

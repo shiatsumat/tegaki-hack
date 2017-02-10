@@ -10,7 +10,7 @@ namespace handhack
 
     public partial class Paint
     {
-        public NativePaint strokePaint(Transform<Internal, External> transform)
+        public NativePaint strokePaint<X>(Transform<Internal, X> transform) where X : External
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
@@ -42,7 +42,7 @@ namespace handhack
             }
             return res;
         }
-        public NativePaint fillPaint(Transform<Internal, External> transform)
+        public NativePaint fillPaint<X>(Transform<Internal, X> transform) where X : External
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Fill);

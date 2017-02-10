@@ -65,7 +65,7 @@ namespace handhack
     }
     public static partial class PaintStatic
     {
-        public static XElement AddSvg<X>(this XElement element, Paint paint, Transform<Internal, X> transform)
+        public static XElement AddSvg<X>(this XElement element, Paint paint, Transform<Internal, X> transform) where X : External
         {
             element.Add(
                 new XAttribute("stroke-color", paint.strokecolor.ToString()),
