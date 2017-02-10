@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>801fc803-f322-43e9-9a3d-05b0933d809c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>handhack</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Geometry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Math.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\CirclelikeCreations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\LinelikeCreations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\ShapeCreation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\SquarelikeCreations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreations\TextlikeCreations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Circlelikes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Linelikes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Shape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Squarelikes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Shapes\Textlikes.cs" />
+  </ItemGroup>
+</Project>

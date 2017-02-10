@@ -53,19 +53,6 @@
   <ItemGroup>
     <Compile Include="Activities\EditActivity.cs" />
     <Compile Include="Activities\StartActivity.cs" />
-    <Compile Include="Logic\Data.cs" />
-    <Compile Include="Logic\Geometry.cs" />
-    <Compile Include="Logic\Math.cs" />
-    <Compile Include="Logic\ShapeCreations\CirclelikeCreations.cs" />
-    <Compile Include="Logic\ShapeCreations\LinelikeCreations.cs" />
-    <Compile Include="Logic\ShapeCreations\ShapeCreation.cs" />
-    <Compile Include="Logic\ShapeCreations\TextlikeCreations.cs" />
-    <Compile Include="Logic\ShapeCreations\SquarelikeCreations.cs" />
-    <Compile Include="Logic\Shapes\Circlelikes.cs" />
-    <Compile Include="Logic\Shapes\Linelikes.cs" />
-    <Compile Include="Logic\Shapes\Shape.cs" />
-    <Compile Include="Logic\Shapes\Squarelikes.cs" />
-    <Compile Include="Logic\Shapes\Textlikes.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sublogic\Data.cs" />
@@ -80,59 +67,92 @@
     <AndroidResource Include="Resources\layout\Start.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Arc.png" />
+    <Folder Include="Logic\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Circle.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
+      <Link>Resources\drawable\Arc.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Freehand.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Circle.png">
+      <Link>Resources\drawable\Circle.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Goodline.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Fancytext.png">
+      <Link>Resources\drawable\Fancytext.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Line.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Freehand.png">
+      <Link>Resources\drawable\Freehand.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Logo.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Goodline.png">
+      <Link>Resources\drawable\Goodline.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Oval.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Icon.png">
+      <Link>Resources\drawable\Icon.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Rectangle.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Line.png">
+      <Link>Resources\drawable\Line.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Redo.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Logo.png">
+      <Link>Resources\drawable\Logo.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Roundrectangle.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Oval.png">
+      <Link>Resources\drawable\Oval.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Roundsquare.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Rectangle.png">
+      <Link>Resources\drawable\Rectangle.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Square.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Redo.png">
+      <Link>Resources\drawable\Redo.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Undo.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Roundrectangle.png">
+      <Link>Resources\drawable\Roundrectangle.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Text.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Roundsquare.png">
+      <Link>Resources\drawable\Roundsquare.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Fancytext.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Square.png">
+      <Link>Resources\drawable\Square.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\values\" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Text.png">
+      <Link>Resources\drawable\Text.png</Link>
+    </AndroidResource>
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Undo.png">
+      <Link>Resources\drawable\Undo.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

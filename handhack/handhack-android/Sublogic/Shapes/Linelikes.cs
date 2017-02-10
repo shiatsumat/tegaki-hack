@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using Android.Graphics;
 
-namespace handhack_android
+namespace handhack
 {
     public partial class Freehand : Shape
     {

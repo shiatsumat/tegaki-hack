@@ -1,6 +1,6 @@
 using Android.Graphics;
 
-namespace handhack_android
+namespace handhack
 {
     public partial interface Shape
     {

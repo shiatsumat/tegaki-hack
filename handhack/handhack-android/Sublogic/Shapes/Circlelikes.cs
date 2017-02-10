@@ -1,7 +1,7 @@
 using Android.Graphics;
 using NativePaint = Android.Graphics.Paint;
 
-namespace handhack_android
+namespace handhack
 {
     public partial class Oval : Shape
     {

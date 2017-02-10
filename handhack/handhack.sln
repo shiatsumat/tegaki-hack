@@ -5,7 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "handhack-android", "handhack-android\handhack-android.csproj", "{74A138E6-4F5A-4544-819E-5B4DA3F48AFB}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "handhack-shared", "handhack-shared\handhack-shared.shproj", "{801FC803-F322-43E9-9A3D-05B0933D809C}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		handhack-shared\handhack-shared.projitems*{74a138e6-4f5a-4544-819e-5b4da3f48afb}*SharedItemsImports = 4
+		handhack-shared\handhack-shared.projitems*{801fc803-f322-43e9-9a3d-05b0933d809c}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
