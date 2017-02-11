@@ -70,6 +70,13 @@
             android:layout_height="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
+        <ImageButton
+            android:id="@+id/RegularPolygon"
+            android:src="@drawable/RegularPolygon"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
     </LinearLayout>
     <handhack.ExtensibleView
         android:id="@+id/Editcanvas"

@@ -2,23 +2,37 @@ using System;
 using System.Collections.Generic;
 using Android.Graphics;
 using static System.Math;
+using static handhack.GeometryStatic;
 using static handhack.UtilStatic;
 
 namespace handhack
 {
-    public abstract partial class AShapeCreator
+    public enum EShapeCreator { Freehand, Line, Oval, Rectangle, RegularPolygon }
+
+    public partial class ShapeCreatorSettings
     {
         public Paint paint;
         public bool strict;
+        public float angleUnit;
         public Action Edited;
         public Action<IShape> Finished;
+
+        public ShapeCreatorSettings()
+        {
+            strict = false;
+            angleUnit = 15.0f;
+        }
+    }
+
+    public abstract partial class AShapeCreator
+    {
+        public ShapeCreatorSettings settings;
         protected bool dragging;
         Point<Internal> prev;
 
         public AShapeCreator()
         {
             dragging = false;
-            strict = false;
             Init();
         }
         public virtual void Touch(Touchevent touchevent, Point<Internal> p)
@@ -58,15 +72,15 @@ namespace handhack
         public abstract void Draw(Canvas canvas, Transform<Internal, External> transform);
         public void Cleanup()
         {
-            Finished(Finish());
-            Edited();
+            settings.Finished(Finish());
+            settings.Edited();
             dragging = false;
             Init();
         }
         public void Bye()
         {
-            Finished(Finish());
-            Edited();
+            settings.Finished(Finish());
+            settings.Edited();
         }
     }
     public partial class FreehandCreator : AShapeCreator
@@ -83,12 +97,12 @@ namespace handhack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(paint, newList(p), true);
+            polyline = new Polyline(settings.paint, newList(p), false, true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
             polyline.points.Add(p);
-            Edited();
+            settings.Edited();
         }
         protected override void EndDrag()
         {
@@ -113,25 +127,12 @@ namespace handhack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(paint, newList(p, default(Point<Internal>)));
+            polyline = new Polyline(settings.paint, newList(p, p));
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            if (!strict) polyline.points[1] = p;
-            else
-            {
-                var from = polyline.points[0];
-                var v = p - from;
-                var unit = 15.0f;
-                if (v.norm < EPS) polyline.points[1] = from;
-                else
-                {
-                    var polar = Complex.Polar((float)Round(v.arg / unit) * unit, 1);
-                    var polar2 = polar * ((Abs(v.dx) > Abs(v.dy)) ? v.dx / polar.re : v.dy / polar.im);
-                    polyline.points[1] = from + new DPoint<Internal>(polar2);
-                }
-            }
-            Edited();
+            polyline.points[1] = !settings.strict ? p : StrictAngle(polyline.points[0], p, settings.angleUnit);
+            settings.Edited();
         }
         protected override void EndDrag()
         {
@@ -156,11 +157,11 @@ namespace handhack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            oval = new Oval(paint, p, default(DPoint<Internal>));
+            oval = new Oval(settings.paint, p, default(DPoint<Internal>));
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            if (strict)
+            if (settings.strict)
             {
                 var r = oval.center.distance(p);
                 oval.radii = new DPoint<Internal>(r, r);
@@ -170,7 +171,7 @@ namespace handhack
                 var v = p - oval.center;
                 oval.radii = v * (float)Sqrt(2);
             }
-            Edited();
+            settings.Edited();
         }
         protected override void EndDrag()
         {
@@ -184,7 +185,6 @@ namespace handhack
     public partial class RectangleCreator : AShapeCreator
     {
         Polyline polyline;
-        Point<Internal> from, to;
 
         protected override void Init()
         {
@@ -196,22 +196,17 @@ namespace handhack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            from = to = p;
-            polyline = new Polyline(paint, newList(p, p, p, p), false, true);
+            polyline = new Polyline(settings.paint, newList(p, p, p, p), true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            if (!strict) to = p;
-            else
-            {
-                var v = p - from;
-                float l = Max(Abs(v.dx), Abs(v.dy));
-                to = from + new DPoint<Internal>(v.dx.ToAbs(l), v.dy.ToAbs(l));
-            }
+            var from = polyline.points[0];
+            if (!settings.strict) polyline.points[2] = p;
+            else polyline.points[2] = StrictSquare(from, p);
+            var to = polyline.points[2];
             polyline.points[1] = new Point<Internal>(from.x, to.y);
-            polyline.points[2] = to;
             polyline.points[3] = new Point<Internal>(to.x, from.y);
-            Edited();
+            settings.Edited();
         }
         protected override void EndDrag()
         {
@@ -225,8 +220,13 @@ namespace handhack
     public partial class RegularPolygonCreator : AShapeCreator
     {
         Polyline polyline;
-        Point<Internal> from, to;
+        int n;
 
+        public RegularPolygonCreator(int n)
+        {
+            if (n < 3) throw new InvalidOperationException("n is smaller than 3 for RegularPolygonCreator");
+            this.n = n;
+        }
         protected override void Init()
         {
             polyline = null;
@@ -237,22 +237,22 @@ namespace handhack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            from = to = p;
-            polyline = new Polyline(paint, newList(p, p, p, p), false, true);
+            polyline = new Polyline(settings.paint, new List<Point<Internal>>(), true);
+            for (int i = 0; i < n; i++) polyline.points.Add(p);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            if (!strict) to = p;
-            else
+            var from = polyline.points[0];
+            if (!settings.strict) polyline.points[1] = p;
+            else polyline.points[1] = StrictAngle(from, p, settings.angleUnit);
+            for (int i = 2; i < n; i++)
             {
-                var v = p - from;
-                float l = Max(Abs(v.dx), Abs(v.dy));
-                to = from + new DPoint<Internal>(v.dx.ToAbs(l), v.dy.ToAbs(l));
+                var prev = polyline.points[i - 1];
+                var prev2 = polyline.points[i - 2];
+                var v = prev - prev2;
+                polyline.points[i] = prev + new DPoint<Internal>(Complex.Polar(v.arg - 360.0f / n, v.norm));
             }
-            polyline.points[1] = new Point<Internal>(from.x, to.y);
-            polyline.points[2] = to;
-            polyline.points[3] = new Point<Internal>(to.x, from.y);
-            Edited();
+            settings.Edited();
         }
         protected override void EndDrag()
         {

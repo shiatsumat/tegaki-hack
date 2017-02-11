@@ -23,7 +23,7 @@ namespace handhack
                 var path = new Path();
                 var startt = startPoint.Transform(transform);
                 path.MoveTo(startt.x, startt.y);
-                for (int i = 1; closed ? i < points.Count + 1 : i < points.Count; i++)
+                for (int i = 1; i < (!closed ? points.Count : points.Count + 1); i++)
                 {
                     if (!bezier)
                     {

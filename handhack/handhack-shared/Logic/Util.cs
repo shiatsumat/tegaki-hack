@@ -3,6 +3,8 @@ using static System.Math;
 
 namespace handhack
 {
+    public enum Touchevent { Down, Move, Up }
+
     public static partial class UtilStatic
     {
         public const float EPS = 1e-4f;

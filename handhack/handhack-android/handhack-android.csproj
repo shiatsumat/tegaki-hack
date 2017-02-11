@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <Debugger>Xamarin</Debugger>
@@ -86,11 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
-      <Link>Resources\drawable\Arc.png</Link>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\drawable\Circle.png">
@@ -153,8 +148,18 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Save.png">
+      <Link>Resources\drawable\Save.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\drawable\Square.png">
       <Link>Resources\drawable\Square.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Strict.png">
+      <Link>Resources\drawable\Strict.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -168,10 +173,14 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Save.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
+      <Link>Resources\drawable\Arc.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Strict.png" />
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\RegularPolygon.png">
+      <Link>Resources\drawable\RegularPolygon.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

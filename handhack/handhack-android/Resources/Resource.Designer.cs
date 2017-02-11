@@ -78,25 +78,28 @@ namespace handhack
 			public const int Redo = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int Roundrectangle = 2130837515;
+			public const int RegularPolygon = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int Roundsquare = 2130837516;
+			public const int Roundrectangle = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int Save = 2130837517;
+			public const int Roundsquare = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int Square = 2130837518;
+			public const int Save = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int Strict = 2130837519;
+			public const int Square = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int Text = 2130837520;
+			public const int Strict = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int Undo = 2130837521;
+			public const int Text = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int Undo = 2130837522;
 			
 			static Drawable()
 			{
@@ -111,8 +114,8 @@ namespace handhack
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f04000a
-			public const int Editcanvas = 2130968586;
+			// aapt resource value: 0x7f04000b
+			public const int Editcanvas = 2130968587;
 			
 			// aapt resource value: 0x7f040006
 			public const int Freehand = 2130968582;
@@ -129,11 +132,14 @@ namespace handhack
 			// aapt resource value: 0x7f040002
 			public const int Redo = 2130968578;
 			
+			// aapt resource value: 0x7f04000a
+			public const int RegularPolygon = 2130968586;
+			
 			// aapt resource value: 0x7f040003
 			public const int Save = 2130968579;
 			
-			// aapt resource value: 0x7f04000b
-			public const int Startedit = 2130968587;
+			// aapt resource value: 0x7f04000c
+			public const int Startedit = 2130968588;
 			
 			// aapt resource value: 0x7f040004
 			public const int Strict = 2130968580;

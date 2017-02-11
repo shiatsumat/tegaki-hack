@@ -32,7 +32,8 @@ namespace handhack
                 FindViewById<ImageButton>(Resource.Id.Freehand),
                 FindViewById<ImageButton>(Resource.Id.Line),
                 FindViewById<ImageButton>(Resource.Id.Oval),
-                FindViewById<ImageButton>(Resource.Id.Rectangle)
+                FindViewById<ImageButton>(Resource.Id.Rectangle),
+                FindViewById<ImageButton>(Resource.Id.RegularPolygon)
             };
             for (var i = 0; i < shapeButtons.Length; i++)
             {
@@ -45,8 +46,8 @@ namespace handhack
             }
             strictButton.Click += (o, e) =>
             {
-                editor.strict= !editor.strict;
-                strictButton.Activate(editor.strict);
+                editor.settings.strict= !editor.settings.strict;
+                strictButton.Activate(editor.settings.strict);
             };
             editor = new Editor(new DPoint<Internal>(30, 30),
                 () => { editcanvas.Invalidate(); },

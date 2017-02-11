@@ -5,19 +5,13 @@ using static handhack.UtilStatic;
 
 namespace handhack
 {
-    public enum EShapeCreator { Freehand, Line, Oval, Rectangle }
-
-    public enum Touchevent { Down, Move, Up }
-
     public partial class Editor
     {
         public DPoint<Internal> size;
         public DPoint<External> realsize;
-        bool _strict;
-        public bool strict { get { return _strict; } set { _strict = value; if (shapeCreator != null) shapeCreator.strict = value; } }
+        public ShapeCreatorSettings settings;
         Transform<Internal, External> transform;
         List<IShape> drawnShapes, undrawnShapes, redoShapes;
-        public Paint paint, gridpaint;
         AShapeCreator shapeCreator;
         EShapeCreator eShapeCreator;
         IShape grid;
@@ -31,9 +25,19 @@ namespace handhack
             drawnShapes = new List<IShape>();
             undrawnShapes = new List<IShape>();
             redoShapes = new List<IShape>();
-            paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
-            gridpaint = new Paint(new Color(0xf5f5f5ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
-            strict = false;
+            settings = new ShapeCreatorSettings();
+            settings.paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
+            settings.Edited += () =>
+            {
+                redoShapes.Clear();
+                SetRedoAbility(false);
+                Redisplay();
+            };
+            settings.Finished += (shape) =>
+            {
+                if (shape != null) undrawnShapes.Add(shape);
+                Redisplay();
+            };
 
             ChangeShapeCreator(EShapeCreator.Freehand);
 
@@ -97,22 +101,13 @@ namespace handhack
                 case EShapeCreator.Rectangle:
                     shapeCreator = new RectangleCreator();
                     break;
+                case EShapeCreator.RegularPolygon:
+                    shapeCreator = new RegularPolygonCreator(5);
+                    break;
                 default:
                     throw new InvalidOperationException("Invalid EShapeCreator for ChangeShapeCreator");
             }
-            shapeCreator.paint = paint;
-            shapeCreator.strict = strict;
-            shapeCreator.Edited += () =>
-            {
-                redoShapes.Clear();
-                SetRedoAbility(false);
-                Redisplay();
-            };
-            shapeCreator.Finished += (shape) =>
-            {
-                if (shape != null) undrawnShapes.Add(shape);
-                Redisplay();
-            };
+            shapeCreator.settings = settings;
         }
         public void ResetShapeCreator()
         {
@@ -164,13 +159,14 @@ namespace handhack
         void SetGrid()
         {
             var shapes = new List<IShape>();
+            var paint = new Paint(new Color(0xd3d3d3ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
             for (float x = 0; x <= size.dx; x++)
             {
-                shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));
+                shapes.Add(new Polyline(paint, newList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));
             }
             for (float y = 0; y <= size.dy; y++)
             {
-                shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(0, y), new Point<Internal>(size.dx, y))));
+                shapes.Add(new Polyline(paint, newList(new Point<Internal>(0, y), new Point<Internal>(size.dx, y))));
             }
             grid = new ShapeGroup(shapes.ToArray());
         }

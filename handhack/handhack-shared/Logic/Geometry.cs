@@ -1,5 +1,6 @@
 using System;
 using System.Xml.Linq;
+using static System.Math;
 using static handhack.UtilStatic;
 
 namespace handhack
@@ -256,6 +257,23 @@ namespace handhack
         public static Point<Pers> InterpolateTrol<Pers>(Point<Pers> p0, Point<Pers> p1, Point<Pers> p2, Point<Pers> p3)
         {
             return InterpolateHelper(p3, p2, p1);
+        }
+        public static Point<Pers> StrictAngle<Pers>(Point<Pers> from, Point<Pers> to, float angleUnit)
+        {
+            var v = to - from;
+            if (v.norm < EPS) return from;
+            else
+            {
+                var polar = Complex.Polar((float)Round(v.arg / angleUnit) * angleUnit, 1);
+                var polar2 = polar * ((Abs(v.dx) > Abs(v.dy)) ? v.dx / polar.re : v.dy / polar.im);
+                return from + new DPoint<Pers>(polar2);
+            }
+        }
+        public static Point<Pers> StrictSquare<Pers>(Point<Pers> from, Point<Pers> to)
+        {
+            var v = to - from;
+            float l = Max(Abs(v.dx), Abs(v.dy));
+            return from + new DPoint<Pers>(v.dx.ToAbs(l), v.dy.ToAbs(l));
         }
     }
 }

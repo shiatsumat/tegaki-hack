@@ -54,12 +54,12 @@ namespace handhack
             get { return points[points.Count - 1]; }
             set { points[points.Count - 1] = value; }
         }
-        public bool bezier;
         public bool closed;
+        public bool bezier;
 
-        public Polyline(Paint paint, List<Point<Internal>> points, bool bezier = false, bool closed = false)
+        public Polyline(Paint paint, List<Point<Internal>> points, bool closed = false, bool bezier = false)
         {
-            this.paint = paint; this.points = points; this.bezier = bezier; this.closed = closed;
+            this.paint = paint; this.points = points; this.closed = closed; this.bezier = bezier;
         }
 
         public void AddSvg(XElement element, Transform<Internal, External> transform)
@@ -68,7 +68,7 @@ namespace handhack
             {
                 var dString = "";
                 dString += string.Format("M {0}", startPoint.Transform(transform));
-                for (int i = 1; closed ? i < points.Count + 1 : i < points.Count; i++)
+                for (int i = 1; i < (!closed ? points.Count : points.Count + 1); i++)
                 {
                     if (!bezier)
                     {
