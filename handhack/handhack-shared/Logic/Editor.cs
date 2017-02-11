@@ -21,9 +21,9 @@ namespace handhack
         IShape grid;
 
         public Action Redisplay;
-        public BoolAction SetUndoAbility, SetRedoAbility;
+        public Action<bool> SetUndoAbility, SetRedoAbility;
 
-        public Editor(DPoint<Internal> size, Action update, BoolAction setUndoAbility, BoolAction setRedoAbility)
+        public Editor(DPoint<Internal> size, Action update, Action<bool> setUndoAbility, Action<bool> setRedoAbility)
         {
             this.size = size;
             drawnShapes = new List<IShape>();
@@ -73,37 +73,38 @@ namespace handhack
         }
         public void Touch(Touchevent touchevent, Point<External> p)
         {
-            if (shapeCreator != null)
-            {
-                shapeCreator.Touch(touchevent, p.Untransform(transform));
-            }
+            shapeCreator?.Touch(touchevent, p.Untransform(transform));
         }
 
         public void ChangeShapeCreator(ShapeCreator shapeCreatorId)
         {
-            if (shapeCreator != null) shapeCreator.Bye();
+            shapeCreator?.Cleanup();
             this.shapeCreatorId = shapeCreatorId;
             switch (shapeCreatorId)
             {
                 case ShapeCreator.Freehand:
-                    shapeCreator = new FreehandCreator(paint);
+                    shapeCreator = new FreehandCreator();
                     break;
                 case ShapeCreator.Line:
-                    shapeCreator = new LineCreator(paint);
+                    shapeCreator = new LineCreator();
                     break;
                 case ShapeCreator.Circle:
-                    shapeCreator = new CircleCreator(paint);
+                    shapeCreator = new CircleCreator();
+                    break;
+                case ShapeCreator.Oval:
+                    shapeCreator = new OvalCreator();
                     break;
                 default:
                     break;
             }
+            shapeCreator.paint = paint;
             shapeCreator.Edited += () =>
             {
                 redoShapes.Clear();
                 SetRedoAbility(false);
                 Redisplay();
             };
-            shapeCreator.finished += (shape) =>
+            shapeCreator.Finished += (shape) =>
             {
                 if (shape != null) undrawnShapes.Add(shape);
                 Redisplay();
@@ -119,8 +120,8 @@ namespace handhack
             var shapes = new List<IShape>();
             shapes.AddRange(drawnShapes);
             shapes.AddRange(undrawnShapes);
-            var svg = new XElement("svg",
-                new XAttribute("viewbox", string.Format("0 0 {0} {1}", realsize.dx, realsize.dy)));
+            var svg = new XElement(svgName("svg"),
+                new XAttribute("viewbox", string.Format("0 0 {0}", realsize)));
             foreach (var shape in shapes)
             {
                 svg.AddSvg(shape, transform);
@@ -134,7 +135,6 @@ namespace handhack
         {
             if (undrawnShapes.Count > 0)
             {
-                SetUndoAbility(true);
                 if (drawnShapes.Count > 0)
                 {
                     drawnShapes.AddRange(undrawnShapes);
@@ -146,6 +146,7 @@ namespace handhack
                     undrawnShapes = new List<IShape>();
                 }
             }
+            SetUndoAbility(drawnShapes.Count > 0);
         }
         void MoveDrawnShapesToUndrawn()
         {

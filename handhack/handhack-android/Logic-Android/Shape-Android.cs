@@ -9,7 +9,7 @@ namespace handhack
         {
             foreach (var shape in shapes)
             {
-                canvas.Draw(shape, transform);
+                shape.Draw(canvas, transform);
             }
         }
     }

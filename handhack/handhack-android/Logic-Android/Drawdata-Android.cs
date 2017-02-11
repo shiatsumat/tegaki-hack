@@ -4,16 +4,9 @@ using NativePaint = Android.Graphics.Paint;
 
 namespace handhack
 {
-    public partial interface IDrawable
+    public partial interface IShape
     {
         void Draw(Canvas canvas, Transform<Internal, External> transform);
-    }
-    public static partial class DrawdataStatic
-    {
-        public static void Draw(this Canvas canvas, IDrawable drawable, Transform<Internal, External> transform)
-        {
-            drawable.Draw(canvas, transform);
-        }
     }
 
     public partial struct Color

@@ -1,11 +1,13 @@
 using System;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using static System.Math;
 using static handhack.GeometryStatic;
+using static handhack.UtilStatic;
 
 namespace handhack
 {
-    public partial interface IShape : IDrawable
+    public partial interface IShape
     {
         void AddSvg(XElement element, Transform<Internal, External> transform);
     }
@@ -88,7 +90,7 @@ namespace handhack
                         dString += string.Format(" C {0} {1} {2}", conT, trolT, toT);
                     }
                 }
-                element.Add(new XElement("path",
+                element.Add(new XElement(svgName("path"),
                     new XAttribute("d", dString))
                     .AddSvg(paint, transform));
             }
@@ -100,15 +102,7 @@ namespace handhack
         public Paint paint;
         public Point<Internal> center;
         DPoint<Internal> _radii;
-        public DPoint<Internal> radii
-        {
-            get { return _radii; }
-            set
-            {
-                if (value.dx < 0 || value.dy < 0) throw new InvalidOperationException("negative radius for Oval");
-                _radii = value;
-            }
-        }
+        public DPoint<Internal> radii { get { return _radii; } set { _radii = new DPoint<Internal>((float)Abs(value.dx), (float)Abs(value.dy)); } }
 
         public Oval(Paint paint, Point<Internal> center, DPoint<Internal> radii)
         {
@@ -117,7 +111,7 @@ namespace handhack
 
         public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
-            element.Add(new XElement("ellipse")
+            element.Add(new XElement(svgName("ellipse"))
                 .AddSvg(paint, transform)
                 .AddSvg(center, "cx", "cy", transform)
                 .AddSvg(radii, "rx", "ry", transform));
@@ -129,15 +123,7 @@ namespace handhack
         public Paint paint;
         public Point<Internal> center;
         DPoint<Internal> _radii;
-        public DPoint<Internal> radii
-        {
-            get { return _radii; }
-            set
-            {
-                if (value.dx < 0 || value.dy < 0) throw new InvalidOperationException("negative radius for OvalArc");
-                _radii = value;
-            }
-        }
+        public DPoint<Internal> radii { get { return _radii; } set { _radii = new DPoint<Internal>((float)Abs(value.dx), (float)Abs(value.dy)); } }
         float _startAngle;
         public float startAngle
         {
@@ -188,7 +174,7 @@ namespace handhack
             {
                 dString += string.Format(" L {0} L {1}", center, startPoint);
             }
-            element.Add(new XElement("path",
+            element.Add(new XElement(svgName("path"),
                 new XAttribute("d", dString)));
         }
     }

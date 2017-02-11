@@ -2,8 +2,6 @@
 
 namespace handhack
 {
-    public delegate void BoolAction(bool b);
-
     public static class UtilStatic
     {
         public static int LoopIndex<T>(this List<T> list, int index)
@@ -27,6 +25,10 @@ namespace handhack
         public static List<T> newList<T>(params T[] ts)
         {
             return new List<T>(ts);
+        }
+        public static string svgName(string name)
+        {
+            return "{http://www.w3.org/2000/svg}" + name;
         }
     }
 }

@@ -15,21 +15,21 @@ namespace handhack
             secondCanvas.DrawColor(NativeColor.White);
 
             SetGrid();
-            secondCanvas.Draw(grid, transform);
+            grid.Draw(secondCanvas, transform);
 
             MoveDrawnShapesToUndrawn();
             DrawUndrawnShapesOnSecondCanvas();
         }
         void DrawUndrawnShapesOnSecondCanvas()
         {
-            foreach (var shape in undrawnShapes) secondCanvas.Draw(shape, transform);
+            foreach (var shape in undrawnShapes) shape.Draw(secondCanvas, transform);
             MoveUndrawnShapesToDrawn();
         }
         public void Draw(Canvas canvas)
         {
             DrawUndrawnShapesOnSecondCanvas();
             canvas.DrawBitmap(secondBitmap, 0, 0, null);
-            if (shapeCreator != null) canvas.Draw(shapeCreator, transform);
+            shapeCreator?.Draw(canvas, transform);
         }
     }
 }
