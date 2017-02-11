@@ -35,20 +35,7 @@ namespace handhack
                 FindViewById<ImageButton>(Resource.Id.Rectangle),
                 FindViewById<ImageButton>(Resource.Id.RegularPolygon)
             };
-            for (var i = 0; i < shapeButtons.Length; i++)
-            {
-                var _i = i;
-                shapeButtons[_i].Click += (o, e) =>
-                {
-                    SetActiveShapeButton(shapeButtons[_i]);
-                    editor.ChangeShapeCreator((EShapeCreator)_i);
-                };
-            }
-            strictButton.Click += (o, e) =>
-            {
-                editor.settings.strict= !editor.settings.strict;
-                strictButton.Activate(editor.settings.strict);
-            };
+
             editor = new Editor(new DPoint<Internal>(30, 30),
                 () => { editcanvas.Invalidate(); },
                 (b) => { undoButton.Enabled = b; },
@@ -78,16 +65,69 @@ namespace handhack
             {
                 editor.Draw(canvas);
             };
+
             undoButton.Click += (o, e) => editor.Undo();
             redoButton.Click += (o, e) => editor.Redo();
-            saveButton.Click += (o, e) =>
-            {
-                var writer = new StringWriter();
-                var svgdoc = editor.GetSvg();
-                svgdoc.Save(writer);
-                System.Diagnostics.Debug.Write(writer.ToString());
-            };
+
             SetActiveShapeButton(shapeButtons[0]);
+            for (var i = 0; i < shapeButtons.Length; i++)
+            {
+                var _i = i;
+                var eShapeCreator = (EShapeCreator)_i;
+                shapeButtons[_i].Click += (o, e) =>
+                {
+                    SetActiveShapeButton(shapeButtons[_i]);
+                    editor.ChangeShapeCreator(eShapeCreator);
+                };
+            }
+
+            strictButton.Click += (o, e) =>
+            {
+                editor.settings.strict = !editor.settings.strict;
+                strictButton.Activate(editor.settings.strict);
+            };
+
+            {
+                var view = LayoutInflater.Inflate(Resource.Layout.RegularPolygonDialog, null);
+                var dialogBuilder = new AlertDialog.Builder(this);
+                var numberPicker = view.FindViewById<NumberPicker>(Resource.Id.RegularPolygonDialogNumberPicker);
+                dialogBuilder.SetTitle("Regular Polygon Option");
+                dialogBuilder.SetView(view);
+                numberPicker.MinValue = 3;
+                numberPicker.MaxValue = 50;
+                numberPicker.WrapSelectorWheel = false;
+                dialogBuilder.SetPositiveButton("OK", (s, a) =>
+                {
+                    editor.nRegularPolygon = numberPicker.Value;
+                    editor.ResetShapeCreator(EShapeCreator.RegularPolygon);
+                });
+                var dialog = dialogBuilder.Create();
+                shapeButtons[4].LongClick += (o, e) =>
+                {
+                    var n = editor.nRegularPolygon;
+                    numberPicker.Value = n;
+                    dialog.Show();
+                };
+            }
+
+            {
+                var view = LayoutInflater.Inflate(Resource.Layout.SvgDialog, null);
+                var dialogBuilder = new AlertDialog.Builder(this);
+                var text = view.FindViewById<TextView>(Resource.Id.SvgDialogText);
+                dialogBuilder.SetTitle("Svg Output");
+                dialogBuilder.SetView(view);
+                dialogBuilder.SetPositiveButton("OK", (s,a)=> { });
+                var dialog = dialogBuilder.Create();
+                saveButton.Click += (o, e) =>
+                {
+                    var writer = new StringWriter();
+                    editor.GetSvg().Save(writer);
+                    var svgString = writer.ToString();
+                    text.Text = svgString;
+                    dialog.Show();
+                    System.Diagnostics.Debug.WriteLine(svgString);
+                };
+            }
         }
         protected override void OnDestroy()
         {

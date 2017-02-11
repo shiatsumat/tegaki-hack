@@ -114,44 +114,44 @@ namespace handhack
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f04000b
-			public const int Editcanvas = 2130968587;
-			
-			// aapt resource value: 0x7f040006
-			public const int Freehand = 2130968582;
-			
-			// aapt resource value: 0x7f040007
-			public const int Line = 2130968583;
-			
-			// aapt resource value: 0x7f040008
-			public const int Oval = 2130968584;
-			
 			// aapt resource value: 0x7f040009
-			public const int Rectangle = 2130968585;
-			
-			// aapt resource value: 0x7f040002
-			public const int Redo = 2130968578;
-			
-			// aapt resource value: 0x7f04000a
-			public const int RegularPolygon = 2130968586;
+			public const int Editcanvas = 2130968585;
 			
 			// aapt resource value: 0x7f040003
-			public const int Save = 2130968579;
-			
-			// aapt resource value: 0x7f04000c
-			public const int Startedit = 2130968588;
+			public const int Freehand = 2130968579;
 			
 			// aapt resource value: 0x7f040004
-			public const int Strict = 2130968580;
-			
-			// aapt resource value: 0x7f040000
-			public const int Toolbar = 2130968576;
+			public const int Line = 2130968580;
 			
 			// aapt resource value: 0x7f040005
-			public const int Toolbar2 = 2130968581;
+			public const int Oval = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int Rectangle = 2130968582;
 			
 			// aapt resource value: 0x7f040001
-			public const int Undo = 2130968577;
+			public const int Redo = 2130968577;
+			
+			// aapt resource value: 0x7f040007
+			public const int RegularPolygon = 2130968583;
+			
+			// aapt resource value: 0x7f04000a
+			public const int RegularPolygonDialogNumberPicker = 2130968586;
+			
+			// aapt resource value: 0x7f040002
+			public const int Save = 2130968578;
+			
+			// aapt resource value: 0x7f04000b
+			public const int Startedit = 2130968587;
+			
+			// aapt resource value: 0x7f040008
+			public const int Strict = 2130968584;
+			
+			// aapt resource value: 0x7f04000c
+			public const int SvgDialogText = 2130968588;
+			
+			// aapt resource value: 0x7f040000
+			public const int Undo = 2130968576;
 			
 			static Id()
 			{
@@ -170,7 +170,13 @@ namespace handhack
 			public const int Edit = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Start = 2130903041;
+			public const int RegularPolygonDialog = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Start = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int SvgDialog = 2130903043;
 			
 			static Layout()
 			{

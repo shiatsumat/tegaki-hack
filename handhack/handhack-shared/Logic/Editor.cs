@@ -9,43 +9,45 @@ namespace handhack
     {
         public DPoint<Internal> size;
         public DPoint<External> realsize;
-        public ShapeCreatorSettings settings;
         Transform<Internal, External> transform;
         List<IShape> drawnShapes, undrawnShapes, redoShapes;
-        AShapeCreator shapeCreator;
         EShapeCreator eShapeCreator;
+        public ShapeCreatorSettings settings;
+        public int nRegularPolygon;
+        AShapeCreator shapeCreator;
         IShape grid;
 
         public Action Redisplay;
         public Action<bool> SetUndoAbility, SetRedoAbility;
 
-        public Editor(DPoint<Internal> size, Action update, Action<bool> setUndoAbility, Action<bool> setRedoAbility)
+        public Editor(DPoint<Internal> size, Action Redisplay, Action<bool> SetUndoAbility, Action<bool> SetRedoAbility)
         {
             this.size = size;
             drawnShapes = new List<IShape>();
             undrawnShapes = new List<IShape>();
             redoShapes = new List<IShape>();
+
             settings = new ShapeCreatorSettings();
             settings.paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             settings.Edited += () =>
             {
                 redoShapes.Clear();
-                SetRedoAbility(false);
-                Redisplay();
+                this.SetRedoAbility(false);
+                this.Redisplay();
             };
             settings.Finished += (shape) =>
             {
                 if (shape != null) undrawnShapes.Add(shape);
-                Redisplay();
+                this.Redisplay();
             };
-
+            nRegularPolygon = 5;
             ChangeShapeCreator(EShapeCreator.Freehand);
 
-            this.Redisplay = update;
-            this.SetUndoAbility = setUndoAbility;
-            this.SetRedoAbility = setRedoAbility;
-            setUndoAbility(false);
-            setRedoAbility(false);
+            this.Redisplay = Redisplay;
+            this.SetUndoAbility = SetUndoAbility;
+            this.SetRedoAbility = SetRedoAbility;
+            SetUndoAbility(false);
+            SetRedoAbility(false);
         }
 
         public void DealWithLayoutChange(DPoint<External> realsize)
@@ -102,7 +104,7 @@ namespace handhack
                     shapeCreator = new RectangleCreator();
                     break;
                 case EShapeCreator.RegularPolygon:
-                    shapeCreator = new RegularPolygonCreator(5);
+                    shapeCreator = new RegularPolygonCreator(nRegularPolygon);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid EShapeCreator for ChangeShapeCreator");
@@ -112,6 +114,10 @@ namespace handhack
         public void ResetShapeCreator()
         {
             ChangeShapeCreator(eShapeCreator);
+        }
+        public void ResetShapeCreator(EShapeCreator eShapeCreator)
+        {
+            if(this.eShapeCreator == eShapeCreator) ChangeShapeCreator(eShapeCreator);
         }
 
         public XDocument GetSvg()
