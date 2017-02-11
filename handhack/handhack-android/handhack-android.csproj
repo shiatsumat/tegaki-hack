@@ -75,7 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic-Android\Drawdata-Android.cs" />
     <Compile Include="Logic-Android\Shape-Android.cs" />
-    <Compile Include="Views\Editcanvas.cs" />
+    <Compile Include="Views\DrawableView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -87,7 +87,6 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
       <Link>Resources\drawable\Arc.png</Link>
@@ -167,6 +166,9 @@
     <AndroidResource Include="..\handhack-shared\Resources\drawable\Undo.png">
       <Link>Resources\drawable\Undo.png</Link>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Save.png" />
   </ItemGroup>
   <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

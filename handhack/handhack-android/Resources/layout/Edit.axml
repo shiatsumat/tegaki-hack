@@ -43,8 +43,22 @@
             android:layout_height="@android:dimen/app_icon_size"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
+        <ImageButton
+            android:id="@+id/Oval"
+            android:src="@drawable/Oval"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+      <ImageButton
+          android:id="@+id/Save"
+          android:src="@drawable/Save"
+          android:layout_width="@android:dimen/app_icon_size"
+          android:layout_height="@android:dimen/app_icon_size"
+          android:adjustViewBounds="true"
+          android:scaleType="fitCenter" />
     </LinearLayout>
-    <handhack.Editcanvas
+    <handhack.DrawableView
         android:id="@+id/Editcanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

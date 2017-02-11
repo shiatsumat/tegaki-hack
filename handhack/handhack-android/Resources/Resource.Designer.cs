@@ -84,13 +84,16 @@ namespace handhack
 			public const int Roundsquare = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int Square = 2130837517;
+			public const int Save = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int Text = 2130837518;
+			public const int Square = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int Undo = 2130837519;
+			public const int Text = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int Undo = 2130837520;
 			
 			static Drawable()
 			{
@@ -108,8 +111,8 @@ namespace handhack
 			// aapt resource value: 0x7f040005
 			public const int Circle = 2130968581;
 			
-			// aapt resource value: 0x7f040006
-			public const int Editcanvas = 2130968582;
+			// aapt resource value: 0x7f040008
+			public const int Editcanvas = 2130968584;
 			
 			// aapt resource value: 0x7f040003
 			public const int Freehand = 2130968579;
@@ -117,11 +120,17 @@ namespace handhack
 			// aapt resource value: 0x7f040004
 			public const int Line = 2130968580;
 			
+			// aapt resource value: 0x7f040006
+			public const int Oval = 2130968582;
+			
 			// aapt resource value: 0x7f040002
 			public const int Redo = 2130968578;
 			
 			// aapt resource value: 0x7f040007
-			public const int Startedit = 2130968583;
+			public const int Save = 2130968583;
+			
+			// aapt resource value: 0x7f040009
+			public const int Startedit = 2130968585;
 			
 			// aapt resource value: 0x7f040000
 			public const int Toolbar = 2130968576;

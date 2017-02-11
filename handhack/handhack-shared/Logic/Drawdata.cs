@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
 namespace handhack
@@ -32,9 +31,9 @@ namespace handhack
             this.r = r; this.g = g; this.b = b; this.a = a;
         }
 
-        public override string ToString()
+        public string RgbaFunctionString()
         {
-            return string.Format("#{0:X}", rgba);
+            return string.Format("rgba({0},{1},{2},{3})", r, g, b, a / 255.0f);
         }
     }
 
@@ -81,9 +80,9 @@ namespace handhack
         public static XElement AddSvg(this XElement element, Paint paint, Transform<Internal, External> transform)
         {
             element.Add(
-                new XAttribute("stroke-color", paint.strokecolor.ToString()),
-                new XAttribute("stroke", paint.strokewidth.Value(transform).ToString()),
-                new XAttribute("fill-color", paint.fillcolor.ToString()),
+                new XAttribute("stroke", paint.strokecolor.RgbaFunctionString()),
+                new XAttribute("stroke-width", paint.strokewidth.Value(transform).ToString()),
+                new XAttribute("fill", paint.fillcolor.RgbaFunctionString()),
                 new XAttribute("stroke-linecap", paint.strokelinecap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", paint.strokelinejoin.ToString().ToLower()));
             return element;

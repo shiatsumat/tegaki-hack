@@ -1,28 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using static handhack.UtilStatic;
 
 namespace handhack
 {
-    public enum ShapeCreator { Freehand, Line, Circle }
+    public enum ShapeCreator { Freehand, Line, Circle, Oval }
 
     public enum Touchevent { Down, Move, Up }
 
-    public partial class Editor : IDrawable
+    public partial class Editor
     {
         public DPoint<Internal> size;
-        public float width { get { return size.dx; } set { size.dx = value; } }
-        public Size<Internal> Width { get { return new Size<Internal>(width); } set { width = value.value; } }
-        public float height { get { return size.dy; } set { size.dy = value; } }
-        public Size<Internal> Height { get { return new Size<Internal>(height); } set { height = value.value; } }
+        public DPoint<External> realsize;
+        Transform<Internal, External> transform;
         List<IShape> drawnShapes, undrawnShapes, redoShapes;
         public Paint paint, gridpaint;
         AShapeCreator shapeCreator;
         ShapeCreator shapeCreatorId;
         IShape grid;
 
-        public Action update;
-        public BoolAction setUndoAbility, setRedoAbility;
+        public Action Redisplay;
+        public BoolAction SetUndoAbility, SetRedoAbility;
 
         public Editor(DPoint<Internal> size, Action update, BoolAction setUndoAbility, BoolAction setRedoAbility)
         {
@@ -35,11 +34,20 @@ namespace handhack
 
             ChangeShapeCreator(ShapeCreator.Freehand);
 
-            this.update = update;
-            this.setUndoAbility = setUndoAbility;
-            this.setRedoAbility = setRedoAbility;
+            this.Redisplay = update;
+            this.SetUndoAbility = setUndoAbility;
+            this.SetRedoAbility = setRedoAbility;
             setUndoAbility(false);
             setRedoAbility(false);
+        }
+
+        public void DealWithLayoutChange(DPoint<External> realsize)
+        {
+            this.realsize = realsize;
+            transform.scale = realsize.dx / size.dx;
+
+            ResetSecondCanvas();
+            Redisplay();
         }
 
         public void Undo()
@@ -47,12 +55,9 @@ namespace handhack
             if (drawnShapes.Count > 0 && undrawnShapes.Count == 0)
             {
                 redoShapes.Add(drawnShapes.Pop());
-                setRedoAbility(true);
-                setUndoAbility(drawnShapes.Count > 0);
-                undrawnShapes = drawnShapes;
-                drawnShapes = new List<IShape>();
+                SetRedoAbility(true);
                 ResetSecondCanvas();
-                Update();
+                Redisplay();
             }
             else throw new InvalidOperationException("Editor Not Undoable!");
         }
@@ -61,34 +66,17 @@ namespace handhack
             if (redoShapes.Count > 0)
             {
                 undrawnShapes.Add(redoShapes.Pop());
-                setRedoAbility(redoShapes.Count > 0);
-                Update();
+                SetRedoAbility(redoShapes.Count > 0);
+                Redisplay();
             }
             else throw new InvalidOperationException("Editor Not Redoable!");
         }
-        public void Touch(Touchevent touchevent, Point<Internal> p)
+        public void Touch(Touchevent touchevent, Point<External> p)
         {
             if (shapeCreator != null)
             {
-                shapeCreator.Touch(touchevent, p);
+                shapeCreator.Touch(touchevent, p.Untransform(transform));
             }
-        }
-        public void Update()
-        {
-            update();
-        }
-        void SetGrid()
-        {
-            var shapes = new List<IShape>();
-            for (float x = 0; x <= width; x++)
-            {
-                shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(x, 0), new Point<Internal>(x, height))));
-            }
-            for (float y = 0; y <= height; y++)
-            {
-                shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(0, y), new Point<Internal>(width, y))));
-            }
-            grid = new ShapeGroup(shapes.ToArray());
         }
 
         public void ChangeShapeCreator(ShapeCreator shapeCreatorId)
@@ -109,21 +97,77 @@ namespace handhack
                 default:
                     break;
             }
-            shapeCreator.edited += () =>
+            shapeCreator.Edited += () =>
             {
                 redoShapes.Clear();
-                setRedoAbility(false);
-                Update();
+                SetRedoAbility(false);
+                Redisplay();
             };
-            shapeCreator.finish += () =>
+            shapeCreator.finished += (shape) =>
             {
-                if (shapeCreator.shape != null) undrawnShapes.Add(shapeCreator.shape);
-                Update();
+                if (shape != null) undrawnShapes.Add(shape);
+                Redisplay();
             };
         }
         public void ResetShapeCreator()
         {
             ChangeShapeCreator(shapeCreatorId);
+        }
+
+        public XDocument GetSvg()
+        {
+            var shapes = new List<IShape>();
+            shapes.AddRange(drawnShapes);
+            shapes.AddRange(undrawnShapes);
+            var svg = new XElement("svg",
+                new XAttribute("viewbox", string.Format("0 0 {0} {1}", realsize.dx, realsize.dy)));
+            foreach (var shape in shapes)
+            {
+                svg.AddSvg(shape, transform);
+            }
+            return new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                svg);
+        }
+
+        void MoveUndrawnShapesToDrawn()
+        {
+            if (undrawnShapes.Count > 0)
+            {
+                SetUndoAbility(true);
+                if (drawnShapes.Count > 0)
+                {
+                    drawnShapes.AddRange(undrawnShapes);
+                    undrawnShapes.Clear();
+                }
+                else
+                {
+                    drawnShapes = undrawnShapes;
+                    undrawnShapes = new List<IShape>();
+                }
+            }
+        }
+        void MoveDrawnShapesToUndrawn()
+        {
+            if (drawnShapes.Count > 0)
+            {
+                drawnShapes.AddRange(undrawnShapes);
+                undrawnShapes = drawnShapes;
+                drawnShapes = new List<IShape>();
+            }
+        }
+        void SetGrid()
+        {
+            var shapes = new List<IShape>();
+            for (float x = 0; x <= size.dx; x++)
+            {
+                shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));
+            }
+            for (float y = 0; y <= size.dy; y++)
+            {
+                shapes.Add(new Polyline(gridpaint, newList(new Point<Internal>(0, y), new Point<Internal>(size.dx, y))));
+            }
+            grid = new ShapeGroup(shapes.ToArray());
         }
     }
 }

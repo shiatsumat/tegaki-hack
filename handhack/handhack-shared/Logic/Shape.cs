@@ -65,12 +65,12 @@ namespace handhack
             if (points.Count >= 2)
             {
                 var dString = "";
-                dString += string.Format("M {0}", startPoint);
-                for (int i = 1; closed ? i < points.Count : i < points.Count + 1; i++)
+                dString += string.Format("M {0}", startPoint.Transform(transform));
+                for (int i = 1; closed ? i < points.Count + 1 : i < points.Count; i++)
                 {
                     if (!bezier)
                     {
-                        dString += string.Format("L {0}", points.LoopGet(i).Transform(transform));
+                        dString += string.Format(" L {0}", points.LoopGet(i).Transform(transform));
                     }
                     else
                     {
@@ -85,7 +85,7 @@ namespace handhack
                         var conT = InterpolateCon(p0, p1, p2, p3).Transform(transform);
                         var trolT = InterpolateTrol(p0, p1, p2, p3).Transform(transform);
                         var toT = p2.Transform(transform);
-                        dString += string.Format("C {0} {1} {2}", conT, trolT, toT);
+                        dString += string.Format(" C {0} {1} {2}", conT, trolT, toT);
                     }
                 }
                 element.Add(new XElement("path",
@@ -186,7 +186,7 @@ namespace handhack
             var dString = string.Format("M {0} A {1} 0 {2} 0 {3}", startPoint.Transform(transform), radii.Transform(transform), sweepAngle >= 180 ? 1 : 0, endPoint.Transform(transform));
             if (useCenter)
             {
-                dString += string.Format("L {0} L {1}", center, startPoint);
+                dString += string.Format(" L {0} L {1}", center, startPoint);
             }
             element.Add(new XElement("path",
                 new XAttribute("d", dString)));

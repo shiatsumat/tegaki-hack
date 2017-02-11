@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Android.Graphics;
 using static handhack.UtilStatic;
 
 namespace handhack
 {
-    public abstract partial class AShapeCreator
+    public delegate void ShapeAction(IShape shape);
+
+    public abstract partial class AShapeCreator : IDrawable
     {
         public Paint paint;
-        public IShape shape;
-        public Action edited, finish;
+        protected IShape shape;
+        public Action Edited;
+        public ShapeAction finished;
         public bool working;
 
         public AShapeCreator(Paint paint)
@@ -28,12 +32,17 @@ namespace handhack
         }
         public virtual void Finish()
         {
-            finish();
+            finished(shape);
             Init();
         }
         public virtual void Bye()
         {
-            finish();
+            finished(shape);
+        }
+
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
+        {
+            if (shape != null) canvas.Draw(shape, transform);
         }
     }
     public partial class FreehandCreator : AShapeCreator
@@ -66,7 +75,7 @@ namespace handhack
             var points = ((Polyline)shape).points;
             if (points.Count > 0 && points[points.Count - 1].distance(p) < 1e-4) return;
             points.Add(p);
-            edited();
+            Edited();
         }
     }
     public partial class LineCreator : AShapeCreator
@@ -97,12 +106,12 @@ namespace handhack
         void ChangeFrom(Point<Internal> p)
         {
             ((Polyline)shape).points[0] = p;
-            edited();
+            Edited();
         }
         void ChangeTo(Point<Internal> p)
         {
             ((Polyline)shape).points[1] = p;
-            edited();
+            Edited();
         }
     }
     public partial class CircleCreator : AShapeCreator
@@ -133,13 +142,13 @@ namespace handhack
         void ChangeFrom(Point<Internal> p)
         {
             ((Oval)shape).center = p;
-            edited();
+            Edited();
         }
         void ChangeTo(Point<Internal> p)
         {
             var r = ((Oval)shape).center.distance(p);
             ((Oval)shape).radii = new DPoint<Internal>(r, r);
-            edited();
+            Edited();
         }
     }
 }

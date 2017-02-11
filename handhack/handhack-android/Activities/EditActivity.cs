@@ -1,30 +1,37 @@
-using Android.App;
+using System.IO;
 using Android.OS;
+using Android.App;
 using Android.Widget;
 using Android.Views;
+using Android.Content.Res;
+using NativeColor = Android.Graphics.Color;
 
 namespace handhack
 {
     [Activity(Label = "EditActivity", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
     public class EditActivity : Activity
     {
-        Editcanvas editcanvas;
-        ImageButton undoButton, redoButton;
+        DrawableView editcanvas;
+        ImageButton undoButton, redoButton, saveButton;
+        ImageButton freehandButton, lineButton, circleButton, ovalButton;
+        ImageButton[] shapeButtons;
         Editor editor;
-        Transform<Internal, External> transform;
-        ImageButton freehandButton, lineButton, circleButton;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Edit);
-            editcanvas = FindViewById<Editcanvas>(Resource.Id.Editcanvas);
+            editcanvas = FindViewById<DrawableView>(Resource.Id.Editcanvas);
             undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
+            redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
+            saveButton = FindViewById<ImageButton>(Resource.Id.Save);
             freehandButton = FindViewById<ImageButton>(Resource.Id.Freehand);
             lineButton = FindViewById<ImageButton>(Resource.Id.Line);
             circleButton = FindViewById<ImageButton>(Resource.Id.Circle);
+            ovalButton = FindViewById<ImageButton>(Resource.Id.Oval);
+            shapeButtons = new ImageButton[] { freehandButton, lineButton, circleButton, ovalButton };
             editor = new Editor(new DPoint<Internal>(30, 30),
                 () => { editcanvas.Invalidate(); },
                 (b) => { undoButton.Enabled = b; },
@@ -32,8 +39,7 @@ namespace handhack
 
             editcanvas.Touch += (o, e) =>
             {
-                transform.scale = editcanvas.Height / 30.0f;
-                var p = new Point<External>(e.Event.GetX(), e.Event.GetY()).Untransform(transform);
+                var p = new Point<External>(e.Event.GetX(), e.Event.GetY());
                 switch (e.Event.Action & MotionEventActions.Mask)
                 {
                     case MotionEventActions.Down:
@@ -47,17 +53,41 @@ namespace handhack
                         break;
                 }
             };
-            editcanvas.onDraw += (canvas) =>
+            editcanvas.LayoutChange += (o, e) =>
             {
-                transform.scale = editcanvas.Height / 30.0f;
-                canvas.Draw(editor, transform);
+                editor.DealWithLayoutChange(new DPoint<External>(editcanvas.Width, editcanvas.Height));
+            };
+            editcanvas.Drawing += (canvas) =>
+            {
+                editor.Draw(canvas);
             };
             undoButton.Click += (o, e) => editor.Undo();
             redoButton.Click += (o, e) => editor.Redo();
+            saveButton.Click += (o, e) =>
+            {
+                var writer = new StringWriter();
+                var svgdoc = editor.GetSvg();
+                svgdoc.Save(writer);
+                System.Diagnostics.Debug.Write(writer.ToString());
+            };
 
-            freehandButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Freehand); };
-            lineButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Line); };
-            circleButton.Click += (o, e) => { editor.ChangeShapeCreator(ShapeCreator.Circle); };
+            freehandButton.Click += (o, e) => { SetActiveShapeButton(freehandButton); editor.ChangeShapeCreator(ShapeCreator.Freehand); };
+            lineButton.Click += (o, e) => { SetActiveShapeButton(lineButton); editor.ChangeShapeCreator(ShapeCreator.Line); };
+            circleButton.Click += (o, e) => { SetActiveShapeButton(circleButton); editor.ChangeShapeCreator(ShapeCreator.Circle); };
+            ovalButton.Click += (o, e) => { SetActiveShapeButton(ovalButton); editor.ChangeShapeCreator(ShapeCreator.Oval); };
+            SetActiveShapeButton(freehandButton);
+        }
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+        void SetActiveShapeButton(ImageButton activeShapeButton)
+        {
+            foreach (var shapeButton in shapeButtons)
+            {
+                shapeButton.BackgroundTintList = shapeButton != activeShapeButton ? null :
+                    ColorStateList.ValueOf(NativeColor.Orange);
+            }
         }
     }
 }
