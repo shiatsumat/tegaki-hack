@@ -1,5 +1,6 @@
 using System;
 using System.Xml.Linq;
+using static handhack.UtilStatic;
 
 namespace handhack
 {
@@ -244,7 +245,7 @@ namespace handhack
             var dpq = p.distance(q);
             var dqr = q.distance(r);
             var s = dpq + dqr;
-            var t = s < 1e-6 ? 0 : 0.5f * dqr / s;
+            var t = s < EPS ? 0 : 0.5f * dqr / s;
             var smooth_value = 1.0f;
             return q + smooth_value * t * (r - p);
         }

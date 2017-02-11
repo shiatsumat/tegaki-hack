@@ -90,10 +90,13 @@ namespace handhack
 			public const int Square = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int Text = 2130837519;
+			public const int Strict = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int Undo = 2130837520;
+			public const int Text = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int Undo = 2130837521;
 			
 			static Drawable()
 			{
@@ -108,32 +111,38 @@ namespace handhack
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040005
-			public const int Circle = 2130968581;
-			
-			// aapt resource value: 0x7f040008
-			public const int Editcanvas = 2130968584;
-			
-			// aapt resource value: 0x7f040003
-			public const int Freehand = 2130968579;
-			
-			// aapt resource value: 0x7f040004
-			public const int Line = 2130968580;
+			// aapt resource value: 0x7f04000a
+			public const int Editcanvas = 2130968586;
 			
 			// aapt resource value: 0x7f040006
-			public const int Oval = 2130968582;
+			public const int Freehand = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int Line = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int Oval = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int Rectangle = 2130968585;
 			
 			// aapt resource value: 0x7f040002
 			public const int Redo = 2130968578;
 			
-			// aapt resource value: 0x7f040007
-			public const int Save = 2130968583;
+			// aapt resource value: 0x7f040003
+			public const int Save = 2130968579;
 			
-			// aapt resource value: 0x7f040009
-			public const int Startedit = 2130968585;
+			// aapt resource value: 0x7f04000b
+			public const int Startedit = 2130968587;
+			
+			// aapt resource value: 0x7f040004
+			public const int Strict = 2130968580;
 			
 			// aapt resource value: 0x7f040000
 			public const int Toolbar = 2130968576;
+			
+			// aapt resource value: 0x7f040005
+			public const int Toolbar2 = 2130968581;
 			
 			// aapt resource value: 0x7f040001
 			public const int Undo = 2130968577;

@@ -1,9 +1,16 @@
 ﻿using System.Collections.Generic;
+using static System.Math;
 
 namespace handhack
 {
-    public static class UtilStatic
+    public static partial class UtilStatic
     {
+        public const float EPS = 1e-4f;
+        public static float ToAbs(this float oldvalue, float value)
+        {
+            if (oldvalue > 0) return Abs(value);
+            else return -Abs(value);
+        }
         public static int LoopIndex<T>(this List<T> list, int index)
         {
             return index < 0 ? index % list.Count : -((-index) % list.Count);

@@ -11,10 +11,10 @@ namespace handhack
     [Activity(Label = "EditActivity", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
     public class EditActivity : Activity
     {
-        DrawableView editcanvas;
+        ExtensibleView editcanvas;
         ImageButton undoButton, redoButton, saveButton;
-        ImageButton freehandButton, lineButton, circleButton, ovalButton;
         ImageButton[] shapeButtons;
+        ImageButton strictButton;
         Editor editor;
 
         protected override void OnCreate(Bundle bundle)
@@ -22,16 +22,32 @@ namespace handhack
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Edit);
-            editcanvas = FindViewById<DrawableView>(Resource.Id.Editcanvas);
+            editcanvas = FindViewById<ExtensibleView>(Resource.Id.Editcanvas);
             undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             saveButton = FindViewById<ImageButton>(Resource.Id.Save);
-            freehandButton = FindViewById<ImageButton>(Resource.Id.Freehand);
-            lineButton = FindViewById<ImageButton>(Resource.Id.Line);
-            circleButton = FindViewById<ImageButton>(Resource.Id.Circle);
-            ovalButton = FindViewById<ImageButton>(Resource.Id.Oval);
-            shapeButtons = new ImageButton[] { freehandButton, lineButton, circleButton, ovalButton };
+            strictButton = FindViewById<ImageButton>(Resource.Id.Strict);
+            shapeButtons = new ImageButton[] {
+                FindViewById<ImageButton>(Resource.Id.Freehand),
+                FindViewById<ImageButton>(Resource.Id.Line),
+                FindViewById<ImageButton>(Resource.Id.Oval),
+                FindViewById<ImageButton>(Resource.Id.Rectangle)
+            };
+            for (var i = 0; i < shapeButtons.Length; i++)
+            {
+                var _i = i;
+                shapeButtons[_i].Click += (o, e) =>
+                {
+                    SetActiveShapeButton(shapeButtons[_i]);
+                    editor.ChangeShapeCreator((EShapeCreator)_i);
+                };
+            }
+            strictButton.Click += (o, e) =>
+            {
+                editor.strict= !editor.strict;
+                strictButton.Activate(editor.strict);
+            };
             editor = new Editor(new DPoint<Internal>(30, 30),
                 () => { editcanvas.Invalidate(); },
                 (b) => { undoButton.Enabled = b; },
@@ -70,12 +86,7 @@ namespace handhack
                 svgdoc.Save(writer);
                 System.Diagnostics.Debug.Write(writer.ToString());
             };
-
-            freehandButton.Click += (o, e) => { SetActiveShapeButton(freehandButton); editor.ChangeShapeCreator(ShapeCreator.Freehand); };
-            lineButton.Click += (o, e) => { SetActiveShapeButton(lineButton); editor.ChangeShapeCreator(ShapeCreator.Line); };
-            circleButton.Click += (o, e) => { SetActiveShapeButton(circleButton); editor.ChangeShapeCreator(ShapeCreator.Circle); };
-            ovalButton.Click += (o, e) => { SetActiveShapeButton(ovalButton); editor.ChangeShapeCreator(ShapeCreator.Oval); };
-            SetActiveShapeButton(freehandButton);
+            SetActiveShapeButton(shapeButtons[0]);
         }
         protected override void OnDestroy()
         {
@@ -85,8 +96,7 @@ namespace handhack
         {
             foreach (var shapeButton in shapeButtons)
             {
-                shapeButton.BackgroundTintList = shapeButton != activeShapeButton ? null :
-                    ColorStateList.ValueOf(NativeColor.Orange);
+                shapeButton.Activate(shapeButton == activeShapeButton);
             }
         }
     }

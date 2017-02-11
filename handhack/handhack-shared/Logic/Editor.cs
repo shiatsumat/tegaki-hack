@@ -5,7 +5,7 @@ using static handhack.UtilStatic;
 
 namespace handhack
 {
-    public enum ShapeCreator { Freehand, Line, Circle, Oval }
+    public enum EShapeCreator { Freehand, Line, Oval, Rectangle }
 
     public enum Touchevent { Down, Move, Up }
 
@@ -13,11 +13,13 @@ namespace handhack
     {
         public DPoint<Internal> size;
         public DPoint<External> realsize;
+        bool _strict;
+        public bool strict { get { return _strict; } set { _strict = value; if (shapeCreator != null) shapeCreator.strict = value; } }
         Transform<Internal, External> transform;
         List<IShape> drawnShapes, undrawnShapes, redoShapes;
         public Paint paint, gridpaint;
         AShapeCreator shapeCreator;
-        ShapeCreator shapeCreatorId;
+        EShapeCreator eShapeCreator;
         IShape grid;
 
         public Action Redisplay;
@@ -31,8 +33,9 @@ namespace handhack
             redoShapes = new List<IShape>();
             paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             gridpaint = new Paint(new Color(0xf5f5f5ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
+            strict = false;
 
-            ChangeShapeCreator(ShapeCreator.Freehand);
+            ChangeShapeCreator(EShapeCreator.Freehand);
 
             this.Redisplay = update;
             this.SetUndoAbility = setUndoAbility;
@@ -76,28 +79,29 @@ namespace handhack
             shapeCreator?.Touch(touchevent, p.Untransform(transform));
         }
 
-        public void ChangeShapeCreator(ShapeCreator shapeCreatorId)
+        public void ChangeShapeCreator(EShapeCreator eShapeCreator)
         {
-            shapeCreator?.Cleanup();
-            this.shapeCreatorId = shapeCreatorId;
-            switch (shapeCreatorId)
+            shapeCreator?.Bye();
+            this.eShapeCreator = eShapeCreator;
+            switch (eShapeCreator)
             {
-                case ShapeCreator.Freehand:
+                case EShapeCreator.Freehand:
                     shapeCreator = new FreehandCreator();
                     break;
-                case ShapeCreator.Line:
+                case EShapeCreator.Line:
                     shapeCreator = new LineCreator();
                     break;
-                case ShapeCreator.Circle:
-                    shapeCreator = new CircleCreator();
-                    break;
-                case ShapeCreator.Oval:
+                case EShapeCreator.Oval:
                     shapeCreator = new OvalCreator();
                     break;
-                default:
+                case EShapeCreator.Rectangle:
+                    shapeCreator = new RectangleCreator();
                     break;
+                default:
+                    throw new InvalidOperationException("Invalid EShapeCreator for ChangeShapeCreator");
             }
             shapeCreator.paint = paint;
+            shapeCreator.strict = strict;
             shapeCreator.Edited += () =>
             {
                 redoShapes.Clear();
@@ -112,7 +116,7 @@ namespace handhack
         }
         public void ResetShapeCreator()
         {
-            ChangeShapeCreator(shapeCreatorId);
+            ChangeShapeCreator(eShapeCreator);
         }
 
         public XDocument GetSvg()

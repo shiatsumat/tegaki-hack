@@ -9,14 +9,16 @@ namespace handhack
     public abstract partial class AShapeCreator
     {
         public Paint paint;
-        protected bool dragging;
-        Point<Internal> prev;
+        public bool strict;
         public Action Edited;
         public Action<IShape> Finished;
+        protected bool dragging;
+        Point<Internal> prev;
 
         public AShapeCreator()
         {
             dragging = false;
+            strict = false;
             Init();
         }
         public virtual void Touch(Touchevent touchevent, Point<Internal> p)
@@ -24,6 +26,9 @@ namespace handhack
             switch (touchevent)
             {
                 case Touchevent.Down:
+                    if (dragging) { EndDrag(); }
+                    dragging = true;
+                    prev = p;
                     StartDrag(p);
                     break;
                 case Touchevent.Move:
@@ -33,12 +38,13 @@ namespace handhack
                         prev = p;
                         StartDrag(p);
                     }
-                    else if (prev.distance(p) > 1e-4) MoveDrag(p);
+                    else if (prev.distance(p) > EPS) MoveDrag(p);
                     break;
                 case Touchevent.Up:
                     if (dragging)
                     {
-                        if (prev.distance(p) > 1e-4) MoveDrag(p);
+                        if (prev.distance(p) > EPS) MoveDrag(p);
+                        dragging = false;
                         EndDrag();
                     }
                     break;
@@ -62,13 +68,11 @@ namespace handhack
             Finished(Finish());
             Edited();
         }
-
     }
     public partial class FreehandCreator : AShapeCreator
     {
         Polyline polyline;
 
-        public FreehandCreator() { }
         protected override void Init()
         {
             polyline = null;
@@ -99,7 +103,6 @@ namespace handhack
     {
         Polyline polyline;
 
-        public LineCreator() { }
         protected override void Init()
         {
             polyline = null;
@@ -114,7 +117,20 @@ namespace handhack
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            polyline.points[1] = p;
+            if (!strict) polyline.points[1] = p;
+            else
+            {
+                var from = polyline.points[0];
+                var v = p - from;
+                var unit = 15.0f;
+                if (v.norm < EPS) polyline.points[1] = from;
+                else
+                {
+                    var polar = Complex.Polar((float)Round(v.arg / unit) * unit, 1);
+                    var polar2 = polar * ((Abs(v.dx) > Abs(v.dy)) ? v.dx / polar.re : v.dy / polar.im);
+                    polyline.points[1] = from + new DPoint<Internal>(polar2);
+                }
+            }
             Edited();
         }
         protected override void EndDrag()
@@ -126,11 +142,10 @@ namespace handhack
             polyline?.Draw(canvas, transform);
         }
     }
-    public partial class CircleCreator : AShapeCreator
+    public partial class OvalCreator : AShapeCreator
     {
         Oval oval;
 
-        public CircleCreator() { }
         protected override void Init()
         {
             oval = null;
@@ -145,8 +160,16 @@ namespace handhack
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            var r = oval.center.distance(p);
-            oval.radii = new DPoint<Internal>(r, r);
+            if (strict)
+            {
+                var r = oval.center.distance(p);
+                oval.radii = new DPoint<Internal>(r, r);
+            }
+            else
+            {
+                var v = p - oval.center;
+                oval.radii = v * (float)Sqrt(2);
+            }
             Edited();
         }
         protected override void EndDrag()
@@ -158,27 +181,36 @@ namespace handhack
             oval?.Draw(canvas, transform);
         }
     }
-    public partial class OvalCreator : AShapeCreator
+    public partial class RectangleCreator : AShapeCreator
     {
-        Oval oval;
+        Polyline polyline;
+        Point<Internal> from, to;
 
-        public OvalCreator() { }
         protected override void Init()
         {
-            oval = null;
+            polyline = null;
         }
         protected override IShape Finish()
         {
-            return oval;
+            return polyline;
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            oval = new Oval(paint, p, default(DPoint<Internal>));
+            from = to = p;
+            polyline = new Polyline(paint, newList(p, p, p, p), false, true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            var v = p - oval.center;
-            oval.radii = v * (float)Sqrt(2);
+            if (!strict) to = p;
+            else
+            {
+                var v = p - from;
+                float l = Max(Abs(v.dx), Abs(v.dy));
+                to = from + new DPoint<Internal>(v.dx.ToAbs(l), v.dy.ToAbs(l));
+            }
+            polyline.points[1] = new Point<Internal>(from.x, to.y);
+            polyline.points[2] = to;
+            polyline.points[3] = new Point<Internal>(to.x, from.y);
             Edited();
         }
         protected override void EndDrag()
@@ -187,7 +219,48 @@ namespace handhack
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            oval?.Draw(canvas, transform);
+            polyline?.Draw(canvas, transform);
+        }
+    }
+    public partial class RegularPolygonCreator : AShapeCreator
+    {
+        Polyline polyline;
+        Point<Internal> from, to;
+
+        protected override void Init()
+        {
+            polyline = null;
+        }
+        protected override IShape Finish()
+        {
+            return polyline;
+        }
+        protected override void StartDrag(Point<Internal> p)
+        {
+            from = to = p;
+            polyline = new Polyline(paint, newList(p, p, p, p), false, true);
+        }
+        protected override void MoveDrag(Point<Internal> p)
+        {
+            if (!strict) to = p;
+            else
+            {
+                var v = p - from;
+                float l = Max(Abs(v.dx), Abs(v.dy));
+                to = from + new DPoint<Internal>(v.dx.ToAbs(l), v.dy.ToAbs(l));
+            }
+            polyline.points[1] = new Point<Internal>(from.x, to.y);
+            polyline.points[2] = to;
+            polyline.points[3] = new Point<Internal>(to.x, from.y);
+            Edited();
+        }
+        protected override void EndDrag()
+        {
+            Cleanup();
+        }
+        public override void Draw(Canvas canvas, Transform<Internal, External> transform)
+        {
+            polyline?.Draw(canvas, transform);
         }
     }
 }

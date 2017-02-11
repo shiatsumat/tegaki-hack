@@ -18,6 +18,6 @@ namespace handhack
 
             starteditButton.Click += (o, e) => { StartActivity(typeof(EditActivity)); };
 		}
-	}
+    }
 }
 
