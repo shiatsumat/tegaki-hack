@@ -44,7 +44,7 @@ namespace handhack
         public Color strokeColor, fillColor;
         public SizeEither strokeWidth;
         Linecap _strokeLinecap;
-        public Linecap strokeLinecap
+        public Linecap linecap
         {
             get { return _strokeLinecap; }
             set
@@ -54,7 +54,7 @@ namespace handhack
             }
         }
         Linejoin _strokeLinejoin;
-        public Linejoin strokeLinejoin
+        public Linejoin linejoin
         {
             get { return _strokeLinejoin; }
             set
@@ -68,11 +68,11 @@ namespace handhack
             Linecap strokelinecap = Linecap.Butt, Linejoin strokelinejoin = Linejoin.Miter)
         {
             this.strokeColor = strokecolor; this.strokeWidth = strokewidth; this.fillColor = fillcolor;
-            this.strokeLinecap = strokelinecap; this.strokeLinejoin = strokelinejoin;
+            this.linecap = strokelinecap; this.linejoin = strokelinejoin;
         }
         public Paint(Paint paint)
             : this(paint.strokeColor, paint.strokeWidth, paint.fillColor,
-                  paint.strokeLinecap, paint.strokeLinejoin)
+                  paint.linecap, paint.linejoin)
         { }
     }
     public static partial class PaintStatic
@@ -83,8 +83,8 @@ namespace handhack
                 new XAttribute("stroke", paint.strokeColor.RgbaFunctionString()),
                 new XAttribute("stroke-width", paint.strokeWidth.Value(transform).ToString()),
                 new XAttribute("fill", paint.fillColor.RgbaFunctionString()),
-                new XAttribute("stroke-linecap", paint.strokeLinecap.ToString().ToLower()),
-                new XAttribute("stroke-linejoin", paint.strokeLinejoin.ToString().ToLower()));
+                new XAttribute("stroke-linecap", paint.linecap.ToString().ToLower()),
+                new XAttribute("stroke-linejoin", paint.linejoin.ToString().ToLower()));
             return element;
         }
     }

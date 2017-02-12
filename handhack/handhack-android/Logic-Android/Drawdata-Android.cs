@@ -22,7 +22,7 @@ namespace handhack
             res.SetStyle(NativePaint.Style.Stroke);
             res.Color = strokeColor.native;
             res.StrokeWidth = strokeWidth.Value(transform);
-            switch (strokeLinecap)
+            switch (linecap)
             {
                 case Linecap.Butt:
                     res.StrokeCap = NativePaint.Cap.Butt;
@@ -34,7 +34,7 @@ namespace handhack
                     res.StrokeCap = NativePaint.Cap.Square;
                     break;
             }
-            switch (strokeLinejoin)
+            switch (linejoin)
             {
                 case Linejoin.Miter:
                     res.StrokeJoin = NativePaint.Join.Miter;

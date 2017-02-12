@@ -115,12 +115,12 @@ namespace handhack
                     if (numberPicker.Value != editor.settings.nRegularPolygon)
                     {
                         editor.settings.nRegularPolygon = numberPicker.Value;
-                        editor.ResetShapeCreator(EShapeCreator.RegularPolygon);
                     }
                 });
                 var dialog = dialogBuilder.Create();
                 shapeButtons[4].LongClick += (o, e) =>
                 {
+                    editor.ResetShapeCreator(EShapeCreator.RegularPolygon);
                     numberPicker.Value = editor.settings.nRegularPolygon;
                     dialog.Show();
                 };
@@ -142,10 +142,7 @@ namespace handhack
                 rightAngleDivision.WrapSelectorWheel = false;
                 dialogBuilder.SetPositiveButton("OK", (s, a) =>
                 {
-                    if (rightAngleDivision.Value != editor.settings.nRegularPolygon)
-                    {
-                        editor.settings.rightAngleDivision = rightAngleDivision.Value;
-                    }
+                    editor.settings.rightAngleDivision = rightAngleDivision.Value;
                 });
                 var dialog = dialogBuilder.Create();
                 strictModeButton.LongClick += (o, e) =>
@@ -157,10 +154,12 @@ namespace handhack
             {
                 var view = LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
                 var dialogBuilder = new AlertDialog.Builder(this);
+                var strokeColor = view.FindViewById<ColorPicker>(Resource.Id.StrokeColor);
                 var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
                 var strokeWidthCent = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCent);
-                var strokeLinecap = view.FindViewById<Spinner>(Resource.Id.StrokeLinecap);
-                var strokeLinejoin = view.FindViewById<Spinner>(Resource.Id.StrokeLinejoin);
+                var fillColor = view.FindViewById<ColorPicker>(Resource.Id.FillColor);
+                var linecap = view.FindViewById<Spinner>(Resource.Id.Linecap);
+                var linejoin = view.FindViewById<Spinner>(Resource.Id.Linejoin);
                 dialogBuilder.SetTitle(Resource.String.PaintOptions);
                 dialogBuilder.SetView(view);
                 strokeWidthCent.MinValue = 1;
@@ -168,18 +167,22 @@ namespace handhack
                 strokeWidthCent.WrapSelectorWheel = false;
                 dialogBuilder.SetPositiveButton("OK", (s, a) =>
                 {
+                    editor.settings.paint.strokeColor = strokeColor.color;
                     editor.settings.paint.strokeWidth = new SizeEither(strokeWidthCent.Value / 100.0f, strokeWidthPers.SelectedItemPosition == 0);
-                    editor.settings.paint.strokeLinecap = (Linecap)strokeLinecap.SelectedItemPosition;
-                    editor.settings.paint.strokeLinejoin = (Linejoin)strokeLinejoin.SelectedItemPosition;
-                    editor.ResetShapeCreator();
+                    editor.settings.paint.fillColor = fillColor.color;
+                    editor.settings.paint.linecap = (Linecap)linecap.SelectedItemPosition;
+                    editor.settings.paint.linejoin = (Linejoin)linejoin.SelectedItemPosition;
                 });
                 var dialog = dialogBuilder.Create();
-                paintButton.LongClick += (o, e) =>
+                paintButton.Click += (o, e) =>
                 {
+                    editor.ResetShapeCreator();
+                    strokeColor.color = editor.settings.paint.strokeColor;
                     strokeWidthPers.SetSelection(editor.settings.paint.strokeWidth.isInternal ? 0 : 1);
                     strokeWidthCent.Value = (int)Round(editor.settings.paint.strokeWidth.value * 100.0f);
-                    strokeLinecap.SetSelection((int)editor.settings.paint.strokeLinecap);
-                    strokeLinejoin.SetSelection((int)editor.settings.paint.strokeLinejoin);
+                    fillColor.color = editor.settings.paint.fillColor;
+                    linecap.SetSelection((int)editor.settings.paint.linecap);
+                    linejoin.SetSelection((int)editor.settings.paint.linejoin);
                     dialog.Show();
                 };
             }

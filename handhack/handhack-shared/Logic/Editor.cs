@@ -26,19 +26,16 @@ namespace handhack
             undrawnShapes = new List<IShape>();
             redoShapes = new List<IShape>();
 
-            settings = new ShapeCreatorSettings();
-            settings.paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
-            settings.Edited += () =>
+            settings = new ShapeCreatorSettings(() =>
             {
                 redoShapes.Clear();
                 this.SetRedoAbility(false);
                 this.Redisplay();
-            };
-            settings.Finished += (shape) =>
+            }, (shape) =>
             {
                 if (shape != null) undrawnShapes.Add(shape);
                 this.Redisplay();
-            };
+            });
             ChangeShapeCreator(EShapeCreator.Freehand);
 
             this.Redisplay = Redisplay;
@@ -85,7 +82,7 @@ namespace handhack
 
         void ChangeShapeCreator(EShapeCreator eShapeCreator)
         {
-            shapeCreator?.Bye();
+            shapeCreator?.Cleanup();
             this.eShapeCreator = eShapeCreator;
             switch (eShapeCreator)
             {
@@ -119,7 +116,7 @@ namespace handhack
         }
         public void ResetShapeCreator(EShapeCreator eShapeCreator)
         {
-            if(this.eShapeCreator == eShapeCreator) ChangeShapeCreator(eShapeCreator);
+            if (this.eShapeCreator == eShapeCreator) ChangeShapeCreator(eShapeCreator);
         }
 
         public XDocument GetSvg()

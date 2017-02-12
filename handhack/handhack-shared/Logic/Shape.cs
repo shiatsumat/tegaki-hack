@@ -68,7 +68,7 @@ namespace handhack
             {
                 var dString = "";
                 dString += string.Format("M {0}", startPoint.Transform(transform));
-                for (int i = 1; i < (!closed ? points.Count : points.Count + 1); i++)
+                for (int i = 1; i < (!(closed && !bezier) ? points.Count : points.Count + 1); i++)
                 {
                     if (!bezier)
                     {
@@ -90,6 +90,7 @@ namespace handhack
                         dString += string.Format(" C {0} {1} {2}", conT, trolT, toT);
                     }
                 }
+                if (closed) dString += " Z";
                 element.Add(new XElement(svgName("path"),
                     new XAttribute("d", dString))
                     .AddSvg(paint, transform));

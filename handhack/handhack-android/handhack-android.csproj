@@ -78,8 +78,9 @@
     <Compile Include="Logic-Android\Util-Android.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\Edit.axml" />
+    <AndroidResource Include="Resources\layout\Edit.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\PaintDialog.axml" />
     <AndroidResource Include="Resources\layout\RegularPolygonDialog.axml" />
     <AndroidResource Include="Resources\layout\Start.axml" />
@@ -88,10 +89,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Rectangle.png">
-      <Link>Resources\drawable\Rectangle.png</Link>
+    <AndroidResource Include="Resources\layout\ColorPicker.axml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -163,11 +162,17 @@
   <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\values\strings.xml">
       <Link>Resources\values\strings.xml</Link>
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\values-ja\strings-ja.xml">
       <Link>Resources\values-ja\strings-ja.xml</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Rectangle.png">
+      <Link>Resources\drawable\Rectangle.png</Link>
     </AndroidResource>
   </ItemGroup>
   <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />

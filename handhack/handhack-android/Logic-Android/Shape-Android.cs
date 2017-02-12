@@ -23,7 +23,7 @@ namespace handhack
                 var path = new Path();
                 var startt = startPoint.Transform(transform);
                 path.MoveTo(startt.x, startt.y);
-                for (int i = 1; i < (!closed ? points.Count : points.Count + 1); i++)
+                for (int i = 1; i < (closed && bezier ? points.Count + 1 : points.Count); i++)
                 {
                     if (!bezier)
                     {
@@ -46,6 +46,7 @@ namespace handhack
                         path.CubicTo(conT.x, conT.y, trolT.x, trolT.y, toT.x, toT.y);
                     }
                 }
+                if (closed) path.Close();
                 canvas.DrawPath(path, paint.strokePaint(transform));
                 canvas.DrawPath(path, paint.fillPaint(transform));
             }

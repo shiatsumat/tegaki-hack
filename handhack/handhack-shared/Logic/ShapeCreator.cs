@@ -18,11 +18,14 @@ namespace handhack
         public Action Edited;
         public Action<IShape> Finished;
 
-        public ShapeCreatorSettings()
+        public ShapeCreatorSettings(Action Edited, Action<IShape> Finished)
         {
+            paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             strictMode = false;
             rightAngleDivision = 6;
-            nRegularPolygon = 5;
+            nRegularPolygon = 3;
+            this.Edited = Edited;
+            this.Finished = Finished;
         }
     }
 
@@ -35,7 +38,6 @@ namespace handhack
         public AShapeCreator()
         {
             dragging = false;
-            Init();
         }
         public virtual void Touch(Touchevent touchevent, Point<Internal> p)
         {
@@ -66,7 +68,6 @@ namespace handhack
                     break;
             }
         }
-        protected abstract void Init();
         protected abstract IShape Finish();
         protected abstract void StartDrag(Point<Internal> p);
         protected abstract void MoveDrag(Point<Internal> p);
@@ -77,22 +78,12 @@ namespace handhack
             settings.Finished(Finish());
             settings.Edited();
             dragging = false;
-            Init();
-        }
-        public void Bye()
-        {
-            settings.Finished(Finish());
-            settings.Edited();
         }
     }
     public partial class FreehandCreator : AShapeCreator
     {
         Polyline polyline;
 
-        protected override void Init()
-        {
-            polyline = null;
-        }
         protected override IShape Finish()
         {
             return polyline;
@@ -119,10 +110,6 @@ namespace handhack
     {
         Polyline polyline;
 
-        protected override void Init()
-        {
-            polyline = null;
-        }
         protected override IShape Finish()
         {
             return polyline;
@@ -149,10 +136,6 @@ namespace handhack
     {
         Oval oval;
 
-        protected override void Init()
-        {
-            oval = null;
-        }
         protected override IShape Finish()
         {
             return oval;
@@ -188,10 +171,6 @@ namespace handhack
     {
         Polyline polyline;
 
-        protected override void Init()
-        {
-            polyline = null;
-        }
         protected override IShape Finish()
         {
             return polyline;
@@ -222,10 +201,7 @@ namespace handhack
     public partial class RegularPolygonCreator : AShapeCreator
     {
         Polyline polyline;
-        protected override void Init()
-        {
-            polyline = null;
-        }
+
         protected override IShape Finish()
         {
             return polyline;
