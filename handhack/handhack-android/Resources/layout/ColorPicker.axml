@@ -10,71 +10,94 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="30dp">
+            android:layout_height="wrap_content"
+            android:paddingRight="5pt"
+            android:layout_gravity="center">
+            <TextView
+                android:text=""
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#000000" />
+            <View
+                android:id="@+id/ColorIndicator"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/simpleoval"
+                android:backgroundTint="#808080" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
             <TextView
                 android:text="R"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
-        <NumberPicker
-            android:id="@+id/R"
+                android:layout_gravity="center"
+                android:textColor="#FF0000" />
+            <NumberPicker
+                android:id="@+id/R"
+                android:layout_width="40dp"
+                android:layout_height="120dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="120dp" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="30dp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
             <TextView
                 android:text="G"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
-        <NumberPicker
-            android:id="@+id/G"
+                android:layout_gravity="center"
+                android:textColor="#00FF00" />
+            <NumberPicker
+                android:id="@+id/G"
+                android:layout_width="40dp"
+                android:layout_height="120dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="120dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="30dp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
             <TextView
                 android:text="B"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
-        <NumberPicker
-            android:id="@+id/B"
+                android:layout_gravity="center"
+                android:textColor="#0000FF" />
+            <NumberPicker
+                android:id="@+id/B"
+                android:layout_width="40dp"
+                android:layout_height="120dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="120dp" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="30dp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
             <TextView
                 android:text="A"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
-        <NumberPicker
-            android:id="@+id/A"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp" />
+                android:layout_gravity="center"
+                android:textColor="#808080" />
+            <NumberPicker
+                android:id="@+id/A"
+                android:layout_width="40dp"
+                android:layout_height="120dp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

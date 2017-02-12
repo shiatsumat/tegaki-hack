@@ -39,40 +39,52 @@ namespace handhack
 
     public enum Linecap { Butt, Round, Square }
     public enum Linejoin { Miter, Round, Bevel }
+    public enum FillRule { EvenOdd, Nonzero }
     public partial class Paint
     {
-        public Color strokeColor, fillColor;
+        public Color strokeColor;
         public SizeEither strokeWidth;
-        Linecap _strokeLinecap;
+        public Color fillColor;
+        Linecap _linecap;
         public Linecap linecap
         {
-            get { return _strokeLinecap; }
+            get { return _linecap; }
             set
             {
                 if (value < 0 || 3 <= (int)value) throw new InvalidOperationException("invalid strokelinecap for Paint");
-                _strokeLinecap = value;
+                _linecap = value;
             }
         }
-        Linejoin _strokeLinejoin;
+        Linejoin _linejoin;
         public Linejoin linejoin
         {
-            get { return _strokeLinejoin; }
+            get { return _linejoin; }
             set
             {
                 if (value < 0 || 3 <= (int)value) throw new InvalidOperationException("invalid strokelinejoin for Paint");
-                _strokeLinejoin = value;
+                _linejoin = value;
+            }
+        }
+        FillRule _fillRule;
+        public FillRule fillRule
+        {
+            get { return _fillRule; }
+            set
+            {
+                if (value < 0 || 2 <= (int)value) throw new InvalidOperationException("invalid strokelinejoin for Paint");
+                _fillRule = value;
             }
         }
 
         public Paint(Color strokecolor, SizeEither strokewidth, Color fillcolor = default(Color),
-            Linecap strokelinecap = Linecap.Butt, Linejoin strokelinejoin = Linejoin.Miter)
+            Linecap linecap = Linecap.Butt, Linejoin linejoin = Linejoin.Miter, FillRule fillRule = FillRule.EvenOdd)
         {
             this.strokeColor = strokecolor; this.strokeWidth = strokewidth; this.fillColor = fillcolor;
-            this.linecap = strokelinecap; this.linejoin = strokelinejoin;
+            this.linecap = linecap; this.linejoin = linejoin; this.fillRule = fillRule;
         }
         public Paint(Paint paint)
             : this(paint.strokeColor, paint.strokeWidth, paint.fillColor,
-                  paint.linecap, paint.linejoin)
+                  paint.linecap, paint.linejoin, paint.fillRule)
         { }
     }
     public static partial class PaintStatic
@@ -84,7 +96,8 @@ namespace handhack
                 new XAttribute("stroke-width", paint.strokeWidth.Value(transform).ToString()),
                 new XAttribute("fill", paint.fillColor.RgbaFunctionString()),
                 new XAttribute("stroke-linecap", paint.linecap.ToString().ToLower()),
-                new XAttribute("stroke-linejoin", paint.linejoin.ToString().ToLower()));
+                new XAttribute("stroke-linejoin", paint.linejoin.ToString().ToLower()),
+                new XAttribute("fill-rule", paint.fillRule.ToString().ToLower()));
             return element;
         }
     }

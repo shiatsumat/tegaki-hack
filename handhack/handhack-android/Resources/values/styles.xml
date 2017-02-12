@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+  <style name="CustomTheme" parent="android:Theme.Holo.Light.NoActionBar">
+    <item name="android:spinnerStyle">@style/spinnerStyle</item>
+    <item name="android:spinnerDropDownItemStyle">@style/spinnerDropDownItemStyle</item>
+  </style>
+  <style name="spinnerStyle" parent="android:Widget.Holo.Light.Spinner">
+    <item name="android:gravity">center</item>
+  </style>
+  <style name="spinnerDropDownItemStyle" parent="android:Widget.Holo.Light.DropDownItem.Spinner">
+    <item name="android:gravity">center</item>
+  </style>
+</resources>

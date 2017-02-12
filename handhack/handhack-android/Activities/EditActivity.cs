@@ -2,12 +2,13 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using System.Collections.Generic;
 using System.IO;
 using static System.Math;
 
 namespace handhack
 {
-    [Activity(Label = "EditActivity", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
+    [Activity(Label = "EditActivity", Theme = "@style/CustomTheme")]
     public class EditActivity : Activity
     {
         ExtensibleView editcanvas;
@@ -22,10 +23,12 @@ namespace handhack
 
             SetContentView(Resource.Layout.Edit);
             editcanvas = FindViewById<ExtensibleView>(Resource.Id.Editcanvas);
+
             undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             saveButton = FindViewById<ImageButton>(Resource.Id.Save);
+
             shapeButtons = new ImageButton[] {
                 FindViewById<ImageButton>(Resource.Id.Freehand),
                 FindViewById<ImageButton>(Resource.Id.Line),
@@ -160,10 +163,17 @@ namespace handhack
                 var fillColor = view.FindViewById<ColorPicker>(Resource.Id.FillColor);
                 var linecap = view.FindViewById<Spinner>(Resource.Id.Linecap);
                 var linejoin = view.FindViewById<Spinner>(Resource.Id.Linejoin);
+                var fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);
                 dialogBuilder.SetTitle(Resource.String.PaintOptions);
                 dialogBuilder.SetView(view);
                 strokeWidthCent.MinValue = 1;
                 strokeWidthCent.MaxValue = 10000;
+                var centstrings = new List<string>();
+                for(int i = strokeWidthCent.MinValue; i<= strokeWidthCent.MaxValue; i++)
+                {
+                    centstrings.Add(string.Format("{0:f2}", i / 100.0));
+                }
+                strokeWidthCent.SetDisplayedValues(centstrings.ToArray());
                 strokeWidthCent.WrapSelectorWheel = false;
                 dialogBuilder.SetPositiveButton("OK", (s, a) =>
                 {
@@ -172,10 +182,12 @@ namespace handhack
                     editor.settings.paint.fillColor = fillColor.color;
                     editor.settings.paint.linecap = (Linecap)linecap.SelectedItemPosition;
                     editor.settings.paint.linejoin = (Linejoin)linejoin.SelectedItemPosition;
+                    editor.settings.paint.fillRule = (FillRule)fillRule.SelectedItemPosition;
                 });
                 var dialog = dialogBuilder.Create();
                 paintButton.Click += (o, e) =>
                 {
+                    editor.settings.paint = new Paint(editor.settings.paint);
                     editor.ResetShapeCreator();
                     strokeColor.color = editor.settings.paint.strokeColor;
                     strokeWidthPers.SetSelection(editor.settings.paint.strokeWidth.isInternal ? 0 : 1);
@@ -183,6 +195,7 @@ namespace handhack
                     fillColor.color = editor.settings.paint.fillColor;
                     linecap.SetSelection((int)editor.settings.paint.linecap);
                     linejoin.SetSelection((int)editor.settings.paint.linejoin);
+                    fillRule.SetSelection((int)editor.settings.paint.fillRule);
                     dialog.Show();
                 };
             }

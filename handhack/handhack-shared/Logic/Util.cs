@@ -13,6 +13,14 @@ namespace handhack
             if (oldvalue > 0) return Abs(value);
             else return -Abs(value);
         }
+
+        public static T Nulling<T>(ref T x) where T : class
+        {
+            var temp = x;
+            x = null;
+            return temp;
+        }
+
         public static int LoopIndex<T>(this List<T> list, int index)
         {
             return index < 0 ? index % list.Count : -((-index) % list.Count);
@@ -35,6 +43,7 @@ namespace handhack
         {
             return new List<T>(ts);
         }
+
         public static string svgName(string name)
         {
             return "{http://www.w3.org/2000/svg}" + name;

@@ -4,7 +4,7 @@ using Android.OS;
 
 namespace handhack
 {
-    [Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
+    [Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/CustomTheme")]
 	public class StartActivity : Activity
 	{
 		Button starteditButton;

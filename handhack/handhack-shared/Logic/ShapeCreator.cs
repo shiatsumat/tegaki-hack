@@ -76,7 +76,6 @@ namespace handhack
         public void Cleanup()
         {
             settings.Finished(Finish());
-            settings.Edited();
             dragging = false;
         }
     }
@@ -86,7 +85,7 @@ namespace handhack
 
         protected override IShape Finish()
         {
-            return polyline;
+            return Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -112,7 +111,7 @@ namespace handhack
 
         protected override IShape Finish()
         {
-            return polyline;
+            return Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -138,7 +137,7 @@ namespace handhack
 
         protected override IShape Finish()
         {
-            return oval;
+            return Nulling(ref oval);
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -173,7 +172,7 @@ namespace handhack
 
         protected override IShape Finish()
         {
-            return polyline;
+            return Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -204,7 +203,7 @@ namespace handhack
 
         protected override IShape Finish()
         {
-            return polyline;
+            return Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {

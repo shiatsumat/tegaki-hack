@@ -16,16 +16,21 @@
   </string-array>
   <string name="FillColor">Fill Color</string>
   <string name="Linecap">Linecap</string>
-  <string name="Linejoin">Linejoin</string>
   <string-array name="Linecaps">
     <item>Butt</item>
     <item>Round</item>
     <item>Square</item>
   </string-array>
+  <string name="Linejoin">Linejoin</string>
   <string-array name="Linejoins">
     <item>Miter</item>
     <item>Round</item>
     <item>Bevel</item>
+  </string-array>
+  <string name="FillRule">Fill Rule</string>
+  <string-array name="FillRules">
+    <item>Even-Odd</item>
+    <item>Nonzero</item>
   </string-array>
 
 </resources>

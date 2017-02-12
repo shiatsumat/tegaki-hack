@@ -41,17 +41,6 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:text="x 0.01"
-                        android:textSize="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:layout_centerInParent="true" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
                     <Spinner
                         android:id="@+id/StrokeWidthPers"
                         android:layout_width="wrap_content"
@@ -97,6 +86,19 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:entries="@array/Linejoins" />
+          <TextView
+              android:text="@string/FillRule"
+              android:textSize="20dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center" />
+          <Spinner
+              android:id="@+id/FillRule"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="5dp"
+              android:entries="@array/FillRules" />
         </LinearLayout>
     </FrameLayout>
 </ScrollView>

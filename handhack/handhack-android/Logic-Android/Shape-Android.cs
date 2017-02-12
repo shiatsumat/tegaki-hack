@@ -21,6 +21,15 @@ namespace handhack
             if (points.Count >= 2)
             {
                 var path = new Path();
+                switch (paint.fillRule)
+                {
+                    case FillRule.EvenOdd:
+                        path.SetFillType(Path.FillType.EvenOdd);
+                        break;
+                    case FillRule.Nonzero:
+                        path.SetFillType(Path.FillType.Winding);
+                        break;
+                }
                 var startt = startPoint.Transform(transform);
                 path.MoveTo(startt.x, startt.y);
                 for (int i = 1; i < (closed && bezier ? points.Count + 1 : points.Count); i++)
@@ -47,8 +56,8 @@ namespace handhack
                     }
                 }
                 if (closed) path.Close();
-                canvas.DrawPath(path, paint.strokePaint(transform));
                 canvas.DrawPath(path, paint.fillPaint(transform));
+                canvas.DrawPath(path, paint.strokePaint(transform));
             }
         }
     }
@@ -59,8 +68,8 @@ namespace handhack
         {
             var p = center.Transform(transform);
             var r = radii.Transform(transform);
-            canvas.DrawOval(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, paint.strokePaint(transform));
             canvas.DrawOval(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, paint.fillPaint(transform));
+            canvas.DrawOval(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, paint.strokePaint(transform));
         }
     }
 
@@ -70,8 +79,8 @@ namespace handhack
         {
             var p = center.Transform(transform);
             var r = radii.Transform(transform);
-            canvas.DrawArc(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, startAngle, sweepAngle, useCenter, paint.strokePaint(transform));
             canvas.DrawArc(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, startAngle, sweepAngle, useCenter, paint.fillPaint(transform));
+            canvas.DrawArc(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, startAngle, sweepAngle, useCenter, paint.strokePaint(transform));
         }
     }
 }
