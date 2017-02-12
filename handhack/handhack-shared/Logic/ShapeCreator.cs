@@ -12,15 +12,17 @@ namespace handhack
     public partial class ShapeCreatorSettings
     {
         public Paint paint;
-        public bool strict;
-        public float angleUnit;
+        public bool strictMode;
+        public int rightAngleDivision;
+        public int nRegularPolygon;
         public Action Edited;
         public Action<IShape> Finished;
 
         public ShapeCreatorSettings()
         {
-            strict = false;
-            angleUnit = 15.0f;
+            strictMode = false;
+            rightAngleDivision = 6;
+            nRegularPolygon = 5;
         }
     }
 
@@ -131,7 +133,7 @@ namespace handhack
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            polyline.points[1] = !settings.strict ? p : StrictAngle(polyline.points[0], p, settings.angleUnit);
+            polyline.points[1] = !settings.strictMode ? p : StrictAngle(polyline.points[0], p, settings.rightAngleDivision);
             settings.Edited();
         }
         protected override void EndDrag()
@@ -161,7 +163,7 @@ namespace handhack
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            if (settings.strict)
+            if (settings.strictMode)
             {
                 var r = oval.center.distance(p);
                 oval.radii = new DPoint<Internal>(r, r);
@@ -201,7 +203,7 @@ namespace handhack
         protected override void MoveDrag(Point<Internal> p)
         {
             var from = polyline.points[0];
-            if (!settings.strict) polyline.points[2] = p;
+            if (!settings.strictMode) polyline.points[2] = p;
             else polyline.points[2] = StrictSquare(from, p);
             var to = polyline.points[2];
             polyline.points[1] = new Point<Internal>(from.x, to.y);
@@ -220,13 +222,6 @@ namespace handhack
     public partial class RegularPolygonCreator : AShapeCreator
     {
         Polyline polyline;
-        int n;
-
-        public RegularPolygonCreator(int n)
-        {
-            if (n < 3) throw new InvalidOperationException("n is smaller than 3 for RegularPolygonCreator");
-            this.n = n;
-        }
         protected override void Init()
         {
             polyline = null;
@@ -238,19 +233,19 @@ namespace handhack
         protected override void StartDrag(Point<Internal> p)
         {
             polyline = new Polyline(settings.paint, new List<Point<Internal>>(), true);
-            for (int i = 0; i < n; i++) polyline.points.Add(p);
+            for (int i = 0; i < settings.nRegularPolygon; i++) polyline.points.Add(p);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
             var from = polyline.points[0];
-            if (!settings.strict) polyline.points[1] = p;
-            else polyline.points[1] = StrictAngle(from, p, settings.angleUnit);
-            for (int i = 2; i < n; i++)
+            if (!settings.strictMode) polyline.points[1] = p;
+            else polyline.points[1] = StrictAngle(from, p, settings.rightAngleDivision);
+            for (int i = 2; i < settings.nRegularPolygon; i++)
             {
                 var prev = polyline.points[i - 1];
                 var prev2 = polyline.points[i - 2];
                 var v = prev - prev2;
-                polyline.points[i] = prev + new DPoint<Internal>(Complex.Polar(v.arg - 360.0f / n, v.norm));
+                polyline.points[i] = prev + new DPoint<Internal>(Complex.Polar(v.arg - 360.0f / settings.nRegularPolygon, v.norm));
             }
             settings.Edited();
         }

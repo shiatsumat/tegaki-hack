@@ -6,13 +6,13 @@
     android:layout_gravity="center"
     android:padding="20dp">
     <TextView
-        android:text="@string/NVertices"
+        android:text="@string/RightAngleDivision"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
     <NumberPicker
-        android:id="@+id/NRegularPolygon"
+        android:id="@+id/RightAngleDivision"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

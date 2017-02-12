@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="RegularPolygonOptions">正多角形 オプション</string>
+  <string name="NVertices">頂点数</string>
+  <string name="StrictModeOptions">厳格モード オプション</string>
+  <string name="RightAngleDivision">直角の分割数</string>
+  <string name="PaintOptions">塗り オプション</string>
+  <string name="StrokeWidth">ストローク 幅</string>
+  <string-array name="Perses">
+    <item>グリッド</item>
+    <item>ピクセル</item>
+  </string-array>
+  <string name="StrokeLinecap">ストローク 端点</string>
+  <string name="StrokeLinejoin">ストローク 頂点</string>
+  <string-array name="Linecaps">
+    <item>無し</item>
+    <item>丸</item>
+    <item>四角</item>
+  </string-array>
+  <string-array name="Linejoins">
+    <item>鋭角</item>
+    <item>丸</item>
+    <item>面取り</item>
+  </string-array>
+</resources>

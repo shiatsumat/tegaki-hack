@@ -20,9 +20,9 @@ namespace handhack
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
-            res.Color = strokecolor.native;
-            res.StrokeWidth = strokewidth.Value(transform);
-            switch (strokelinecap)
+            res.Color = strokeColor.native;
+            res.StrokeWidth = strokeWidth.Value(transform);
+            switch (strokeLinecap)
             {
                 case Linecap.Butt:
                     res.StrokeCap = NativePaint.Cap.Butt;
@@ -34,7 +34,7 @@ namespace handhack
                     res.StrokeCap = NativePaint.Cap.Square;
                     break;
             }
-            switch (strokelinejoin)
+            switch (strokeLinejoin)
             {
                 case Linejoin.Miter:
                     res.StrokeJoin = NativePaint.Join.Miter;
@@ -52,7 +52,7 @@ namespace handhack
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Fill);
-            res.Color = fillcolor.native;
+            res.Color = fillColor.native;
             return res;
         }
     }

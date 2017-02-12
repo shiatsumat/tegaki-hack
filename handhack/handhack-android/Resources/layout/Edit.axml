@@ -86,8 +86,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true">
             <ImageButton
-                android:id="@+id/Strict"
-                android:src="@drawable/Strict"
+                android:id="@+id/StrictMode"
+                android:src="@drawable/StrictMode"
+                android:layout_width="@android:dimen/app_icon_size"
+                android:layout_height="@android:dimen/app_icon_size"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+            <ImageButton
+                android:id="@+id/Paint"
+                android:src="@drawable/Paint"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"

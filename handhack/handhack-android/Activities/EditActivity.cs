@@ -1,10 +1,9 @@
-using System.IO;
-using Android.OS;
 using Android.App;
-using Android.Widget;
+using Android.OS;
 using Android.Views;
-using Android.Content.Res;
-using NativeColor = Android.Graphics.Color;
+using Android.Widget;
+using System.IO;
+using static System.Math;
 
 namespace handhack
 {
@@ -14,7 +13,7 @@ namespace handhack
         ExtensibleView editcanvas;
         ImageButton undoButton, redoButton, saveButton;
         ImageButton[] shapeButtons;
-        ImageButton strictButton;
+        ImageButton strictModeButton, paintButton;
         Editor editor;
 
         protected override void OnCreate(Bundle bundle)
@@ -27,7 +26,6 @@ namespace handhack
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             saveButton = FindViewById<ImageButton>(Resource.Id.Save);
-            strictButton = FindViewById<ImageButton>(Resource.Id.Strict);
             shapeButtons = new ImageButton[] {
                 FindViewById<ImageButton>(Resource.Id.Freehand),
                 FindViewById<ImageButton>(Resource.Id.Line),
@@ -35,6 +33,8 @@ namespace handhack
                 FindViewById<ImageButton>(Resource.Id.Rectangle),
                 FindViewById<ImageButton>(Resource.Id.RegularPolygon)
             };
+            strictModeButton = FindViewById<ImageButton>(Resource.Id.StrictMode);
+            paintButton = FindViewById<ImageButton>(Resource.Id.Paint);
 
             editor = new Editor(new DPoint<Internal>(30, 30),
                 () => { editcanvas.Invalidate(); },
@@ -68,55 +68,13 @@ namespace handhack
 
             undoButton.Click += (o, e) => editor.Undo();
             redoButton.Click += (o, e) => editor.Redo();
-
-            SetActiveShapeButton(shapeButtons[0]);
-            for (var i = 0; i < shapeButtons.Length; i++)
-            {
-                var _i = i;
-                var eShapeCreator = (EShapeCreator)_i;
-                shapeButtons[_i].Click += (o, e) =>
-                {
-                    SetActiveShapeButton(shapeButtons[_i]);
-                    editor.ChangeShapeCreator(eShapeCreator);
-                };
-            }
-
-            strictButton.Click += (o, e) =>
-            {
-                editor.settings.strict = !editor.settings.strict;
-                strictButton.Activate(editor.settings.strict);
-            };
-
-            {
-                var view = LayoutInflater.Inflate(Resource.Layout.RegularPolygonDialog, null);
-                var dialogBuilder = new AlertDialog.Builder(this);
-                var numberPicker = view.FindViewById<NumberPicker>(Resource.Id.RegularPolygonDialogNumberPicker);
-                dialogBuilder.SetTitle("Regular Polygon Option");
-                dialogBuilder.SetView(view);
-                numberPicker.MinValue = 3;
-                numberPicker.MaxValue = 50;
-                numberPicker.WrapSelectorWheel = false;
-                dialogBuilder.SetPositiveButton("OK", (s, a) =>
-                {
-                    editor.nRegularPolygon = numberPicker.Value;
-                    editor.ResetShapeCreator(EShapeCreator.RegularPolygon);
-                });
-                var dialog = dialogBuilder.Create();
-                shapeButtons[4].LongClick += (o, e) =>
-                {
-                    var n = editor.nRegularPolygon;
-                    numberPicker.Value = n;
-                    dialog.Show();
-                };
-            }
-
             {
                 var view = LayoutInflater.Inflate(Resource.Layout.SvgDialog, null);
                 var dialogBuilder = new AlertDialog.Builder(this);
                 var text = view.FindViewById<TextView>(Resource.Id.SvgDialogText);
                 dialogBuilder.SetTitle("Svg Output");
                 dialogBuilder.SetView(view);
-                dialogBuilder.SetPositiveButton("OK", (s,a)=> { });
+                dialogBuilder.SetPositiveButton("OK", (s, a) => { });
                 var dialog = dialogBuilder.Create();
                 saveButton.Click += (o, e) =>
                 {
@@ -128,17 +86,107 @@ namespace handhack
                     System.Diagnostics.Debug.WriteLine(svgString);
                 };
             }
+
+            shapeButtons[0].Activate(true);
+            for (var i = 0; i < shapeButtons.Length; i++)
+            {
+                var _i = i;
+                var eShapeCreator = (EShapeCreator)_i;
+                shapeButtons[_i].Click += (o, e) =>
+                {
+                    foreach (var shapeButton in shapeButtons)
+                    {
+                        shapeButton.Activate(shapeButton == shapeButtons[_i]);
+                    }
+                    editor.SetShapeCreator(eShapeCreator);
+                };
+            }
+            {
+                var view = LayoutInflater.Inflate(Resource.Layout.RegularPolygonDialog, null);
+                var dialogBuilder = new AlertDialog.Builder(this);
+                var numberPicker = view.FindViewById<NumberPicker>(Resource.Id.NRegularPolygon);
+                dialogBuilder.SetTitle(Resource.String.RegularPolygonOptions);
+                dialogBuilder.SetView(view);
+                numberPicker.MinValue = 3;
+                numberPicker.MaxValue = 50;
+                numberPicker.WrapSelectorWheel = false;
+                dialogBuilder.SetPositiveButton("OK", (s, a) =>
+                {
+                    if (numberPicker.Value != editor.settings.nRegularPolygon)
+                    {
+                        editor.settings.nRegularPolygon = numberPicker.Value;
+                        editor.ResetShapeCreator(EShapeCreator.RegularPolygon);
+                    }
+                });
+                var dialog = dialogBuilder.Create();
+                shapeButtons[4].LongClick += (o, e) =>
+                {
+                    numberPicker.Value = editor.settings.nRegularPolygon;
+                    dialog.Show();
+                };
+            }
+
+            strictModeButton.Click += (o, e) =>
+            {
+                editor.settings.strictMode = !editor.settings.strictMode;
+                strictModeButton.Activate(editor.settings.strictMode);
+            };
+            {
+                var view = LayoutInflater.Inflate(Resource.Layout.StrictModeDialog, null);
+                var dialogBuilder = new AlertDialog.Builder(this);
+                var rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
+                dialogBuilder.SetTitle(Resource.String.StrictModeOptions);
+                dialogBuilder.SetView(view);
+                rightAngleDivision.MinValue = 1;
+                rightAngleDivision.MaxValue = 90;
+                rightAngleDivision.WrapSelectorWheel = false;
+                dialogBuilder.SetPositiveButton("OK", (s, a) =>
+                {
+                    if (rightAngleDivision.Value != editor.settings.nRegularPolygon)
+                    {
+                        editor.settings.rightAngleDivision = rightAngleDivision.Value;
+                    }
+                });
+                var dialog = dialogBuilder.Create();
+                strictModeButton.LongClick += (o, e) =>
+                {
+                    rightAngleDivision.Value = editor.settings.rightAngleDivision;
+                    dialog.Show();
+                };
+            }
+            {
+                var view = LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
+                var dialogBuilder = new AlertDialog.Builder(this);
+                var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
+                var strokeWidthCent = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCent);
+                var strokeLinecap = view.FindViewById<Spinner>(Resource.Id.StrokeLinecap);
+                var strokeLinejoin = view.FindViewById<Spinner>(Resource.Id.StrokeLinejoin);
+                dialogBuilder.SetTitle(Resource.String.PaintOptions);
+                dialogBuilder.SetView(view);
+                strokeWidthCent.MinValue = 1;
+                strokeWidthCent.MaxValue = 10000;
+                strokeWidthCent.WrapSelectorWheel = false;
+                dialogBuilder.SetPositiveButton("OK", (s, a) =>
+                {
+                    editor.settings.paint.strokeWidth = new SizeEither(strokeWidthCent.Value / 100.0f, strokeWidthPers.SelectedItemPosition == 0);
+                    editor.settings.paint.strokeLinecap = (Linecap)strokeLinecap.SelectedItemPosition;
+                    editor.settings.paint.strokeLinejoin = (Linejoin)strokeLinejoin.SelectedItemPosition;
+                    editor.ResetShapeCreator();
+                });
+                var dialog = dialogBuilder.Create();
+                paintButton.LongClick += (o, e) =>
+                {
+                    strokeWidthPers.SetSelection(editor.settings.paint.strokeWidth.isInternal ? 0 : 1);
+                    strokeWidthCent.Value = (int)Round(editor.settings.paint.strokeWidth.value * 100.0f);
+                    strokeLinecap.SetSelection((int)editor.settings.paint.strokeLinecap);
+                    strokeLinejoin.SetSelection((int)editor.settings.paint.strokeLinejoin);
+                    dialog.Show();
+                };
+            }
         }
         protected override void OnDestroy()
         {
             base.OnDestroy();
-        }
-        void SetActiveShapeButton(ImageButton activeShapeButton)
-        {
-            foreach (var shapeButton in shapeButtons)
-            {
-                shapeButton.Activate(shapeButton == activeShapeButton);
-            }
         }
     }
 }

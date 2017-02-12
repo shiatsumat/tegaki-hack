@@ -28,6 +28,28 @@ namespace handhack
 		{
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f050001
+			public const int Linecaps = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int Linejoins = 2131034114;
+			
+			// aapt resource value: 0x7f050000
+			public const int Perses = 2131034112;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -48,58 +70,46 @@ namespace handhack
 			public const int Arc = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Circle = 2130837505;
+			public const int Fancytext = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Fancytext = 2130837506;
+			public const int Freehand = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int Freehand = 2130837507;
+			public const int Icon = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int Goodline = 2130837508;
+			public const int Line = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int Icon = 2130837509;
+			public const int Logo = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int Line = 2130837510;
+			public const int Oval = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int Logo = 2130837511;
+			public const int Paint = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int Oval = 2130837512;
+			public const int Rectangle = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int Rectangle = 2130837513;
+			public const int Redo = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int Redo = 2130837514;
+			public const int RegularPolygon = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int RegularPolygon = 2130837515;
+			public const int Save = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int Roundrectangle = 2130837516;
+			public const int StrictMode = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int Roundsquare = 2130837517;
+			public const int Text = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int Save = 2130837518;
-			
-			// aapt resource value: 0x7f02000f
-			public const int Square = 2130837519;
-			
-			// aapt resource value: 0x7f020010
-			public const int Strict = 2130837520;
-			
-			// aapt resource value: 0x7f020011
-			public const int Text = 2130837521;
-			
-			// aapt resource value: 0x7f020012
-			public const int Undo = 2130837522;
+			public const int Undo = 2130837518;
 			
 			static Drawable()
 			{
@@ -114,44 +124,62 @@ namespace handhack
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040009
-			public const int Editcanvas = 2130968585;
+			// aapt resource value: 0x7f06000a
+			public const int Editcanvas = 2131099658;
 			
-			// aapt resource value: 0x7f040003
-			public const int Freehand = 2130968579;
+			// aapt resource value: 0x7f060003
+			public const int Freehand = 2131099651;
 			
-			// aapt resource value: 0x7f040004
-			public const int Line = 2130968580;
+			// aapt resource value: 0x7f060004
+			public const int Line = 2131099652;
 			
-			// aapt resource value: 0x7f040005
-			public const int Oval = 2130968581;
+			// aapt resource value: 0x7f06000f
+			public const int NRegularPolygon = 2131099663;
 			
-			// aapt resource value: 0x7f040006
-			public const int Rectangle = 2130968582;
+			// aapt resource value: 0x7f060005
+			public const int Oval = 2131099653;
 			
-			// aapt resource value: 0x7f040001
-			public const int Redo = 2130968577;
+			// aapt resource value: 0x7f060009
+			public const int Paint = 2131099657;
 			
-			// aapt resource value: 0x7f040007
-			public const int RegularPolygon = 2130968583;
+			// aapt resource value: 0x7f060006
+			public const int Rectangle = 2131099654;
 			
-			// aapt resource value: 0x7f04000a
-			public const int RegularPolygonDialogNumberPicker = 2130968586;
+			// aapt resource value: 0x7f060001
+			public const int Redo = 2131099649;
 			
-			// aapt resource value: 0x7f040002
-			public const int Save = 2130968578;
+			// aapt resource value: 0x7f060007
+			public const int RegularPolygon = 2131099655;
 			
-			// aapt resource value: 0x7f04000b
-			public const int Startedit = 2130968587;
+			// aapt resource value: 0x7f060011
+			public const int RightAngleDivision = 2131099665;
 			
-			// aapt resource value: 0x7f040008
-			public const int Strict = 2130968584;
+			// aapt resource value: 0x7f060002
+			public const int Save = 2131099650;
 			
-			// aapt resource value: 0x7f04000c
-			public const int SvgDialogText = 2130968588;
+			// aapt resource value: 0x7f060010
+			public const int Startedit = 2131099664;
 			
-			// aapt resource value: 0x7f040000
-			public const int Undo = 2130968576;
+			// aapt resource value: 0x7f060008
+			public const int StrictMode = 2131099656;
+			
+			// aapt resource value: 0x7f06000d
+			public const int StrokeLinecap = 2131099661;
+			
+			// aapt resource value: 0x7f06000e
+			public const int StrokeLinejoin = 2131099662;
+			
+			// aapt resource value: 0x7f06000b
+			public const int StrokeWidthCent = 2131099659;
+			
+			// aapt resource value: 0x7f06000c
+			public const int StrokeWidthPers = 2131099660;
+			
+			// aapt resource value: 0x7f060012
+			public const int SvgDialogText = 2131099666;
+			
+			// aapt resource value: 0x7f060000
+			public const int Undo = 2131099648;
 			
 			static Id()
 			{
@@ -170,13 +198,19 @@ namespace handhack
 			public const int Edit = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int RegularPolygonDialog = 2130903041;
+			public const int PaintDialog = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int Start = 2130903042;
+			public const int RegularPolygonDialog = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int SvgDialog = 2130903043;
+			public const int Start = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int StrictModeDialog = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int SvgDialog = 2130903045;
 			
 			static Layout()
 			{
@@ -184,6 +218,43 @@ namespace handhack
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class String
+		{
+			
+			// aapt resource value: 0x7f040001
+			public const int NVertices = 2130968577;
+			
+			// aapt resource value: 0x7f040004
+			public const int PaintOptions = 2130968580;
+			
+			// aapt resource value: 0x7f040000
+			public const int RegularPolygonOptions = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int RightAngleDivision = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int StrictModeOptions = 2130968578;
+			
+			// aapt resource value: 0x7f040006
+			public const int StrokeLinecap = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int StrokeLinejoin = 2130968583;
+			
+			// aapt resource value: 0x7f040005
+			public const int StrokeWidth = 2130968581;
+			
+			static String()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private String()
 			{
 			}
 		}

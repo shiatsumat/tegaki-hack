@@ -195,24 +195,24 @@ namespace handhack
 
     public partial struct SizeEither
     {
-        float _value;
-        bool _isInternal;
+        public float value;
+        public bool isInternal;
         public SizeEither(float value, bool isInternal)
         {
-            _value = value; _isInternal = isInternal;
+            this.value = value; this.isInternal = isInternal;
         }
         public SizeEither(Size<Internal> a)
         {
-            _value = a.value; _isInternal = true;
+            value = a.value; isInternal = true;
         }
         public SizeEither(Size<External> a)
         {
-            _value = a.value; _isInternal = false;
+            value = a.value; isInternal = false;
         }
         public float Value(Transform<Internal, External> transform)
         {
-            if (_isInternal) return _value * transform.scale;
-            else return _value;
+            if (isInternal) return value * transform.scale;
+            else return value;
         }
     }
 
@@ -258,8 +258,9 @@ namespace handhack
         {
             return InterpolateHelper(p3, p2, p1);
         }
-        public static Point<Pers> StrictAngle<Pers>(Point<Pers> from, Point<Pers> to, float angleUnit)
+        public static Point<Pers> StrictAngle<Pers>(Point<Pers> from, Point<Pers> to, int rightAngleDivision)
         {
+            var angleUnit = 90.0f / rightAngleDivision;
             var v = to - from;
             if (v.norm < EPS) return from;
             else

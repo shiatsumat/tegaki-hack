@@ -79,23 +79,49 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\Edit.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Edit.axml" />
+    <AndroidResource Include="Resources\layout\PaintDialog.axml" />
+    <AndroidResource Include="Resources\layout\RegularPolygonDialog.axml" />
     <AndroidResource Include="Resources\layout\Start.axml" />
-    <AndroidResource Include="Resources\layout\RegularPolygonDialog.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SvgDialog.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StrictModeDialog.axml" />
+    <AndroidResource Include="Resources\layout\SvgDialog.axml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Circle.png">
-      <Link>Resources\drawable\Circle.png</Link>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Rectangle.png">
+      <Link>Resources\drawable\Rectangle.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Redo.png">
+      <Link>Resources\drawable\Redo.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\RegularPolygon.png">
+      <Link>Resources\drawable\RegularPolygon.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Save.png">
+      <Link>Resources\drawable\Save.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Text.png">
+      <Link>Resources\drawable\Text.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Undo.png">
+      <Link>Resources\drawable\Undo.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
+      <Link>Resources\drawable\Arc.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -106,11 +132,6 @@
   <ItemGroup>
     <AndroidResource Include="..\handhack-shared\Resources\drawable\Freehand.png">
       <Link>Resources\drawable\Freehand.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Goodline.png">
-      <Link>Resources\drawable\Goodline.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -134,58 +155,19 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Rectangle.png">
-      <Link>Resources\drawable\Rectangle.png</Link>
+    <AndroidResource Include="Resources\drawable\Paint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\StrictMode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\values\strings.xml">
+      <Link>Resources\values\strings.xml</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Redo.png">
-      <Link>Resources\drawable\Redo.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Roundrectangle.png">
-      <Link>Resources\drawable\Roundrectangle.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Roundsquare.png">
-      <Link>Resources\drawable\Roundsquare.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Save.png">
-      <Link>Resources\drawable\Save.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Square.png">
-      <Link>Resources\drawable\Square.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Strict.png">
-      <Link>Resources\drawable\Strict.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Text.png">
-      <Link>Resources\drawable\Text.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Undo.png">
-      <Link>Resources\drawable\Undo.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
-      <Link>Resources\drawable\Arc.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\RegularPolygon.png">
-      <Link>Resources\drawable\RegularPolygon.png</Link>
+    <AndroidResource Include="..\handhack-shared\Resources\values-ja\strings-ja.xml">
+      <Link>Resources\values-ja\strings-ja.xml</Link>
     </AndroidResource>
   </ItemGroup>
   <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />

@@ -13,7 +13,6 @@ namespace handhack
         List<IShape> drawnShapes, undrawnShapes, redoShapes;
         EShapeCreator eShapeCreator;
         public ShapeCreatorSettings settings;
-        public int nRegularPolygon;
         AShapeCreator shapeCreator;
         IShape grid;
 
@@ -40,7 +39,6 @@ namespace handhack
                 if (shape != null) undrawnShapes.Add(shape);
                 this.Redisplay();
             };
-            nRegularPolygon = 5;
             ChangeShapeCreator(EShapeCreator.Freehand);
 
             this.Redisplay = Redisplay;
@@ -85,7 +83,7 @@ namespace handhack
             shapeCreator?.Touch(touchevent, p.Untransform(transform));
         }
 
-        public void ChangeShapeCreator(EShapeCreator eShapeCreator)
+        void ChangeShapeCreator(EShapeCreator eShapeCreator)
         {
             shapeCreator?.Bye();
             this.eShapeCreator = eShapeCreator;
@@ -104,12 +102,16 @@ namespace handhack
                     shapeCreator = new RectangleCreator();
                     break;
                 case EShapeCreator.RegularPolygon:
-                    shapeCreator = new RegularPolygonCreator(nRegularPolygon);
+                    shapeCreator = new RegularPolygonCreator();
                     break;
                 default:
                     throw new InvalidOperationException("Invalid EShapeCreator for ChangeShapeCreator");
             }
             shapeCreator.settings = settings;
+        }
+        public void SetShapeCreator(EShapeCreator eShapeCreator)
+        {
+            if (this.eShapeCreator != eShapeCreator) ChangeShapeCreator(eShapeCreator);
         }
         public void ResetShapeCreator()
         {

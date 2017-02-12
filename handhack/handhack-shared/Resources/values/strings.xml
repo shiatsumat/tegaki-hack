@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="RegularPolygonOptions">Regular Polygon Options</string>
+  <string name="NVertices">the number of vertices</string>
+  <string name="StrictModeOptions">Strict Mode Options</string>
+  <string name="RightAngleDivision">the division number of right angle</string>
+  <string name="PaintOptions">Paint Options</string>
+  <string name="StrokeWidth">Stroke Width</string>
+  <string-array name="Perses">
+    <item>Grids</item>
+    <item>Pixels</item>
+  </string-array>
+  <string name="StrokeLinecap">Stroke Linecap</string>
+  <string name="StrokeLinejoin">Stroke Linejoin</string>
+  <string-array name="Linecaps">
+    <item>Butt</item>
+    <item>Round</item>
+    <item>Square</item>
+  </string-array>
+  <string-array name="Linejoins">
+    <item>Miter</item>
+    <item>Round</item>
+    <item>Bevel</item>
+  </string-array>
+</resources>

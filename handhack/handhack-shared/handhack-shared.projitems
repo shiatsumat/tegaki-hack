@@ -15,7 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Math.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Shape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\ShapeCreator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logic\Usershape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Util.cs" />
   </ItemGroup>
 </Project>
