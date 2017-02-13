@@ -3,10 +3,10 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>801fc803-f322-43e9-9a3d-05b0933d809c</SharedGUID>
+    <SharedGUID>01909c34-87bd-41c3-9a2f-83ac485d7f56</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>handhack</Import_RootNamespace>
+    <Import_RootNamespace>tegaki_hack</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Drawdata.cs" />

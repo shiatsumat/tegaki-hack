@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("handhack.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("tegaki_hack.Resource", IsApplication=true)]
 
-namespace handhack
+namespace tegaki_hack
 {
 	
 	

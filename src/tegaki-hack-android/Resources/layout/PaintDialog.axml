@@ -23,7 +23,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                <handhack.ColorSetter
+                <tegaki_hack.ColorSetter
                     android:id="@+id/StrokeColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                <handhack.ColorSetter
+                <tegaki_hack.ColorSetter
                     android:id="@+id/FillColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

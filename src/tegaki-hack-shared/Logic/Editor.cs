@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using static handhack.UtilStatic;
+using static tegaki_hack.UtilStatic;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial class Editor
     {

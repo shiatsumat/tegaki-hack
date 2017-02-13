@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using static System.Math;
 
-namespace handhack
+namespace tegaki_hack
 {
     public enum Touchevent { Down, Move, Up }
 

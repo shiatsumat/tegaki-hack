@@ -1,7 +1,7 @@
 using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial class Editor
     {

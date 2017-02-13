@@ -2,7 +2,7 @@ using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
 using NativePaint = Android.Graphics.Paint;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial interface IShape
     {

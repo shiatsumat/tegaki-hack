@@ -101,7 +101,7 @@
                 android:scaleType="fitCenter" />
         </LinearLayout>
     </RelativeLayout>
-    <handhack.ExtensibleView
+    <tegaki_hack.ExtensibleView
         android:id="@+id/Editcanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

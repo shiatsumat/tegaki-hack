@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using static System.Math;
 
-namespace handhack
+namespace tegaki_hack
 {
     [Activity(Label = "EditActivity", Theme = "@style/CustomTheme")]
     public class EditActivity : Activity

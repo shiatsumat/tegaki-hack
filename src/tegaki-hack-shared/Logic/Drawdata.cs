@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Linq;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial struct Color
     {

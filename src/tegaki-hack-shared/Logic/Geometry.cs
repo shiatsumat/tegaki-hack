@@ -1,9 +1,9 @@
 using System;
 using System.Xml.Linq;
 using static System.Math;
-using static handhack.UtilStatic;
+using static tegaki_hack.UtilStatic;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial struct Point<Pers>
     {

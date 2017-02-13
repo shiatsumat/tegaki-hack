@@ -7,7 +7,7 @@ using Android.Widget;
 using System.Collections.Generic;
 using NativeColor = Android.Graphics.Color;
 
-namespace handhack
+namespace tegaki_hack
 {
     public delegate void CanvasDelegate(Canvas canvas);
 

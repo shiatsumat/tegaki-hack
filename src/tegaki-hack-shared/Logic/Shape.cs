@@ -2,10 +2,10 @@ using System;
 using System.Xml.Linq;
 using System.Collections.Generic;
 using static System.Math;
-using static handhack.GeometryStatic;
-using static handhack.UtilStatic;
+using static tegaki_hack.GeometryStatic;
+using static tegaki_hack.UtilStatic;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial interface IShape
     {

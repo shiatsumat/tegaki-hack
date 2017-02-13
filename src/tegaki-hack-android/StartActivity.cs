@@ -2,7 +2,7 @@
 using Android.Widget;
 using Android.OS;
 
-namespace handhack
+namespace tegaki_hack
 {
     [Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/CustomTheme")]
 	public class StartActivity : Activity

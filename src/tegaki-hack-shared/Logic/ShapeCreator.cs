@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using Android.Graphics;
 using static System.Math;
-using static handhack.GeometryStatic;
-using static handhack.UtilStatic;
+using static tegaki_hack.GeometryStatic;
+using static tegaki_hack.UtilStatic;
 
-namespace handhack
+namespace tegaki_hack
 {
     public enum EShapeCreator { Freehand, Line, Oval, Rectangle, RegularPolygon }
 

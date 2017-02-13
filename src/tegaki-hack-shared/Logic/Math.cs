@@ -1,6 +1,6 @@
 using static System.Math;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial struct Complex
 	{

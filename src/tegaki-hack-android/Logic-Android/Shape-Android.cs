@@ -1,7 +1,7 @@
 using Android.Graphics;
-using static handhack.GeometryStatic;
+using static tegaki_hack.GeometryStatic;
 
-namespace handhack
+namespace tegaki_hack
 {
     public partial class ShapeGroup : IShape
     {

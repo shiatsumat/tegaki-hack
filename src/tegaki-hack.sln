@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "tegaki-hack-shared", "tegaki-hack-shared\tegaki-hack-shared.shproj", "{01909C34-87BD-41C3-9A2F-83AC485D7F56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tegaki-hack-android", "tegaki-hack-android\tegaki-hack-android.csproj", "{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		tegaki-hack-shared\tegaki-hack-shared.projitems*{01909c34-87bd-41c3-9a2f-83ac485d7f56}*SharedItemsImports = 13
+		tegaki-hack-shared\tegaki-hack-shared.projitems*{947e9bdd-17be-4d8a-b0d5-99cedf1d68cf}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947E9BDD-17BE-4D8A-B0D5-99CEDF1D68CF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
