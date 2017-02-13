@@ -12,7 +12,7 @@ namespace handhack
     public partial class ShapeCreatorSettings
     {
         public Paint paint;
-        public bool strictMode;
+        public bool adjustment;
         public int rightAngleDivision;
         public int nRegularPolygon;
         public Action Edited;
@@ -21,7 +21,7 @@ namespace handhack
         public ShapeCreatorSettings(Action Edited, Action<IShape> Finished)
         {
             paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
-            strictMode = false;
+            adjustment = false;
             rightAngleDivision = 6;
             nRegularPolygon = 3;
             this.Edited = Edited;
@@ -119,7 +119,7 @@ namespace handhack
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            polyline.points[1] = !settings.strictMode ? p : StrictAngle(polyline.points[0], p, settings.rightAngleDivision);
+            polyline.points[1] = !settings.adjustment ? p : AdjustAngle(polyline.points[0], p, settings.rightAngleDivision);
             settings.Edited();
         }
         protected override void EndDrag()
@@ -145,7 +145,7 @@ namespace handhack
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            if (settings.strictMode)
+            if (settings.adjustment)
             {
                 var r = oval.center.distance(p);
                 oval.radii = new DPoint<Internal>(r, r);
@@ -181,8 +181,8 @@ namespace handhack
         protected override void MoveDrag(Point<Internal> p)
         {
             var from = polyline.points[0];
-            if (!settings.strictMode) polyline.points[2] = p;
-            else polyline.points[2] = StrictSquare(from, p);
+            if (!settings.adjustment) polyline.points[2] = p;
+            else polyline.points[2] = AdjustSquare(from, p);
             var to = polyline.points[2];
             polyline.points[1] = new Point<Internal>(from.x, to.y);
             polyline.points[3] = new Point<Internal>(to.x, from.y);
@@ -213,8 +213,8 @@ namespace handhack
         protected override void MoveDrag(Point<Internal> p)
         {
             var from = polyline.points[0];
-            if (!settings.strictMode) polyline.points[1] = p;
-            else polyline.points[1] = StrictAngle(from, p, settings.rightAngleDivision);
+            if (!settings.adjustment) polyline.points[1] = p;
+            else polyline.points[1] = AdjustAngle(from, p, settings.rightAngleDivision);
             for (int i = 2; i < settings.nRegularPolygon; i++)
             {
                 var prev = polyline.points[i - 1];

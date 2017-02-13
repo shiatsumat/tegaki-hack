@@ -6,7 +6,7 @@
   <string name="RegularPolygonOptions">正多角形のオプション</string>
   <string name="NVertices">頂点数</string>
 
-  <string name="StrictModeOptions">厳格モードのオプション</string>
+  <string name="AdjustmentOptions">調整のオプション</string>
   <string name="RightAngleDivision">直角の分割数</string>
 
   <string name="PaintOptions">描き方のオプション</string>

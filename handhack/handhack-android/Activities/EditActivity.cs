@@ -14,7 +14,7 @@ namespace handhack
         ExtensibleView editcanvas;
         ImageButton undoButton, redoButton, saveButton;
         ImageButton[] shapeButtons;
-        ImageButton strictModeButton, paintButton;
+        ImageButton adjustmentButton, paintButton;
         Editor editor;
 
         protected override void OnCreate(Bundle bundle)
@@ -26,7 +26,6 @@ namespace handhack
 
             undoButton = FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
-            redoButton = FindViewById<ImageButton>(Resource.Id.Redo);
             saveButton = FindViewById<ImageButton>(Resource.Id.Save);
 
             shapeButtons = new ImageButton[] {
@@ -36,7 +35,7 @@ namespace handhack
                 FindViewById<ImageButton>(Resource.Id.Rectangle),
                 FindViewById<ImageButton>(Resource.Id.RegularPolygon)
             };
-            strictModeButton = FindViewById<ImageButton>(Resource.Id.StrictMode);
+            adjustmentButton = FindViewById<ImageButton>(Resource.Id.Adjustment);
             paintButton = FindViewById<ImageButton>(Resource.Id.Paint);
 
             editor = new Editor(new DPoint<Internal>(30, 30),
@@ -129,16 +128,16 @@ namespace handhack
                 };
             }
 
-            strictModeButton.Click += (o, e) =>
+            adjustmentButton.Click += (o, e) =>
             {
-                editor.settings.strictMode = !editor.settings.strictMode;
-                strictModeButton.Activate(editor.settings.strictMode);
+                editor.settings.adjustment = !editor.settings.adjustment;
+                adjustmentButton.Activate(editor.settings.adjustment);
             };
             {
-                var view = LayoutInflater.Inflate(Resource.Layout.StrictModeDialog, null);
+                var view = LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
                 var dialogBuilder = new AlertDialog.Builder(this);
                 var rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
-                dialogBuilder.SetTitle(Resource.String.StrictModeOptions);
+                dialogBuilder.SetTitle(Resource.String.AdjustmentOptions);
                 dialogBuilder.SetView(view);
                 rightAngleDivision.MinValue = 1;
                 rightAngleDivision.MaxValue = 90;
@@ -148,7 +147,7 @@ namespace handhack
                     editor.settings.rightAngleDivision = rightAngleDivision.Value;
                 });
                 var dialog = dialogBuilder.Create();
-                strictModeButton.LongClick += (o, e) =>
+                adjustmentButton.LongClick += (o, e) =>
                 {
                     rightAngleDivision.Value = editor.settings.rightAngleDivision;
                     dialog.Show();
@@ -157,10 +156,10 @@ namespace handhack
             {
                 var view = LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
                 var dialogBuilder = new AlertDialog.Builder(this);
-                var strokeColor = view.FindViewById<ColorPicker>(Resource.Id.StrokeColor);
+                var strokeColor = view.FindViewById<ColorSetter>(Resource.Id.StrokeColor);
                 var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
                 var strokeWidthCent = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCent);
-                var fillColor = view.FindViewById<ColorPicker>(Resource.Id.FillColor);
+                var fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
                 var linecap = view.FindViewById<Spinner>(Resource.Id.Linecap);
                 var linejoin = view.FindViewById<Spinner>(Resource.Id.Linejoin);
                 var fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);

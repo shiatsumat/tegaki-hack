@@ -30,10 +30,11 @@ namespace handhack
         }
     }
 
-    public class ColorPicker : LinearLayout
+    public class ColorSetter : LinearLayout
     {
         public NumberPicker r, g, b, a;
-        public View colorIndicator;
+        public Button colorIndicator;
+
         public Color color
         {
             get { return new Color((byte)r.Value, (byte)g.Value, (byte)b.Value, (byte)a.Value); }
@@ -43,23 +44,23 @@ namespace handhack
             }
         }
 
-        public ColorPicker(Context context, IAttributeSet attrs) :
+        public ColorSetter(Context context, IAttributeSet attrs) :
             base(context, attrs)
         { Initialize(); }
 
-        public ColorPicker(Context context, IAttributeSet attrs, int defStyleAttr) :
+        public ColorSetter(Context context, IAttributeSet attrs, int defStyleAttr) :
                 base(context, attrs, defStyleAttr)
         { Initialize(); }
 
 
         void Initialize()
         {
-            Inflate(Context, Resource.Layout.ColorPicker, this);
+            Inflate(Context, Resource.Layout.ColorSetter, this);
             r = FindViewById<NumberPicker>(Resource.Id.R);
             b = FindViewById<NumberPicker>(Resource.Id.B);
             g = FindViewById<NumberPicker>(Resource.Id.G);
             a = FindViewById<NumberPicker>(Resource.Id.A);
-            colorIndicator = FindViewById<View>(Resource.Id.ColorIndicator);
+            colorIndicator = FindViewById<Button>(Resource.Id.ColorIndicator);
             r.MinValue = b.MinValue = g.MinValue = a.MinValue = 0;
             r.MaxValue = b.MaxValue = g.MaxValue = a.MaxValue = 255;
             var ffstrings = new List<string>();
@@ -76,6 +77,10 @@ namespace handhack
             b.ValueChanged += (o, e) => SetColorIndicator();
             g.ValueChanged += (o, e) => SetColorIndicator();
             a.ValueChanged += (o, e) => SetColorIndicator();
+            colorIndicator.Click += (o, e) =>
+            {
+                Toast.MakeText(this.Context, "color", ToastLength.Short).Show();
+            };
         }
 
         void SetColorIndicator()

@@ -258,7 +258,7 @@ namespace handhack
         {
             return InterpolateHelper(p3, p2, p1);
         }
-        public static Point<Pers> StrictAngle<Pers>(Point<Pers> from, Point<Pers> to, int rightAngleDivision)
+        public static Point<Pers> AdjustAngle<Pers>(Point<Pers> from, Point<Pers> to, int rightAngleDivision)
         {
             var angleUnit = 90.0f / rightAngleDivision;
             var v = to - from;
@@ -270,7 +270,7 @@ namespace handhack
                 return from + new DPoint<Pers>(polar2);
             }
         }
-        public static Point<Pers> StrictSquare<Pers>(Point<Pers> from, Point<Pers> to)
+        public static Point<Pers> AdjustSquare<Pers>(Point<Pers> from, Point<Pers> to)
         {
             var v = to - from;
             float l = Max(Abs(v.dx), Abs(v.dy));

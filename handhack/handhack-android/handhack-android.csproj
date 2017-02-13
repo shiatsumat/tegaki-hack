@@ -78,6 +78,7 @@
     <Compile Include="Logic-Android\Util-Android.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\layout\Edit.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -86,89 +87,14 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RegularPolygonDialog.axml" />
     <AndroidResource Include="Resources\layout\Start.axml" />
-    <AndroidResource Include="Resources\layout\StrictModeDialog.axml" />
+    <AndroidResource Include="Resources\layout\AdjustmentDialog.axml" />
     <AndroidResource Include="Resources\layout\SvgDialog.axml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-    <AndroidResource Include="Resources\layout\ColorPicker.axml">
+    <AndroidResource Include="Resources\layout\ColorSetter.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Redo.png">
-      <Link>Resources\drawable\Redo.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\RegularPolygon.png">
-      <Link>Resources\drawable\RegularPolygon.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Save.png">
-      <Link>Resources\drawable\Save.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Text.png">
-      <Link>Resources\drawable\Text.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Undo.png">
-      <Link>Resources\drawable\Undo.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Arc.png">
-      <Link>Resources\drawable\Arc.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Fancytext.png">
-      <Link>Resources\drawable\Fancytext.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Freehand.png">
-      <Link>Resources\drawable\Freehand.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Icon.png">
-      <Link>Resources\drawable\Icon.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Line.png">
-      <Link>Resources\drawable\Line.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Paint.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\StrictMode.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\values\strings.xml">
-      <Link>Resources\values\strings.xml</Link>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\values-ja\strings-ja.xml">
-      <Link>Resources\values-ja\strings-ja.xml</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Rectangle.png">
-      <Link>Resources\drawable\Rectangle.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\SimpleOval.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\styles.xml">
@@ -176,12 +102,55 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\SimpleOvalCircumference.xml" />
+    <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Oval.png">
-      <Link>Resources\drawable\Oval.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\AdjustmentIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ArcIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\DashedCircumference.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FancytextIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FreehandIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\LineIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Oval.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\OvalIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\PaintIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\RectangleIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\RedoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\RegularPolygonIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SaveIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TextIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\UndoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-ja\strings-ja.xml" />
   </ItemGroup>
   <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

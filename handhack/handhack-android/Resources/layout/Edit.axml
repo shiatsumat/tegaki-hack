@@ -12,14 +12,14 @@
             android:layout_alignParentLeft="true">
             <ImageButton
                 android:id="@+id/Undo"
-                android:src="@drawable/Undo"
+                android:src="@drawable/UndoIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
                 android:id="@+id/Redo"
-                android:src="@drawable/Redo"
+                android:src="@drawable/RedoIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
@@ -31,7 +31,7 @@
             android:layout_alignParentRight="true">
             <ImageButton
                 android:id="@+id/Save"
-                android:src="@drawable/Save"
+                android:src="@drawable/SaveIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
@@ -47,35 +47,35 @@
             android:layout_alignParentLeft="true">
             <ImageButton
                 android:id="@+id/Freehand"
-                android:src="@drawable/Freehand"
+                android:src="@drawable/FreehandIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
                 android:id="@+id/Line"
-                android:src="@drawable/Line"
+                android:src="@drawable/LineIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
                 android:id="@+id/Oval"
-                android:src="@drawable/Oval"
+                android:src="@drawable/OvalIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
                 android:id="@+id/Rectangle"
-                android:src="@drawable/Rectangle"
+                android:src="@drawable/RectangleIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
                 android:id="@+id/RegularPolygon"
-                android:src="@drawable/RegularPolygon"
+                android:src="@drawable/RegularPolygonIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
@@ -86,15 +86,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true">
             <ImageButton
-                android:id="@+id/StrictMode"
-                android:src="@drawable/StrictMode"
+                android:id="@+id/Adjustment"
+                android:src="@drawable/AdjustmentIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
                 android:id="@+id/Paint"
-                android:src="@drawable/Paint"
+                android:src="@drawable/PaintIcon"
                 android:layout_width="@android:dimen/app_icon_size"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:adjustViewBounds="true"

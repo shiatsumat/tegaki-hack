@@ -27,16 +27,16 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center">
-                <View
+                <Button
                     android:id="@+id/ColorIndicator"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/simpleoval"
+                    android:background="@drawable/Oval"
                     android:backgroundTint="#808080" />
-                <View
+              <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/simpleovalcircumference"
+                    android:background="@drawable/DashedCircumference"
                     android:backgroundTint="#000000"
                     android:alpha="0.1" />
             </FrameLayout>

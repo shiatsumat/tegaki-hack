@@ -6,7 +6,7 @@
   <string name="RegularPolygonOptions">Regular Polygon Options</string>
   <string name="NVertices">the number of vertices</string>
 
-  <string name="StrictModeOptions">Strict Mode Options</string>
+  <string name="AdjustmentOptions">Adjustment Options</string>
   <string name="RightAngleDivision">the division number of right angle</string>
 
   <string name="PaintOptions">Paint Options</string>

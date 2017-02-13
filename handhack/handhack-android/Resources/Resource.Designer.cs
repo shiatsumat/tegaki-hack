@@ -70,52 +70,52 @@ namespace handhack
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Arc = 2130837504;
+			public const int AdjustmentIcon = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Fancytext = 2130837505;
+			public const int ArcIcon = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Freehand = 2130837506;
+			public const int DashedCircumference = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int Icon = 2130837507;
+			public const int FancytextIcon = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int Line = 2130837508;
+			public const int FreehandIcon = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int Oval = 2130837509;
+			public const int Icon = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int Paint = 2130837510;
+			public const int LineIcon = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int Rectangle = 2130837511;
+			public const int Oval = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int Redo = 2130837512;
+			public const int OvalIcon = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int RegularPolygon = 2130837513;
+			public const int PaintIcon = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int Save = 2130837514;
+			public const int RectangleIcon = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int SimpleOval = 2130837515;
+			public const int RedoIcon = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int SimpleOvalCircumference = 2130837516;
+			public const int RegularPolygonIcon = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int StrictMode = 2130837517;
+			public const int SaveIcon = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int Text = 2130837518;
+			public const int TextIcon = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int Undo = 2130837519;
+			public const int UndoIcon = 2130837519;
 			
 			static Drawable()
 			{
@@ -130,86 +130,86 @@ namespace handhack
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070004
-			public const int A = 2131165188;
-			
-			// aapt resource value: 0x7f070003
-			public const int B = 2131165187;
-			
-			// aapt resource value: 0x7f070000
-			public const int ColorIndicator = 2131165184;
-			
-			// aapt resource value: 0x7f07000f
-			public const int Editcanvas = 2131165199;
-			
-			// aapt resource value: 0x7f070013
-			public const int FillColor = 2131165203;
-			
-			// aapt resource value: 0x7f070016
-			public const int FillRule = 2131165206;
-			
-			// aapt resource value: 0x7f070008
-			public const int Freehand = 2131165192;
-			
-			// aapt resource value: 0x7f070002
-			public const int G = 2131165186;
-			
-			// aapt resource value: 0x7f070009
-			public const int Line = 2131165193;
-			
-			// aapt resource value: 0x7f070014
-			public const int Linecap = 2131165204;
-			
-			// aapt resource value: 0x7f070015
-			public const int Linejoin = 2131165205;
-			
-			// aapt resource value: 0x7f070017
-			public const int NRegularPolygon = 2131165207;
-			
-			// aapt resource value: 0x7f07000a
-			public const int Oval = 2131165194;
+			// aapt resource value: 0x7f070005
+			public const int A = 2131165189;
 			
 			// aapt resource value: 0x7f07000e
-			public const int Paint = 2131165198;
+			public const int Adjustment = 2131165198;
+			
+			// aapt resource value: 0x7f070004
+			public const int B = 2131165188;
 			
 			// aapt resource value: 0x7f070001
-			public const int R = 2131165185;
-			
-			// aapt resource value: 0x7f07000b
-			public const int Rectangle = 2131165195;
-			
-			// aapt resource value: 0x7f070006
-			public const int Redo = 2131165190;
-			
-			// aapt resource value: 0x7f07000c
-			public const int RegularPolygon = 2131165196;
-			
-			// aapt resource value: 0x7f070019
-			public const int RightAngleDivision = 2131165209;
-			
-			// aapt resource value: 0x7f070007
-			public const int Save = 2131165191;
-			
-			// aapt resource value: 0x7f070018
-			public const int StartEdit = 2131165208;
-			
-			// aapt resource value: 0x7f07000d
-			public const int StrictMode = 2131165197;
+			public const int ColorIndicator = 2131165185;
 			
 			// aapt resource value: 0x7f070010
-			public const int StrokeColor = 2131165200;
+			public const int Editcanvas = 2131165200;
+			
+			// aapt resource value: 0x7f070014
+			public const int FillColor = 2131165204;
+			
+			// aapt resource value: 0x7f070017
+			public const int FillRule = 2131165207;
+			
+			// aapt resource value: 0x7f070009
+			public const int Freehand = 2131165193;
+			
+			// aapt resource value: 0x7f070003
+			public const int G = 2131165187;
+			
+			// aapt resource value: 0x7f07000a
+			public const int Line = 2131165194;
+			
+			// aapt resource value: 0x7f070015
+			public const int Linecap = 2131165205;
+			
+			// aapt resource value: 0x7f070016
+			public const int Linejoin = 2131165206;
+			
+			// aapt resource value: 0x7f070018
+			public const int NRegularPolygon = 2131165208;
+			
+			// aapt resource value: 0x7f07000b
+			public const int Oval = 2131165195;
+			
+			// aapt resource value: 0x7f07000f
+			public const int Paint = 2131165199;
+			
+			// aapt resource value: 0x7f070002
+			public const int R = 2131165186;
+			
+			// aapt resource value: 0x7f07000c
+			public const int Rectangle = 2131165196;
+			
+			// aapt resource value: 0x7f070007
+			public const int Redo = 2131165191;
+			
+			// aapt resource value: 0x7f07000d
+			public const int RegularPolygon = 2131165197;
+			
+			// aapt resource value: 0x7f070000
+			public const int RightAngleDivision = 2131165184;
+			
+			// aapt resource value: 0x7f070008
+			public const int Save = 2131165192;
+			
+			// aapt resource value: 0x7f070019
+			public const int StartEdit = 2131165209;
 			
 			// aapt resource value: 0x7f070011
-			public const int StrokeWidthCent = 2131165201;
+			public const int StrokeColor = 2131165201;
 			
 			// aapt resource value: 0x7f070012
-			public const int StrokeWidthPers = 2131165202;
+			public const int StrokeWidthCent = 2131165202;
+			
+			// aapt resource value: 0x7f070013
+			public const int StrokeWidthPers = 2131165203;
 			
 			// aapt resource value: 0x7f07001a
 			public const int SvgDialogText = 2131165210;
 			
-			// aapt resource value: 0x7f070005
-			public const int Undo = 2131165189;
+			// aapt resource value: 0x7f070006
+			public const int Undo = 2131165190;
 			
 			static Id()
 			{
@@ -225,22 +225,22 @@ namespace handhack
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int ColorPicker = 2130903040;
+			public const int AdjustmentDialog = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Edit = 2130903041;
+			public const int ColorSetter = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int PaintDialog = 2130903042;
+			public const int Edit = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int RegularPolygonDialog = 2130903043;
+			public const int PaintDialog = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Start = 2130903044;
+			public const int RegularPolygonDialog = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int StrictModeDialog = 2130903045;
+			public const int Start = 2130903045;
 			
 			// aapt resource value: 0x7f030006
 			public const int SvgDialog = 2130903046;
@@ -257,6 +257,9 @@ namespace handhack
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f040003
+			public const int AdjustmentOptions = 2130968579;
 			
 			// aapt resource value: 0x7f040000
 			public const int Edit = 2130968576;
@@ -284,9 +287,6 @@ namespace handhack
 			
 			// aapt resource value: 0x7f040004
 			public const int RightAngleDivision = 2130968580;
-			
-			// aapt resource value: 0x7f040003
-			public const int StrictModeOptions = 2130968579;
 			
 			// aapt resource value: 0x7f040006
 			public const int StrokeColor = 2130968582;
