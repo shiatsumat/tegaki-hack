@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <string name="Edit">Edit</string>
+
   <string name="RegularPolygonOptions">Regular Polygon Options</string>
   <string name="NVertices">the number of vertices</string>
 

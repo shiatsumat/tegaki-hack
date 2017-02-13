@@ -12,93 +12,135 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="20dp">
-            <TextView
-                android:text="@string/StrokeColor"
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-            <handhack.ColorPicker
-                android:id="@+id/StrokeColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-            <TextView
-                android:text="@string/StrokeWidth"
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
-                <NumberPicker
-                    android:id="@+id/StrokeWidthCent"
+                android:padding="5dp">
+                <TextView
+                    android:text="@string/StrokeColor"
+                    android:textSize="20dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="120dp" />
-                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+                <handhack.ColorPicker
+                    android:id="@+id/StrokeColor"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        android:id="@+id/StrokeWidthPers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/Perses"
-                        android:layout_centerInParent="true" />
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
             </LinearLayout>
-            <TextView
-                android:text="@string/FillColor"
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-            <handhack.ColorPicker
-                android:id="@+id/FillColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-            <TextView
-                android:text="@string/Linecap"
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-            <Spinner
-                android:id="@+id/Linecap"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:entries="@array/Linecaps" />
-            <TextView
-                android:text="@string/Linejoin"
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-            <Spinner
-                android:id="@+id/Linejoin"
+                android:padding="5dp">
+                <TextView
+                    android:text="@string/StrokeWidth"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                    <NumberPicker
+                        android:id="@+id/StrokeWidthCent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            android:id="@+id/StrokeWidthPers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/Perses"
+                            android:layout_centerInParent="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:entries="@array/Linejoins" />
-          <TextView
-              android:text="@string/FillRule"
-              android:textSize="20dp"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center" />
-          <Spinner
-              android:id="@+id/FillRule"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:layout_marginTop="5dp"
-              android:entries="@array/FillRules" />
+                android:padding="5dp">
+                <TextView
+                    android:text="@string/FillColor"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+                <handhack.ColorPicker
+                    android:id="@+id/FillColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp">
+                <TextView
+                    android:text="@string/Linecap"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center" />
+                <Spinner
+                    android:id="@+id/Linecap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/Linecaps" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp">
+                <TextView
+                    android:text="@string/Linejoin"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+                <Spinner
+                    android:id="@+id/Linejoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/Linejoins" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp">
+                <TextView
+                    android:text="@string/FillRule"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+                <Spinner
+                    android:id="@+id/FillRule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:entries="@array/FillRules" />
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </ScrollView>

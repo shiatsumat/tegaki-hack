@@ -146,16 +146,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Logo.png">
-      <Link>Resources\drawable\Logo.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="..\handhack-shared\Resources\drawable\Oval.png">
-      <Link>Resources\drawable\Oval.png</Link>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Paint.png" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +173,14 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SimpleOvalCircumference.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="..\handhack-shared\Resources\drawable\Oval.png">
+      <Link>Resources\drawable\Oval.png</Link>
     </AndroidResource>
   </ItemGroup>
   <Import Project="..\handhack-shared\handhack-shared.projitems" Label="Shared" />

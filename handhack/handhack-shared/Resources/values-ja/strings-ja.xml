@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <string name="Edit">編集する</string>
+
   <string name="RegularPolygonOptions">正多角形のオプション</string>
   <string name="NVertices">頂点数</string>
 

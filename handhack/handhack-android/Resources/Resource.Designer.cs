@@ -85,28 +85,28 @@ namespace handhack
 			public const int Line = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int Logo = 2130837509;
+			public const int Oval = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int Oval = 2130837510;
+			public const int Paint = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int Paint = 2130837511;
+			public const int Rectangle = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int Rectangle = 2130837512;
+			public const int Redo = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int Redo = 2130837513;
+			public const int RegularPolygon = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int RegularPolygon = 2130837514;
+			public const int Save = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int Save = 2130837515;
+			public const int SimpleOval = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int SimpleOval = 2130837516;
+			public const int SimpleOvalCircumference = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
 			public const int StrictMode = 2130837517;
@@ -191,7 +191,7 @@ namespace handhack
 			public const int Save = 2131165191;
 			
 			// aapt resource value: 0x7f070018
-			public const int Startedit = 2131165208;
+			public const int StartEdit = 2131165208;
 			
 			// aapt resource value: 0x7f07000d
 			public const int StrictMode = 2131165197;
@@ -258,38 +258,41 @@ namespace handhack
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040007
-			public const int FillColor = 2130968583;
-			
-			// aapt resource value: 0x7f04000a
-			public const int FillRule = 2130968586;
+			// aapt resource value: 0x7f040000
+			public const int Edit = 2130968576;
 			
 			// aapt resource value: 0x7f040008
-			public const int Linecap = 2130968584;
+			public const int FillColor = 2130968584;
+			
+			// aapt resource value: 0x7f04000b
+			public const int FillRule = 2130968587;
 			
 			// aapt resource value: 0x7f040009
-			public const int Linejoin = 2130968585;
+			public const int Linecap = 2130968585;
 			
-			// aapt resource value: 0x7f040001
-			public const int NVertices = 2130968577;
-			
-			// aapt resource value: 0x7f040004
-			public const int PaintOptions = 2130968580;
-			
-			// aapt resource value: 0x7f040000
-			public const int RegularPolygonOptions = 2130968576;
-			
-			// aapt resource value: 0x7f040003
-			public const int RightAngleDivision = 2130968579;
+			// aapt resource value: 0x7f04000a
+			public const int Linejoin = 2130968586;
 			
 			// aapt resource value: 0x7f040002
-			public const int StrictModeOptions = 2130968578;
+			public const int NVertices = 2130968578;
 			
 			// aapt resource value: 0x7f040005
-			public const int StrokeColor = 2130968581;
+			public const int PaintOptions = 2130968581;
+			
+			// aapt resource value: 0x7f040001
+			public const int RegularPolygonOptions = 2130968577;
+			
+			// aapt resource value: 0x7f040004
+			public const int RightAngleDivision = 2130968580;
+			
+			// aapt resource value: 0x7f040003
+			public const int StrictModeOptions = 2130968579;
 			
 			// aapt resource value: 0x7f040006
-			public const int StrokeWidth = 2130968582;
+			public const int StrokeColor = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int StrokeWidth = 2130968583;
 			
 			static String()
 			{
