@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#FF0000" />
-            <tegaki_hack.CustomNumberPicker
+            <NumberPicker
                 android:id="@+id/RPicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#00FF00" />
-            <tegaki_hack.CustomNumberPicker
+            <NumberPicker
                 android:id="@+id/GPicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#0000FF" />
-            <tegaki_hack.CustomNumberPicker
+            <NumberPicker
                 android:id="@+id/BPicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#808080" />
-            <tegaki_hack.CustomNumberPicker
+            <NumberPicker
                 android:id="@+id/APicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#FF0000" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/RSeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#00FF00" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/GSeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#0000FF" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/BSeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#808080" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/ASeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#808080" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/HSeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#808080" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/SSeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -244,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#808080" />
-            <tegaki_hack.CustomSeekBar
+            <SeekBar
                 android:id="@+id/LSeekBar"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"

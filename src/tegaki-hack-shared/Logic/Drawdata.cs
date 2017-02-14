@@ -30,7 +30,6 @@ namespace tegaki_hack
                 else if (max == g) return 60.0f * (b - r) / (max - min) + 120.0f;
                 else return 60.0f * (r - g) / (max - min) + 240.0f;
             }
-            set { this = Hsla(value, s, l, a); }
         }
         public float s
         {
@@ -40,12 +39,10 @@ namespace tegaki_hack
                 else if (cnt <= 127.5) return 100.0f * (cnt - min) / cnt;
                 else return 100.0f * (max - cnt) / (255 - cnt);
             }
-            set { this = Hsla(h, value, l, a); }
         }
         public float l
         {
             get { return cnt * 100.0f / 255.0f; }
-            set { this = Hsla(h, s, value, a); }
         }
         byte max { get { return Max(Max(r, g), b); } }
         byte min { get { return Min(Min(r, g), b); } }

@@ -34,66 +34,15 @@ namespace tegaki_hack
         }
     }
 
-    public class CustomNumberPicker : NumberPicker
-    {
-        public event EventHandler ValueChangedByUser;
-        public int AutoValue { set { if (Value != value) { Value = value; autoChanged = true; } } }
-
-        bool autoChanged;
-
-        public CustomNumberPicker(Context context, IAttributeSet attrs) :
-            base(context, attrs)
-        { Initialize(); }
-
-        public CustomNumberPicker(Context context, IAttributeSet attrs, int defStyleAttr) :
-            base(context, attrs, defStyleAttr)
-        { Initialize(); }
-
-        void Initialize()
-        {
-            autoChanged = false;
-            ValueChanged += (o, e) =>
-            {
-                if (!autoChanged) ValueChangedByUser(o, e);
-                else autoChanged = false;
-            };
-        }
-    }
-
-    public class CustomSeekBar : SeekBar
-    {
-        public event EventHandler ProgressChangedByUser;
-        public int AutoProgress { set { if (Progress != value) { Progress = value; autoChanged = true; } } }
-
-        bool autoChanged;
-
-        public CustomSeekBar(Context context, IAttributeSet attrs) :
-            base(context, attrs)
-        { Initialize(); }
-
-        public CustomSeekBar(Context context, IAttributeSet attrs, int defStyleAttr) :
-            base(context, attrs, defStyleAttr)
-        { Initialize(); }
-
-        void Initialize()
-        {
-            autoChanged = false;
-            ProgressChanged += (o, e) =>
-            {
-                if (!autoChanged) ProgressChangedByUser(o, e);
-                else autoChanged = false;
-            };
-        }
-    }
-
     public class ColorSetter : LinearLayout
     {
         public Button colorIndicator;
-        public CustomNumberPicker rPicker, gPicker, bPicker, aPicker;
-        public CustomSeekBar rSeekBar, gSeekBar, bSeekBar, aSeekBar, hSeekBar, sSeekBar, lSeekBar;
+        public NumberPicker rPicker, gPicker, bPicker, aPicker;
+        public SeekBar rSeekBar, gSeekBar, bSeekBar, aSeekBar, hSeekBar, sSeekBar, lSeekBar;
         public TextView hText, sText, lText;
         Color _color;
         int prevh, prevs;
+        bool setting;
 
         public Color color
         {
@@ -123,17 +72,17 @@ namespace tegaki_hack
         public float h
         {
             get { return _color.h; }
-            set { _color.h = value; SetControls(); }
+            set { prevh = (int)value; _color = Hsla(value, prevs, l, a); SetControls(); }
         }
         public float s
         {
             get { return _color.s; }
-            set { _color.s = value; SetControls(); }
+            set { prevs = (int)value; _color = Hsla(prevh, value, l, a); SetControls(); }
         }
         public float l
         {
             get { return _color.l; }
-            set { _color.l = value; SetControls(); }
+            set { _color = Hsla(prevh, prevs, value, a); SetControls(); }
         }
 
         public ColorSetter(Context context, IAttributeSet attrs) :
@@ -147,19 +96,22 @@ namespace tegaki_hack
 
         void Initialize()
         {
+            prevh = prevs = 0;
+            setting = false;
+
             Inflate(Context, Resource.Layout.ColorSetter, this);
             colorIndicator = FindViewById<Button>(Resource.Id.ColorIndicator);
-            rPicker = FindViewById<CustomNumberPicker>(Resource.Id.RPicker);
-            gPicker = FindViewById<CustomNumberPicker>(Resource.Id.GPicker);
-            bPicker = FindViewById<CustomNumberPicker>(Resource.Id.BPicker);
-            aPicker = FindViewById<CustomNumberPicker>(Resource.Id.APicker);
-            rSeekBar = FindViewById<CustomSeekBar>(Resource.Id.RSeekBar);
-            gSeekBar = FindViewById<CustomSeekBar>(Resource.Id.GSeekBar);
-            bSeekBar = FindViewById<CustomSeekBar>(Resource.Id.BSeekBar);
-            aSeekBar = FindViewById<CustomSeekBar>(Resource.Id.ASeekBar);
-            hSeekBar = FindViewById<CustomSeekBar>(Resource.Id.HSeekBar);
-            sSeekBar = FindViewById<CustomSeekBar>(Resource.Id.SSeekBar);
-            lSeekBar = FindViewById<CustomSeekBar>(Resource.Id.LSeekBar);
+            rPicker = FindViewById<NumberPicker>(Resource.Id.RPicker);
+            gPicker = FindViewById<NumberPicker>(Resource.Id.GPicker);
+            bPicker = FindViewById<NumberPicker>(Resource.Id.BPicker);
+            aPicker = FindViewById<NumberPicker>(Resource.Id.APicker);
+            rSeekBar = FindViewById<SeekBar>(Resource.Id.RSeekBar);
+            gSeekBar = FindViewById<SeekBar>(Resource.Id.GSeekBar);
+            bSeekBar = FindViewById<SeekBar>(Resource.Id.BSeekBar);
+            aSeekBar = FindViewById<SeekBar>(Resource.Id.ASeekBar);
+            hSeekBar = FindViewById<SeekBar>(Resource.Id.HSeekBar);
+            sSeekBar = FindViewById<SeekBar>(Resource.Id.SSeekBar);
+            lSeekBar = FindViewById<SeekBar>(Resource.Id.LSeekBar);
             hText = FindViewById<TextView>(Resource.Id.HText);
             sText = FindViewById<TextView>(Resource.Id.SText);
             lText = FindViewById<TextView>(Resource.Id.LText);
@@ -182,35 +134,35 @@ namespace tegaki_hack
                 ShowToast(Context, "color");
             };
 
-            rPicker.ValueChangedByUser += (o, e) => r = (byte)rPicker.Value;
-            bPicker.ValueChangedByUser += (o, e) => g = (byte)gPicker.Value;
-            gPicker.ValueChangedByUser += (o, e) => b = (byte)bPicker.Value;
-            aPicker.ValueChangedByUser += (o, e) => a = (byte)aPicker.Value;
-            rSeekBar.ProgressChangedByUser += (o, e) => r = (byte)rSeekBar.Progress;
-            gSeekBar.ProgressChangedByUser += (o, e) => g = (byte)gSeekBar.Progress;
-            bSeekBar.ProgressChangedByUser += (o, e) => b = (byte)bSeekBar.Progress;
-            aSeekBar.ProgressChangedByUser += (o, e) => a = (byte)aSeekBar.Progress;
-            hSeekBar.ProgressChangedByUser += (o, e) => { prevh = hSeekBar.Progress; color = Hsla(prevh, prevs, l, a); };
-            sSeekBar.ProgressChangedByUser += (o, e) => { prevs = sSeekBar.Progress; color = Hsla(prevh, prevs, l, a); };
-            lSeekBar.ProgressChangedByUser += (o, e) => { l = lSeekBar.Progress; color = Hsla(prevh, prevs, l, a); };
-
-            prevh = prevs = 0;
+            rPicker.ValueChanged += (o, e) => { if (!setting) r = (byte)rPicker.Value; };
+            gPicker.ValueChanged += (o, e) => { if (!setting) g = (byte)gPicker.Value; };
+            bPicker.ValueChanged += (o, e) => { if (!setting) b = (byte)bPicker.Value; };
+            aPicker.ValueChanged += (o, e) => { if (!setting) a = (byte)aPicker.Value; };
+            rSeekBar.ProgressChanged += (o, e) => { if (!setting) r = (byte)rSeekBar.Progress; };
+            gSeekBar.ProgressChanged += (o, e) => { if (!setting) g = (byte)gSeekBar.Progress; };
+            bSeekBar.ProgressChanged += (o, e) => { if (!setting) b = (byte)bSeekBar.Progress; };
+            aSeekBar.ProgressChanged += (o, e) => { if (!setting) a = (byte)aSeekBar.Progress; };
+            hSeekBar.ProgressChanged += (o, e) => { if (!setting) h = hSeekBar.Progress; };
+            sSeekBar.ProgressChanged += (o, e) => { if (!setting) s = sSeekBar.Progress; };
+            lSeekBar.ProgressChanged += (o, e) => { if (!setting) l = lSeekBar.Progress; };
         }
 
         void SetControls()
         {
+            setting = true;
+
             colorIndicator.BackgroundTintList = ColorStateList.ValueOf(_color.native);
-            rPicker.AutoValue = r;
-            gPicker.AutoValue = g;
-            bPicker.AutoValue = b;
-            aPicker.AutoValue = a;
-            rSeekBar.AutoProgress = r;
-            gSeekBar.AutoProgress = g;
-            bSeekBar.AutoProgress = b;
-            aSeekBar.AutoProgress = a;
-            hSeekBar.AutoProgress = float.IsNaN(h) ? prevh : (prevh = (int)Round(h) % 360);
-            sSeekBar.AutoProgress = s == 0 ? prevs : (prevs = (int)Round(s));
-            lSeekBar.AutoProgress = (int)Round(l);
+            rPicker.Value = r;
+            gPicker.Value = g;
+            bPicker.Value = b;
+            aPicker.Value = a;
+            rSeekBar.Progress = r;
+            gSeekBar.Progress = g;
+            bSeekBar.Progress = b;
+            aSeekBar.Progress = a;
+            hSeekBar.Progress = float.IsNaN(h) ? prevh : (prevh = (int)Round(h) % 360);
+            sSeekBar.Progress = s == 0 ? prevs : (prevs = (int)Round(s));
+            lSeekBar.Progress = (int)Round(l);
 
             rSeekBar.ThumbTintList = ColorStateList.ValueOf(Hsla(0, r * 100.0f / 255.0f, 50, 255).native);
             gSeekBar.ThumbTintList = ColorStateList.ValueOf(Hsla(120, g * 100.0f / 255.0f, 50, 255).native);
@@ -225,6 +177,8 @@ namespace tegaki_hack
             var lColors = ColorStateList.ValueOf(Hsla(prevh, 100, l, 255).native);
             lText.SetTextColor(lColors);
             lSeekBar.ThumbTintList = lColors;
+
+            setting = false;
         }
     }
 
