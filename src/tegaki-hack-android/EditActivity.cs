@@ -106,7 +106,7 @@ namespace tegaki_hack
             {
                 var view = LayoutInflater.Inflate(Resource.Layout.RegularPolygonDialog, null);
                 var dialogBuilder = new AlertDialog.Builder(this);
-                var numberPicker = view.FindViewById<NumberPicker>(Resource.Id.NRegularPolygon);
+                var numberPicker = view.FindViewById<Android.Widget.NumberPicker>(Resource.Id.NRegularPolygon);
                 dialogBuilder.SetTitle(Resource.String.RegularPolygonOptions);
                 dialogBuilder.SetView(view);
                 numberPicker.MinValue = 3;
@@ -136,7 +136,7 @@ namespace tegaki_hack
             {
                 var view = LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
                 var dialogBuilder = new AlertDialog.Builder(this);
-                var rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
+                var rightAngleDivision = view.FindViewById<Android.Widget.NumberPicker>(Resource.Id.RightAngleDivision);
                 dialogBuilder.SetTitle(Resource.String.AdjustmentOptions);
                 dialogBuilder.SetView(view);
                 rightAngleDivision.MinValue = 1;
@@ -158,7 +158,7 @@ namespace tegaki_hack
                 var dialogBuilder = new AlertDialog.Builder(this);
                 var strokeColor = view.FindViewById<ColorSetter>(Resource.Id.StrokeColor);
                 var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
-                var strokeWidthCent = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCent);
+                var strokeWidthCent = view.FindViewById<Android.Widget.NumberPicker>(Resource.Id.StrokeWidthCent);
                 var fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
                 var linecap = view.FindViewById<Spinner>(Resource.Id.Linecap);
                 var linejoin = view.FindViewById<Spinner>(Resource.Id.Linejoin);

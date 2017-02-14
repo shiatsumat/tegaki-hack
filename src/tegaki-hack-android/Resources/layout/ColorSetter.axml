@@ -14,7 +14,7 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="5pt"
+            android:paddingRight="10dp"
             android:layout_gravity="center">
             <TextView
                 android:text=""
@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/Oval"
                     android:backgroundTint="#808080" />
-              <View
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/DashedCircumference"
@@ -53,8 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#FF0000" />
-            <NumberPicker
-                android:id="@+id/R"
+            <tegaki_hack.CustomNumberPicker
+                android:id="@+id/RPicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
         </LinearLayout>
@@ -70,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#00FF00" />
-            <NumberPicker
-                android:id="@+id/G"
+            <tegaki_hack.CustomNumberPicker
+                android:id="@+id/GPicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
         </LinearLayout>
@@ -87,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#0000FF" />
-            <NumberPicker
-                android:id="@+id/B"
+            <tegaki_hack.CustomNumberPicker
+                android:id="@+id/BPicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
         </LinearLayout>
@@ -104,10 +104,152 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="#808080" />
-            <NumberPicker
-                android:id="@+id/A"
+            <tegaki_hack.CustomNumberPicker
+                android:id="@+id/APicker"
                 android:layout_width="40dp"
                 android:layout_height="120dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:text="R"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#FF0000" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/RSeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="255"
+                android:progressTint="#FF0000" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:text="G"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#00FF00" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/GSeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="255"
+                android:progressTint="#00FF00" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:text="B"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#0000FF" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/BSeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="255"
+                android:progressTint="#0000FF" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:text="A"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#808080" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/ASeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="255"
+                android:progressTint="#808080" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+          <TextView
+              android:id="@+id/HText"
+                android:text="H"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#808080" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/HSeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="359"
+                android:progressTint="#808080" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+          <TextView
+            android:id="@+id/SText"
+                android:text="S"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#808080" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/SSeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progressTint="#808080" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+          <TextView
+            android:id="@+id/LText"
+                android:text="L"
+                android:textSize="20dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#808080" />
+            <tegaki_hack.CustomSeekBar
+                android:id="@+id/LSeekBar"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progressTint="#808080" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

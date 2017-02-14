@@ -4,6 +4,7 @@ using Android.Graphics;
 using static System.Math;
 using static tegaki_hack.GeometryStatic;
 using static tegaki_hack.UtilStatic;
+using static tegaki_hack.Color;
 
 namespace tegaki_hack
 {
@@ -20,7 +21,7 @@ namespace tegaki_hack
 
         public ShapeCreatorSettings(Action Edited, Action<IShape> Finished)
         {
-            paint = new Paint(new Color(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
+            paint = new Paint(Rgba(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             adjustment = false;
             rightAngleDivision = 6;
             nRegularPolygon = 3;
@@ -85,7 +86,10 @@ namespace tegaki_hack
 
         protected override IShape Finish()
         {
-            return Nulling(ref polyline);
+            if (polyline == null) return null;
+            var oldpolyline = polyline;
+            polyline = null;
+            return oldpolyline.points.Count >= 2 ? oldpolyline : null;
         }
         protected override void StartDrag(Point<Internal> p)
         {

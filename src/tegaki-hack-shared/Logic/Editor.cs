@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using static tegaki_hack.UtilStatic;
+using static tegaki_hack.Color;
 
 namespace tegaki_hack
 {
@@ -164,7 +165,7 @@ namespace tegaki_hack
         void SetGrid()
         {
             var shapes = new List<IShape>();
-            var paint = new Paint(new Color(0xd3d3d3ff), new SizeEither(1, false), new Color(0, 0, 0, 0));
+            var paint = new Paint(Rgba(0xd3d3d3ff), new SizeEither(1, false), Rgba(0, 0, 0, 0));
             for (float x = 0; x <= size.dx; x++)
             {
                 shapes.Add(new Polyline(paint, newList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));

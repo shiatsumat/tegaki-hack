@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+  <array name="rgbarray">
+    <item>@color/red</item>
+    <item>@color/green</item>
+    <item>@color/blue</item>
+  </array>
+
+  <color name="red">#FF0000</color>
+  <color name="green">#00FF00</color>
+  <color name="blue">#0000FF</color>
+
+</resources>

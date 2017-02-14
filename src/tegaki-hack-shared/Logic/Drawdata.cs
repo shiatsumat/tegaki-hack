@@ -1,5 +1,6 @@
 using System;
 using System.Xml.Linq;
+using static System.Math;
 
 namespace tegaki_hack
 {
@@ -20,15 +21,120 @@ namespace tegaki_hack
                 a = (byte)(value & 0x000000FF);
             }
         }
+        public float h
+        {
+            get
+            {
+                if (max == min) return float.NaN;
+                else if (max == r) { var res = 60.0f * (g - b) / (max - min); return res >= 0 ? res : res + 360.0f; }
+                else if (max == g) return 60.0f * (b - r) / (max - min) + 120.0f;
+                else return 60.0f * (r - g) / (max - min) + 240.0f;
+            }
+            set { this = Hsla(value, s, l, a); }
+        }
+        public float s
+        {
+            get
+            {
+                if (cnt == 0.0f || cnt == 255.0f) return 0.0f;
+                else if (cnt <= 127.5) return 100.0f * (cnt - min) / cnt;
+                else return 100.0f * (max - cnt) / (255 - cnt);
+            }
+            set { this = Hsla(h, value, l, a); }
+        }
+        public float l
+        {
+            get { return cnt * 100.0f / 255.0f; }
+            set { this = Hsla(h, s, value, a); }
+        }
+        byte max { get { return Max(Max(r, g), b); } }
+        byte min { get { return Min(Min(r, g), b); } }
+        float cnt { get { return (max + min) / 2.0f; } }
 
-        public Color(uint rgba)
+        Color(byte r, byte g, byte b, byte a)
+        {
+            this.r = r; this.g = g; this.b = b; this.a = a;
+        }
+        Color(uint rgba)
         {
             r = g = b = a = 0;
             this.rgba = rgba;
         }
-        public Color(byte r, byte g, byte b, byte a)
+
+        public static Color Rgba(byte r, byte g, byte b, byte a)
         {
-            this.r = r; this.g = g; this.b = b; this.a = a;
+            return new Color(r, g, b, a);
+        }
+        public static Color Rgba(uint rgba)
+        {
+            return new Color(rgba);
+        }
+        public static Color Hsla(float h, float s, float l, byte a)
+        {
+            if (h < 0.0f || 360.0f <= h) throw new InvalidOperationException("h is neither a value in [0, 360) nor NaN for Color");
+            if (float.IsNaN(s) || s < 0.0f || 100.0f < s) throw new InvalidOperationException("s is not in [0, 100] for Color");
+            if (float.IsNaN(l) || l < 0.0f || 100.0f < l) throw new InvalidOperationException("l is not in [0, 100] for Color");
+
+            byte r = 0, g = 0, b = 0;
+
+            if (float.IsNaN(h))
+            {
+                var v = (byte)(l * 255.0f / 100.0f);
+                return new Color(v, v, v, a);
+            }
+
+            var max = 0.0f;
+            var min = 0.0f;
+            var sx = s / 100.0f;
+            var lx = l / 100.0f;
+            if (lx < 0.5f)
+            {
+                max = 255.0f * (lx + lx * sx);
+                min = 255.0f * (lx - lx * sx);
+            }
+            else
+            {
+                max = 255.0f * (lx + (1 - lx) * sx);
+                min = 255.0f * (lx - (1 - lx) * sx);
+            }
+
+            if (0 <= h && h < 60)
+            {
+                r = (byte)Round(max);
+                g = (byte)Round((h / 60) * (max - min) + min);
+                b = (byte)Round(min);
+            }
+            else if (60 <= h && h < 120)
+            {
+                r = (byte)Round(((120 - h) / 60) * (max - min) + min);
+                g = (byte)Round(max);
+                b = (byte)Round(min);
+            }
+            else if (120 <= h && h < 180)
+            {
+                r = (byte)Round(min);
+                g = (byte)Round(max);
+                b = (byte)Round(((h - 120) / 60) * (max - min) + min);
+            }
+            else if (180 <= h && h < 240)
+            {
+                r = (byte)Round(min);
+                g = (byte)Round(((240 - h) / 60) * (max - min) + min);
+                b = (byte)Round(max);
+            }
+            else if (240 <= h && h < 300)
+            {
+                r = (byte)Round(((h - 240) / 60) * (max - min) + min);
+                g = (byte)Round(min);
+                b = (byte)Round(max);
+            }
+            else
+            {
+                r = (byte)Round(max);
+                g = (byte)Round(min);
+                b = (byte)Round(((360 - h) / 60) * (max - min) + min);
+            }
+            return Rgba(r, g, b, a);
         }
 
         public string RgbaFunctionString()
