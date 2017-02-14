@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace tegaki_hack
 {
-    public partial class Editor
+    partial class Editor
     {
         DPoint<Internal> size;
         DPoint<External> realsize;
@@ -15,7 +15,7 @@ namespace tegaki_hack
         AShapeCreator shapeCreator;
         IShape grid;
 
-        public void Initialize()
+        void Initialize()
         {
             drawnShapes = new List<IShape>();
             undrawnShapes = application.savedShapes == null ? new List<IShape>() : application.savedShapes;
@@ -28,16 +28,21 @@ namespace tegaki_hack
                 Redisplay();
             }, (shape) =>
             {
-                if (shape != null) undrawnShapes.Add(shape);
+                if (shape != null)
+                {
+                    undrawnShapes.Add(shape);
+                    SetClearAbility(true);
+                }
                 Redisplay();
             });
             ChangeShapeCreator(EShapeCreator.Freehand);
 
             SetUndoAbility(false);
             SetRedoAbility(false);
+            SetClearAbility(undrawnShapes.Count > 0);
         }
 
-        public void DealWithLayoutChange(DPoint<External> realsize)
+        void DealWithLayoutChange(DPoint<External> realsize)
         {
             this.realsize = realsize;
             transform.scale = realsize.dx / size.dx;
@@ -46,7 +51,7 @@ namespace tegaki_hack
             Redisplay();
         }
 
-        public void Undo()
+        void Undo()
         {
             if (drawnShapes.Count > 0 && undrawnShapes.Count == 0)
             {
@@ -57,7 +62,7 @@ namespace tegaki_hack
             }
             else throw new InvalidOperationException("Editor Not Undoable!");
         }
-        public void Redo()
+        void Redo()
         {
             if (redoShapes.Count > 0)
             {
@@ -67,7 +72,19 @@ namespace tegaki_hack
             }
             else throw new InvalidOperationException("Editor Not Redoable!");
         }
-        public void Touch(Touchevent touchevent, Point<External> p)
+        void Clear()
+        {
+            SetUndoAbility(false);
+            SetRedoAbility(false);
+            SetClearAbility(false);
+            drawnShapes.Clear();
+            undrawnShapes.Clear();
+            redoShapes.Clear();
+            ResetSecondCanvas();
+            Redisplay();
+        }
+
+        void Touch(Touchevent touchevent, Point<External> p)
         {
             shapeCreator?.Touch(touchevent, p.Untransform(transform));
         }
@@ -98,20 +115,20 @@ namespace tegaki_hack
             }
             shapeCreator.settings = settings;
         }
-        public void SetShapeCreator(EShapeCreator eShapeCreator)
+        void SetShapeCreator(EShapeCreator eShapeCreator)
         {
             if (this.eShapeCreator != eShapeCreator) ChangeShapeCreator(eShapeCreator);
         }
-        public void ResetShapeCreator()
+        void ResetShapeCreator()
         {
             ChangeShapeCreator(eShapeCreator);
         }
-        public void ResetShapeCreator(EShapeCreator eShapeCreator)
+        void ResetShapeCreator(EShapeCreator eShapeCreator)
         {
             if (this.eShapeCreator == eShapeCreator) ChangeShapeCreator(eShapeCreator);
         }
 
-        public XDocument GetSvg()
+        XDocument GetSvg()
         {
             var shapes = new List<IShape>();
             shapes.AddRange(drawnShapes);
@@ -171,6 +188,7 @@ namespace tegaki_hack
         partial void Redisplay();
         partial void SetUndoAbility(bool b);
         partial void SetRedoAbility(bool b);
+        partial void SetClearAbility(bool b);
         partial void ResetSecondCanvas();
     }
 }

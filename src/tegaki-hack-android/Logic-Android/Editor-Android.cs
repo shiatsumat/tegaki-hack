@@ -15,7 +15,7 @@ namespace tegaki_hack
         EditActivity activity;
 
         ExtensibleView editcanvas;
-        ImageButton undoButton, redoButton, saveButton;
+        ImageButton undoButton, redoButton, clearButton, saveButton;
         ImageButton[] shapeButtons;
         ImageButton adjustmentButton, paintButton;
 
@@ -33,6 +33,7 @@ namespace tegaki_hack
             editcanvas = activity.FindViewById<ExtensibleView>(Resource.Id.Editcanvas);
             undoButton = activity.FindViewById<ImageButton>(Resource.Id.Undo);
             redoButton = activity.FindViewById<ImageButton>(Resource.Id.Redo);
+            clearButton = activity.FindViewById<ImageButton>(Resource.Id.Clear);
             saveButton = activity.FindViewById<ImageButton>(Resource.Id.Save);
 
             shapeButtons = new ImageButton[] {
@@ -74,6 +75,7 @@ namespace tegaki_hack
 
             undoButton.Click += (o, e) => Undo();
             redoButton.Click += (o, e) => Redo();
+            clearButton.Click += (o, e) => Clear();
 
             InitializeSave();
 
@@ -309,6 +311,10 @@ namespace tegaki_hack
         partial void SetRedoAbility(bool b)
         {
             redoButton.Enabled = b;
+        }
+        partial void SetClearAbility(bool b)
+        {
+            clearButton.Enabled = b;
         }
 
         partial void ResetSecondCanvas()
