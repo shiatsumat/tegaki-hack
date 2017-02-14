@@ -1,47 +1,38 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using static tegaki_hack.UtilStatic;
-using static tegaki_hack.Color;
 
 namespace tegaki_hack
 {
     public partial class Editor
     {
-        public DPoint<Internal> size;
-        public DPoint<External> realsize;
+        DPoint<Internal> size;
+        DPoint<External> realsize;
         Transform<Internal, External> transform;
         List<IShape> drawnShapes, undrawnShapes, redoShapes;
         EShapeCreator eShapeCreator;
-        public ShapeCreatorSettings settings;
+        ShapeCreatorSettings settings;
         AShapeCreator shapeCreator;
         IShape grid;
 
-        public Action Redisplay;
-        public Action<bool> SetUndoAbility, SetRedoAbility;
-
-        public Editor(DPoint<Internal> size, Action Redisplay, Action<bool> SetUndoAbility, Action<bool> SetRedoAbility)
+        public void Initialize()
         {
-            this.size = size;
             drawnShapes = new List<IShape>();
-            undrawnShapes = new List<IShape>();
+            undrawnShapes = application.savedShapes == null ? new List<IShape>() : application.savedShapes;
             redoShapes = new List<IShape>();
 
             settings = new ShapeCreatorSettings(() =>
             {
                 redoShapes.Clear();
-                this.SetRedoAbility(false);
-                this.Redisplay();
+                SetRedoAbility(false);
+                Redisplay();
             }, (shape) =>
             {
                 if (shape != null) undrawnShapes.Add(shape);
-                this.Redisplay();
+                Redisplay();
             });
             ChangeShapeCreator(EShapeCreator.Freehand);
 
-            this.Redisplay = Redisplay;
-            this.SetUndoAbility = SetUndoAbility;
-            this.SetRedoAbility = SetRedoAbility;
             SetUndoAbility(false);
             SetRedoAbility(false);
         }
@@ -125,7 +116,7 @@ namespace tegaki_hack
             var shapes = new List<IShape>();
             shapes.AddRange(drawnShapes);
             shapes.AddRange(undrawnShapes);
-            var svg = new XElement(svgName("svg"),
+            var svg = new XElement(Util.SvgName("svg"),
                 new XAttribute("viewbox", string.Format("0 0 {0}", realsize)));
             foreach (var shape in shapes)
             {
@@ -165,16 +156,21 @@ namespace tegaki_hack
         void SetGrid()
         {
             var shapes = new List<IShape>();
-            var paint = new Paint(Rgba(0xd3d3d3ff), new SizeEither(1, false), Rgba(0, 0, 0, 0));
+            var paint = new Paint(Color.Rgba(0xd3d3d3ff), new SizeEither(1, false), Color.Rgba(0, 0, 0, 0));
             for (float x = 0; x <= size.dx; x++)
             {
-                shapes.Add(new Polyline(paint, newList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));
+                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));
             }
             for (float y = 0; y <= size.dy; y++)
             {
-                shapes.Add(new Polyline(paint, newList(new Point<Internal>(0, y), new Point<Internal>(size.dx, y))));
+                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(0, y), new Point<Internal>(size.dx, y))));
             }
             grid = new ShapeGroup(shapes.ToArray());
         }
+
+        partial void Redisplay();
+        partial void SetUndoAbility(bool b);
+        partial void SetRedoAbility(bool b);
+        partial void ResetSecondCanvas();
     }
 }

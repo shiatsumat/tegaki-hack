@@ -1,7 +1,5 @@
 using System;
 using System.Xml.Linq;
-using static System.Math;
-using static tegaki_hack.UtilStatic;
 
 namespace tegaki_hack
 {
@@ -216,7 +214,7 @@ namespace tegaki_hack
         }
     }
 
-    public static partial class GeometryStatic
+    public static partial class Geometry
     {
         public static XElement AddSvg(this XElement element, Point<Internal> p, string xname, string yname, Transform<Internal, External> transform)
         {
@@ -246,7 +244,7 @@ namespace tegaki_hack
             var dpq = p.distance(q);
             var dqr = q.distance(r);
             var s = dpq + dqr;
-            var t = s < EPS ? 0 : 0.5f * dqr / s;
+            var t = s < Util.EPS ? 0 : 0.5f * dqr / s;
             var smooth_value = 1.0f;
             return q + smooth_value * t * (r - p);
         }
@@ -262,18 +260,18 @@ namespace tegaki_hack
         {
             var angleUnit = 90.0f / rightAngleDivision;
             var v = to - from;
-            if (v.norm < EPS) return from;
+            if (v.norm < Util.EPS) return from;
             else
             {
-                var polar = Complex.Polar((float)Round(v.arg / angleUnit) * angleUnit, 1);
-                var polar2 = polar * ((Abs(v.dx) > Abs(v.dy)) ? v.dx / polar.re : v.dy / polar.im);
+                var polar = Complex.Polar((float)Math.Round(v.arg / angleUnit) * angleUnit, 1);
+                var polar2 = polar * ((Math.Abs(v.dx) > Math.Abs(v.dy)) ? v.dx / polar.re : v.dy / polar.im);
                 return from + new DPoint<Pers>(polar2);
             }
         }
         public static Point<Pers> AdjustSquare<Pers>(Point<Pers> from, Point<Pers> to)
         {
             var v = to - from;
-            float l = Max(Abs(v.dx), Abs(v.dy));
+            float l = Math.Max(Math.Abs(v.dx), Math.Abs(v.dy));
             return from + new DPoint<Pers>(v.dx.ToAbs(l), v.dy.ToAbs(l));
         }
     }

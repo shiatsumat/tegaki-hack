@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Android.Graphics;
-using static System.Math;
-using static tegaki_hack.GeometryStatic;
-using static tegaki_hack.UtilStatic;
-using static tegaki_hack.Color;
 
 namespace tegaki_hack
 {
@@ -21,7 +17,7 @@ namespace tegaki_hack
 
         public ShapeCreatorSettings(Action Edited, Action<IShape> Finished)
         {
-            paint = new Paint(Rgba(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
+            paint = new Paint(Color.Rgba(0xadff2fff), new SizeEither(0.5f, true), default(Color), Linecap.Round, Linejoin.Round);
             adjustment = false;
             rightAngleDivision = 6;
             nRegularPolygon = 3;
@@ -57,12 +53,12 @@ namespace tegaki_hack
                         prev = p;
                         StartDrag(p);
                     }
-                    else if (prev.distance(p) > EPS) MoveDrag(p);
+                    else if (prev.distance(p) > Util.EPS) MoveDrag(p);
                     break;
                 case Touchevent.Up:
                     if (dragging)
                     {
-                        if (prev.distance(p) > EPS) MoveDrag(p);
+                        if (prev.distance(p) > Util.EPS) MoveDrag(p);
                         dragging = false;
                         EndDrag();
                     }
@@ -93,7 +89,7 @@ namespace tegaki_hack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(settings.paint, newList(p), false, true);
+            polyline = new Polyline(settings.paint, Util.NewList(p), false, true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
@@ -115,15 +111,15 @@ namespace tegaki_hack
 
         protected override IShape Finish()
         {
-            return Nulling(ref polyline);
+            return Util.Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(settings.paint, newList(p, p));
+            polyline = new Polyline(settings.paint, Util.NewList(p, p));
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            polyline.points[1] = !settings.adjustment ? p : AdjustAngle(polyline.points[0], p, settings.rightAngleDivision);
+            polyline.points[1] = !settings.adjustment ? p : Geometry.AdjustAngle(polyline.points[0], p, settings.rightAngleDivision);
             settings.Edited();
         }
         protected override void EndDrag()
@@ -141,7 +137,7 @@ namespace tegaki_hack
 
         protected override IShape Finish()
         {
-            return Nulling(ref oval);
+            return Util.Nulling(ref oval);
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -157,7 +153,7 @@ namespace tegaki_hack
             else
             {
                 var v = p - oval.center;
-                oval.radii = v * (float)Sqrt(2);
+                oval.radii = v * (float)Math.Sqrt(2);
             }
             settings.Edited();
         }
@@ -176,17 +172,17 @@ namespace tegaki_hack
 
         protected override IShape Finish()
         {
-            return Nulling(ref polyline);
+            return Util.Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(settings.paint, newList(p, p, p, p), true);
+            polyline = new Polyline(settings.paint, Util.NewList(p, p, p, p), true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
             var from = polyline.points[0];
             if (!settings.adjustment) polyline.points[2] = p;
-            else polyline.points[2] = AdjustSquare(from, p);
+            else polyline.points[2] = Geometry.AdjustSquare(from, p);
             var to = polyline.points[2];
             polyline.points[1] = new Point<Internal>(from.x, to.y);
             polyline.points[3] = new Point<Internal>(to.x, from.y);
@@ -207,7 +203,7 @@ namespace tegaki_hack
 
         protected override IShape Finish()
         {
-            return Nulling(ref polyline);
+            return Util.Nulling(ref polyline);
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -218,7 +214,7 @@ namespace tegaki_hack
         {
             var from = polyline.points[0];
             if (!settings.adjustment) polyline.points[1] = p;
-            else polyline.points[1] = AdjustAngle(from, p, settings.rightAngleDivision);
+            else polyline.points[1] = Geometry.AdjustAngle(from, p, settings.rightAngleDivision);
             for (int i = 2; i < settings.nRegularPolygon; i++)
             {
                 var prev = polyline.points[i - 1];

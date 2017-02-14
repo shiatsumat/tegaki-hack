@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <string name="PleaseWait">お待ちください</string>
+
   <string name="Edit">編集する</string>
 
   <string name="RegularPolygonOptions">正多角形のオプション</string>
@@ -17,6 +19,7 @@
     <item>ピクセル</item>
   </string-array>
   <string name="FillColor">塗りつぶしの色</string>
+  <string name="LinecapAndLinejoin">端点と頂点のスタイル</string>
   <string name="Linecap">端点のスタイル</string>
   <string-array name="Linecaps">
     <item>無し</item>

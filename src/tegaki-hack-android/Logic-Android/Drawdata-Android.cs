@@ -1,3 +1,4 @@
+using System;
 using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
 using NativePaint = Android.Graphics.Paint;
@@ -22,30 +23,8 @@ namespace tegaki_hack
             res.SetStyle(NativePaint.Style.Stroke);
             res.Color = strokeColor.native;
             res.StrokeWidth = strokeWidth.Value(transform);
-            switch (linecap)
-            {
-                case Linecap.Butt:
-                    res.StrokeCap = NativePaint.Cap.Butt;
-                    break;
-                case Linecap.Round:
-                    res.StrokeCap = NativePaint.Cap.Round;
-                    break;
-                case Linecap.Square:
-                    res.StrokeCap = NativePaint.Cap.Square;
-                    break;
-            }
-            switch (linejoin)
-            {
-                case Linejoin.Miter:
-                    res.StrokeJoin = NativePaint.Join.Miter;
-                    break;
-                case Linejoin.Round:
-                    res.StrokeJoin = NativePaint.Join.Round;
-                    break;
-                case Linejoin.Bevel:
-                    res.StrokeJoin = NativePaint.Join.Bevel;
-                    break;
-            }
+            res.StrokeCap = linecap.ToNative();
+            res.StrokeJoin = linejoin.ToNative();
             return res;
         }
         public NativePaint fillPaint(Transform<Internal, External> transform)
@@ -54,6 +33,38 @@ namespace tegaki_hack
             res.SetStyle(NativePaint.Style.Fill);
             res.Color = fillColor.native;
             return res;
+        }
+    }
+
+    public static partial class DrawdataStatic
+    {
+        public static NativePaint.Cap ToNative(this Linecap linecap)
+        {
+            switch (linecap)
+            {
+                case Linecap.Butt:
+                    return NativePaint.Cap.Butt;
+                case Linecap.Round:
+                    return NativePaint.Cap.Round;
+                case Linecap.Square:
+                    return NativePaint.Cap.Square;
+                default:
+                    throw new InvalidOperationException("invalid linecap");
+            }
+        }
+        public static NativePaint.Join ToNative(this Linejoin linejoin)
+        {
+            switch (linejoin)
+            {
+                case Linejoin.Miter:
+                    return NativePaint.Join.Miter;
+                case Linejoin.Round:
+                    return NativePaint.Join.Round;
+                case Linejoin.Bevel:
+                    return NativePaint.Join.Bevel;
+                default:
+                    throw new InvalidOperationException("invalid linejoin");
+            }
         }
     }
 }

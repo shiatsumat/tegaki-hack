@@ -7,9 +7,6 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using NativeColor = Android.Graphics.Color;
-using static System.Math;
-using static tegaki_hack.UtilStatic;
-using static tegaki_hack.Color;
 
 namespace tegaki_hack
 {
@@ -17,7 +14,7 @@ namespace tegaki_hack
 
     public class ExtensibleView : View
     {
-        public CanvasDelegate Drawing;
+        public event CanvasDelegate Drawing;
 
         public ExtensibleView(Context context, IAttributeSet attrs) :
             base(context, attrs)
@@ -30,7 +27,7 @@ namespace tegaki_hack
         protected override void OnDraw(Canvas canvas)
         {
             base.OnDraw(canvas);
-            Drawing(canvas);
+            Drawing?.Invoke(canvas);
         }
     }
 
@@ -40,6 +37,7 @@ namespace tegaki_hack
         public NumberPicker rPicker, gPicker, bPicker, aPicker;
         public SeekBar rSeekBar, gSeekBar, bSeekBar, aSeekBar, hSeekBar, sSeekBar, lSeekBar;
         public TextView hText, sText, lText;
+        public event Action ColorChanged;
         Color _color;
         int prevh, prevs;
         bool setting;
@@ -47,42 +45,42 @@ namespace tegaki_hack
         public Color color
         {
             get { return _color; }
-            set { _color = value; SetControls(); }
+            set { _color = value; colorChanged(); }
         }
         public byte r
         {
             get { return _color.r; }
-            set { _color.r = value; SetControls(); }
+            set { _color.r = value; colorChanged(); }
         }
         public byte g
         {
             get { return _color.g; }
-            set { _color.g = value; SetControls(); }
+            set { _color.g = value; colorChanged(); }
         }
         public byte b
         {
             get { return _color.b; }
-            set { _color.b = value; SetControls(); }
+            set { _color.b = value; colorChanged(); }
         }
         public byte a
         {
             get { return _color.a; }
-            set { _color.a = value; SetControls(); }
+            set { _color.a = value; colorChanged(); }
         }
         public float h
         {
             get { return _color.h; }
-            set { prevh = (int)value; _color = Hsla(value, prevs, l, a); SetControls(); }
+            set { prevh = (int)value; _color = Color.Hsla(value, prevs, l, a); colorChanged(); }
         }
         public float s
         {
             get { return _color.s; }
-            set { prevs = (int)value; _color = Hsla(prevh, value, l, a); SetControls(); }
+            set { prevs = (int)value; _color = Color.Hsla(prevh, value, l, a); colorChanged(); }
         }
         public float l
         {
             get { return _color.l; }
-            set { _color = Hsla(prevh, prevs, value, a); SetControls(); }
+            set { _color = Color.Hsla(prevh, prevs, value, a); colorChanged(); }
         }
 
         public ColorSetter(Context context, IAttributeSet attrs) :
@@ -131,7 +129,7 @@ namespace tegaki_hack
 
             colorIndicator.Click += (o, e) =>
             {
-                ShowToast(Context, "color");
+                Util.ShowToast(Context, "color");
             };
 
             rPicker.ValueChanged += (o, e) => { if (!setting) r = (byte)rPicker.Value; };
@@ -160,34 +158,41 @@ namespace tegaki_hack
             gSeekBar.Progress = g;
             bSeekBar.Progress = b;
             aSeekBar.Progress = a;
-            hSeekBar.Progress = float.IsNaN(h) ? prevh : (prevh = (int)Round(h) % 360);
-            sSeekBar.Progress = s == 0 ? prevs : (prevs = (int)Round(s));
-            lSeekBar.Progress = (int)Round(l);
+            hSeekBar.Progress = float.IsNaN(h) ? prevh : (prevh = (int)Math.Round(h) % 360);
+            sSeekBar.Progress = s == 0 ? prevs : (prevs = (int)Math.Round(s));
+            lSeekBar.Progress = (int)Math.Round(l);
 
-            rSeekBar.ThumbTintList = ColorStateList.ValueOf(Hsla(0, r * 100.0f / 255.0f, 50, 255).native);
-            gSeekBar.ThumbTintList = ColorStateList.ValueOf(Hsla(120, g * 100.0f / 255.0f, 50, 255).native);
-            bSeekBar.ThumbTintList = ColorStateList.ValueOf(Hsla(240, b * 100.0f / 255.0f, 50, 255).native);
-            aSeekBar.ThumbTintList = ColorStateList.ValueOf(Rgba(r, g, b, (byte)((a + 64.0f) * 255.0f / 319.0f)).native);
-            var hColors = ColorStateList.ValueOf(Hsla(prevh, 100, 50, 255).native);
+            rSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Hsla(0, r * 100.0f / 255.0f, 50, 255).native);
+            gSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Hsla(120, g * 100.0f / 255.0f, 50, 255).native);
+            bSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Hsla(240, b * 100.0f / 255.0f, 50, 255).native);
+            aSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Rgba(r, g, b, (byte)((a + 64.0f) * 255.0f / 319.0f)).native);
+            var hColors = ColorStateList.ValueOf(Color.Hsla(prevh, 100, 50, 255).native);
             hText.SetTextColor(hColors);
             hSeekBar.ThumbTintList = hColors;
-            var sColors = ColorStateList.ValueOf(Hsla(prevh, prevs, 50, 255).native);
+            var sColors = ColorStateList.ValueOf(Color.Hsla(prevh, prevs, 50, 255).native);
             sText.SetTextColor(sColors);
             sSeekBar.ThumbTintList = sColors;
-            var lColors = ColorStateList.ValueOf(Hsla(prevh, 100, l, 255).native);
+            var lColors = ColorStateList.ValueOf(Color.Hsla(prevh, 100, l, 255).native);
             lText.SetTextColor(lColors);
             lSeekBar.ThumbTintList = lColors;
 
             setting = false;
         }
+
+        void colorChanged()
+        {
+            ColorChanged?.Invoke();
+            SetControls();
+        }
     }
 
-    public static partial class UtilStatic
+    public static partial class Util
     {
         public static void Activate(this View view, bool activate)
         {
             view.BackgroundTintList = !activate ? null : ColorStateList.ValueOf(NativeColor.Orange);
         }
+
         public static void ShowToast(Context context, string text, ToastLength duration = ToastLength.Short)
         {
             Toast.MakeText(context, text, duration).Show();

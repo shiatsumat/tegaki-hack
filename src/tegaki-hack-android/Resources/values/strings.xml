@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <string name="PleaseWait">Please Wait</string>
+
   <string name="Edit">Edit</string>
 
   <string name="RegularPolygonOptions">Regular Polygon Options</string>
@@ -17,6 +19,7 @@
     <item>Pixels</item>
   </string-array>
   <string name="FillColor">Fill Color</string>
+  <string name="LinecapAndLinejoin">Linecap and Linejoin</string>
   <string name="Linecap">Linecap</string>
   <string-array name="Linecaps">
     <item>Butt</item>

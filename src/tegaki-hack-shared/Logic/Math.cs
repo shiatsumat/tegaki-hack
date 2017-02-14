@@ -1,12 +1,12 @@
-using static System.Math;
+using System;
 
 namespace tegaki_hack
 {
     public partial struct Complex
 	{
 		public float re, im;
-		public float norm => (float)Sqrt(re * re + im * im);
-		public float arg => (float)(Atan2(im, re) * 180 / PI); // (-180, +180]
+		public float norm => (float)Math.Sqrt(re * re + im * im);
+		public float arg => (float)(Math.Atan2(im, re) * 180 / Math.PI); // (-180, +180]
 
 		public Complex(float re, float im = 0)
 		{
@@ -14,8 +14,8 @@ namespace tegaki_hack
 		}
         public static Complex Polar(float arg, float norm = 1)
         {
-            float argr = arg * (float)PI / 180;
-            return new Complex((float)Cos(argr) * norm, (float)Sin(argr) * norm);
+            float argr = arg * (float)Math.PI / 180;
+            return new Complex((float)Math.Cos(argr) * norm, (float)Math.Sin(argr) * norm);
         }
 
 		public static Complex operator +(Complex z, Complex w)

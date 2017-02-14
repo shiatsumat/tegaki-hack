@@ -1,17 +1,22 @@
-﻿using System.Collections.Generic;
-using static System.Math;
+﻿using System;
+using System.Collections.Generic;
 
 namespace tegaki_hack
 {
     public enum Touchevent { Down, Move, Up }
 
-    public static partial class UtilStatic
+    public static partial class Util
     {
+        public static void DebugPrint(string format, params object[] args)
+        {
+            System.Diagnostics.Debug.Print(format, args);
+        }
+
         public const float EPS = 1e-4f;
         public static float ToAbs(this float oldvalue, float value)
         {
-            if (oldvalue > 0) return Abs(value);
-            else return -Abs(value);
+            if (oldvalue > 0) return Math.Abs(value);
+            else return -Math.Abs(value);
         }
 
         public static T Nulling<T>(ref T x) where T : class
@@ -39,12 +44,12 @@ namespace tegaki_hack
             list.RemoveAt(list.Count - 1);
             return res;
         }
-        public static List<T> newList<T>(params T[] ts)
+        public static List<T> NewList<T>(params T[] ts)
         {
             return new List<T>(ts);
         }
 
-        public static string svgName(string name)
+        public static string SvgName(string name)
         {
             return "{http://www.w3.org/2000/svg}" + name;
         }

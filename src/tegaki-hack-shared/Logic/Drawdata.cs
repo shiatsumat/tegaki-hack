@@ -1,6 +1,5 @@
 using System;
 using System.Xml.Linq;
-using static System.Math;
 
 namespace tegaki_hack
 {
@@ -44,8 +43,8 @@ namespace tegaki_hack
         {
             get { return cnt * 100.0f / 255.0f; }
         }
-        byte max { get { return Max(Max(r, g), b); } }
-        byte min { get { return Min(Min(r, g), b); } }
+        byte max { get { return Math.Max(Math.Max(r, g), b); } }
+        byte min { get { return Math.Min(Math.Min(r, g), b); } }
         float cnt { get { return (max + min) / 2.0f; } }
 
         Color(byte r, byte g, byte b, byte a)
@@ -97,39 +96,39 @@ namespace tegaki_hack
 
             if (0 <= h && h < 60)
             {
-                r = (byte)Round(max);
-                g = (byte)Round((h / 60) * (max - min) + min);
-                b = (byte)Round(min);
+                r = (byte)Math.Round(max);
+                g = (byte)Math.Round((h / 60) * (max - min) + min);
+                b = (byte)Math.Round(min);
             }
             else if (60 <= h && h < 120)
             {
-                r = (byte)Round(((120 - h) / 60) * (max - min) + min);
-                g = (byte)Round(max);
-                b = (byte)Round(min);
+                r = (byte)Math.Round(((120 - h) / 60) * (max - min) + min);
+                g = (byte)Math.Round(max);
+                b = (byte)Math.Round(min);
             }
             else if (120 <= h && h < 180)
             {
-                r = (byte)Round(min);
-                g = (byte)Round(max);
-                b = (byte)Round(((h - 120) / 60) * (max - min) + min);
+                r = (byte)Math.Round(min);
+                g = (byte)Math.Round(max);
+                b = (byte)Math.Round(((h - 120) / 60) * (max - min) + min);
             }
             else if (180 <= h && h < 240)
             {
-                r = (byte)Round(min);
-                g = (byte)Round(((240 - h) / 60) * (max - min) + min);
-                b = (byte)Round(max);
+                r = (byte)Math.Round(min);
+                g = (byte)Math.Round(((240 - h) / 60) * (max - min) + min);
+                b = (byte)Math.Round(max);
             }
             else if (240 <= h && h < 300)
             {
-                r = (byte)Round(((h - 240) / 60) * (max - min) + min);
-                g = (byte)Round(min);
-                b = (byte)Round(max);
+                r = (byte)Math.Round(((h - 240) / 60) * (max - min) + min);
+                g = (byte)Math.Round(min);
+                b = (byte)Math.Round(max);
             }
             else
             {
-                r = (byte)Round(max);
-                g = (byte)Round(min);
-                b = (byte)Round(((360 - h) / 60) * (max - min) + min);
+                r = (byte)Math.Round(max);
+                g = (byte)Math.Round(min);
+                b = (byte)Math.Round(((360 - h) / 60) * (max - min) + min);
             }
             return Rgba(r, g, b, a);
         }
@@ -182,7 +181,7 @@ namespace tegaki_hack
         public Paint(Color strokecolor, SizeEither strokewidth, Color fillcolor = default(Color),
             Linecap linecap = Linecap.Butt, Linejoin linejoin = Linejoin.Miter, FillRule fillRule = FillRule.EvenOdd)
         {
-            this.strokeColor = strokecolor; this.strokeWidth = strokewidth; this.fillColor = fillcolor;
+            strokeColor = strokecolor; strokeWidth = strokewidth; fillColor = fillcolor;
             this.linecap = linecap; this.linejoin = linejoin; this.fillRule = fillRule;
         }
         public Paint(Paint paint)

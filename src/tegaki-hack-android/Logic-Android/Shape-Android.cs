@@ -1,5 +1,4 @@
 using Android.Graphics;
-using static tegaki_hack.GeometryStatic;
 
 namespace tegaki_hack
 {
@@ -49,8 +48,8 @@ namespace tegaki_hack
                         var p3 = closed || i < points.Count - 1 ?
                             points.LoopGet(i + 1) :
                             endPoint;
-                        var conT = InterpolateCon(p0, p1, p2, p3).Transform(transform);
-                        var trolT = InterpolateTrol(p0, p1, p2, p3).Transform(transform);
+                        var conT = Geometry.InterpolateCon(p0, p1, p2, p3).Transform(transform);
+                        var trolT = Geometry.InterpolateTrol(p0, p1, p2, p3).Transform(transform);
                         var toT = p2.Transform(transform);
                         path.CubicTo(conT.x, conT.y, trolT.x, trolT.y, toT.x, toT.y);
                     }

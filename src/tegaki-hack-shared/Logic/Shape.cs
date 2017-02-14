@@ -1,9 +1,6 @@
 using System;
 using System.Xml.Linq;
 using System.Collections.Generic;
-using static System.Math;
-using static tegaki_hack.GeometryStatic;
-using static tegaki_hack.UtilStatic;
 
 namespace tegaki_hack
 {
@@ -84,14 +81,14 @@ namespace tegaki_hack
                         var p3 = closed || i < points.Count - 1 ?
                             points.LoopGet(i + 1) :
                             endPoint;
-                        var conT = InterpolateCon(p0, p1, p2, p3).Transform(transform);
-                        var trolT = InterpolateTrol(p0, p1, p2, p3).Transform(transform);
+                        var conT = Geometry.InterpolateCon(p0, p1, p2, p3).Transform(transform);
+                        var trolT = Geometry.InterpolateTrol(p0, p1, p2, p3).Transform(transform);
                         var toT = p2.Transform(transform);
                         dString += string.Format(" C {0} {1} {2}", conT, trolT, toT);
                     }
                 }
                 if (closed) dString += " Z";
-                element.Add(new XElement(svgName("path"),
+                element.Add(new XElement(Util.SvgName("path"),
                     new XAttribute("d", dString))
                     .AddSvg(paint, transform));
             }
@@ -103,7 +100,7 @@ namespace tegaki_hack
         public Paint paint;
         public Point<Internal> center;
         DPoint<Internal> _radii;
-        public DPoint<Internal> radii { get { return _radii; } set { _radii = new DPoint<Internal>((float)Abs(value.dx), (float)Abs(value.dy)); } }
+        public DPoint<Internal> radii { get { return _radii; } set { _radii = new DPoint<Internal>((float)Math.Abs(value.dx), (float)Math.Abs(value.dy)); } }
 
         public Oval(Paint paint, Point<Internal> center, DPoint<Internal> radii)
         {
@@ -112,7 +109,7 @@ namespace tegaki_hack
 
         public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
-            element.Add(new XElement(svgName("ellipse"))
+            element.Add(new XElement(Util.SvgName("ellipse"))
                 .AddSvg(paint, transform)
                 .AddSvg(center, "cx", "cy", transform)
                 .AddSvg(radii, "rx", "ry", transform));
@@ -124,7 +121,7 @@ namespace tegaki_hack
         public Paint paint;
         public Point<Internal> center;
         DPoint<Internal> _radii;
-        public DPoint<Internal> radii { get { return _radii; } set { _radii = new DPoint<Internal>((float)Abs(value.dx), (float)Abs(value.dy)); } }
+        public DPoint<Internal> radii { get { return _radii; } set { _radii = new DPoint<Internal>((float)Math.Abs(value.dx), (float)Math.Abs(value.dy)); } }
         float _startAngle;
         public float startAngle
         {
@@ -175,7 +172,7 @@ namespace tegaki_hack
             {
                 dString += string.Format(" L {0} L {1}", center, startPoint);
             }
-            element.Add(new XElement(svgName("path"),
+            element.Add(new XElement(Util.SvgName("path"),
                 new XAttribute("d", dString)));
         }
     }
