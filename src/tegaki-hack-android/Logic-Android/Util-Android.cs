@@ -50,38 +50,38 @@ namespace tegaki_hack
         }
         public byte r
         {
-            get { return _color.r; }
-            set { _color.r = value; colorChanged(); }
+            get { return _color.R; }
+            set { _color.R = value; colorChanged(); }
         }
         public byte g
         {
-            get { return _color.g; }
-            set { _color.g = value; colorChanged(); }
+            get { return _color.G; }
+            set { _color.G = value; colorChanged(); }
         }
         public byte b
         {
-            get { return _color.b; }
-            set { _color.b = value; colorChanged(); }
+            get { return _color.B; }
+            set { _color.B = value; colorChanged(); }
         }
         public byte a
         {
-            get { return _color.a; }
-            set { _color.a = value; colorChanged(); }
+            get { return _color.A; }
+            set { _color.A = value; colorChanged(); }
         }
         public float h
         {
-            get { return _color.h; }
-            set { prevh = (int)value; _color = Color.Hsla(value, prevs, l, a); colorChanged(); }
+            get { return _color.H; }
+            set { prevh = (int)value; _color = Color.ByHsla(value, prevs, l, a); colorChanged(); }
         }
         public float s
         {
-            get { return _color.s; }
-            set { prevs = (int)value; _color = Color.Hsla(prevh, value, l, a); colorChanged(); }
+            get { return _color.S; }
+            set { prevs = (int)value; _color = Color.ByHsla(prevh, value, l, a); colorChanged(); }
         }
         public float l
         {
-            get { return _color.l; }
-            set { _color = Color.Hsla(prevh, prevs, value, a); colorChanged(); }
+            get { return _color.L; }
+            set { _color = Color.ByHsla(prevh, prevs, value, a); colorChanged(); }
         }
 
         public ColorSetter(Context context, IAttributeSet attrs) :
@@ -150,7 +150,7 @@ namespace tegaki_hack
         {
             setting = true;
 
-            colorIndicator.BackgroundTintList = ColorStateList.ValueOf(_color.native);
+            colorIndicator.BackgroundTintList = ColorStateList.ValueOf(_color.Native);
             rPicker.Value = r;
             gPicker.Value = g;
             bPicker.Value = b;
@@ -163,17 +163,17 @@ namespace tegaki_hack
             sSeekBar.Progress = s == 0 ? prevs : (prevs = (int)Math.Round(s));
             lSeekBar.Progress = (int)Math.Round(l);
 
-            rSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Hsla(0, r * 100.0f / 255.0f, 50, 255).native);
-            gSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Hsla(120, g * 100.0f / 255.0f, 50, 255).native);
-            bSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Hsla(240, b * 100.0f / 255.0f, 50, 255).native);
-            aSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.Rgba(r, g, b, (byte)((a + 64.0f) * 255.0f / 319.0f)).native);
-            var hColors = ColorStateList.ValueOf(Color.Hsla(prevh, 100, 50, 255).native);
+            rSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(0, r * 100.0f / 255.0f, 50, 255).Native);
+            gSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(120, g * 100.0f / 255.0f, 50, 255).Native);
+            bSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(240, b * 100.0f / 255.0f, 50, 255).Native);
+            aSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByRgba(r, g, b, (byte)((a + 64.0f) * 255.0f / 319.0f)).Native);
+            var hColors = ColorStateList.ValueOf(Color.ByHsla(prevh, 100, 50, 255).Native);
             hText.SetTextColor(hColors);
             hSeekBar.ThumbTintList = hColors;
-            var sColors = ColorStateList.ValueOf(Color.Hsla(prevh, prevs, 50, 255).native);
+            var sColors = ColorStateList.ValueOf(Color.ByHsla(prevh, prevs, 50, 255).Native);
             sText.SetTextColor(sColors);
             sSeekBar.ThumbTintList = sColors;
-            var lColors = ColorStateList.ValueOf(Color.Hsla(prevh, 100, l, 255).native);
+            var lColors = ColorStateList.ValueOf(Color.ByHsla(prevh, 100, l, 255).Native);
             lText.SetTextColor(lColors);
             lSeekBar.ThumbTintList = lColors;
 

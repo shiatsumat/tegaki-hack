@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace tegaki_hack
 {
-    public enum Touchevent { Down, Move, Up }
+    public enum TouchEvent { Down, Move, Up }
 
     public static partial class Util
     {
@@ -52,6 +52,11 @@ namespace tegaki_hack
         public static string SvgName(string name)
         {
             return "{http://www.w3.org/2000/svg}" + name;
+        }
+
+        public static bool ZeroOrOne(bool a, bool b, bool c)
+        {
+            return (!a && !b) || (!b && !c) || (!c && !a);
         }
     }
 }

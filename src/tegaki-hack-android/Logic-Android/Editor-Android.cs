@@ -7,6 +7,7 @@ using Android.Views;
 using Android.App;
 using NativeColor = Android.Graphics.Color;
 using Android.Graphics.Drawables;
+using Android.Content.Res;
 
 namespace tegaki_hack
 {
@@ -66,13 +67,13 @@ namespace tegaki_hack
                 switch (e.Event.Action & MotionEventActions.Mask)
                 {
                     case MotionEventActions.Down:
-                        Touch(Touchevent.Down, p);
+                        Touch(TouchEvent.Down, p);
                         break;
                     case MotionEventActions.Move:
-                        Touch(Touchevent.Move, p);
+                        Touch(TouchEvent.Move, p);
                         break;
                     case MotionEventActions.Up:
-                        Touch(Touchevent.Up, p);
+                        Touch(TouchEvent.Up, p);
                         break;
                 }
             };
@@ -146,7 +147,7 @@ namespace tegaki_hack
         }
         void InitializeCircle()
         {
-            var view = activity.LayoutInflater.Inflate(Resource.Layout.RegularPolygonDialog, null);
+            var view = activity.LayoutInflater.Inflate(Resource.Layout.CircleDialog, null);
             var nRegularPolygonPicker = view.FindViewById<NumberPicker>(Resource.Id.NRegularPolygon);
             int nRegularPolygon = 0;
 
@@ -159,7 +160,7 @@ namespace tegaki_hack
                 nRegularPolygon = nRegularPolygonPicker.Value;
             };
 
-            var dialog = Util.CreateDialog(activity, Resource.String.RegularPolygonOptions, view, () =>
+            var dialog = Util.CreateDialog(activity, Resource.String.CirlceFamilyOptions, view, () =>
                  {
                      if (nRegularPolygon != settings.NRegularPolygon)
                      {
@@ -189,21 +190,26 @@ namespace tegaki_hack
             var view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
             var adjustment = new Adjustment();
 
+            Action setAvailability = null;
+
             var xAdjustment = view.FindViewById<Spinner>(Resource.Id.XAdjustment);
             xAdjustment.ItemSelected += (o, e) =>
             {
                 adjustment.XAdjustment = (CoordinateAdjustment)xAdjustment.SelectedItemPosition;
+                setAvailability();
             };
             var yAdjustment = view.FindViewById<Spinner>(Resource.Id.YAdjustment);
             yAdjustment.ItemSelected += (o, e) =>
             {
                 adjustment.YAdjustment = (CoordinateAdjustment)yAdjustment.SelectedItemPosition;
+                setAvailability();
             };
 
             var adjustAngle = view.FindViewById<CheckBox>(Resource.Id.AdjustAngle);
             adjustAngle.CheckedChange += (o, e) =>
             {
-                adjustment.DoesAdjustAngle = adjustAngle.Checked;
+                adjustment.AdjustAngle = adjustAngle.Checked;
+                setAvailability();
             };
 
             var rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
@@ -218,25 +224,31 @@ namespace tegaki_hack
             var adjustLength = view.FindViewById<CheckBox>(Resource.Id.AdjustLength);
             adjustLength.CheckedChange += (o, e) =>
             {
-                adjustment.DoesAdjustLength = adjustLength.Checked;
+                adjustment.AdjustLength = adjustLength.Checked;
+                setAvailability();
             };
 
             var dialog = Util.CreateDialog(activity, Resource.String.AdjustmentOptions, view, () =>
             {
-                if (!adjustment.Equals(settings.Adjustment))
-                {
-                    settings.Adjustment = adjustment;
-                }
+                settings.Adjustment = adjustment;
             }, null);
+
+            setAvailability = () =>
+            {
+                adjustAngle.SetTextColor(adjustment.AngleAdjustmentAvailable ?
+                    ColorStateList.ValueOf(NativeColor.Black) : ColorStateList.ValueOf(NativeColor.LightGray));
+                adjustLength.SetTextColor(adjustment.LengthAdjustmentAvailable ?
+                    ColorStateList.ValueOf(NativeColor.Black) : ColorStateList.ValueOf(NativeColor.LightGray));
+            };
 
             adjustmentButton.LongClick += (o, e) =>
             {
                 adjustment = new Adjustment(settings.Adjustment);
                 xAdjustment.SetSelection((int)adjustment.XAdjustment);
                 yAdjustment.SetSelection((int)adjustment.YAdjustment);
-                adjustAngle.Checked = adjustment.DoesAdjustAngle;
+                adjustAngle.Checked = adjustment.AdjustAngle;
                 rightAngleDivision.Value = adjustment.RightAngleDivision;
-                adjustLength.Checked = adjustment.DoesAdjustLength;
+                adjustLength.Checked = adjustment.AdjustLength;
 
                 dialog.Show();
             };
@@ -401,7 +413,7 @@ namespace tegaki_hack
 
         partial void ResetSecondCanvas()
         {
-            secondBitmap = Bitmap.CreateBitmap((int)realsize.dx, (int)realsize.dy, Bitmap.Config.Rgb565);
+            secondBitmap = Bitmap.CreateBitmap((int)realsize.Dx, (int)realsize.Dy, Bitmap.Config.Rgb565);
             secondCanvas = new Canvas(secondBitmap);
             secondCanvas.DrawColor(NativeColor.White);
 

@@ -58,7 +58,7 @@ namespace tegaki_hack
 
         public ShapeCreatorSettings(Action edited, Action<IShape> finished)
         {
-            Paint = new Paint(Color.Rgba(0xadff2fff), new SizeEither(0.5f, true), lineCap: LineCap.Round, lineJoin: LineJoin.Round);
+            Paint = new Paint(Color.ByRgba(0xadff2fff), new SizeEither(0.5f, true), lineCap: LineCap.Round, lineJoin: LineJoin.Round);
             DoesAdjust = false;
             Adjustment = new Adjustment();
             NRegularPolygon = 3;
@@ -71,27 +71,34 @@ namespace tegaki_hack
     public partial class Adjustment
     {
         public CoordinateAdjustment XAdjustment, YAdjustment;
-        public bool DoesAdjustAngle;
+        public bool AdjustAngle;
         public int RightAngleDivision;
-        public bool DoesAdjustLength;
+        public bool AdjustLength;
+        public bool AngleAdjustmentAvailable =>
+                XAdjustment == CoordinateAdjustment.None ||
+                YAdjustment == CoordinateAdjustment.None;
+        public bool LengthAdjustmentAvailable => Util.ZeroOrOne(
+                XAdjustment != CoordinateAdjustment.None,
+                YAdjustment != CoordinateAdjustment.None,
+                AdjustAngle);
 
         public Adjustment()
         {
             XAdjustment = CoordinateAdjustment.Integer;
             YAdjustment = CoordinateAdjustment.Integer;
-            DoesAdjustAngle = false;
+            AdjustAngle = false;
             RightAngleDivision = 6;
-            DoesAdjustLength = false;
+            AdjustLength = false;
         }
         public Adjustment(CoordinateAdjustment xAdjustment, CoordinateAdjustment yAdjustment,
             bool doesAdjustAngle, int rightAngleDivision, bool doesAdjustLength)
         {
             XAdjustment = xAdjustment; YAdjustment = yAdjustment;
-            DoesAdjustAngle = doesAdjustAngle; RightAngleDivision = rightAngleDivision; DoesAdjustLength = doesAdjustLength;
+            AdjustAngle = doesAdjustAngle; RightAngleDivision = rightAngleDivision; AdjustLength = doesAdjustLength;
         }
         public Adjustment(Adjustment adjustment)
             : this(adjustment.XAdjustment, adjustment.YAdjustment,
-                 adjustment.DoesAdjustAngle, adjustment.RightAngleDivision, adjustment.DoesAdjustLength)
+                 adjustment.AdjustAngle, adjustment.RightAngleDivision, adjustment.AdjustLength)
         { }
 
         public bool Equals(Adjustment adjustment)
@@ -99,38 +106,77 @@ namespace tegaki_hack
             return
                 XAdjustment == adjustment.XAdjustment &&
                 YAdjustment == adjustment.YAdjustment &&
-                DoesAdjustAngle == adjustment.DoesAdjustAngle &&
+                AdjustAngle == adjustment.AdjustAngle &&
                 RightAngleDivision == adjustment.RightAngleDivision &&
-                DoesAdjustLength == adjustment.DoesAdjustLength;
+                AdjustLength == adjustment.AdjustLength;
         }
 
         public Point<Internal> Adjust(Point<Internal> p)
         {
             if (XAdjustment == CoordinateAdjustment.Integer)
             {
-                p.x = (float)Math.Round(p.x);
+                p.X = (float)Math.Round(p.X);
             }
             if (YAdjustment == CoordinateAdjustment.Integer)
             {
-                p.y = (float)Math.Round(p.y);
+                p.Y = (float)Math.Round(p.Y);
             }
             return p;
         }
         public Point<Internal> Adjust(Point<Internal> p, Point<Internal> prev)
         {
             p = Adjust(p);
-            if ((XAdjustment == CoordinateAdjustment.None || YAdjustment == CoordinateAdjustment.None)
-                && DoesAdjustAngle)
+            var v = p - prev;
+            if (v.Norm < Util.EPS) return p;
+            if (XAdjustment == CoordinateAdjustment.None || YAdjustment == CoordinateAdjustment.None)
             {
-                return Geometry.AdjustAngle(prev, p, RightAngleDivision);
+                if (AdjustAngle)
+                {
+                    var angleUnit = 90.0f / RightAngleDivision;
+                    var polar = Complex.Polar((float)Math.Round(v.Arg / angleUnit) * angleUnit);
+                    float ratio = 0;
+                    if (XAdjustment != CoordinateAdjustment.None)
+                    {
+                        if (polar.Re < Util.EPS) return p;
+                        ratio = v.Dx / polar.Re;
+                    }
+                    else if (YAdjustment != CoordinateAdjustment.None)
+                    {
+                        if (polar.Im < Util.EPS) return p;
+                        ratio = v.Dy / polar.Im;
+                    }
+                    else if (!AdjustLength) ratio = Math.Abs(v.Dx) > Math.Abs(v.Dy) ? v.Dx / polar.Re : v.Dy / polar.Im;
+                    else ratio = (float)Math.Round(v.Norm) / polar.Norm;
+                    return prev + new DPoint<Internal>(polar * ratio);
+                }
+                else if (AdjustLength)
+                {
+                    var l = (float)Math.Round(v.Norm);
+                    if (XAdjustment != CoordinateAdjustment.None)
+                    {
+                        if (Math.Abs(v.Dx) < l) l++;
+                        v.Dy = v.Dy.AdjustAbs((float)Math.Sqrt(l * l - v.Dx * v.Dx));
+                        return prev + v;
+                    }
+                    else if (YAdjustment != CoordinateAdjustment.None)
+                    {
+                        if (Math.Abs(v.Dy) < l) l++;
+                        v.Dx = v.Dx.AdjustAbs((float)Math.Sqrt(l * l - v.Dy * v.Dy));
+                        return prev + v;
+                    }
+                    else
+                    {
+                        return prev + v * l / v.Norm;
+                    }
+                }
             }
-            else return p;
+            return p;
         }
     }
 
     public abstract partial class AShapeCreator
     {
-        public ShapeCreatorSettings settings;
+        public ShapeCreatorSettings Settings;
         protected bool dragging;
         Point<Internal> prev;
 
@@ -138,17 +184,17 @@ namespace tegaki_hack
         {
             dragging = false;
         }
-        public virtual void Touch(Touchevent touchevent, Point<Internal> p)
+        public virtual void Touch(TouchEvent touchEvent, Point<Internal> p)
         {
-            switch (touchevent)
+            switch (touchEvent)
             {
-                case Touchevent.Down:
+                case TouchEvent.Down:
                     if (dragging) { EndDrag(); }
                     dragging = true;
                     prev = p;
                     StartDrag(p);
                     break;
-                case Touchevent.Move:
+                case TouchEvent.Move:
                     if (!dragging)
                     {
                         dragging = true;
@@ -157,7 +203,7 @@ namespace tegaki_hack
                     }
                     else if (prev.distance(p) > Util.EPS) MoveDrag(p);
                     break;
-                case Touchevent.Up:
+                case TouchEvent.Up:
                     if (dragging)
                     {
                         if (prev.distance(p) > Util.EPS) MoveDrag(p);
@@ -174,24 +220,24 @@ namespace tegaki_hack
         public abstract void Draw(Canvas canvas, Transform<Internal, External> transform);
         public void Cleanup()
         {
-            settings.Finished?.Invoke(Finish());
+            Settings.Finished?.Invoke(Finish());
             dragging = false;
         }
 
         protected void Edited()
         {
-            settings.Edited?.Invoke();
+            Settings.Edited?.Invoke();
         }
 
         protected Point<Internal> Adjust(Point<Internal> p)
         {
-            if (!settings.DoesAdjust) return p;
-            else return settings.Adjustment.Adjust(p);
+            if (!Settings.DoesAdjust) return p;
+            else return Settings.Adjustment.Adjust(p);
         }
         protected Point<Internal> Adjust(Point<Internal> p, Point<Internal> prev)
         {
-            if (!settings.DoesAdjust) return p;
-            else return settings.Adjustment.Adjust(p, prev);
+            if (!Settings.DoesAdjust) return p;
+            else return Settings.Adjustment.Adjust(p, prev);
         }
     }
 
@@ -204,15 +250,15 @@ namespace tegaki_hack
             if (polyline == null) return null;
             var oldpolyline = polyline;
             polyline = null;
-            return oldpolyline.points.Count >= 2 ? oldpolyline : null;
+            return oldpolyline.Points.Count >= 2 ? oldpolyline : null;
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(settings.Paint, Util.NewList(p), false, true);
+            polyline = new Polyline(Settings.Paint, Util.NewList(p), false, true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
-            polyline.points.Add(p);
+            polyline.Points.Add(p);
             Edited();
         }
         protected override void EndDrag()
@@ -236,30 +282,6 @@ namespace tegaki_hack
         }
         protected sealed override void MoveDrag(Point<Internal> p)
         {
-            to = Adjust(p);
-            Set();
-            Edited();
-        }
-        protected sealed override void EndDrag()
-        {
-            Cleanup();
-            from = to = null;
-        }
-
-        protected abstract void Set();
-    }
-
-    public abstract partial class TwoPointLineCreator : AShapeCreator
-    {
-        protected Point<Internal>? from, to;
-
-        protected sealed override void StartDrag(Point<Internal> p)
-        {
-            from = Adjust(p);
-            Set();
-        }
-        protected sealed override void MoveDrag(Point<Internal> p)
-        {
             to = Adjust(p, from.Value);
             Set();
             Edited();
@@ -273,7 +295,7 @@ namespace tegaki_hack
         protected abstract void Set();
     }
 
-    public partial class LineCreator : TwoPointLineCreator
+    public partial class LineCreator : TwoPointCreator
     {
         Polyline polyline;
 
@@ -285,7 +307,7 @@ namespace tegaki_hack
         {
             if (from != null && to != null)
             {
-                polyline = new Polyline(settings.Paint, Util.NewList(from.Value, to.Value));
+                polyline = new Polyline(Settings.Paint, Util.NewList(from.Value, to.Value));
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -365,7 +387,7 @@ namespace tegaki_hack
             if (from != null && to != null)
             {
                 DPoint<Internal> radii;
-                if (settings.Regulation)
+                if (Settings.Regulation)
                 {
                     var r = from.Value.distance(to.Value);
                     radii = new DPoint<Internal>(r, r);
@@ -375,7 +397,7 @@ namespace tegaki_hack
                     var v = to.Value - from.Value;
                     radii = v * (float)Math.Sqrt(2);
                 }
-                oval = new Oval(settings.Paint, from.Value, radii);
+                oval = new Oval(Settings.Paint, from.Value, radii);
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -397,10 +419,16 @@ namespace tegaki_hack
             if (from != null && to != null)
             {
                 var upperleft = from.Value;
-                var lowerright = !settings.Regulation ? to.Value : Geometry.AdjustSquare(upperleft, to.Value);
-                var lowerleft = new Point<Internal>(upperleft.x, lowerright.y);
-                var upperright = new Point<Internal>(lowerright.x, upperleft.y);
-                polyline = new Polyline(settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
+                var lowerright = to.Value;
+                if (Settings.Regulation)
+                {
+                    var v = to.Value - from.Value;
+                    float l = Math.Max(Math.Abs(v.Dx), Math.Abs(v.Dy));
+                    lowerright = from.Value + new DPoint<Internal>(v.Dx.AdjustAbs(l), v.Dy.AdjustAbs(l));
+                }
+                var lowerleft = new Point<Internal>(upperleft.X, lowerright.Y);
+                var upperright = new Point<Internal>(lowerright.X, upperleft.Y);
+                polyline = new Polyline(Settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -409,7 +437,7 @@ namespace tegaki_hack
         }
     }
 
-    public partial class RegularPolygonCreator : TwoPointLineCreator
+    public partial class RegularPolygonCreator : TwoPointCreator
     {
         Polyline polyline;
 
@@ -421,15 +449,15 @@ namespace tegaki_hack
         {
             if (from != null && to != null)
             {
-                polyline = new Polyline(settings.Paint, Util.NewList<Point<Internal>>(), true);
-                polyline.points.Add(from.Value);
-                polyline.points.Add(to.Value);
-                for (int i = 2; i < settings.NRegularPolygon; i++)
+                polyline = new Polyline(Settings.Paint, Util.NewList<Point<Internal>>(), true);
+                polyline.Points.Add(from.Value);
+                polyline.Points.Add(to.Value);
+                for (int i = 2; i < Settings.NRegularPolygon; i++)
                 {
-                    var prev = polyline.points[i - 1];
-                    var prev2 = polyline.points[i - 2];
+                    var prev = polyline.Points[i - 1];
+                    var prev2 = polyline.Points[i - 2];
                     var v = prev - prev2;
-                    polyline.points.Add(prev + new DPoint<Internal>(Complex.Polar(v.arg - 360.0f / settings.NRegularPolygon, v.norm)));
+                    polyline.Points.Add(prev + new DPoint<Internal>(Complex.Polar(v.Arg - 360.0f / Settings.NRegularPolygon, v.Norm)));
                 }
             }
         }

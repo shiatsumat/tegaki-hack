@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  
+
+  <string name="Enable">Enable</string>
+
   <string name="PleaseWait">Please Wait</string>
 
   <string name="Edit">Edit</string>
 
-  <string name="RegularPolygonOptions">Regular Polygon Options</string>
-  <string name="NVertices">The Number of Vertices</string>
+  <string name="CirlceFamilyOptions">Cirlce Family Options</string>
+  <string name="NRegularPolygon">The Number of Vertices\nof Regular Polygon</string>
 
   <string name="AdjustmentOptions">Adjustment Options</string>
   <string name="CoordinateAdjustment">Coordinate Adjustments</string>
@@ -17,9 +19,10 @@
     <item>Integer</item>
     <item>Existing Points</item>
   </string-array>
-  <string name="AdjustAngle">Adjust Angle</string>
-  <string name="RightAngleDivision">The Division Number of Right Angle</string>
-  <string name="AdjustLength">Adjust Length</string>
+  <string name="AngleAdjustment">Angle Adjustment</string>
+  <string name="RightAngleDivision">The Division Number\nof Right Angle</string>
+  <string name="LengthAdjustment">Length Adjustment</string>
+  <string name="RoundLengthToInteger">Round Length to Integer</string>
 
   <string name="PaintOptions">Paint Options</string>
   <string name="StrokeColor">Stroke Color</string>

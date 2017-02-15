@@ -20,7 +20,8 @@
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:gravity="center" />
                 <tegaki_hack.ColorSetter
                     android:id="@+id/StrokeColor"
                     android:layout_width="wrap_content"
@@ -37,7 +38,8 @@
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:gravity="center" />
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -69,7 +71,8 @@
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:gravity="center" />
                 <tegaki_hack.ColorSetter
                     android:id="@+id/FillColor"
                     android:layout_width="wrap_content"
@@ -86,7 +89,8 @@
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:gravity="center" />
                 <tegaki_hack.ExtensibleView
                     android:id="@+id/LineCapLineJoinView"
                     android:layout_width="150dp"
@@ -101,11 +105,12 @@
                     android:padding="5dp">
                     <TextView
                         android:text="@string/LineCap"
-                        android:textSize="15dp"
+                        android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:gravity="center" />
                     <Spinner
                         android:id="@+id/LineCap"
                         android:layout_width="wrap_content"
@@ -121,10 +126,11 @@
                     android:padding="10dp">
                     <TextView
                         android:text="@string/LineJoin"
-                        android:textSize="15dp"
+                        android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:gravity="center" />
                     <Spinner
                         android:id="@+id/LineJoin"
                         android:layout_width="wrap_content"
@@ -140,10 +146,11 @@
                     android:padding="10dp">
                     <TextView
                         android:text="@string/MiterLimit"
-                        android:textSize="15dp"
+                        android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:gravity="center" />
                     <NumberPicker
                         android:id="@+id/MiterLimitDeci"
                         android:layout_width="50dp"
@@ -163,7 +170,8 @@
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:gravity="center" />
                 <tegaki_hack.ExtensibleView
                     android:id="@+id/FillRuleView"
                     android:layout_width="150dp"

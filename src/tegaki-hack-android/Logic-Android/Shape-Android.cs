@@ -6,7 +6,7 @@ namespace tegaki_hack
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            foreach (var shape in shapes)
+            foreach (var shape in Shapes)
             {
                 shape.Draw(canvas, transform);
             }
@@ -17,37 +17,34 @@ namespace tegaki_hack
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            if (points.Count >= 2)
+            if (Points.Count >= 2)
             {
-                var path = paint.NewPath();
-                var startT = startPoint.Transform(transform);
-                path.MoveTo(startT.x, startT.y);
-                for (int i = 1; i < (closed && bezier ? points.Count + 1 : points.Count); i++)
+                var path = Paint.NewPath();
+                if (Bezier)
                 {
-                    if (!bezier)
+                    var bezierinfo = Points.ToBezier(Closed).Transform(transform);
+                    path.MoveTo(bezierinfo.from.X, bezierinfo.from.Y);
+                    foreach (var controlto in bezierinfo.controltos)
                     {
-                        var pt = points.LoopGet(i).Transform(transform);
-                        path.LineTo(pt.x, pt.y);
-                    }
-                    else
-                    {
-                        var p0 = closed || i >= 2 ?
-                            points.LoopGet(i - 2) :
-                            startPoint;
-                        var p1 = points.LoopGet(i - 1);
-                        var p2 = points.LoopGet(i);
-                        var p3 = closed || i < points.Count - 1 ?
-                            points.LoopGet(i + 1) :
-                            endPoint;
-                        var conT = Geometry.InterpolateCon(p0, p1, p2, p3).Transform(transform);
-                        var trolT = Geometry.InterpolateTrol(p0, p1, p2, p3).Transform(transform);
-                        var toT = p2.Transform(transform);
-                        path.CubicTo(conT.x, conT.y, trolT.x, trolT.y, toT.x, toT.y);
+                        path.CubicTo(
+                            controlto.Con.X, controlto.Con.Y,
+                            controlto.Trol.X, controlto.Trol.Y,
+                            controlto.To.X, controlto.To.Y);
                     }
                 }
-                if (closed) path.Close();
-                canvas.DrawPath(path, paint.fillPaint(transform));
-                canvas.DrawPath(path, paint.strokePaint(transform));
+                else
+                {
+                    var ps = Points.Transform(transform);
+                    for (int i = 0; i < ps.Count; i++)
+                    {
+                        var p = ps[i];
+                        if (i == 0) path.MoveTo(p.X, p.Y);
+                        else path.LineTo(p.X, p.Y);
+                    }
+                }
+                if (Closed) path.Close();
+                canvas.DrawPath(path, Paint.fillPaint(transform));
+                canvas.DrawPath(path, Paint.strokePaint(transform));
             }
         }
     }
@@ -56,10 +53,10 @@ namespace tegaki_hack
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            var p = center.Transform(transform);
-            var r = radii.Transform(transform);
-            canvas.DrawOval(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, paint.fillPaint(transform));
-            canvas.DrawOval(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, paint.strokePaint(transform));
+            var p = Center.Transform(transform);
+            var r = Radii.Transform(transform);
+            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.fillPaint(transform));
+            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.strokePaint(transform));
         }
     }
 
@@ -67,10 +64,10 @@ namespace tegaki_hack
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            var p = center.Transform(transform);
-            var r = radii.Transform(transform);
-            canvas.DrawArc(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, startAngle, sweepAngle, useCenter, paint.fillPaint(transform));
-            canvas.DrawArc(p.x - r.dx, p.y - r.dy, p.x + r.dx, p.y + r.dy, startAngle, sweepAngle, useCenter, paint.strokePaint(transform));
+            var p = Center.Transform(transform);
+            var r = Radii.Transform(transform);
+            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.fillPaint(transform));
+            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.strokePaint(transform));
         }
     }
 }

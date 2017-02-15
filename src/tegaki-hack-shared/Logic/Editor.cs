@@ -62,7 +62,7 @@ namespace tegaki_hack
             eShapeCreatorFamily = EShapeCreatorFamily.Freehand;
             ChangeShapeCreator(EShapeCreator.Freehand);
 
-            size = new DPoint<Internal>(30, 30);
+            size = new DPoint<Internal>(10, 10);
         }
 
         void InitializeLast()
@@ -75,7 +75,7 @@ namespace tegaki_hack
         void DealWithLayoutChange(DPoint<External> realsize)
         {
             this.realsize = realsize;
-            transform.scale = realsize.dx / size.dx;
+            transform.scale = realsize.Dx / size.Dx;
 
             ResetSecondCanvas();
             Redisplay();
@@ -130,9 +130,9 @@ namespace tegaki_hack
             SetClearAbility(isClearable);
         }
 
-        void Touch(Touchevent touchevent, Point<External> p)
+        void Touch(TouchEvent touchEvent, Point<External> p)
         {
-            shapeCreator?.Touch(touchevent, p.Untransform(transform));
+            shapeCreator?.Touch(touchEvent, p.Untransform(transform));
         }
 
         void ToggleShapeCreatorFamily(EShapeCreatorFamily eShapeCreatorFamily)
@@ -161,7 +161,7 @@ namespace tegaki_hack
             shapeCreator?.Cleanup();
             this.eShapeCreator = eShapeCreator;
             shapeCreator = ShapeCreator.GetShapeCreator(eShapeCreator);
-            if (shapeCreator != null) shapeCreator.settings = settings;
+            if (shapeCreator != null) shapeCreator.Settings = settings;
         }
         void SetShapeCreator(EShapeCreator eShapeCreator)
         {
@@ -218,14 +218,14 @@ namespace tegaki_hack
         IShape Grid()
         {
             var shapes = new List<IShape>();
-            var paint = new Paint(Color.Rgba(0xd3d3d3ff), new SizeEither(1, false), Color.Rgba(0, 0, 0, 0));
-            for (float x = 0; x <= size.dx; x++)
+            var paint = new Paint(Color.ByRgba(0xd3d3d3ff), new SizeEither(1, false), Color.ByRgba(0, 0, 0, 0));
+            for (float x = 0; x <= size.Dx; x++)
             {
-                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(x, 0), new Point<Internal>(x, size.dy))));
+                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(x, 0), new Point<Internal>(x, size.Dy))));
             }
-            for (float y = 0; y <= size.dy; y++)
+            for (float y = 0; y <= size.Dy; y++)
             {
-                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(0, y), new Point<Internal>(size.dx, y))));
+                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(0, y), new Point<Internal>(size.Dx, y))));
             }
             return new ShapeGroup(shapes.ToArray());
         }

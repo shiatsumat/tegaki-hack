@@ -13,7 +13,7 @@ namespace tegaki_hack
 
     public partial struct Color
     {
-        public NativeColor native => new NativeColor(r, g, b, a);
+        public NativeColor Native => new NativeColor(R, G, B, A);
     }
 
     public partial class Paint
@@ -58,7 +58,7 @@ namespace tegaki_hack
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
-            res.Color = StrokeColor.native;
+            res.Color = StrokeColor.Native;
             res.StrokeWidth = StrokeWidth.Value(transform);
             res.StrokeCap = NativeLineCap;
             res.StrokeJoin = NativeLineJoin;
@@ -70,7 +70,7 @@ namespace tegaki_hack
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Fill);
-            res.Color = FillColor.native;
+            res.Color = FillColor.Native;
             return res;
         }
 

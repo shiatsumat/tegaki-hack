@@ -5,64 +5,64 @@ namespace tegaki_hack
 {
     public partial struct Color
     {
-        public byte r;
-        public byte g;
-        public byte b;
-        public byte a;
-        public uint rgba
+        public byte R;
+        public byte G;
+        public byte B;
+        public byte A;
+        public uint Rgba
         {
-            get { return ((uint)r << 24) + ((uint)g << 16) + ((uint)b << 8) + (uint)a; }
+            get { return ((uint)R << 24) + ((uint)G << 16) + ((uint)B << 8) + A; }
             set
             {
-                r = (byte)((value & 0xFF000000) >> 24);
-                g = (byte)((value & 0x00FF0000) >> 16);
-                b = (byte)((value & 0x0000FF00) >> 8);
-                a = (byte)(value & 0x000000FF);
+                R = (byte)((value & 0xFF000000) >> 24);
+                G = (byte)((value & 0x00FF0000) >> 16);
+                B = (byte)((value & 0x0000FF00) >> 8);
+                A = (byte)(value & 0x000000FF);
             }
         }
-        public float h
+        public float H
         {
             get
             {
                 if (max == min) return float.NaN;
-                else if (max == r) { var res = 60.0f * (g - b) / (max - min); return res >= 0 ? res : res + 360.0f; }
-                else if (max == g) return 60.0f * (b - r) / (max - min) + 120.0f;
-                else return 60.0f * (r - g) / (max - min) + 240.0f;
+                else if (max == R) { var res = 60.0f * (G - B) / (max - min); return res >= 0 ? res : res + 360.0f; }
+                else if (max == G) return 60.0f * (B - R) / (max - min) + 120.0f;
+                else return 60.0f * (R - G) / (max - min) + 240.0f;
             }
         }
-        public float s
+        public float S
         {
             get
             {
-                if (cnt == 0.0f || cnt == 255.0f) return 0.0f;
+                if (cnt < Util.EPS || 255.0f - Util.EPS < cnt) return 0.0f;
                 else if (cnt <= 127.5) return 100.0f * (cnt - min) / cnt;
                 else return 100.0f * (max - cnt) / (255 - cnt);
             }
         }
-        public float l
+        public float L
         {
             get { return cnt * 100.0f / 255.0f; }
         }
-        byte max { get { return Math.Max(Math.Max(r, g), b); } }
-        byte min { get { return Math.Min(Math.Min(r, g), b); } }
+        byte max { get { return Math.Max(Math.Max(R, G), B); } }
+        byte min { get { return Math.Min(Math.Min(R, G), B); } }
         float cnt { get { return (max + min) / 2.0f; } }
 
         Color(byte r, byte g, byte b, byte a)
         {
-            this.r = r; this.g = g; this.b = b; this.a = a;
+            R = r; G = g; B = b; A = a;
         }
         Color(uint rgba)
         {
-            r = g = b = a = 0;
-            this.rgba = rgba;
+            R = G = B = A = 0;
+            Rgba = rgba;
         }
 
-        public static Color Rgba(byte r, byte g, byte b, byte a)
+        public static Color ByRgba(byte r, byte g, byte b, byte a)
         {
             return new Color(r, g, b, a);
         }
 
-        public static Color Rgba(uint rgba)
+        public static Color ByRgba(uint rgba)
         {
             return new Color(rgba);
         }
@@ -79,7 +79,7 @@ namespace tegaki_hack
         {
             return new InvalidOperationException("l is not in [0, 100] for Color");
         }
-        public static Color Hsla(float h, float s, float l, byte a)
+        public static Color ByHsla(float h, float s, float l, byte a)
         {
             if (h < 0.0f || 360.0f <= h) throw InvalidH();
             if (float.IsNaN(s) || s < 0.0f || 100.0f < s) throw InvalidS();
@@ -144,12 +144,12 @@ namespace tegaki_hack
                 g = (byte)Math.Round(min);
                 b = (byte)Math.Round(((360 - h) / 60) * (max - min) + min);
             }
-            return Rgba(r, g, b, a);
+            return ByRgba(r, g, b, a);
         }
 
         public string RgbaFunctionString()
         {
-            return string.Format("rgba({0},{1},{2},{3})", r, g, b, a / 255.0f);
+            return string.Format("rgba({0},{1},{2},{3})", R, G, B, A / 255.0f);
         }
     }
 
@@ -249,10 +249,10 @@ namespace tegaki_hack
                 new Point<Internal>(90, 10),
                 new Point<Internal>(140, 10));
             var polylineBack = new Polyline(
-                new Paint(Color.Rgba(0x808080FF), new SizeEither(10.0f, true), lineCap: LineCap, lineJoin: LineJoin),
+                new Paint(Color.ByRgba(0x808080FF), new SizeEither(10.0f, true), lineCap: LineCap, lineJoin: LineJoin),
                 points);
             var polylineFront = new Polyline(
-                new Paint(Color.Rgba(0xFFFFFFFF), new SizeEither(1.0f, true)),
+                new Paint(Color.ByRgba(0xFFFFFFFF), new SizeEither(1.0f, true)),
                 points);
             return new ShapeGroup(new IShape[] { polylineBack, polylineFront });
         }
@@ -261,7 +261,7 @@ namespace tegaki_hack
         public IShape FillRuleSample()
         {
             return new Polyline(
-                new Paint(Color.Rgba(0x404040FF), new SizeEither(3.0f, true), Color.Rgba(0x808080FF), fillRule: FillRule),
+                new Paint(Color.ByRgba(0x404040FF), new SizeEither(3.0f, true), Color.ByRgba(0x808080FF), fillRule: FillRule),
                 Util.NewList<Point<Internal>>(
                 new Point<Internal>(10, 90),
                 new Point<Internal>(50, 10),

@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <string name="Enable">有効にする</string>
+
   <string name="PleaseWait">お待ちください</string>
 
   <string name="Edit">編集する</string>
 
-  <string name="RegularPolygonOptions">正多角形のオプション</string>
-  <string name="NVertices">頂点数</string>
+  <string name="CirlceFamilyOptions">円系統のオプション</string>
+  <string name="NRegularPolygon">正多角形の頂点数</string>
 
   <string name="AdjustmentOptions">調整のオプション</string>
   <string name="CoordinateAdjustment">座標の調整</string>
@@ -17,9 +19,10 @@
     <item>整数</item>
     <item>既存の点</item>
   </string-array>
-  <string name="AdjustAngle">角度を調整する</string>
+  <string name="AngleAdjustment">角度の調整</string>
   <string name="RightAngleDivision">直角の分割数</string>
-  <string name="AdjustLength">長さを調整する</string>
+  <string name="LengthAdjustment">長さの調整</string>
+  <string name="RoundLengthToInteger">長さを整数に丸める</string>
 
   <string name="PaintOptions">描き方のオプション</string>
   <string name="StrokeColor">線の色</string>

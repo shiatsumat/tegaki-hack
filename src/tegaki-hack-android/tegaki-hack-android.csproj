@@ -64,7 +64,7 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\layout\PaintDialog.axml" />
-    <AndroidResource Include="Resources\layout\RegularPolygonDialog.axml" />
+    <AndroidResource Include="Resources\layout\CircleDialog.axml" />
     <AndroidResource Include="Resources\layout\Start.axml" />
     <AndroidResource Include="Resources\layout\SvgDialog.axml" />
     <AndroidResource Include="Resources\layout\AdjustmentDialog.axml" />

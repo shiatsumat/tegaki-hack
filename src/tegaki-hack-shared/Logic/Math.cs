@@ -4,13 +4,13 @@ namespace tegaki_hack
 {
     public partial struct Complex
 	{
-		public float re, im;
-		public float norm => (float)Math.Sqrt(re * re + im * im);
-		public float arg => (float)(Math.Atan2(im, re) * 180 / Math.PI); // (-180, +180]
+		public float Re, Im;
+		public float Norm => (float)Math.Sqrt(Re * Re + Im * Im);
+		public float Arg => (float)(Math.Atan2(Im, Re) * 180 / Math.PI); // (-180, +180]
 
 		public Complex(float re, float im = 0)
 		{
-			this.re = re; this.im = im;
+            Re = re; Im = im;
 		}
         public static Complex Polar(float arg, float norm = 1)
         {
@@ -20,51 +20,51 @@ namespace tegaki_hack
 
 		public static Complex operator +(Complex z, Complex w)
 		{
-			return new Complex(z.re + w.re, z.im + w.im);
+			return new Complex(z.Re + w.Re, z.Im + w.Im);
 		}
 		public static Complex operator +(Complex z, float a)
 		{
-			return new Complex(z.re + a, z.im);
+			return new Complex(z.Re + a, z.Im);
 		}
 		public static Complex operator +(float a, Complex z)
 		{
-			return new Complex(a + z.re, z.im);
+			return new Complex(a + z.Re, z.Im);
 		}
 		public static Complex operator -(Complex z, Complex w)
 		{
-			return new Complex(z.re - w.re, z.im - w.im);
+			return new Complex(z.Re - w.Re, z.Im - w.Im);
 		}
 		public static Complex operator -(Complex z, float a)
 		{
-			return new Complex(z.re - a, z.im);
+			return new Complex(z.Re - a, z.Im);
 		}
 		public static Complex operator -(float a, Complex z)
 		{
-			return new Complex(a - z.re, -z.im);
+			return new Complex(a - z.Re, -z.Im);
 		}
 		public static Complex operator *(Complex z, Complex w)
 		{
-			return new Complex(z.re * w.re - z.im * w.im, z.re * w.im + z.im * w.re);
+			return new Complex(z.Re * w.Re - z.Im * w.Im, z.Re * w.Im + z.Im * w.Re);
 		}
 		public static Complex operator *(Complex z, float a)
 		{
-			return new Complex(z.re * a, z.im * a);
+			return new Complex(z.Re * a, z.Im * a);
 		}
 		public static Complex operator *(float a, Complex z)
 		{
-			return new Complex(a * z.re, a * z.im);
+			return new Complex(a * z.Re, a * z.Im);
 		}
 		public static Complex operator /(Complex z, Complex w)
 		{
-			return new Complex((z.re * w.re + z.im * w.im) / (w.norm * w.norm), (-z.re * w.im + z.im * w.re) / (w.norm * w.norm));
+			return new Complex((z.Re * w.Re + z.Im * w.Im) / (w.Norm * w.Norm), (-z.Re * w.Im + z.Im * w.Re) / (w.Norm * w.Norm));
 		}
 		public static Complex operator /(Complex z, float a)
 		{
-			return new Complex(z.re / a, z.im / a);
+			return new Complex(z.Re / a, z.Im / a);
 		}
 		public static Complex operator /(float a, Complex z)
 		{
-			return new Complex((a * z.re) / (z.norm * z.norm), (-a * z.im) / (z.norm * z.norm));
+			return new Complex((a * z.Re) / (z.Norm * z.Norm), (-a * z.Im) / (z.Norm * z.Norm));
 		}
 	}
 }
