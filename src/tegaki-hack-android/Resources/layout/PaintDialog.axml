@@ -44,8 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
                     <NumberPicker
-                        android:id="@+id/StrokeWidthCent"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/StrokeWidthCenti"
+                        android:layout_width="60dp"
                         android:layout_height="120dp" />
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -82,13 +82,13 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
                 <TextView
-                    android:text="@string/LinecapAndLinejoin"
+                    android:text="@string/LineCapAndLineJoin"
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
                 <tegaki_hack.ExtensibleView
-                    android:id="@+id/LinecapLinejoinView"
+                    android:id="@+id/LineCapLineJoinView"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
@@ -100,19 +100,19 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp">
                     <TextView
-                        android:text="@string/Linecap"
+                        android:text="@string/LineCap"
                         android:textSize="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center" />
                     <Spinner
-                        android:id="@+id/Linecap"
+                        android:id="@+id/LineCap"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:entries="@array/Linecaps" />
+                        android:entries="@array/LineCaps" />
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
@@ -120,18 +120,37 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp">
                     <TextView
-                        android:text="@string/Linejoin"
+                        android:text="@string/LineJoin"
                         android:textSize="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center" />
                     <Spinner
-                        android:id="@+id/Linejoin"
+                        android:id="@+id/LineJoin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:entries="@array/Linejoins" />
+                        android:entries="@array/LineJoins" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+                    <TextView
+                        android:text="@string/MiterLimit"
+                        android:textSize="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                    <NumberPicker
+                        android:id="@+id/MiterLimitDeci"
+                        android:layout_width="50dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:entries="@array/LineJoins" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -148,7 +167,7 @@
                 <tegaki_hack.ExtensibleView
                     android:id="@+id/FillRuleView"
                     android:layout_width="150dp"
-                    android:layout_height="120dp"
+                    android:layout_height="100dp"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center" />

@@ -7,6 +7,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using NativeColor = Android.Graphics.Color;
+using Android.App;
 
 namespace tegaki_hack
 {
@@ -196,6 +197,16 @@ namespace tegaki_hack
         public static void ShowToast(Context context, string text, ToastLength duration = ToastLength.Short)
         {
             Toast.MakeText(context, text, duration).Show();
+        }
+
+        public static AlertDialog CreateDialog(Context context, int titleId, View view, Action ok, Action cancel)
+        {
+            return new AlertDialog.Builder(context)
+                .SetTitle(titleId)
+                .SetView(view)
+                .SetPositiveButton(context.GetString(Android.Resource.String.Ok), (a, s) => ok?.Invoke())
+                .SetNegativeButton(context.GetString(Android.Resource.String.Cancel), (a, s) => cancel?.Invoke())
+                .Create();
         }
     }
 }

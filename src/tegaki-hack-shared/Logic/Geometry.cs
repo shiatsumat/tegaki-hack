@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace tegaki_hack
@@ -167,7 +168,7 @@ namespace tegaki_hack
         public float scale
         {
             get { return _scale; }
-            set { if (value <= 0) throw new InvalidOperationException("scale is not positive for Transform"); _scale = value; }
+            set { if (!(value > 0)) throw InvalidScale(); _scale = value; }
         }
         public bool flipx, flipy;
         public Point<PersS> originS;
@@ -176,9 +177,14 @@ namespace tegaki_hack
         public float scalex => flipx ? -scale : scale;
         public float scaley => flipy ? -scale : scale;
 
+        static Exception InvalidScale()
+        {
+            return new InvalidOperationException("Invalid Scale for Transform");
+        }
+
         public Transform(float scale, bool flipx = false, bool flipy = false, Point<PersS> originS = default(Point<PersS>), Point<PersT> originT = default(Point<PersT>))
         {
-            if (scale <= 0) throw new InvalidOperationException("scale is not positive for Transform");
+            if (!(scale > 0)) throw InvalidScale();
             _scale = scale; this.flipx = flipx; this.flipy = flipy; this.originS = originS; this.originT = originT;
         }
 
@@ -216,6 +222,17 @@ namespace tegaki_hack
 
     public static partial class Geometry
     {
+
+        public static List<Point<PersT>> Transform<PersS, PersT>(this List<Point<PersS>> ps, Transform<PersS, PersT> transform)
+        {
+            var res = new List<Point<PersT>>();
+            foreach (var p in ps)
+            {
+                res.Add(p.Transform(transform));
+            }
+            return res;
+        }
+
         public static XElement AddSvg(this XElement element, Point<Internal> p, string xname, string yname, Transform<Internal, External> transform)
         {
             var pT = p.Transform(transform);
@@ -256,6 +273,7 @@ namespace tegaki_hack
         {
             return InterpolateHelper(p3, p2, p1);
         }
+
         public static Point<Pers> AdjustAngle<Pers>(Point<Pers> from, Point<Pers> to, int rightAngleDivision)
         {
             var angleUnit = 90.0f / rightAngleDivision;
@@ -272,7 +290,8 @@ namespace tegaki_hack
         {
             var v = to - from;
             float l = Math.Max(Math.Abs(v.dx), Math.Abs(v.dy));
-            return from + new DPoint<Pers>(v.dx.ToAbs(l), v.dy.ToAbs(l));
+            return from + new DPoint<Pers>(v.dx.AdjustAbs(l), v.dy.AdjustAbs(l));
         }
+
     }
 }

@@ -196,8 +196,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-          <TextView
-              android:id="@+id/HText"
+            <TextView
+                android:id="@+id/HText"
                 android:text="H"
                 android:textSize="20dp"
                 android:layout_width="20dp"
@@ -216,8 +216,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-          <TextView
-            android:id="@+id/SText"
+            <TextView
+                android:id="@+id/SText"
                 android:text="S"
                 android:textSize="20dp"
                 android:layout_width="20dp"
@@ -236,8 +236,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-          <TextView
-            android:id="@+id/LText"
+            <TextView
+                android:id="@+id/LText"
                 android:text="L"
                 android:textSize="20dp"
                 android:layout_width="20dp"

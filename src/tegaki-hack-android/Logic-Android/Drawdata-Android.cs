@@ -5,6 +5,7 @@ using NativePaint = Android.Graphics.Paint;
 
 namespace tegaki_hack
 {
+
     public partial interface IShape
     {
         void Draw(Canvas canvas, Transform<Internal, External> transform);
@@ -17,54 +18,78 @@ namespace tegaki_hack
 
     public partial class Paint
     {
+        public NativePaint.Cap NativeLineCap
+        {
+            get
+            {
+                switch (LineCap)
+                {
+                    case LineCap.Butt:
+                        return NativePaint.Cap.Butt;
+                    case LineCap.Round:
+                        return NativePaint.Cap.Round;
+                    case LineCap.Square:
+                        return NativePaint.Cap.Square;
+                    default:
+                        throw InvalidLineCap();
+                }
+            }
+        }
+
+        public NativePaint.Join NativeLineJoin
+        {
+            get
+            {
+                switch (LineJoin)
+                {
+                    case LineJoin.Miter:
+                        return NativePaint.Join.Miter;
+                    case LineJoin.Round:
+                        return NativePaint.Join.Round;
+                    case LineJoin.Bevel:
+                        return NativePaint.Join.Bevel;
+                    default:
+                        throw InvalidLineJoin();
+                }
+            }
+        }
+
         public NativePaint strokePaint(Transform<Internal, External> transform)
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
-            res.Color = strokeColor.native;
-            res.StrokeWidth = strokeWidth.Value(transform);
-            res.StrokeCap = linecap.ToNative();
-            res.StrokeJoin = linejoin.ToNative();
+            res.Color = StrokeColor.native;
+            res.StrokeWidth = StrokeWidth.Value(transform);
+            res.StrokeCap = NativeLineCap;
+            res.StrokeJoin = NativeLineJoin;
+            res.StrokeMiter = MiterLimit;
             return res;
         }
+
         public NativePaint fillPaint(Transform<Internal, External> transform)
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Fill);
-            res.Color = fillColor.native;
+            res.Color = FillColor.native;
             return res;
+        }
+
+        public Path NewPath()
+        {
+            var path = new Path();
+            switch (FillRule)
+            {
+                case FillRule.EvenOdd:
+                    path.SetFillType(Path.FillType.EvenOdd);
+                    break;
+                case FillRule.Nonzero:
+                    path.SetFillType(Path.FillType.Winding);
+                    break;
+                default:
+                    throw InvalidFillRule();
+            }
+            return path;
         }
     }
 
-    public static partial class DrawdataStatic
-    {
-        public static NativePaint.Cap ToNative(this Linecap linecap)
-        {
-            switch (linecap)
-            {
-                case Linecap.Butt:
-                    return NativePaint.Cap.Butt;
-                case Linecap.Round:
-                    return NativePaint.Cap.Round;
-                case Linecap.Square:
-                    return NativePaint.Cap.Square;
-                default:
-                    throw new InvalidOperationException("invalid linecap");
-            }
-        }
-        public static NativePaint.Join ToNative(this Linejoin linejoin)
-        {
-            switch (linejoin)
-            {
-                case Linejoin.Miter:
-                    return NativePaint.Join.Miter;
-                case Linejoin.Round:
-                    return NativePaint.Join.Round;
-                case Linejoin.Bevel:
-                    return NativePaint.Join.Bevel;
-                default:
-                    throw new InvalidOperationException("invalid linejoin");
-            }
-        }
-    }
 }

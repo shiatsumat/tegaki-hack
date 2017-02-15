@@ -13,7 +13,7 @@ namespace tegaki_hack
         }
 
         public const float EPS = 1e-4f;
-        public static float ToAbs(this float oldvalue, float value)
+        public static float AdjustAbs(this float oldvalue, float value)
         {
             if (oldvalue > 0) return Math.Abs(value);
             else return -Math.Abs(value);

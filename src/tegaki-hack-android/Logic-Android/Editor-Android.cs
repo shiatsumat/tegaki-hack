@@ -6,6 +6,7 @@ using Android.Widget;
 using Android.Views;
 using Android.App;
 using NativeColor = Android.Graphics.Color;
+using Android.Graphics.Drawables;
 
 namespace tegaki_hack
 {
@@ -14,10 +15,12 @@ namespace tegaki_hack
         CustomApplication application;
         EditActivity activity;
 
+        LinearLayout header;
         ExtensibleView editcanvas;
         ImageButton undoButton, redoButton, clearButton, saveButton;
-        ImageButton[] shapeButtons;
-        ImageButton adjustmentButton, paintButton;
+        Dictionary<EShapeCreatorFamily, ImageButton> shapeButtons;
+        Dictionary<EShapeCreator, int> icons;
+        ImageButton regulationButton, adjustmentButton, paintButton;
 
         Bitmap secondBitmap;
         Canvas secondCanvas;
@@ -25,28 +28,37 @@ namespace tegaki_hack
         public Editor(EditActivity activity)
         {
             this.activity = activity;
-
             application = (CustomApplication)activity.Application;
-
             activity.SetContentView(Resource.Layout.Edit);
 
-            editcanvas = activity.FindViewById<ExtensibleView>(Resource.Id.Editcanvas);
-            undoButton = activity.FindViewById<ImageButton>(Resource.Id.Undo);
-            redoButton = activity.FindViewById<ImageButton>(Resource.Id.Redo);
-            clearButton = activity.FindViewById<ImageButton>(Resource.Id.Clear);
-            saveButton = activity.FindViewById<ImageButton>(Resource.Id.Save);
+            InitializeFirst();
 
-            shapeButtons = new ImageButton[] {
-                activity.FindViewById<ImageButton>(Resource.Id.Freehand),
-                activity.FindViewById<ImageButton>(Resource.Id.Line),
-                activity.FindViewById<ImageButton>(Resource.Id.Oval),
-                activity.FindViewById<ImageButton>(Resource.Id.Rectangle),
-                activity.FindViewById<ImageButton>(Resource.Id.RegularPolygon)
+            InitializeHeader();
+            InitializeEditCanvas();
+            InitializeUndoRedoClear();
+            InitializeSave();
+            InitializeShapes();
+            InitializeCircle();
+            InitializeAdjustment();
+            InitializeRegulation();
+            InitializePaint();
+
+            InitializeLast();
+
+            application.editButton.Text = "";
+        }
+
+        void InitializeHeader()
+        {
+            header = activity.FindViewById<LinearLayout>(Resource.Id.Header);
+            header.Click += (o, e) =>
+            {
+                ToggleShapeCreatorFamily(EShapeCreatorFamily.None);
             };
-            adjustmentButton = activity.FindViewById<ImageButton>(Resource.Id.Adjustment);
-            paintButton = activity.FindViewById<ImageButton>(Resource.Id.Paint);
-
-            size = new DPoint<Internal>(30, 30);
+        }
+        void InitializeEditCanvas()
+        {
+            editcanvas = activity.FindViewById<ExtensibleView>(Resource.Id.Editcanvas);
 
             editcanvas.Touch += (o, e) =>
             {
@@ -72,41 +84,21 @@ namespace tegaki_hack
             {
                 Draw(canvas);
             };
+        }
+        void InitializeUndoRedoClear()
+        {
+            undoButton = activity.FindViewById<ImageButton>(Resource.Id.Undo);
+            redoButton = activity.FindViewById<ImageButton>(Resource.Id.Redo);
+            clearButton = activity.FindViewById<ImageButton>(Resource.Id.Clear);
 
             undoButton.Click += (o, e) => Undo();
             redoButton.Click += (o, e) => Redo();
             clearButton.Click += (o, e) => Clear();
-
-            InitializeSave();
-
-            shapeButtons[0].Activate(true);
-            for (var i = 0; i < shapeButtons.Length; i++)
-            {
-                var _i = i;
-                var eShapeCreator = (EShapeCreator)_i;
-                shapeButtons[_i].Click += (o, e) =>
-                {
-                    foreach (var shapeButton in shapeButtons)
-                    {
-                        shapeButton.Activate(shapeButton == shapeButtons[_i]);
-                    }
-                    SetShapeCreator(eShapeCreator);
-                };
-            }
-
-            InitializeRegularPolygon();
-
-            InitializeAdjustment();
-
-            InitializePaint();
-
-            application.editButton.Text = "";
-
-            Initialize();
         }
-
         void InitializeSave()
         {
+            saveButton = activity.FindViewById<ImageButton>(Resource.Id.Save);
+
             var view = activity.LayoutInflater.Inflate(Resource.Layout.SvgDialog, null);
             var dialogBuilder = new AlertDialog.Builder(activity);
             var text = view.FindViewById<TextView>(Resource.Id.SvgDialogText);
@@ -124,172 +116,248 @@ namespace tegaki_hack
                 Util.DebugPrint(svgString);
             };
         }
+        void InitializeShapes()
+        {
+            shapeButtons = new Dictionary<EShapeCreatorFamily, ImageButton>();
+            shapeButtons[EShapeCreatorFamily.Freehand] = activity.FindViewById<ImageButton>(Resource.Id.Freehand);
+            shapeButtons[EShapeCreatorFamily.Line] = activity.FindViewById<ImageButton>(Resource.Id.Line);
+            shapeButtons[EShapeCreatorFamily.Circle] = activity.FindViewById<ImageButton>(Resource.Id.Circle);
+            shapeButtons[EShapeCreatorFamily.Text] = activity.FindViewById<ImageButton>(Resource.Id.Text);
 
-        void InitializeRegularPolygon()
+            icons = new Dictionary<EShapeCreator, int>();
+            icons[EShapeCreator.Freehand] = Resource.Drawable.FreehandIcon;
+            icons[EShapeCreator.Line] = Resource.Drawable.LineIcon;
+            icons[EShapeCreator.Arc] = Resource.Drawable.ArcIcon;
+            icons[EShapeCreator.Polyline] = Resource.Drawable.PolylineIcon;
+            icons[EShapeCreator.Oval] = Resource.Drawable.OvalIcon;
+            icons[EShapeCreator.Rectangle] = Resource.Drawable.RectangleIcon;
+            icons[EShapeCreator.RegularPolygon] = Resource.Drawable.RegularPolygonIcon;
+            icons[EShapeCreator.Polygon] = Resource.Drawable.PolygonIcon;
+            icons[EShapeCreator.Text] = Resource.Drawable.TextIcon;
+            icons[EShapeCreator.FancyText] = Resource.Drawable.FancyTextIcon;
+
+            foreach (var key in shapeButtons.Keys)
+            {
+                shapeButtons[key].Click += (o, e) =>
+                {
+                    ToggleShapeCreatorFamily(key);
+                };
+            }
+        }
+        void InitializeCircle()
         {
             var view = activity.LayoutInflater.Inflate(Resource.Layout.RegularPolygonDialog, null);
-            var dialogBuilder = new AlertDialog.Builder(activity);
-            var numberPicker = view.FindViewById<Android.Widget.NumberPicker>(Resource.Id.NRegularPolygon);
-            dialogBuilder.SetTitle(Resource.String.RegularPolygonOptions);
-            dialogBuilder.SetView(view);
-            numberPicker.MinValue = 3;
-            numberPicker.MaxValue = 50;
-            numberPicker.WrapSelectorWheel = false;
-            dialogBuilder.SetPositiveButton("OK", (s, a) =>
+            var nRegularPolygonPicker = view.FindViewById<NumberPicker>(Resource.Id.NRegularPolygon);
+            int nRegularPolygon = 0;
+
+            nRegularPolygonPicker.MinValue = 3;
+            nRegularPolygonPicker.MaxValue = 50;
+            nRegularPolygonPicker.WrapSelectorWheel = false;
+
+            nRegularPolygonPicker.ValueChanged += (o, e) =>
             {
-                if (numberPicker.Value != settings.nRegularPolygon)
-                {
-                    settings.nRegularPolygon = numberPicker.Value;
-                }
-            });
-            var dialog = dialogBuilder.Create();
-            shapeButtons[4].LongClick += (o, e) =>
+                nRegularPolygon = nRegularPolygonPicker.Value;
+            };
+
+            var dialog = Util.CreateDialog(activity, Resource.String.RegularPolygonOptions, view, () =>
+                 {
+                     if (nRegularPolygon != settings.NRegularPolygon)
+                     {
+                         settings.NRegularPolygon = nRegularPolygon;
+                         if (eShapeCreator == EShapeCreator.RegularPolygon) ResetShapeCreator();
+                     }
+                 }, null);
+            shapeButtons[EShapeCreatorFamily.Circle].LongClick += (o, e) =>
             {
-                ResetShapeCreator(EShapeCreator.RegularPolygon);
-                numberPicker.Value = settings.nRegularPolygon;
+                ResetShapeCreator();
+                nRegularPolygon = settings.NRegularPolygon;
+                nRegularPolygonPicker.Value = nRegularPolygon;
+
                 dialog.Show();
             };
         }
-
         void InitializeAdjustment()
         {
+            adjustmentButton = activity.FindViewById<ImageButton>(Resource.Id.Adjustment);
+
             adjustmentButton.Click += (o, e) =>
             {
-                settings.adjustment = !settings.adjustment;
-                adjustmentButton.Activate(settings.adjustment);
+                settings.DoesAdjust = !settings.DoesAdjust;
+                adjustmentButton.Activate(settings.DoesAdjust);
             };
 
             var view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
-            var dialogBuilder = new AlertDialog.Builder(activity);
-            var rightAngleDivision = view.FindViewById<Android.Widget.NumberPicker>(Resource.Id.RightAngleDivision);
-            dialogBuilder.SetTitle(Resource.String.AdjustmentOptions);
-            dialogBuilder.SetView(view);
+            var adjustment = new Adjustment();
+
+            var xAdjustment = view.FindViewById<Spinner>(Resource.Id.XAdjustment);
+            xAdjustment.ItemSelected += (o, e) =>
+            {
+                adjustment.XAdjustment = (CoordinateAdjustment)xAdjustment.SelectedItemPosition;
+            };
+            var yAdjustment = view.FindViewById<Spinner>(Resource.Id.YAdjustment);
+            yAdjustment.ItemSelected += (o, e) =>
+            {
+                adjustment.YAdjustment = (CoordinateAdjustment)yAdjustment.SelectedItemPosition;
+            };
+
+            var adjustAngle = view.FindViewById<CheckBox>(Resource.Id.AdjustAngle);
+            adjustAngle.CheckedChange += (o, e) =>
+            {
+                adjustment.DoesAdjustAngle = adjustAngle.Checked;
+            };
+
+            var rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
             rightAngleDivision.MinValue = 1;
             rightAngleDivision.MaxValue = 90;
             rightAngleDivision.WrapSelectorWheel = false;
-            dialogBuilder.SetPositiveButton("OK", (s, a) =>
+            rightAngleDivision.ValueChanged += (o, e) =>
             {
-                settings.rightAngleDivision = rightAngleDivision.Value;
-            });
-            var dialog = dialogBuilder.Create();
+                adjustment.RightAngleDivision = rightAngleDivision.Value;
+            };
+
+            var adjustLength = view.FindViewById<CheckBox>(Resource.Id.AdjustLength);
+            adjustLength.CheckedChange += (o, e) =>
+            {
+                adjustment.DoesAdjustLength = adjustLength.Checked;
+            };
+
+            var dialog = Util.CreateDialog(activity, Resource.String.AdjustmentOptions, view, () =>
+            {
+                if (!adjustment.Equals(settings.Adjustment))
+                {
+                    settings.Adjustment = adjustment;
+                }
+            }, null);
+
             adjustmentButton.LongClick += (o, e) =>
             {
-                rightAngleDivision.Value = settings.rightAngleDivision;
+                adjustment = new Adjustment(settings.Adjustment);
+                xAdjustment.SetSelection((int)adjustment.XAdjustment);
+                yAdjustment.SetSelection((int)adjustment.YAdjustment);
+                adjustAngle.Checked = adjustment.DoesAdjustAngle;
+                rightAngleDivision.Value = adjustment.RightAngleDivision;
+                adjustLength.Checked = adjustment.DoesAdjustLength;
+
                 dialog.Show();
             };
         }
+        void InitializeRegulation()
+        {
+            regulationButton = activity.FindViewById<ImageButton>(Resource.Id.Regulation);
 
+            regulationButton.Click += (o, e) =>
+            {
+                settings.Regulation = !settings.Regulation;
+                regulationButton.Activate(settings.Regulation);
+            };
+        }
         void InitializePaint()
         {
+            paintButton = activity.FindViewById<ImageButton>(Resource.Id.Paint);
+
             var view = activity.LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
+            var paint = new Paint();
 
-            var dialogBuilder = new AlertDialog.Builder(activity);
             var strokeColor = view.FindViewById<ColorSetter>(Resource.Id.StrokeColor);
-            var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
-            var strokeWidthCent = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCent);
-            var fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
-            var linecaplinejoinView = view.FindViewById<ExtensibleView>(Resource.Id.LinecapLinejoinView);
-            var linecap = view.FindViewById<Spinner>(Resource.Id.Linecap);
-            var linejoin = view.FindViewById<Spinner>(Resource.Id.Linejoin);
-            var fillRuleView = view.FindViewById<ExtensibleView>(Resource.Id.FillRuleView);
-            var fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);
-            dialogBuilder.SetTitle(Resource.String.PaintOptions);
-            dialogBuilder.SetView(view);
+            strokeColor.ColorChanged += () =>
+            {
+                paint.StrokeColor = strokeColor.color;
+            };
 
-            strokeWidthCent.MinValue = 1;
-            strokeWidthCent.MaxValue = 10000;
+            var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
+            var strokeWidthCenti = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCenti);
+            strokeWidthCenti.MinValue = 1;
+            strokeWidthCenti.MaxValue = 10000;
             var centstrings = new List<string>();
-            for (int i = strokeWidthCent.MinValue; i <= strokeWidthCent.MaxValue; i++)
+            for (int i = strokeWidthCenti.MinValue; i <= strokeWidthCenti.MaxValue; i++)
             {
                 centstrings.Add(string.Format("{0:f2}", i / 100.0));
             }
-            strokeWidthCent.SetDisplayedValues(centstrings.ToArray());
-            strokeWidthCent.WrapSelectorWheel = false;
-
-            strokeColor.ColorChanged += () =>
-            {
-                settings.paint.strokeColor = strokeColor.color;
-            };
-
+            strokeWidthCenti.SetDisplayedValues(centstrings.ToArray());
+            strokeWidthCenti.WrapSelectorWheel = false;
             Action strokeWidthChanged = () =>
             {
-                settings.paint.strokeWidth = new SizeEither(strokeWidthCent.Value / 100.0f, strokeWidthPers.SelectedItemPosition == 0);
+                paint.StrokeWidth = new SizeEither(strokeWidthCenti.Value / 100.0f, strokeWidthPers.SelectedItemPosition == 0);
             };
-            strokeWidthCent.ValueChanged += (o, e) => strokeWidthChanged();
+            strokeWidthCenti.ValueChanged += (o, e) => strokeWidthChanged();
             strokeWidthPers.ItemSelected += (o, e) => strokeWidthChanged();
 
+            var fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
             fillColor.ColorChanged += () =>
             {
-                settings.paint.fillColor = fillColor.color;
+                paint.FillColor = fillColor.color;
             };
 
-            linecaplinejoinView.Drawing += (canvas) =>
+            var lineCaplineJoinView = view.FindViewById<ExtensibleView>(Resource.Id.LineCapLineJoinView);
+            lineCaplineJoinView.Drawing += (canvas) =>
             {
-                /* internally W 150 x H 50 */
-                var transform = new Transform<Internal, External>(canvas.Width / 150.0f);
-                var paint = new Paint(Color.Rgba(0x808080FF), new SizeEither(10.0f, true), default(Color),
-                    settings.paint.linecap, settings.paint.linejoin);
-                var polyline = new Polyline(paint, Util.NewList<Point<Internal>>(
-                    new Point<Internal>(10, 10),
-                    new Point<Internal>(60, 10),
-                    new Point<Internal>(75, 40),
-                    new Point<Internal>(90, 10),
-                    new Point<Internal>(140, 10)));
-                polyline.Draw(canvas, transform);
-                paint.strokeColor = Color.Rgba(0xFFFFFFFF);
-                paint.strokeWidth = new SizeEither(1.0f, true);
-                paint.linecap = Linecap.Butt;
-                paint.linejoin = Linejoin.Miter;
-                polyline.Draw(canvas, transform);
-            };
-            linecap.ItemSelected += (o, e) =>
-            {
-                settings.paint.linecap = (Linecap)linecap.SelectedItemPosition;
-                linecaplinejoinView.Invalidate();
-            };
-            linejoin.ItemSelected += (o, e) =>
-            {
-                settings.paint.linejoin = (Linejoin)linejoin.SelectedItemPosition;
-                linecaplinejoinView.Invalidate();
+                paint.LineCapLineJoinSample().Draw(canvas,
+                    new Transform<Internal, External>(canvas.Width / 150.0f));
             };
 
+            var lineCap = view.FindViewById<Spinner>(Resource.Id.LineCap);
+            lineCap.ItemSelected += (o, e) =>
+            {
+                paint.LineCap = (LineCap)lineCap.SelectedItemPosition;
+                lineCaplineJoinView.Invalidate();
+            };
+
+            var lineJoin = view.FindViewById<Spinner>(Resource.Id.LineJoin);
+            lineJoin.ItemSelected += (o, e) =>
+            {
+                paint.LineJoin = (LineJoin)lineJoin.SelectedItemPosition;
+                lineCaplineJoinView.Invalidate();
+            };
+
+            var miterLimitDeci = view.FindViewById<NumberPicker>(Resource.Id.MiterLimitDeci);
+            miterLimitDeci.MinValue = 0;
+            miterLimitDeci.MaxValue = 1000;
+            var deciStrings = new List<string>();
+            for (int i = miterLimitDeci.MinValue; i <= miterLimitDeci.MaxValue; i++)
+            {
+                deciStrings.Add(string.Format("{0:f1}", i / 10.0));
+            }
+            miterLimitDeci.SetDisplayedValues(deciStrings.ToArray());
+            miterLimitDeci.WrapSelectorWheel = false;
+            miterLimitDeci.ValueChanged += (o, e) =>
+            {
+                paint.MiterLimit = miterLimitDeci.Value / 10.0f;
+            };
+
+            var fillRuleView = view.FindViewById<ExtensibleView>(Resource.Id.FillRuleView);
+            var fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);
             fillRuleView.Drawing += (canvas) =>
             {
-                /* internally W 150 x H 120 */
-                var transform = new Transform<Internal, External>(canvas.Width / 150.0f);
-                var paint = new Paint(Color.Rgba(0x404040FF), new SizeEither(3.0f, true), Color.Rgba(0x808080FF),
-                    fillRule: settings.paint.fillRule);
-                var polyline = new Polyline(paint, Util.NewList<Point<Internal>>(
-                    new Point<Internal>(10, 110),
-                    new Point<Internal>(50, 10),
-                    new Point<Internal>(100, 60),
-                    new Point<Internal>(50, 60),
-                    new Point<Internal>(100, 10),
-                    new Point<Internal>(140, 110)),
-                    true);
-                polyline.Draw(canvas, transform);
+                paint.FillRuleSample().Draw(canvas,
+                    new Transform<Internal, External>(canvas.Width / 150.0f));
             };
             fillRule.ItemSelected += (o, e) =>
             {
-                settings.paint.fillRule = (FillRule)fillRule.SelectedItemPosition;
+                paint.FillRule = (FillRule)fillRule.SelectedItemPosition;
                 fillRuleView.Invalidate();
             };
 
-            dialogBuilder.SetPositiveButton("OK", (s, a) => { });
-
-            var dialog = dialogBuilder.Create();
+            var dialog = Util.CreateDialog(activity, Resource.String.PaintOptions, view, () =>
+            {
+                if (!paint.Equals(settings.Paint))
+                {
+                    settings.Paint = paint;
+                    ResetShapeCreator();
+                }
+            }, null);
 
             paintButton.Click += (o, e) =>
             {
-                settings.paint = new Paint(settings.paint);
-                ResetShapeCreator();
-                strokeColor.color = settings.paint.strokeColor;
-                strokeWidthPers.SetSelection(settings.paint.strokeWidth.isInternal ? 0 : 1);
-                strokeWidthCent.Value = (int)Math.Round(settings.paint.strokeWidth.value * 100.0f);
-                fillColor.color = settings.paint.fillColor;
-                linecap.SetSelection((int)settings.paint.linecap);
-                linejoin.SetSelection((int)settings.paint.linejoin);
-                fillRule.SetSelection((int)settings.paint.fillRule);
+                paint = new Paint(settings.Paint);
+                strokeColor.color = paint.StrokeColor;
+                strokeWidthPers.SetSelection(paint.StrokeWidth.isInternal ? 0 : 1);
+                strokeWidthCenti.Value = (int)Math.Round(paint.StrokeWidth.value * 100.0f);
+                fillColor.color = paint.FillColor;
+                lineCap.SetSelection((int)paint.LineCap);
+                lineJoin.SetSelection((int)paint.LineJoin);
+                miterLimitDeci.Value = (int)Math.Round(paint.MiterLimit * 10.0f);
+                fillRule.SetSelection((int)paint.FillRule);
+
                 dialog.Show();
             };
         }
@@ -316,6 +384,20 @@ namespace tegaki_hack
         {
             clearButton.Enabled = b;
         }
+        partial void SetActiveness()
+        {
+            foreach (var key in shapeButtons.Keys)
+            {
+                shapeButtons[key].Activate(key == eShapeCreatorFamily);
+            }
+        }
+        partial void SetIcons()
+        {
+            foreach (var key in shapeButtons.Keys)
+            {
+                shapeButtons[key].SetImageResource(icons[shapeDictionary[key][shapes[key]]]);
+            }
+        }
 
         partial void ResetSecondCanvas()
         {
@@ -323,8 +405,7 @@ namespace tegaki_hack
             secondCanvas = new Canvas(secondBitmap);
             secondCanvas.DrawColor(NativeColor.White);
 
-            SetGrid();
-            grid.Draw(secondCanvas, transform);
+            Grid().Draw(secondCanvas, transform);
 
             MoveDrawnShapesToUndrawn();
             DrawUndrawnShapesOnSecondCanvas();
@@ -334,7 +415,7 @@ namespace tegaki_hack
             foreach (var shape in undrawnShapes) shape.Draw(secondCanvas, transform);
             MoveUndrawnShapesToDrawn();
         }
-        public void Draw(Canvas canvas)
+        void Draw(Canvas canvas)
         {
             DrawUndrawnShapesOnSecondCanvas();
             canvas.DrawBitmap(secondBitmap, 0, 0, null);

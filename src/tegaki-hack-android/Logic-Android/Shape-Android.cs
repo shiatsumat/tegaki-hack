@@ -19,18 +19,9 @@ namespace tegaki_hack
         {
             if (points.Count >= 2)
             {
-                var path = new Path();
-                switch (paint.fillRule)
-                {
-                    case FillRule.EvenOdd:
-                        path.SetFillType(Path.FillType.EvenOdd);
-                        break;
-                    case FillRule.Nonzero:
-                        path.SetFillType(Path.FillType.Winding);
-                        break;
-                }
-                var startt = startPoint.Transform(transform);
-                path.MoveTo(startt.x, startt.y);
+                var path = paint.NewPath();
+                var startT = startPoint.Transform(transform);
+                path.MoveTo(startT.x, startT.y);
                 for (int i = 1; i < (closed && bezier ? points.Count + 1 : points.Count); i++)
                 {
                     if (!bezier)

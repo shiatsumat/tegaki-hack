@@ -61,15 +61,29 @@ namespace tegaki_hack
         {
             return new Color(r, g, b, a);
         }
+
         public static Color Rgba(uint rgba)
         {
             return new Color(rgba);
         }
+
+        static Exception InvalidH()
+        {
+            return new InvalidOperationException("h is neither a value in [0, 360) nor NaN for Color");
+        }
+        static Exception InvalidS()
+        {
+            return new InvalidOperationException("s is not in [0, 100] for Color");
+        }
+        static Exception InvalidL()
+        {
+            return new InvalidOperationException("l is not in [0, 100] for Color");
+        }
         public static Color Hsla(float h, float s, float l, byte a)
         {
-            if (h < 0.0f || 360.0f <= h) throw new InvalidOperationException("h is neither a value in [0, 360) nor NaN for Color");
-            if (float.IsNaN(s) || s < 0.0f || 100.0f < s) throw new InvalidOperationException("s is not in [0, 100] for Color");
-            if (float.IsNaN(l) || l < 0.0f || 100.0f < l) throw new InvalidOperationException("l is not in [0, 100] for Color");
+            if (h < 0.0f || 360.0f <= h) throw InvalidH();
+            if (float.IsNaN(s) || s < 0.0f || 100.0f < s) throw InvalidS();
+            if (float.IsNaN(l) || l < 0.0f || 100.0f < l) throw InvalidL();
 
             byte r = 0, g = 0, b = 0;
 
@@ -139,67 +153,138 @@ namespace tegaki_hack
         }
     }
 
-    public enum Linecap { Butt, Round, Square }
-    public enum Linejoin { Miter, Round, Bevel }
+    public enum LineCap { Butt, Round, Square }
+    public enum LineJoin { Miter, Round, Bevel }
     public enum FillRule { EvenOdd, Nonzero }
     public partial class Paint
     {
-        public Color strokeColor;
-        public SizeEither strokeWidth;
-        public Color fillColor;
-        Linecap _linecap;
-        public Linecap linecap
+        public Color StrokeColor;
+        public SizeEither StrokeWidth;
+
+        public Color FillColor;
+
+        LineCap _lineCap;
+        public LineCap LineCap
         {
-            get { return _linecap; }
+            get { return _lineCap; }
             set
             {
-                if (value < 0 || 3 <= (int)value) throw new InvalidOperationException("invalid strokelinecap for Paint");
-                _linecap = value;
+                if (!(0 <= value && (int)value < 3)) throw InvalidLineCap();
+                _lineCap = value;
             }
         }
-        Linejoin _linejoin;
-        public Linejoin linejoin
+        LineJoin _lineJoin;
+        public LineJoin LineJoin
         {
-            get { return _linejoin; }
+            get { return _lineJoin; }
             set
             {
-                if (value < 0 || 3 <= (int)value) throw new InvalidOperationException("invalid strokelinejoin for Paint");
-                _linejoin = value;
+                if (!(0 <= value && (int)value < 3)) throw InvalidLineJoin();
+                _lineJoin = value;
             }
         }
+        public float MiterLimit;
+
         FillRule _fillRule;
-        public FillRule fillRule
+        public FillRule FillRule
         {
             get { return _fillRule; }
             set
             {
-                if (value < 0 || 2 <= (int)value) throw new InvalidOperationException("invalid strokelinejoin for Paint");
+                if (!(0 <= value && (int)value < 2)) throw InvalidFillRule();
                 _fillRule = value;
             }
         }
 
-        public Paint(Color strokecolor, SizeEither strokewidth, Color fillcolor = default(Color),
-            Linecap linecap = Linecap.Butt, Linejoin linejoin = Linejoin.Miter, FillRule fillRule = FillRule.EvenOdd)
+        static Exception InvalidLineCap()
         {
-            strokeColor = strokecolor; strokeWidth = strokewidth; fillColor = fillcolor;
-            this.linecap = linecap; this.linejoin = linejoin; this.fillRule = fillRule;
+            return new InvalidOperationException("Invalid Line Cap for Paint");
+        }
+        static Exception InvalidLineJoin()
+        {
+            return new InvalidOperationException("Invalid Line Join for Paint");
+        }
+        static Exception InvalidFillRule()
+        {
+            return new InvalidOperationException("Invalid Fill Rule for Paint");
+        }
+
+        public Paint() { }
+        public Paint(Color strokeColor, SizeEither strokeWidth,
+            Color fillColor = default(Color),
+            LineCap lineCap = LineCap.Butt, LineJoin lineJoin = LineJoin.Miter, float miterLimit = 4,
+            FillRule fillRule = FillRule.EvenOdd)
+        {
+            StrokeColor = strokeColor; StrokeWidth = strokeWidth;
+            FillColor = fillColor;
+            LineCap = lineCap; LineJoin = lineJoin; MiterLimit = miterLimit;
+            FillRule = fillRule;
         }
         public Paint(Paint paint)
-            : this(paint.strokeColor, paint.strokeWidth, paint.fillColor,
-                  paint.linecap, paint.linejoin, paint.fillRule)
+            : this(paint.StrokeColor, paint.StrokeWidth,
+                  paint.FillColor,
+                  paint.LineCap, paint.LineJoin, paint.MiterLimit,
+                  paint.FillRule)
         { }
+
+        bool Equals(Paint paint)
+        {
+            return
+                StrokeColor.Equals(paint.StrokeColor) &&
+                StrokeWidth.Equals(paint.StrokeWidth) &&
+                FillColor.Equals(paint.FillColor) &&
+                LineCap == paint.LineCap &&
+                LineJoin == paint.LineJoin &&
+                MiterLimit == paint.MiterLimit &&
+                FillRule == paint.FillRule;
+        }
+
+        /* internally W 150 x H 50 */
+        public IShape LineCapLineJoinSample()
+        {
+            var points = Util.NewList<Point<Internal>>(
+                new Point<Internal>(10, 10),
+                new Point<Internal>(60, 10),
+                new Point<Internal>(75, 40),
+                new Point<Internal>(90, 10),
+                new Point<Internal>(140, 10));
+            var polylineBack = new Polyline(
+                new Paint(Color.Rgba(0x808080FF), new SizeEither(10.0f, true), lineCap: LineCap, lineJoin: LineJoin),
+                points);
+            var polylineFront = new Polyline(
+                new Paint(Color.Rgba(0xFFFFFFFF), new SizeEither(1.0f, true)),
+                points);
+            return new ShapeGroup(new IShape[] { polylineBack, polylineFront });
+        }
+
+        /* internally W 150 x H 100 */
+        public IShape FillRuleSample()
+        {
+            return new Polyline(
+                new Paint(Color.Rgba(0x404040FF), new SizeEither(3.0f, true), Color.Rgba(0x808080FF), fillRule: FillRule),
+                Util.NewList<Point<Internal>>(
+                new Point<Internal>(10, 90),
+                new Point<Internal>(50, 10),
+                new Point<Internal>(100, 60),
+                new Point<Internal>(50, 60),
+                new Point<Internal>(100, 10),
+                new Point<Internal>(140, 90)),
+                true);
+        }
     }
-    public static partial class PaintStatic
+
+    public static partial class Drawdata
     {
         public static XElement AddSvg(this XElement element, Paint paint, Transform<Internal, External> transform)
         {
             element.Add(
-                new XAttribute("stroke", paint.strokeColor.RgbaFunctionString()),
-                new XAttribute("stroke-width", paint.strokeWidth.Value(transform).ToString()),
-                new XAttribute("fill", paint.fillColor.RgbaFunctionString()),
-                new XAttribute("stroke-linecap", paint.linecap.ToString().ToLower()),
-                new XAttribute("stroke-linejoin", paint.linejoin.ToString().ToLower()),
-                new XAttribute("fill-rule", paint.fillRule.ToString().ToLower()));
+                new XAttribute("stroke", paint.StrokeColor.RgbaFunctionString()),
+                new XAttribute("stroke-width", paint.StrokeWidth.Value(transform).ToString()),
+                new XAttribute("fill", paint.FillColor.RgbaFunctionString()),
+                new XAttribute("stroke-linecap", paint.LineCap.ToString().ToLower()),
+                new XAttribute("stroke-linejoin", paint.LineJoin.ToString().ToLower()),
+                new XAttribute("stroke-miterlimit", paint.MiterLimit),
+                new XAttribute("fill-rule", paint.FillRule.ToString().ToLower()));
             return element;
         }
     }

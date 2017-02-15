@@ -8,7 +8,7 @@ namespace tegaki_hack
     {
         void AddSvg(XElement element, Transform<Internal, External> transform);
     }
-    public static partial class DrawdataStatic
+    public static partial class Shape
     {
         public static XElement AddSvg(this XElement element, IShape shape, Transform<Internal, External> transform)
         {
@@ -28,7 +28,7 @@ namespace tegaki_hack
 
         public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
-            var gElement = new XElement("g");
+            var gElement = new XElement(Util.SvgName("g"));
             foreach (var shape in shapes)
             {
                 gElement.AddSvg(shape, transform);
