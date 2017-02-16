@@ -3,116 +3,109 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  <LinearLayout
-    android:id="@+id/Header"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/Header"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true">
-        <ImageButton
-            android:id="@+id/Undo"
-            android:src="@drawable/UndoIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Redo"
-            android:src="@drawable/RedoIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Clear"
-            android:src="@drawable/ClearIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-      </LinearLayout>
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentRight="true">
-        <ImageButton
-            android:id="@+id/Save"
-            android:src="@drawable/SaveIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-      </LinearLayout>
-    </RelativeLayout>
-    <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true">
+                <ImageButton
+                    android:id="@+id/Undo"
+                    android:src="@drawable/UndoIcon"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:id="@+id/Redo"
+                    android:src="@drawable/RedoIcon"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:id="@+id/Clear"
+                    android:src="@drawable/ClearIcon"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+                <ImageButton
+                    android:id="@+id/Save"
+                    android:src="@drawable/SaveIcon"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true">
+                <ImageButton
+                    android:id="@+id/Freehand"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:id="@+id/Line"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:id="@+id/Circle"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:id="@+id/Text"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+                <ImageButton
+                    android:id="@+id/Adjustment"
+                    android:src="@drawable/AdjustmentIcon"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:id="@+id/Paint"
+                    android:src="@drawable/PaintIcon"
+                    android:layout_width="@android:dimen/app_icon_size"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <tegaki_hack.ExtensibleView
+        android:id="@+id/Editcanvas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true">
-        <ImageButton
-            android:id="@+id/Freehand"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Line"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Circle"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Text"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-      </LinearLayout>
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentRight="true">
-        <ImageButton
-            android:id="@+id/Adjustment"
-            android:src="@drawable/AdjustmentIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Regulation"
-            android:src="@drawable/RegulationIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-        <ImageButton
-            android:id="@+id/Paint"
-            android:src="@drawable/PaintIcon"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
-      </LinearLayout>
-    </RelativeLayout>
-  </LinearLayout>
-  <tegaki_hack.ExtensibleView
-      android:id="@+id/Editcanvas"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@android:color/white" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white" />
 </LinearLayout>

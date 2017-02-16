@@ -31,7 +31,7 @@ namespace tegaki_hack
             shapeDictionary[EShapeCreatorFamily.Line]
                 = new EShapeCreator[] { EShapeCreator.Line, EShapeCreator.Arc, EShapeCreator.Polyline };
             shapeDictionary[EShapeCreatorFamily.Circle]
-                = new EShapeCreator[] { EShapeCreator.Oval, EShapeCreator.Rectangle, EShapeCreator.RegularPolygon, EShapeCreator.Polygon };
+                = new EShapeCreator[] { EShapeCreator.Circle, EShapeCreator.Ellipse, EShapeCreator.Square, EShapeCreator.Rectangle, EShapeCreator.RegularPolygon, EShapeCreator.Polygon };
             shapeDictionary[EShapeCreatorFamily.Text]
                 = new EShapeCreator[] { EShapeCreator.Text, EShapeCreator.FancyText };
 
@@ -137,8 +137,9 @@ namespace tegaki_hack
 
         void ToggleShapeCreatorFamily(EShapeCreatorFamily eShapeCreatorFamily)
         {
-            if(eShapeCreatorFamily == EShapeCreatorFamily.None)
+            if (eShapeCreatorFamily == EShapeCreatorFamily.None)
             {
+                this.eShapeCreatorFamily = EShapeCreatorFamily.None;
                 ChangeShapeCreator(EShapeCreator.None);
             }
             else if (this.eShapeCreatorFamily == eShapeCreatorFamily)
@@ -177,8 +178,12 @@ namespace tegaki_hack
             var shapes = new List<IShape>();
             shapes.AddRange(drawnShapes);
             shapes.AddRange(undrawnShapes);
+            var width = realsize.Dx;
+            var height = realsize.Dy;
             var svg = new XElement(Util.SvgName("svg"),
-                new XAttribute("viewbox", string.Format("0 0 {0}", realsize)));
+                new XAttribute("width", width.ToString()),
+                new XAttribute("height", height.ToString()),
+                new XAttribute("viewbox", string.Format("0 0 {0} {1}", width, height)));
             foreach (var shape in shapes)
             {
                 svg.AddSvg(shape, transform);

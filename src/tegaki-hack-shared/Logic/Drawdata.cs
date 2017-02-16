@@ -279,7 +279,7 @@ namespace tegaki_hack
         {
             element.Add(
                 new XAttribute("stroke", paint.StrokeColor.RgbaFunctionString()),
-                new XAttribute("stroke-width", paint.StrokeWidth.Value(transform).ToString()),
+                new XAttribute("stroke-width", paint.StrokeWidth.Transform(transform).ToString()),
                 new XAttribute("fill", paint.FillColor.RgbaFunctionString()),
                 new XAttribute("stroke-linecap", paint.LineCap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", paint.LineJoin.ToString().ToLower()),

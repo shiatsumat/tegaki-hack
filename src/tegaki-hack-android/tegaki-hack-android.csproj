@@ -63,15 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-    <AndroidResource Include="Resources\layout\PaintDialog.axml" />
-    <AndroidResource Include="Resources\layout\CircleDialog.axml" />
-    <AndroidResource Include="Resources\layout\Start.axml" />
-    <AndroidResource Include="Resources\layout\SvgDialog.axml" />
-    <AndroidResource Include="Resources\layout\AdjustmentDialog.axml" />
-    <AndroidResource Include="Resources\layout\ColorSetter.axml">
+    <AndroidResource Include="Resources\layout\SizeSetter.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Edit.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\AdjustmentIcon.png" />
@@ -80,7 +74,9 @@
     <AndroidResource Include="Resources\drawable\ArcIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\DashedCircumference.xml" />
+    <AndroidResource Include="Resources\drawable\DashedCircumference.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FancyTextIcon.png" />
@@ -95,10 +91,10 @@
     <AndroidResource Include="Resources\drawable\LineIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Oval.xml" />
+    <AndroidResource Include="Resources\drawable\Ellipse.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\OvalIcon.png" />
+    <AndroidResource Include="Resources\drawable\EllipseIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\PaintIcon.png" />
@@ -122,6 +118,17 @@
     <AndroidResource Include="Resources\drawable\UndoIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\AdjustmentDialog.axml" />
+    <AndroidResource Include="Resources\layout\CircleDialog.axml" />
+    <AndroidResource Include="Resources\layout\ColorSetter.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Edit.axml" />
+    <AndroidResource Include="Resources\layout\PaintDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Start.axml" />
+    <AndroidResource Include="Resources\layout\SvgDialog.axml" />
     <AndroidResource Include="Resources\values\strings.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -138,13 +145,16 @@
     <AndroidResource Include="Resources\drawable\ClearIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\RegulationIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\PolygonIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\PolylineIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\CircleIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SquareIcon.png" />
   </ItemGroup>
   <Import Project="..\tegaki-hack-shared\tegaki-hack-shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

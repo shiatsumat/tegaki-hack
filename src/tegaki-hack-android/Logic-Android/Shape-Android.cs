@@ -43,31 +43,42 @@ namespace tegaki_hack
                     }
                 }
                 if (Closed) path.Close();
-                canvas.DrawPath(path, Paint.fillPaint(transform));
-                canvas.DrawPath(path, Paint.strokePaint(transform));
+                canvas.DrawPath(path, Paint.FillPaint(transform));
+                canvas.DrawPath(path, Paint.StrokePaint(transform));
             }
         }
     }
 
-    public partial class Oval : IShape
+    public partial class Circle : IShape
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             var p = Center.Transform(transform);
-            var r = Radii.Transform(transform);
-            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.fillPaint(transform));
-            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.strokePaint(transform));
+            var r = Radius.Transform(transform);
+            canvas.DrawCircle(p.X, p.Y, r, Paint.FillPaint(transform));
+            canvas.DrawCircle(p.X, p.Y, r, Paint.StrokePaint(transform));
         }
     }
 
-    public partial class OvalArc : IShape
+    public partial class Ellipse : IShape
     {
         public void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
             var p = Center.Transform(transform);
             var r = Radii.Transform(transform);
-            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.fillPaint(transform));
-            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.strokePaint(transform));
+            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.FillPaint(transform));
+            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.StrokePaint(transform));
+        }
+    }
+
+    public partial class EllipseArc : IShape
+    {
+        public void Draw(Canvas canvas, Transform<Internal, External> transform)
+        {
+            var p = Center.Transform(transform);
+            var r = Radii.Transform(transform);
+            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.FillPaint(transform));
+            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.StrokePaint(transform));
         }
     }
 }

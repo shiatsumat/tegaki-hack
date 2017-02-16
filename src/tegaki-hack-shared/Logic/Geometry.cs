@@ -195,24 +195,24 @@ namespace tegaki_hack
 
     public partial struct SizeEither
     {
-        public float value;
-        public bool isInternal;
+        public float Value;
+        public bool IsInternal;
         public SizeEither(float value, bool isInternal)
         {
-            this.value = value; this.isInternal = isInternal;
+            Value = value; IsInternal = isInternal;
         }
         public SizeEither(Size<Internal> a)
         {
-            value = a.value; isInternal = true;
+            Value = a.value; IsInternal = true;
         }
         public SizeEither(Size<External> a)
         {
-            value = a.value; isInternal = false;
+            Value = a.value; IsInternal = false;
         }
-        public float Value(Transform<Internal, External> transform)
+        public float Transform(Transform<Internal, External> transform)
         {
-            if (isInternal) return value * transform.scale;
-            else return value;
+            if (IsInternal) return Value * transform.scale;
+            else return Value;
         }
     }
 
@@ -251,6 +251,12 @@ namespace tegaki_hack
                 new XAttribute(name, a.Transform(transform).ToString()));
             return element;
         }
+        public static XElement AddSvg(this XElement element, SizeEither a, string name, Transform<Internal, External> transform)
+        {
+            element.Add(
+                new XAttribute(name, a.Transform(transform).ToString()));
+            return element;
+        }
 
         static Point<Pers> InterpolateHelper<Pers>(Point<Pers> p, Point<Pers> q, Point<Pers> r)
         {
@@ -280,6 +286,7 @@ namespace tegaki_hack
             }
             return res;
         }
+
     }
 
     public struct ConTrolTo<Pers>

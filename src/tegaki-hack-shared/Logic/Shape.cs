@@ -81,14 +81,35 @@ namespace tegaki_hack
         }
     }
 
-    public partial class Oval : IShape
+    public partial class Circle : IShape
+    {
+        public Paint Paint;
+        public Point<Internal> Center;
+        SizeEither _radius;
+        public SizeEither Radius { get { return _radius; } set { _radius = new SizeEither(Math.Abs(value.Value), value.IsInternal); } }
+
+        public Circle(Paint paint, Point<Internal> center, SizeEither radius)
+        {
+            Paint = paint; Center = center; Radius = radius;
+        }
+
+        public void AddSvg(XElement element, Transform<Internal, External> transform)
+        {
+            element.Add(new XElement(Util.SvgName("circle"))
+                .AddSvg(Paint, transform)
+                .AddSvg(Center, "cx", "cy", transform)
+                .AddSvg(Radius, "r", transform));
+        }
+    }
+
+    public partial class Ellipse : IShape
     {
         public Paint Paint;
         public Point<Internal> Center;
         DPoint<Internal> _radii;
         public DPoint<Internal> Radii { get { return _radii; } set { _radii = new DPoint<Internal>(Math.Abs(value.Dx), Math.Abs(value.Dy)); } }
 
-        public Oval(Paint paint, Point<Internal> center, DPoint<Internal> radii)
+        public Ellipse(Paint paint, Point<Internal> center, DPoint<Internal> radii)
         {
             Paint = paint; Center = center; Radii = radii;
         }
@@ -102,7 +123,7 @@ namespace tegaki_hack
         }
     }
 
-    public partial class OvalArc : IShape
+    public partial class EllipseArc : IShape
     {
         public Paint Paint;
         public Point<Internal> Center;
@@ -114,7 +135,7 @@ namespace tegaki_hack
             get { return _startAngle; }
             set
             {
-                if (value <= -180 || 180 < value) throw new InvalidOperationException("invalid startAngle for OvalArc");
+                if (value <= -180 || 180 < value) throw new InvalidOperationException("invalid startAngle for EllipseArc");
                 _startAngle = value;
             }
         }
@@ -124,7 +145,7 @@ namespace tegaki_hack
             get { return _sweepAngle; }
             set
             {
-                if (value < 0 || 360 < value) throw new InvalidOperationException("invalid sweepAngle for OvalArc");
+                if (value < 0 || 360 < value) throw new InvalidOperationException("invalid sweepAngle for EllipseArc");
                 _sweepAngle = value;
             }
         }
@@ -146,7 +167,7 @@ namespace tegaki_hack
             }
         }
 
-        public OvalArc(Paint paint, Point<Internal> center, DPoint<Internal> radii, float startAngle, float sweepAngle, bool useCenter = true)
+        public EllipseArc(Paint paint, Point<Internal> center, DPoint<Internal> radii, float startAngle, float sweepAngle, bool useCenter = true)
         {
             Paint = paint; Center = center; Radii = radii; StartAngle = startAngle; SweepAngle = sweepAngle; UseCenter = useCenter;
         }

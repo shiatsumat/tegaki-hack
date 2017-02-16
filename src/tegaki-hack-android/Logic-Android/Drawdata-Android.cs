@@ -1,4 +1,3 @@
-using System;
 using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
 using NativePaint = Android.Graphics.Paint;
@@ -54,19 +53,19 @@ namespace tegaki_hack
             }
         }
 
-        public NativePaint strokePaint(Transform<Internal, External> transform)
+        public NativePaint StrokePaint(Transform<Internal, External> transform)
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
             res.Color = StrokeColor.Native;
-            res.StrokeWidth = StrokeWidth.Value(transform);
+            res.StrokeWidth = StrokeWidth.Transform(transform);
             res.StrokeCap = NativeLineCap;
             res.StrokeJoin = NativeLineJoin;
             res.StrokeMiter = MiterLimit;
             return res;
         }
 
-        public NativePaint fillPaint(Transform<Internal, External> transform)
+        public NativePaint FillPaint(Transform<Internal, External> transform)
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Fill);

@@ -5,9 +5,8 @@ using Android.Graphics;
 using Android.Widget;
 using Android.Views;
 using Android.App;
-using NativeColor = Android.Graphics.Color;
-using Android.Graphics.Drawables;
 using Android.Content.Res;
+using NativeColor = Android.Graphics.Color;
 
 namespace tegaki_hack
 {
@@ -21,7 +20,7 @@ namespace tegaki_hack
         ImageButton undoButton, redoButton, clearButton, saveButton;
         Dictionary<EShapeCreatorFamily, ImageButton> shapeButtons;
         Dictionary<EShapeCreator, int> icons;
-        ImageButton regulationButton, adjustmentButton, paintButton;
+        ImageButton adjustmentButton, paintButton;
 
         Bitmap secondBitmap;
         Canvas secondCanvas;
@@ -41,7 +40,6 @@ namespace tegaki_hack
             InitializeShapes();
             InitializeCircle();
             InitializeAdjustment();
-            InitializeRegulation();
             InitializePaint();
 
             InitializeLast();
@@ -126,14 +124,20 @@ namespace tegaki_hack
             shapeButtons[EShapeCreatorFamily.Text] = activity.FindViewById<ImageButton>(Resource.Id.Text);
 
             icons = new Dictionary<EShapeCreator, int>();
+
             icons[EShapeCreator.Freehand] = Resource.Drawable.FreehandIcon;
+
             icons[EShapeCreator.Line] = Resource.Drawable.LineIcon;
             icons[EShapeCreator.Arc] = Resource.Drawable.ArcIcon;
             icons[EShapeCreator.Polyline] = Resource.Drawable.PolylineIcon;
-            icons[EShapeCreator.Oval] = Resource.Drawable.OvalIcon;
+
+            icons[EShapeCreator.Circle] = Resource.Drawable.CircleIcon;
+            icons[EShapeCreator.Ellipse] = Resource.Drawable.EllipseIcon;
+            icons[EShapeCreator.Square] = Resource.Drawable.SquareIcon;
             icons[EShapeCreator.Rectangle] = Resource.Drawable.RectangleIcon;
             icons[EShapeCreator.RegularPolygon] = Resource.Drawable.RegularPolygonIcon;
             icons[EShapeCreator.Polygon] = Resource.Drawable.PolygonIcon;
+
             icons[EShapeCreator.Text] = Resource.Drawable.TextIcon;
             icons[EShapeCreator.FancyText] = Resource.Drawable.FancyTextIcon;
 
@@ -253,16 +257,6 @@ namespace tegaki_hack
                 dialog.Show();
             };
         }
-        void InitializeRegulation()
-        {
-            regulationButton = activity.FindViewById<ImageButton>(Resource.Id.Regulation);
-
-            regulationButton.Click += (o, e) =>
-            {
-                settings.Regulation = !settings.Regulation;
-                regulationButton.Activate(settings.Regulation);
-            };
-        }
         void InitializePaint()
         {
             paintButton = activity.FindViewById<ImageButton>(Resource.Id.Paint);
@@ -273,31 +267,19 @@ namespace tegaki_hack
             var strokeColor = view.FindViewById<ColorSetter>(Resource.Id.StrokeColor);
             strokeColor.ColorChanged += () =>
             {
-                paint.StrokeColor = strokeColor.color;
+                paint.StrokeColor = strokeColor.Color;
             };
 
-            var strokeWidthPers = view.FindViewById<Spinner>(Resource.Id.StrokeWidthPers);
-            var strokeWidthCenti = view.FindViewById<NumberPicker>(Resource.Id.StrokeWidthCenti);
-            strokeWidthCenti.MinValue = 1;
-            strokeWidthCenti.MaxValue = 10000;
-            var centstrings = new List<string>();
-            for (int i = strokeWidthCenti.MinValue; i <= strokeWidthCenti.MaxValue; i++)
-            {
-                centstrings.Add(string.Format("{0:f2}", i / 100.0));
-            }
-            strokeWidthCenti.SetDisplayedValues(centstrings.ToArray());
-            strokeWidthCenti.WrapSelectorWheel = false;
-            Action strokeWidthChanged = () =>
-            {
-                paint.StrokeWidth = new SizeEither(strokeWidthCenti.Value / 100.0f, strokeWidthPers.SelectedItemPosition == 0);
-            };
-            strokeWidthCenti.ValueChanged += (o, e) => strokeWidthChanged();
-            strokeWidthPers.ItemSelected += (o, e) => strokeWidthChanged();
+            var strokeWidth = view.FindViewById<SizeSetter>(Resource.Id.StrokeWidth);
+            strokeWidth.SizeChanged += () =>
+             {
+                 paint.StrokeWidth = strokeWidth.Size;
+             };
 
             var fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
             fillColor.ColorChanged += () =>
             {
-                paint.FillColor = fillColor.color;
+                paint.FillColor = fillColor.Color;
             };
 
             var lineCaplineJoinView = view.FindViewById<ExtensibleView>(Resource.Id.LineCapLineJoinView);
@@ -361,10 +343,9 @@ namespace tegaki_hack
             paintButton.Click += (o, e) =>
             {
                 paint = new Paint(settings.Paint);
-                strokeColor.color = paint.StrokeColor;
-                strokeWidthPers.SetSelection(paint.StrokeWidth.isInternal ? 0 : 1);
-                strokeWidthCenti.Value = (int)Math.Round(paint.StrokeWidth.value * 100.0f);
-                fillColor.color = paint.FillColor;
+                strokeColor.Color = paint.StrokeColor;
+                strokeWidth.Size = paint.StrokeWidth;
+                fillColor.Color = paint.FillColor;
                 lineCap.SetSelection((int)paint.LineCap);
                 lineJoin.SetSelection((int)paint.LineJoin);
                 miterLimitDeci.Value = (int)Math.Round(paint.MiterLimit * 10.0f);

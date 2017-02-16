@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Android.Graphics;
 
 namespace tegaki_hack
@@ -25,8 +24,12 @@ namespace tegaki_hack
                     return new PolylineCreator();
                 case EShapeCreator.Arc:
                     return new ArcCreator();
-                case EShapeCreator.Oval:
-                    return new OvalCreator();
+                case EShapeCreator.Circle:
+                    return new CircleCreator();
+                case EShapeCreator.Ellipse:
+                    return new EllipseCreator();
+                case EShapeCreator.Square:
+                    return new SquareCreator();
                 case EShapeCreator.Rectangle:
                     return new RectangleCreator();
                 case EShapeCreator.RegularPolygon:
@@ -43,13 +46,16 @@ namespace tegaki_hack
         }
     }
 
-    public enum EShapeCreator { None, Freehand, Line, Polyline, Arc, Oval, Rectangle, RegularPolygon, Polygon, Text, FancyText }
+    public enum EShapeCreator { None,
+        Freehand,
+        Line, Polyline, Arc,
+        Circle, Ellipse, Rectangle, Square, RegularPolygon, Polygon,
+        Text, FancyText }
 
     public partial class ShapeCreatorSettings
     {
         public bool DoesAdjust;
         public Adjustment Adjustment;
-        public bool Regulation;
         public Paint Paint;
         public Paint GuidePaint;
         public int NRegularPolygon;
@@ -374,35 +380,80 @@ namespace tegaki_hack
         }
     }
 
-    public partial class OvalCreator : TwoPointCreator
+    public partial class CircleCreator : TwoPointCreator
     {
-        Oval oval;
+        Circle circle;
 
         protected override IShape Finish()
         {
-            return Util.Nulling(ref oval);
+            return Util.Nulling(ref circle);
         }
         protected override void Set()
         {
             if (from != null && to != null)
             {
-                DPoint<Internal> radii;
-                if (Settings.Regulation)
-                {
-                    var r = from.Value.distance(to.Value);
-                    radii = new DPoint<Internal>(r, r);
-                }
-                else
-                {
-                    var v = to.Value - from.Value;
-                    radii = v * (float)Math.Sqrt(2);
-                }
-                oval = new Oval(Settings.Paint, from.Value, radii);
+                circle = new Circle(Settings.Paint, from.Value, new SizeEither(from.Value.distance(to.Value), true));
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
         {
-            oval?.Draw(canvas, transform);
+            circle?.Draw(canvas, transform);
+        }
+    }
+
+    public partial class EllipseCreator : AShapeCreator
+    {
+        public override void Draw(Canvas canvas, Transform<Internal, External> transform)
+        {
+            // TODO
+        }
+
+        protected override void EndDrag()
+        {
+            // TODO
+        }
+
+        protected override IShape Finish()
+        {
+            // TODO
+            return null;
+        }
+
+        protected override void MoveDrag(Point<Internal> p)
+        {
+            // TODO
+        }
+
+        protected override void StartDrag(Point<Internal> p)
+        {
+            // TODO
+        }
+    }
+
+    public partial class SquareCreator : TwoPointCreator
+    {
+        Polyline polyline;
+
+        protected override IShape Finish()
+        {
+            return Util.Nulling(ref polyline);
+        }
+        protected override void Set()
+        {
+            if (from != null && to != null)
+            {
+                var upperleft = from.Value;
+                var v = to.Value - from.Value;
+                float l = Math.Max(Math.Abs(v.Dx), Math.Abs(v.Dy));
+                var lowerright = from.Value + new DPoint<Internal>(v.Dx.AdjustAbs(l), v.Dy.AdjustAbs(l));
+                var lowerleft = new Point<Internal>(upperleft.X, lowerright.Y);
+                var upperright = new Point<Internal>(lowerright.X, upperleft.Y);
+                polyline = new Polyline(Settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
+            }
+        }
+        public override void Draw(Canvas canvas, Transform<Internal, External> transform)
+        {
+            polyline?.Draw(canvas, transform);
         }
     }
 
@@ -420,12 +471,6 @@ namespace tegaki_hack
             {
                 var upperleft = from.Value;
                 var lowerright = to.Value;
-                if (Settings.Regulation)
-                {
-                    var v = to.Value - from.Value;
-                    float l = Math.Max(Math.Abs(v.Dx), Math.Abs(v.Dy));
-                    lowerright = from.Value + new DPoint<Internal>(v.Dx.AdjustAbs(l), v.Dy.AdjustAbs(l));
-                }
                 var lowerleft = new Point<Internal>(upperleft.X, lowerright.Y);
                 var upperright = new Point<Internal>(lowerright.X, upperleft.Y);
                 polyline = new Polyline(Settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
