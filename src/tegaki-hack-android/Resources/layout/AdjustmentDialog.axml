@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
                     <TextView
-                        android:text="@string/X"
+                        android:text="X"
                         android:textSize="18dp"
                         android:layout_width="25dp"
                         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
                     <TextView
-                        android:text="@string/Y"
+                        android:text="Y"
                         android:textSize="18dp"
                         android:layout_width="25dp"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:gravity="center" />
             <CheckBox
                 android:id="@+id/AdjustLength"
-                android:text="@string/RoundLengthToInteger"
+                android:text="@string/RoundToInteger"
                 android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PaintOptions">绘图选项</string>
+  <string name="StrokeColor">笔触颜色</string>
+  <string name="StrokeWidth">笔触宽度</string>
+  <string name="FillColor">填充色</string>
+  <string name="LineCapJoin">线帽和边角</string>
+  <string name="LineCap">线帽</string>
+  <string-array name="LineCaps">
+    <item>平直</item>
+    <item>圆形</item>
+    <item>正方形</item>
+  </string-array>
+  <string name="LineJoin">边角</string>
+  <string-array name="LineJoins">
+    <item>尖角</item>
+    <item>圆角</item>
+    <item>切角</item>
+  </string-array>
+  <string name="MiterLimit">最大斜接长度</string>
+  <string name="FillRule">填充规则</string>
+  <string-array name="FillRules">
+    <item>奇偶</item>
+    <item>非零</item>
+  </string-array>
+
+</resources>

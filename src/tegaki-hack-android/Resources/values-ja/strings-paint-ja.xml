@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PaintOptions">描き方のオプション</string>
+  <string name="StrokeColor">線の色</string>
+  <string name="StrokeWidth">線の幅</string>
+  <string name="FillColor">塗りつぶしの色</string>
+  <string name="LineCapJoin">端点と頂点</string>
+  <string name="LineCap">端点</string>
+  <string-array name="LineCaps">
+    <item>平ら</item>
+    <item>丸</item>
+    <item>正方形</item>
+  </string-array>
+  <string name="LineJoin">頂点</string>
+  <string-array name="LineJoins">
+    <item>鋭角</item>
+    <item>丸</item>
+    <item>面取り</item>
+  </string-array>
+  <string name="MiterLimit">鋭角限界長</string>
+  <string name="FillRule">塗りつぶしの方法</string>
+  <string-array name="FillRules">
+    <item>偶奇</item>
+    <item>非零</item>
+  </string-array>
+</resources>

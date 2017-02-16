@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="AdjustmentOptions">調整のオプション</string>
+  <string name="CoordinateAdjustment">座標の調整</string>
+  <string-array name="CoordinateAdjustments">
+    <item>無し</item>
+    <item>整数</item>
+    <item>既存の点</item>
+  </string-array>
+  <string name="AngleAdjustment">角度の調整</string>
+  <string name="RightAngleDivision">直角の分割数</string>
+  <string name="LengthAdjustment">長さの調整</string>
+</resources>

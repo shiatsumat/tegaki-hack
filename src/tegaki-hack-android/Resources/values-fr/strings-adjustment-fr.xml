@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="AdjustmentOptions">Options de réglages</string>
+  <string name="CoordinateAdjustment">Réglages des coordonnées</string>
+  <string-array name="CoordinateAdjustments">
+    <item>Aucun</item>
+    <item>Entier</item>
+    <item>Points existants</item>
+  </string-array>
+  <string name="AngleAdjustment">Réglage de l\'angle</string>
+  <string name="RightAngleDivision">Nombre de division de l\'angle droit</string>
+  <string name="LengthAdjustment">Réglage de longueur</string>
+</resources>

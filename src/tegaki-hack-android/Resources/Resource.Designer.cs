@@ -336,71 +336,65 @@ namespace tegaki_hack
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040005
-			public const int AdjustmentOptions = 2130968581;
-			
-			// aapt resource value: 0x7f040009
-			public const int AngleAdjustment = 2130968585;
-			
-			// aapt resource value: 0x7f040003
-			public const int CirlceFamilyOptions = 2130968579;
-			
-			// aapt resource value: 0x7f040006
-			public const int CoordinateAdjustment = 2130968582;
+			// aapt resource value: 0x7f040000
+			public const int AdjustmentOptions = 2130968576;
 			
 			// aapt resource value: 0x7f040002
-			public const int Edit = 2130968578;
+			public const int AngleAdjustment = 2130968578;
 			
-			// aapt resource value: 0x7f040000
-			public const int Enable = 2130968576;
-			
-			// aapt resource value: 0x7f040010
-			public const int FillColor = 2130968592;
-			
-			// aapt resource value: 0x7f040015
-			public const int FillRule = 2130968597;
-			
-			// aapt resource value: 0x7f04000b
-			public const int LengthAdjustment = 2130968587;
-			
-			// aapt resource value: 0x7f040012
-			public const int LineCap = 2130968594;
-			
-			// aapt resource value: 0x7f040011
-			public const int LineCapAndLineJoin = 2130968593;
-			
-			// aapt resource value: 0x7f040013
-			public const int LineJoin = 2130968595;
-			
-			// aapt resource value: 0x7f040014
-			public const int MiterLimit = 2130968596;
-			
-			// aapt resource value: 0x7f040004
-			public const int NRegularPolygon = 2130968580;
-			
-			// aapt resource value: 0x7f04000d
-			public const int PaintOptions = 2130968589;
+			// aapt resource value: 0x7f040009
+			public const int CirlceFamilyOptions = 2130968585;
 			
 			// aapt resource value: 0x7f040001
-			public const int PleaseWait = 2130968577;
-			
-			// aapt resource value: 0x7f04000a
-			public const int RightAngleDivision = 2130968586;
-			
-			// aapt resource value: 0x7f04000c
-			public const int RoundLengthToInteger = 2130968588;
-			
-			// aapt resource value: 0x7f04000e
-			public const int StrokeColor = 2130968590;
-			
-			// aapt resource value: 0x7f04000f
-			public const int StrokeWidth = 2130968591;
+			public const int CoordinateAdjustment = 2130968577;
 			
 			// aapt resource value: 0x7f040007
-			public const int X = 2130968583;
+			public const int Edit = 2130968583;
+			
+			// aapt resource value: 0x7f040006
+			public const int Enable = 2130968582;
+			
+			// aapt resource value: 0x7f04000e
+			public const int FillColor = 2130968590;
+			
+			// aapt resource value: 0x7f040013
+			public const int FillRule = 2130968595;
+			
+			// aapt resource value: 0x7f040004
+			public const int LengthAdjustment = 2130968580;
+			
+			// aapt resource value: 0x7f040010
+			public const int LineCap = 2130968592;
+			
+			// aapt resource value: 0x7f04000f
+			public const int LineCapJoin = 2130968591;
+			
+			// aapt resource value: 0x7f040011
+			public const int LineJoin = 2130968593;
+			
+			// aapt resource value: 0x7f040012
+			public const int MiterLimit = 2130968594;
+			
+			// aapt resource value: 0x7f04000a
+			public const int NRegularPolygon = 2130968586;
+			
+			// aapt resource value: 0x7f04000b
+			public const int PaintOptions = 2130968587;
+			
+			// aapt resource value: 0x7f040005
+			public const int PleaseWait = 2130968581;
+			
+			// aapt resource value: 0x7f040003
+			public const int RightAngleDivision = 2130968579;
 			
 			// aapt resource value: 0x7f040008
-			public const int Y = 2130968584;
+			public const int RoundToInteger = 2130968584;
+			
+			// aapt resource value: 0x7f04000c
+			public const int StrokeColor = 2130968588;
+			
+			// aapt resource value: 0x7f04000d
+			public const int StrokeWidth = 2130968589;
 			
 			static String()
 			{

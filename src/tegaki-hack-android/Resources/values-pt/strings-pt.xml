@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PleaseWait">Por favor espere</string>
+  <string name="Enable">Habilitar</string>
+  <string name="Edit">Editar</string>
+  <string name="RoundToInteger">Arredondar para o inteiro</string>
+  <string name="CirlceFamilyOptions">Opções de a família de círculo</string>
+  <string name="NRegularPolygon">Número de vértices do polígono regular</string>
+  <string-array name="Perses">
+    <item>Grades</item>
+    <item>Píxeis</item>
+  </string-array>
+</resources>

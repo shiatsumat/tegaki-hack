@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PleaseWait">Patientez</string>
+  <string name="Enable">Activer</string>
+  <string name="Edit">Modifier</string>
+  <string name="RoundToInteger">Arrondir à l\'entier</string>
+  <string name="CirlceFamilyOptions">Options de la famille de circle</string>
+  <string name="NRegularPolygon">Nombre de vertices du polygone régulier</string>
+  <string-array name="Perses">
+    <item>Grilles</item>
+    <item>Pixels</item>
+  </string-array>
+</resources>

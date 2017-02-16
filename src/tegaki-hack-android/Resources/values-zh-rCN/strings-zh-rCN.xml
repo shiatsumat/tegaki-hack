@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PleaseWait">请稍候</string>
+  <string name="Enable">启用</string>
+  <string name="Edit">编辑</string>
+  <string name="RoundToInteger">舍入到最接近的整数</string>
+  <string name="CirlceFamilyOptions">圆系统的选项</string>
+  <string name="NRegularPolygon">正多边形的顶点数</string>
+  <string-array name="Perses">
+    <item>网格</item>
+    <item>像素</item>
+  </string-array>
+</resources>

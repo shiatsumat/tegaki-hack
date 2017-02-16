@@ -1,55 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <string name="Enable">Enable</string>
-
   <string name="PleaseWait">Please Wait</string>
-
+  <string name="Enable">Enable</string>
   <string name="Edit">Edit</string>
-
+  <string name="RoundToInteger">Round to Integer</string>
   <string name="CirlceFamilyOptions">Cirlce Family Options</string>
-  <string name="NRegularPolygon">The Number of Vertices\nof Regular Polygon</string>
-
-  <string name="AdjustmentOptions">Adjustment Options</string>
-  <string name="CoordinateAdjustment">Coordinate Adjustments</string>
-  <string name="X">X</string>
-  <string name="Y">Y</string>
-  <string-array name="CoordinateAdjustments">
-    <item>None</item>
-    <item>Integer</item>
-    <item>Existing Points</item>
-  </string-array>
-  <string name="AngleAdjustment">Angle Adjustment</string>
-  <string name="RightAngleDivision">The Division Number\nof Right Angle</string>
-  <string name="LengthAdjustment">Length Adjustment</string>
-  <string name="RoundLengthToInteger">Round Length to Integer</string>
-
-  <string name="PaintOptions">Paint Options</string>
-  <string name="StrokeColor">Stroke Color</string>
-  <string name="StrokeWidth">Stroke Width</string>
+  <string name="NRegularPolygon">Number of Vertices of Regular Polygon</string>
   <string-array name="Perses">
     <item>Grids</item>
     <item>Pixels</item>
   </string-array>
-  <string name="FillColor">Fill Color</string>
-  <string name="LineCapAndLineJoin">Line Cap and Line Join</string>
-  <string name="LineCap">Line Cap</string>
-  <string-array name="LineCaps">
-    <item>Butt</item>
-    <item>Round</item>
-    <item>Square</item>
-  </string-array>
-  <string name="LineJoin">Line Join</string>
-  <string-array name="LineJoins">
-    <item>Miter</item>
-    <item>Round</item>
-    <item>Bevel</item>
-  </string-array>
-  <string name="MiterLimit">Miter Limit Ratio</string>
-  <string name="FillRule">Fill Rule</string>
-  <string-array name="FillRules">
-    <item>Even-Odd</item>
-    <item>Nonzero</item>
-  </string-array>
-
 </resources>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PaintOptions">Opciones de pintura</string>
+  <string name="StrokeColor">Color del trazo</string>
+  <string name="StrokeWidth">Anchura del trazo</string>
+  <string name="FillColor">Color de relleno</string>
+  <string name="LineCapJoin">Extremo et esquina de línea</string>
+  <string name="LineCap">Extremo</string>
+  <string-array name="LineCaps">
+    <item>Plano</item>
+    <item>Redondeado</item>
+    <item>Cuadrado</item>
+  </string-array>
+  <string name="LineJoin">Esquina</string>
+  <string-array name="LineJoins">
+    <item>Aguda</item>
+    <item>Redondeada</item>
+    <item>Biselada</item>
+  </string-array>
+  <string name="MiterLimit">Longitud máxima de inglete</string>
+  <string name="FillRule">Regla de relleno</string>
+  <string-array name="FillRules">
+    <item>Paridad</item>
+    <item>No cero</item>
+  </string-array>
+</resources>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PaintOptions">Paint Options</string>
+  <string name="StrokeColor">Stroke Color</string>
+  <string name="StrokeWidth">Stroke Width</string>
+  <string name="FillColor">Fill Color</string>
+  <string name="LineCapJoin">Line Cap and Line Join</string>
+  <string name="LineCap">Line Cap</string>
+  <string-array name="LineCaps">
+    <item>Butt</item>
+    <item>Round</item>
+    <item>Square</item>
+  </string-array>
+  <string name="LineJoin">Line Join</string>
+  <string-array name="LineJoins">
+    <item>Miter</item>
+    <item>Round</item>
+    <item>Bevel</item>
+  </string-array>
+  <string name="MiterLimit">Miter Limit Ratio</string>
+  <string name="FillRule">Fill Rule</string>
+  <string-array name="FillRules">
+    <item>Even-Odd</item>
+    <item>Nonzero</item>
+  </string-array>
+</resources>
