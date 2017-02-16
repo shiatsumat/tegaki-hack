@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="AdjustmentOptions">Adjustment Options</string>
-  <string name="CoordinateAdjustment">Coordinate Adjustments</string>
+  <string name="AdjustmentOptions">Adjustment options</string>
+  <string name="CoordinateAdjustment">Coordinate adjustments</string>
   <string-array name="CoordinateAdjustments">
     <item>None</item>
     <item>Integer</item>
-    <item>Existing Points</item>
+    <item>Existing points</item>
   </string-array>
-  <string name="AngleAdjustment">Angle Adjustment</string>
-  <string name="RightAngleDivision">Division Number of Right Angle</string>
-  <string name="LengthAdjustment">Length Adjustment</string>
+  <string name="AngleAdjustment">Angle adjustment</string>
+  <string name="UnitOfAngle">Unit of angle</string>
+  <string name="LengthAdjustment">Length adjustment</string>
 </resources>

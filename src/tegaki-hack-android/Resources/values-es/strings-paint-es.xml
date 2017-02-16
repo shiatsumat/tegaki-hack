@@ -20,7 +20,7 @@
   <string name="MiterLimit">Longitud máxima de inglete</string>
   <string name="FillRule">Regla de relleno</string>
   <string-array name="FillRules">
-    <item>Paridad</item>
-    <item>No cero</item>
+    <item>Par-impar</item>
+    <item>No-cero</item>
   </string-array>
 </resources>

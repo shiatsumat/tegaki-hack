@@ -239,8 +239,15 @@ namespace tegaki_hack
                 FillRule == paint.FillRule;
         }
 
+        /* internally W 100 x H 100 */
+        public IShape ColorSample()
+        {
+            return new Circle(new Paint(StrokeColor, new SizeEither(10.0f, true), FillColor),
+                new Point<Internal>(50, 50), new SizeEither(40, true));
+        }
+
         /* internally W 150 x H 50 */
-        public IShape LineCapLineJoinSample()
+        public IShape LineCapJoinSample()
         {
             var points = Util.NewList<Point<Internal>>(
                 new Point<Internal>(10, 10),

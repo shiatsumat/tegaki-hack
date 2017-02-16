@@ -16,18 +16,55 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
                 <TextView
-                    android:text="@string/StrokeColor"
+                    android:text="@string/Colors"
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center" />
-                <tegaki_hack.ColorSetter
-                    android:id="@+id/StrokeColor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                <tegaki_hack.ExtensibleView
+                    android:id="@+id/ColorSample"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                    <TextView
+                        android:text="@string/StrokeColor"
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center" />
+                    <tegaki_hack.ColorSetter
+                        android:id="@+id/StrokeColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                    <TextView
+                        android:text="@string/FillColor"
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center" />
+                    <tegaki_hack.ColorSetter
+                        android:id="@+id/FillColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center" />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -53,25 +90,6 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
                 <TextView
-                    android:text="@string/FillColor"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <tegaki_hack.ColorSetter
-                    android:id="@+id/FillColor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center" />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <TextView
                     android:text="@string/LineCapJoin"
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
@@ -79,7 +97,7 @@
                     android:layout_gravity="center"
                     android:gravity="center" />
                 <tegaki_hack.ExtensibleView
-                    android:id="@+id/LineCapLineJoinView"
+                    android:id="@+id/LineCapJoinSample"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
@@ -95,7 +113,6 @@
                         android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_gravity="center"
                         android:gravity="center" />
                     <Spinner
@@ -110,7 +127,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="5dp">
                     <TextView
                         android:text="@string/LineJoin"
                         android:textSize="18dp"
@@ -160,7 +177,7 @@
                     android:layout_gravity="center"
                     android:gravity="center" />
                 <tegaki_hack.ExtensibleView
-                    android:id="@+id/FillRuleView"
+                    android:id="@+id/FillRuleSample"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:background="@android:color/transparent"

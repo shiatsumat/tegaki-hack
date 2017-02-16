@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Please Wait</string>
+  <string name="PleaseWait">Please wait</string>
   <string name="Enable">Enable</string>
   <string name="Edit">Edit</string>
-  <string name="RoundToInteger">Round to Integer</string>
-  <string name="CirlceFamilyOptions">Cirlce Family Options</string>
-  <string name="NRegularPolygon">Number of Vertices of Regular Polygon</string>
+  <string name="RoundToInteger">Round to integer</string>
+  <string name="Colors">Colors</string>
+  <string name="CircleFamilyOptions">Cirlce family options</string>
+  <string name="NRegularPolygon">Number of vertices of regular polygon</string>
   <string-array name="Perses">
     <item>Grids</item>
     <item>Pixels</item>

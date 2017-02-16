@@ -8,6 +8,6 @@
     <item>现有点</item>
   </string-array>
   <string name="AngleAdjustment">角度调整</string>
-  <string name="RightAngleDivision">直角的分割数</string>
+  <string name="UnitOfAngle">角度单位</string>
   <string name="LengthAdjustment">长度调整</string>
 </resources>

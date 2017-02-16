@@ -56,6 +56,8 @@
     <Compile Include="Logic-Android\Drawdata-Android.cs" />
     <Compile Include="Logic-Android\Editor-Android.cs" />
     <Compile Include="Logic-Android\Shape-Android.cs" />
+    <Compile Include="AdjustmentDialog.cs" />
+    <Compile Include="PaintDialog.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartActivity.cs" />
@@ -232,6 +234,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-pt\strings-pt.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-de\strings-adjustment-de.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-de\strings-paint-de.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-de\strings-de.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

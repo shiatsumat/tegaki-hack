@@ -20,7 +20,7 @@
   <string name="MiterLimit">Comprimento máximo de esquadria</string>
   <string name="FillRule">Regra de preenchimento</string>
   <string-array name="FillRules">
-    <item>Paridade</item>
-    <item>Diferente de zero</item>
+    <item>Par-ímpar</item>
+    <item>Diferente-de-zero</item>
   </string-array>
 </resources>

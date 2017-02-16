@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PaintOptions">Zeichnungsoptionen</string>
+  <string name="StrokeColor">Strichfarbe</string>
+  <string name="StrokeWidth">Strichbreite</string>
+  <string name="FillColor">Füllfarbe</string>
+  <string name="LineCapJoin">Strichende und Strichecke</string>
+  <string name="LineCap">Strichende</string>
+  <string-array name="LineCaps">
+    <item>Flach</item>
+    <item>Abgerundet</item>
+    <item>Quadratisch</item>
+  </string-array>
+  <string name="LineJoin">Strichecke</string>
+  <string-array name="LineJoins">
+    <item>Miter</item>
+    <item>Abgerundet</item>
+    <item>Scharfe</item>
+  </string-array>
+  <string name="MiterLimit">Maximale Gehrung Länge</string>
+  <string name="FillRule">Füllregel</string>
+  <string-array name="FillRules">
+    <item>Gerade-ungerade</item>
+    <item>Nicht-Null</item>
+  </string-array>
+</resources>

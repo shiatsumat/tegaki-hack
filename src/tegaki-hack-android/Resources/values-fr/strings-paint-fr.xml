@@ -20,7 +20,7 @@
   <string name="MiterLimit">Longueur maximale d\'onglet</string>
   <string name="FillRule">Règle de remplissage</string>
   <string-array name="FillRules">
-    <item>Parité</item>
-    <item>Non nul</item>
+    <item>Pair-impair</item>
+    <item>Non-nul</item>
   </string-array>
 </resources>

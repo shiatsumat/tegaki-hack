@@ -8,6 +8,6 @@
     <item>現有點</item>
   </string-array>
   <string name="AngleAdjustment">角度調整</string>
-  <string name="RightAngleDivision">直角的分割數</string>
+  <string name="UnitOfAngle">角度單位</string>
   <string name="LengthAdjustment">長度調整</string>
 </resources>

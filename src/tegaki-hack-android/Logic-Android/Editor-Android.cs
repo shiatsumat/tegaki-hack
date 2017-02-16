@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Android.Graphics;
 using Android.Widget;
 using Android.Views;
 using Android.App;
-using Android.Content.Res;
 using NativeColor = Android.Graphics.Color;
 
 namespace tegaki_hack
@@ -164,7 +162,7 @@ namespace tegaki_hack
                 nRegularPolygon = nRegularPolygonPicker.Value;
             };
 
-            var dialog = Util.CreateDialog(activity, Resource.String.CirlceFamilyOptions, view, () =>
+            var dialog = Util.CreateDialog(activity, Resource.String.CircleFamilyOptions, view, () =>
                  {
                      if (nRegularPolygon != settings.NRegularPolygon)
                      {
@@ -191,168 +189,24 @@ namespace tegaki_hack
                 adjustmentButton.Activate(settings.DoesAdjust);
             };
 
-            var view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
-            var adjustment = new Adjustment();
-
-            Action setAvailability = null;
-
-            var xAdjustment = view.FindViewById<Spinner>(Resource.Id.XAdjustment);
-            xAdjustment.ItemSelected += (o, e) =>
-            {
-                adjustment.XAdjustment = (CoordinateAdjustment)xAdjustment.SelectedItemPosition;
-                setAvailability();
-            };
-            var yAdjustment = view.FindViewById<Spinner>(Resource.Id.YAdjustment);
-            yAdjustment.ItemSelected += (o, e) =>
-            {
-                adjustment.YAdjustment = (CoordinateAdjustment)yAdjustment.SelectedItemPosition;
-                setAvailability();
-            };
-
-            var adjustAngle = view.FindViewById<CheckBox>(Resource.Id.AdjustAngle);
-            adjustAngle.CheckedChange += (o, e) =>
-            {
-                adjustment.AdjustAngle = adjustAngle.Checked;
-                setAvailability();
-            };
-
-            var rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
-            rightAngleDivision.MinValue = 1;
-            rightAngleDivision.MaxValue = 90;
-            rightAngleDivision.WrapSelectorWheel = false;
-            rightAngleDivision.ValueChanged += (o, e) =>
-            {
-                adjustment.RightAngleDivision = rightAngleDivision.Value;
-            };
-
-            var adjustLength = view.FindViewById<CheckBox>(Resource.Id.AdjustLength);
-            adjustLength.CheckedChange += (o, e) =>
-            {
-                adjustment.AdjustLength = adjustLength.Checked;
-                setAvailability();
-            };
-
-            var dialog = Util.CreateDialog(activity, Resource.String.AdjustmentOptions, view, () =>
+            var dialog = new AdjustmentDialog(activity, (adjustment) =>
             {
                 settings.Adjustment = adjustment;
-            }, null);
-
-            setAvailability = () =>
-            {
-                adjustAngle.SetTextColor(adjustment.AngleAdjustmentAvailable ?
-                    ColorStateList.ValueOf(NativeColor.Black) : ColorStateList.ValueOf(NativeColor.LightGray));
-                adjustLength.SetTextColor(adjustment.LengthAdjustmentAvailable ?
-                    ColorStateList.ValueOf(NativeColor.Black) : ColorStateList.ValueOf(NativeColor.LightGray));
-            };
-
-            adjustmentButton.LongClick += (o, e) =>
-            {
-                adjustment = new Adjustment(settings.Adjustment);
-                xAdjustment.SetSelection((int)adjustment.XAdjustment);
-                yAdjustment.SetSelection((int)adjustment.YAdjustment);
-                adjustAngle.Checked = adjustment.AdjustAngle;
-                rightAngleDivision.Value = adjustment.RightAngleDivision;
-                adjustLength.Checked = adjustment.AdjustLength;
-
-                dialog.Show();
-            };
+            });
+            adjustmentButton.LongClick += (o, e) => dialog.Show(settings.Adjustment);
         }
         void InitializePaint()
         {
             paintButton = activity.FindViewById<ImageButton>(Resource.Id.Paint);
-
-            var view = activity.LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
-            var paint = new Paint();
-
-            var strokeColor = view.FindViewById<ColorSetter>(Resource.Id.StrokeColor);
-            strokeColor.ColorChanged += () =>
+            var dialog = new PaintDialog(activity, (paint) =>
             {
-                paint.StrokeColor = strokeColor.Color;
-            };
-
-            var strokeWidth = view.FindViewById<SizeSetter>(Resource.Id.StrokeWidth);
-            strokeWidth.SizeChanged += () =>
-             {
-                 paint.StrokeWidth = strokeWidth.Size;
-             };
-
-            var fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
-            fillColor.ColorChanged += () =>
-            {
-                paint.FillColor = fillColor.Color;
-            };
-
-            var lineCaplineJoinView = view.FindViewById<ExtensibleView>(Resource.Id.LineCapLineJoinView);
-            lineCaplineJoinView.Drawing += (canvas) =>
-            {
-                paint.LineCapLineJoinSample().Draw(canvas,
-                    new Transform<Internal, External>(canvas.Width / 150.0f));
-            };
-
-            var lineCap = view.FindViewById<Spinner>(Resource.Id.LineCap);
-            lineCap.ItemSelected += (o, e) =>
-            {
-                paint.LineCap = (LineCap)lineCap.SelectedItemPosition;
-                lineCaplineJoinView.Invalidate();
-            };
-
-            var lineJoin = view.FindViewById<Spinner>(Resource.Id.LineJoin);
-            lineJoin.ItemSelected += (o, e) =>
-            {
-                paint.LineJoin = (LineJoin)lineJoin.SelectedItemPosition;
-                lineCaplineJoinView.Invalidate();
-            };
-
-            var miterLimitDeci = view.FindViewById<NumberPicker>(Resource.Id.MiterLimitDeci);
-            miterLimitDeci.MinValue = 0;
-            miterLimitDeci.MaxValue = 1000;
-            var deciStrings = new List<string>();
-            for (int i = miterLimitDeci.MinValue; i <= miterLimitDeci.MaxValue; i++)
-            {
-                deciStrings.Add(string.Format("{0:f1}", i / 10.0));
-            }
-            miterLimitDeci.SetDisplayedValues(deciStrings.ToArray());
-            miterLimitDeci.WrapSelectorWheel = false;
-            miterLimitDeci.ValueChanged += (o, e) =>
-            {
-                paint.MiterLimit = miterLimitDeci.Value / 10.0f;
-            };
-
-            var fillRuleView = view.FindViewById<ExtensibleView>(Resource.Id.FillRuleView);
-            var fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);
-            fillRuleView.Drawing += (canvas) =>
-            {
-                paint.FillRuleSample().Draw(canvas,
-                    new Transform<Internal, External>(canvas.Width / 150.0f));
-            };
-            fillRule.ItemSelected += (o, e) =>
-            {
-                paint.FillRule = (FillRule)fillRule.SelectedItemPosition;
-                fillRuleView.Invalidate();
-            };
-
-            var dialog = Util.CreateDialog(activity, Resource.String.PaintOptions, view, () =>
-            {
-                if (!paint.Equals(settings.Paint))
+                if (!settings.Paint.Equals(paint))
                 {
                     settings.Paint = paint;
                     ResetShapeCreator();
                 }
-            }, null);
-
-            paintButton.Click += (o, e) =>
-            {
-                paint = new Paint(settings.Paint);
-                strokeColor.Color = paint.StrokeColor;
-                strokeWidth.Size = paint.StrokeWidth;
-                fillColor.Color = paint.FillColor;
-                lineCap.SetSelection((int)paint.LineCap);
-                lineJoin.SetSelection((int)paint.LineJoin);
-                miterLimitDeci.Value = (int)Math.Round(paint.MiterLimit * 10.0f);
-                fillRule.SetSelection((int)paint.FillRule);
-
-                dialog.Show();
-            };
+            });
+            paintButton.Click += (o, e) => dialog.Show(settings.Paint);
         }
 
         public void Destroy()

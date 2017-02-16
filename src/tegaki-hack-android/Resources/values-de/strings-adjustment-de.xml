@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="AdjustmentOptions">Einstellungsoptionen</string>
+  <string name="CoordinateAdjustment">Koordinateneinstellung</string>
+  <string-array name="CoordinateAdjustments">
+    <item>Keiner</item>
+    <item>Ganze Zahl</item>
+    <item>Bestehenden Punkten</item>
+  </string-array>
+  <string name="AngleAdjustment">Winkeleinstellung</string>
+  <string name="UnitOfAngle">Einheit des Winkels</string>
+  <string name="LengthAdjustment">Längeneinstellung</string>
+</resources>

@@ -152,7 +152,7 @@ namespace tegaki_hack
         {
             setting = true;
 
-            colorIndicator.BackgroundTintList = ColorStateList.ValueOf(_color.Native);
+            colorIndicator.BackgroundTintList = ColorStateList.ValueOf(_color.ToNative());
             rPicker.Value = R;
             gPicker.Value = G;
             bPicker.Value = B;
@@ -165,17 +165,17 @@ namespace tegaki_hack
             sSeekBar.Progress = S == 0 ? prevs : (prevs = (int)Math.Round(S));
             lSeekBar.Progress = (int)Math.Round(L);
 
-            rSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(0, R * 100.0f / 255.0f, 50, 255).Native);
-            gSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(120, G * 100.0f / 255.0f, 50, 255).Native);
-            bSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(240, B * 100.0f / 255.0f, 50, 255).Native);
-            aSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByRgba(R, G, B, (byte)((A + 64.0f) * 255.0f / 319.0f)).Native);
-            var hColors = ColorStateList.ValueOf(Color.ByHsla(prevh, 100, 50, 255).Native);
+            rSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(0, R * 100.0f / 255.0f, 50, 255).ToNative());
+            gSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(120, G * 100.0f / 255.0f, 50, 255).ToNative());
+            bSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByHsla(240, B * 100.0f / 255.0f, 50, 255).ToNative());
+            aSeekBar.ThumbTintList = ColorStateList.ValueOf(Color.ByRgba(R, G, B, (byte)((A + 64.0f) * 255.0f / 319.0f)).ToNative());
+            var hColors = ColorStateList.ValueOf(Color.ByHsla(prevh, 100, 50, 255).ToNative());
             hText.SetTextColor(hColors);
             hSeekBar.ThumbTintList = hColors;
-            var sColors = ColorStateList.ValueOf(Color.ByHsla(prevh, prevs, 50, 255).Native);
+            var sColors = ColorStateList.ValueOf(Color.ByHsla(prevh, prevs, 50, 255).ToNative());
             sText.SetTextColor(sColors);
             sSeekBar.ThumbTintList = sColors;
-            var lColors = ColorStateList.ValueOf(Color.ByHsla(prevh, 100, L, 255).Native);
+            var lColors = ColorStateList.ValueOf(Color.ByHsla(prevh, 100, L, 255).ToNative());
             lText.SetTextColor(lColors);
             lSeekBar.ThumbTintList = lColors;
 

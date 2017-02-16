@@ -8,6 +8,6 @@
     <item>Puntos existentes</item>
   </string-array>
   <string name="AngleAdjustment">Ajuste de ángulo</string>
-  <string name="RightAngleDivision">Número de división del ángulo recto</string>
+  <string name="UnitOfAngle">Unidad de ángulo</string>
   <string name="LengthAdjustment">Ajuste de longitud</string>
 </resources>

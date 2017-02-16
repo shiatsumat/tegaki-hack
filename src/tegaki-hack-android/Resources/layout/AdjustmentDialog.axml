@@ -82,19 +82,34 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp" />
             <TextView
-                android:text="@string/RightAngleDivision"
+                android:text="@string/UnitOfAngle"
                 android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="5dp" />
-            <NumberPicker
-                android:id="@+id/RightAngleDivision"
-                android:layout_gravity="center"
-                android:layout_width="40dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="120dp"
-                android:layout_marginTop="5dp" />
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp">
+                    <TextView
+                        android:text="90° / "
+                        android:textSize="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+                <NumberPicker
+                    android:id="@+id/RightAngleDivision"
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="120dp" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
