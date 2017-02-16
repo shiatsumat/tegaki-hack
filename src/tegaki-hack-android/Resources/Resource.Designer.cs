@@ -232,6 +232,9 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f070027
 			public const int LineJoin = 2131165223;
 			
+			// aapt resource value: 0x7f070024
+			public const int LineWidth = 2131165220;
+			
 			// aapt resource value: 0x7f070028
 			public const int MiterLimitDeci = 2131165224;
 			
@@ -270,9 +273,6 @@ namespace tegaki_hack
 			
 			// aapt resource value: 0x7f070022
 			public const int StrokeColor = 2131165218;
-			
-			// aapt resource value: 0x7f070024
-			public const int StrokeWidth = 2131165220;
 			
 			// aapt resource value: 0x7f07002e
 			public const int SvgDialogText = 2131165230;
@@ -345,14 +345,14 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f040002
 			public const int AngleAdjustment = 2130968578;
 			
-			// aapt resource value: 0x7f040009
-			public const int CircleFamilyOptions = 2130968585;
+			// aapt resource value: 0x7f04000a
+			public const int CircleFamilyOptions = 2130968586;
 			
-			// aapt resource value: 0x7f040014
-			public const int Colors = 2130968596;
+			// aapt resource value: 0x7f040009
+			public const int Colors = 2130968585;
 			
 			// aapt resource value: 0x7f040001
-			public const int CoordinateAdjustment = 2130968577;
+			public const int CoordinateAdjustments = 2130968577;
 			
 			// aapt resource value: 0x7f040007
 			public const int Edit = 2130968583;
@@ -363,29 +363,32 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f04000e
 			public const int FillColor = 2130968590;
 			
-			// aapt resource value: 0x7f040013
-			public const int FillRule = 2130968595;
+			// aapt resource value: 0x7f040014
+			public const int FillRule = 2130968596;
 			
 			// aapt resource value: 0x7f040004
 			public const int LengthAdjustment = 2130968580;
 			
-			// aapt resource value: 0x7f040010
-			public const int LineCap = 2130968592;
-			
-			// aapt resource value: 0x7f04000f
-			public const int LineCapJoin = 2130968591;
-			
 			// aapt resource value: 0x7f040011
-			public const int LineJoin = 2130968593;
+			public const int LineCap = 2130968593;
+			
+			// aapt resource value: 0x7f040010
+			public const int LineCapJoin = 2130968592;
 			
 			// aapt resource value: 0x7f040012
-			public const int MiterLimit = 2130968594;
+			public const int LineJoin = 2130968594;
 			
-			// aapt resource value: 0x7f04000a
-			public const int NRegularPolygon = 2130968586;
+			// aapt resource value: 0x7f04000f
+			public const int LineWidth = 2130968591;
+			
+			// aapt resource value: 0x7f040013
+			public const int MiterLimit = 2130968595;
 			
 			// aapt resource value: 0x7f04000b
-			public const int PaintOptions = 2130968587;
+			public const int NRegularPolygon = 2130968587;
+			
+			// aapt resource value: 0x7f04000c
+			public const int PaintOptions = 2130968588;
 			
 			// aapt resource value: 0x7f040005
 			public const int PleaseWait = 2130968581;
@@ -393,11 +396,8 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f040008
 			public const int RoundToInteger = 2130968584;
 			
-			// aapt resource value: 0x7f04000c
-			public const int StrokeColor = 2130968588;
-			
 			// aapt resource value: 0x7f04000d
-			public const int StrokeWidth = 2130968589;
+			public const int StrokeColor = 2130968589;
 			
 			// aapt resource value: 0x7f040003
 			public const int UnitOfAngle = 2130968579;

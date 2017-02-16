@@ -46,11 +46,14 @@ namespace tegaki_hack
         }
     }
 
-    public enum EShapeCreator { None,
+    public enum EShapeCreator
+    {
+        None,
         Freehand,
         Line, Polyline, Arc,
         Circle, Ellipse, Rectangle, Square, RegularPolygon, Polygon,
-        Text, FancyText }
+        Text, FancyText
+    }
 
     public partial class ShapeCreatorSettings
     {
@@ -64,7 +67,8 @@ namespace tegaki_hack
 
         public ShapeCreatorSettings(Action edited, Action<IShape> finished)
         {
-            Paint = new Paint(Color.ByRgba(0xadff2fff), new SizeEither(0.5f, true), lineCap: LineCap.Round, lineJoin: LineJoin.Round);
+            Paint = new Paint(Color.ByRgba(0x91ff4cff), Color.ByRgba(0x66f0ff40), new SizeEither(0.5f, true),
+                LineCap.Round, LineJoin.Round);
             DoesAdjust = false;
             Adjustment = new Adjustment();
             NRegularPolygon = 3;

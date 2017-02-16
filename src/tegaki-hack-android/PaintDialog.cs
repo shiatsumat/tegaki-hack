@@ -13,7 +13,7 @@ namespace tegaki_hack
 
         ExtensibleView colorSample;
         ColorSetter strokeColor, fillColor;
-        SizeSetter strokeWidth;
+        SizeSetter lineWidth;
 
         ExtensibleView lineCapJoinSample;
         Spinner lineCap, lineJoin;
@@ -45,10 +45,10 @@ namespace tegaki_hack
                 colorSample.Invalidate();
             };
 
-            strokeWidth = view.FindViewById<SizeSetter>(Resource.Id.StrokeWidth);
-            strokeWidth.SizeChanged += () =>
+            lineWidth = view.FindViewById<SizeSetter>(Resource.Id.LineWidth);
+            lineWidth.SizeChanged += () =>
             {
-                paint.StrokeWidth = strokeWidth.Size;
+                paint.LineWidth = lineWidth.Size;
             };
 
             lineCapJoinSample = view.FindViewById<ExtensibleView>(Resource.Id.LineCapJoinSample);
@@ -107,7 +107,7 @@ namespace tegaki_hack
             this.paint = new Paint(paint);
             strokeColor.Color = paint.StrokeColor;
             fillColor.Color = paint.FillColor;
-            strokeWidth.Size = paint.StrokeWidth;
+            lineWidth.Size = paint.LineWidth;
             lineCap.SetSelection((int)paint.LineCap);
             lineJoin.SetSelection((int)paint.LineJoin);
             miterLimitDeci.Value = (int)Math.Round(paint.MiterLimit * 10.0f);

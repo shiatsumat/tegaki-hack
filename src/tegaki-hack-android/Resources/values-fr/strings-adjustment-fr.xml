@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="AdjustmentOptions">Options de réglages</string>
-  <string name="CoordinateAdjustment">Réglages des coordonnées</string>
+  <string name="CoordinateAdjustments">Réglages des coordonnées</string>
   <string-array name="CoordinateAdjustments">
     <item>Aucun</item>
     <item>Entier</item>

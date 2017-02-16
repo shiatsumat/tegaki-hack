@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PaintOptions">Параметр рисунка</string>
+  <string name="StrokeColor">Цвет обводки</string>
+  <string name="FillColor">Цвет заливки</string>
+  <string name="LineWidth">Ширина линии</string>
+  <string name="LineCapJoin">Конец и угол линии</string>
+  <string name="LineCap">Конец линии</string>
+  <string-array name="LineCaps">
+    <item>Плоский</item>
+    <item>Круглый</item>
+    <item>Квадратный</item>
+  </string-array>
+  <string name="LineJoin">Угол линии</string>
+  <string-array name="LineJoins">
+    <item>Острый</item>
+    <item>Круглый</item>
+    <item>Скошенный</item>
+  </string-array>
+  <string name="MiterLimit">Максимальная длина митры</string>
+  <string name="FillRule">Правило заливки</string>
+  <string-array name="FillRules">
+    <item>Даже-нечетное</item>
+    <item>Ненулевая</item>
+  </string-array>
+</resources>

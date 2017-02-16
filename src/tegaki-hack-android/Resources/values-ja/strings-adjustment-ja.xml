@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="AdjustmentOptions">調整のオプション</string>
-  <string name="CoordinateAdjustment">座標の調整</string>
+  <string name="CoordinateAdjustments">座標の調整</string>
   <string-array name="CoordinateAdjustments">
     <item>無し</item>
     <item>整数</item>

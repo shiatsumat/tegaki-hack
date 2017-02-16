@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
             <TextView
-                android:text="@string/CoordinateAdjustment"
+                android:text="@string/CoordinateAdjustments"
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

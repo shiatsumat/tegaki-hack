@@ -2,19 +2,19 @@
 <resources>
   <string name="PaintOptions">Options de peinture</string>
   <string name="StrokeColor">Couleur du trait</string>
-  <string name="StrokeWidth">Largeur du trait</string>
   <string name="FillColor">Couleur de remplissage</string>
+  <string name="LineWidth">Largeur du trait</string>
   <string name="LineCapJoin">Bout et coin de ligne</string>
-  <string name="LineCap">Bout</string>
+  <string name="LineCap">Bout de ligne</string>
   <string-array name="LineCaps">
     <item>Plat</item>
     <item>Rond</item>
     <item>Carré</item>
   </string-array>
-  <string name="LineJoin">Coin</string>
+  <string name="LineJoin">Coin de ligne</string>
   <string-array name="LineJoins">
     <item>Aigu</item>
-    <item>Arrondi</item>
+    <item>Rond</item>
     <item>Biseauté</item>
   </string-array>
   <string name="MiterLimit">Longueur maximale d\'onglet</string>

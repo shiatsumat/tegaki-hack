@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PleaseWait">Пожалуйста, подождите</string>
+  <string name="Enable">Включить</string>
+  <string name="Edit">Править</string>
+  <string name="RoundToInteger">Округлить до целого числа</string>
+  <string name="Colors">Цвета</string>
+  <string name="CircleFamilyOptions">Параметры семьи круга</string>
+  <string name="NRegularPolygon">Число вершин правильного многоугольника</string>
+  <string-array name="Perses">
+    <item>Сетки</item>
+    <item>Пиксели</item>
+  </string-array>
+</resources>

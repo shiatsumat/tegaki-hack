@@ -2,8 +2,8 @@
 <resources>
   <string name="PaintOptions">描き方のオプション</string>
   <string name="StrokeColor">線の色</string>
-  <string name="StrokeWidth">線の幅</string>
   <string name="FillColor">塗りつぶしの色</string>
+  <string name="LineWidth">線の幅</string>
   <string name="LineCapJoin">端点と頂点</string>
   <string name="LineCap">端点</string>
   <string-array name="LineCaps">

@@ -4,6 +4,7 @@
   <string name="Enable">Aktivieren</string>
   <string name="Edit">Bearbeiten</string>
   <string name="RoundToInteger">Runden zu integer</string>
+  <string name="Colors">Farben</string>
   <string name="CircleFamilyOptions">Kreisfamilieoptionen</string>
   <string name="NRegularPolygon">Anzahl der Ecken von Regular Polygon</string>
   <string-array name="Perses">

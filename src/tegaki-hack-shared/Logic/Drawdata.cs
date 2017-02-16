@@ -57,11 +57,12 @@ namespace tegaki_hack
             Rgba = rgba;
         }
 
+        public static Color Transparent = ByRgba(0, 0, 0, 0);
+
         public static Color ByRgba(byte r, byte g, byte b, byte a)
         {
             return new Color(r, g, b, a);
         }
-
         public static Color ByRgba(uint rgba)
         {
             return new Color(rgba);
@@ -159,9 +160,9 @@ namespace tegaki_hack
     public partial class Paint
     {
         public Color StrokeColor;
-        public SizeEither StrokeWidth;
-
         public Color FillColor;
+
+        public SizeEither LineWidth;
 
         LineCap _lineCap;
         public LineCap LineCap
@@ -210,19 +211,19 @@ namespace tegaki_hack
         }
 
         public Paint() { }
-        public Paint(Color strokeColor, SizeEither strokeWidth,
-            Color fillColor = default(Color),
+        public Paint(Color strokeColor, Color fillColor,
+            SizeEither lineWidth,
             LineCap lineCap = LineCap.Butt, LineJoin lineJoin = LineJoin.Miter, float miterLimit = 4,
             FillRule fillRule = FillRule.EvenOdd)
         {
-            StrokeColor = strokeColor; StrokeWidth = strokeWidth;
-            FillColor = fillColor;
+            StrokeColor = strokeColor; FillColor = fillColor;
+            LineWidth = lineWidth;
             LineCap = lineCap; LineJoin = lineJoin; MiterLimit = miterLimit;
             FillRule = fillRule;
         }
         public Paint(Paint paint)
-            : this(paint.StrokeColor, paint.StrokeWidth,
-                  paint.FillColor,
+            : this(paint.StrokeColor, paint.FillColor,
+                  paint.LineWidth,
                   paint.LineCap, paint.LineJoin, paint.MiterLimit,
                   paint.FillRule)
         { }
@@ -231,7 +232,7 @@ namespace tegaki_hack
         {
             return
                 StrokeColor.Equals(paint.StrokeColor) &&
-                StrokeWidth.Equals(paint.StrokeWidth) &&
+                LineWidth.Equals(paint.LineWidth) &&
                 FillColor.Equals(paint.FillColor) &&
                 LineCap == paint.LineCap &&
                 LineJoin == paint.LineJoin &&
@@ -242,7 +243,7 @@ namespace tegaki_hack
         /* internally W 100 x H 100 */
         public IShape ColorSample()
         {
-            return new Circle(new Paint(StrokeColor, new SizeEither(10.0f, true), FillColor),
+            return new Circle(new Paint(StrokeColor, FillColor, new SizeEither(10.0f, true)),
                 new Point<Internal>(50, 50), new SizeEither(40, true));
         }
 
@@ -256,10 +257,10 @@ namespace tegaki_hack
                 new Point<Internal>(90, 10),
                 new Point<Internal>(140, 10));
             var polylineBack = new Polyline(
-                new Paint(Color.ByRgba(0x808080FF), new SizeEither(10.0f, true), lineCap: LineCap, lineJoin: LineJoin),
+                new Paint(Color.ByRgba(0x808080FF), Color.Transparent, new SizeEither(10.0f, true), LineCap, LineJoin),
                 points);
             var polylineFront = new Polyline(
-                new Paint(Color.ByRgba(0xFFFFFFFF), new SizeEither(1.0f, true)),
+                new Paint(Color.ByRgba(0xFFFFFFFF), Color.Transparent, new SizeEither(1.0f, true)),
                 points);
             return new ShapeGroup(new IShape[] { polylineBack, polylineFront });
         }
@@ -268,7 +269,7 @@ namespace tegaki_hack
         public IShape FillRuleSample()
         {
             return new Polyline(
-                new Paint(Color.ByRgba(0x404040FF), new SizeEither(3.0f, true), Color.ByRgba(0x808080FF), fillRule: FillRule),
+                new Paint(Color.ByRgba(0x404040FF), Color.ByRgba(0x808080FF), new SizeEither(3.0f, true), fillRule: FillRule),
                 Util.NewList<Point<Internal>>(
                 new Point<Internal>(10, 90),
                 new Point<Internal>(50, 10),
@@ -286,7 +287,7 @@ namespace tegaki_hack
         {
             element.Add(
                 new XAttribute("stroke", paint.StrokeColor.RgbaFunctionString()),
-                new XAttribute("stroke-width", paint.StrokeWidth.Transform(transform).ToString()),
+                new XAttribute("stroke-width", paint.LineWidth.Transform(transform).ToString()),
                 new XAttribute("fill", paint.FillColor.RgbaFunctionString()),
                 new XAttribute("stroke-linecap", paint.LineCap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", paint.LineJoin.ToString().ToLower()),

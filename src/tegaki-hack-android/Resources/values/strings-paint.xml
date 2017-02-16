@@ -3,7 +3,7 @@
   <string name="PaintOptions">Paint options</string>
   <string name="StrokeColor">Stroke color</string>
   <string name="FillColor">Fill color</string>
-  <string name="StrokeWidth">Stroke width</string>
+  <string name="LineWidth">Stroke width</string>
   <string name="LineCapJoin">Line cap and line join</string>
   <string name="LineCap">Line cap</string>
   <string-array name="LineCaps">
@@ -17,7 +17,7 @@
     <item>Round</item>
     <item>Bevel</item>
   </string-array>
-  <string name="MiterLimit">Miter limit</string>
+  <string name="MiterLimit">Maximum length of miter</string>
   <string name="FillRule">Fill rule</string>
   <string-array name="FillRules">
     <item>Even-odd</item>

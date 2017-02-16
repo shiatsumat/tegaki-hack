@@ -2,16 +2,16 @@
 <resources>
   <string name="PaintOptions">Opções de pintura</string>
   <string name="StrokeColor">Cor do curso</string>
-  <string name="StrokeWidth">Largura do curso</string>
   <string name="FillColor">Cor de preenchimento</string>
+  <string name="LineWidth">Largura do curso</string>
   <string name="LineCapJoin">Tampa e canto de linha</string>
-  <string name="LineCap">Tampa</string>
+  <string name="LineCap">Tampa de linha</string>
   <string-array name="LineCaps">
     <item>Plana</item>
     <item>Arredondada </item>
     <item>Quadrada </item>
   </string-array>
-  <string name="LineJoin">Canto</string>
+  <string name="LineJoin">Canto de linha</string>
   <string-array name="LineJoins">
     <item>Agudo</item>
     <item>Arredondado</item>

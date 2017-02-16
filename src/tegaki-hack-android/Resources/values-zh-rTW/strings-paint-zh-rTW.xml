@@ -2,8 +2,8 @@
 <resources>
   <string name="PaintOptions">繪圖選項</string>
   <string name="StrokeColor">筆觸顏色</string>
-  <string name="StrokeWidth">筆觸寬度</string>
   <string name="FillColor">填充色</string>
+  <string name="LineWidth">線的寬度</string>
   <string name="LineCapJoin">線帽和邊角</string>
   <string name="LineCap">線帽</string>
   <string-array name="LineCaps">

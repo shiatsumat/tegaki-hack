@@ -43,7 +43,7 @@ namespace tegaki_hack
                     }
                 }
                 if (Closed) path.Close();
-                canvas.DrawPath(path, Paint.FillPaint(transform));
+                if (Closed) canvas.DrawPath(path, Paint.FillPaint(transform));
                 canvas.DrawPath(path, Paint.StrokePaint(transform));
             }
         }

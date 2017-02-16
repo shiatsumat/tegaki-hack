@@ -72,14 +72,14 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
                 <TextView
-                    android:text="@string/StrokeWidth"
+                    android:text="@string/LineWidth"
                     android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center" />
                 <tegaki_hack.SizeSetter
-                    android:id="@+id/StrokeWidth"
+                    android:id="@+id/LineWidth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />

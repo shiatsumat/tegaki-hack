@@ -2,8 +2,8 @@
 <resources>
   <string name="PaintOptions">Zeichnungsoptionen</string>
   <string name="StrokeColor">Strichfarbe</string>
-  <string name="StrokeWidth">Strichbreite</string>
   <string name="FillColor">Füllfarbe</string>
+  <string name="LineWidth">Strichbreite</string>
   <string name="LineCapJoin">Strichende und Strichecke</string>
   <string name="LineCap">Strichende</string>
   <string-array name="LineCaps">
@@ -13,9 +13,9 @@
   </string-array>
   <string name="LineJoin">Strichecke</string>
   <string-array name="LineJoins">
-    <item>Miter</item>
+    <item>Scharf</item>
     <item>Abgerundet</item>
-    <item>Scharfe</item>
+    <item>Abgeschrägt</item>
   </string-array>
   <string name="MiterLimit">Maximale Gehrung Länge</string>
   <string name="FillRule">Füllregel</string>

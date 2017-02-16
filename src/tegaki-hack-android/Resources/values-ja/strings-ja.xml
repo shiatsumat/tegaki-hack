@@ -4,6 +4,7 @@
   <string name="PleaseWait">お待ちください</string>
   <string name="Edit">編集する</string>
   <string name="RoundToInteger">整数に丸める</string>
+  <string name="Colors">色</string>
   <string name="CircleFamilyOptions">円系統のオプション</string>
   <string name="NRegularPolygon">正多角形の頂点数</string>
   <string-array name="Perses">
