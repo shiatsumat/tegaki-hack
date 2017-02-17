@@ -311,10 +311,7 @@ namespace tegaki_hack
             var res = new BezierInfo<Pers2>();
             res.from = from.Transform(transform);
             res.controltos = new List<ConTrolTo<Pers2>>();
-            foreach (var controlto in controltos)
-            {
-                res.controltos.Add(controlto.Transform(transform));
-            }
+            foreach (var controlto in controltos) res.controltos.Add(controlto.Transform(transform));
             return res;
         }
     }

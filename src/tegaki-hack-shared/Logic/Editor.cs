@@ -27,8 +27,8 @@ namespace tegaki_hack
         {
             InitializeShapeDictionary();
             InitializeLists();
-            InitializeStates();
             InitializeSettings();
+            InitializeStates();
         }
         void InitializeShapeDictionary()
         {
@@ -48,18 +48,6 @@ namespace tegaki_hack
             undrawnShapes = application.savedShapes == null ? new List<IShape>() : application.savedShapes;
             redoShapes = new List<IShape>();
         }
-        void InitializeStates()
-        {
-            shapes = new Dictionary<EShapeCreatorFamily, int>();
-            shapes[EShapeCreatorFamily.Freehand] = 0;
-            shapes[EShapeCreatorFamily.Line] = 0;
-            shapes[EShapeCreatorFamily.Circle] = 0;
-            shapes[EShapeCreatorFamily.Text] = 0;
-            eShapeCreatorFamily = EShapeCreatorFamily.Freehand;
-            ChangeShapeCreator(EShapeCreator.Freehand);
-
-            size = new DPoint<Internal>(30, 30);
-        }
         void InitializeSettings()
         {
             settings = new ShapeCreatorSettings(() =>
@@ -76,6 +64,18 @@ namespace tegaki_hack
                 }
                 Redisplay();
             });
+        }
+        void InitializeStates()
+        {
+            shapes = new Dictionary<EShapeCreatorFamily, int>();
+            shapes[EShapeCreatorFamily.Freehand] = 0;
+            shapes[EShapeCreatorFamily.Line] = 0;
+            shapes[EShapeCreatorFamily.Circle] = 0;
+            shapes[EShapeCreatorFamily.Text] = 0;
+            eShapeCreatorFamily = EShapeCreatorFamily.Freehand;
+            ChangeShapeCreator(EShapeCreator.Freehand);
+
+            size = new DPoint<Internal>(30, 30);
         }
 
         void InitializeLast()
