@@ -39,14 +39,14 @@ namespace tegaki_hack
 
     public partial class Polyline : IShape
     {
-        public Paint Paint;
+        public Drawing Drawing;
         public List<Point<Internal>> Points;
         public bool Closed;
         public bool Bezier;
 
-        public Polyline(Paint paint, List<Point<Internal>> points, bool closed = false, bool bezier = false)
+        public Polyline(Drawing drawing, List<Point<Internal>> points, bool closed = false, bool bezier = false)
         {
-            Paint = paint; Points = points; Closed = closed; Bezier = bezier;
+            Drawing = drawing; Points = points; Closed = closed; Bezier = bezier;
         }
 
         public void AddSvg(XElement element, Transform<Internal, External> transform)
@@ -56,7 +56,7 @@ namespace tegaki_hack
                 var dString = Bezier ? BezierDString(transform) : NonBezierDString(transform);
                 element.Add(new XElement(Util.SvgName("path"),
                     new XAttribute("d", dString))
-                    .AddSvg(Paint, Closed, transform));
+                    .AddSvg(Drawing, Closed, transform));
             }
         }
         string BezierDString(Transform<Internal, External> transform)
@@ -85,20 +85,20 @@ namespace tegaki_hack
 
     public partial class Circle : IShape
     {
-        public Paint Paint;
+        public Drawing Drawing;
         public Point<Internal> Center;
         SizeEither _radius;
         public SizeEither Radius { get { return _radius; } set { _radius = new SizeEither(Math.Abs(value.Value), value.IsInternal); } }
 
-        public Circle(Paint paint, Point<Internal> center, SizeEither radius)
+        public Circle(Drawing drawing, Point<Internal> center, SizeEither radius)
         {
-            Paint = paint; Center = center; Radius = radius;
+            Drawing = drawing; Center = center; Radius = radius;
         }
 
         public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
             element.Add(new XElement(Util.SvgName("circle"))
-                .AddSvg(Paint, true, transform)
+                .AddSvg(Drawing, true, transform)
                 .AddSvg(Center, "cx", "cy", transform)
                 .AddSvg(Radius, "r", transform));
         }

@@ -61,15 +61,15 @@ namespace tegaki_hack
     {
         public bool DoesAdjust;
         public Adjustment Adjustment;
-        public Paint Paint;
-        public Paint GuidePaint;
+        public Drawing Drawing;
+        public Drawing GuideDrawing;
         public int NRegularPolygon;
         public Action Edited;
         public Action<IShape> Finished;
 
         public ShapeCreatorSettings(Action edited, Action<IShape> finished)
         {
-            Paint = new Paint(Color.ByRgba(0x91ff4cff), Color.ByRgba(0x66f0ff40), new SizeEither(0.5f, true),
+            Drawing = new Drawing(Color.ByRgba(0x91ff4cff), Color.ByRgba(0x66f0ff40), new SizeEither(0.5f, true),
                 LineCap.Round, LineJoin.Round);
             DoesAdjust = false;
             Adjustment = new Adjustment();
@@ -275,7 +275,7 @@ namespace tegaki_hack
         }
         protected override void StartDrag(Point<Internal> p)
         {
-            polyline = new Polyline(Settings.Paint, Util.NewList(p), false, true);
+            polyline = new Polyline(Settings.Drawing, Util.NewList(p), false, true);
         }
         protected override void MoveDrag(Point<Internal> p)
         {
@@ -328,7 +328,7 @@ namespace tegaki_hack
         {
             if (from != null && to != null)
             {
-                polyline = new Polyline(Settings.Paint, Util.NewList(from.Value, to.Value));
+                polyline = new Polyline(Settings.Drawing, Util.NewList(from.Value, to.Value));
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -407,7 +407,7 @@ namespace tegaki_hack
         {
             if (from != null && to != null)
             {
-                circle = new Circle(Settings.Paint, from.Value, new SizeEither(from.Value.DistanceTo(to.Value), true));
+                circle = new Circle(Settings.Drawing, from.Value, new SizeEither(from.Value.DistanceTo(to.Value), true));
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -473,7 +473,7 @@ namespace tegaki_hack
                 }
                 var lowerleft = new Point<Internal>(upperleft.X, lowerright.Y);
                 var upperright = new Point<Internal>(lowerright.X, upperleft.Y);
-                polyline = new Polyline(Settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
+                polyline = new Polyline(Settings.Drawing, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -494,7 +494,7 @@ namespace tegaki_hack
         {
             if (from != null && to != null)
             {
-                polyline = new Polyline(Settings.Paint, Util.NewList<Point<Internal>>(), true);
+                polyline = new Polyline(Settings.Drawing, Util.NewList<Point<Internal>>(), true);
                 polyline.Points.Add(from.Value);
                 polyline.Points.Add(to.Value);
                 for (int i = 2; i < Settings.NRegularPolygon; i++)

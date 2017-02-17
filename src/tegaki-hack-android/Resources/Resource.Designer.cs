@@ -91,25 +91,25 @@ namespace tegaki_hack
 			public const int DashedCircumference = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int Ellipse = 2130837510;
+			public const int DrawingIcon = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int EllipseIcon = 2130837511;
+			public const int Ellipse = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int FancyTextIcon = 2130837512;
+			public const int EllipseIcon = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int FreehandIcon = 2130837513;
+			public const int FancyTextIcon = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int Icon = 2130837514;
+			public const int FreehandIcon = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int LineIcon = 2130837515;
+			public const int Icon = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int PaintIcon = 2130837516;
+			public const int LineIcon = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
 			public const int PolygonIcon = 2130837517;
@@ -163,8 +163,8 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f070004
 			public const int AdjustLength = 2131165188;
 			
-			// aapt resource value: 0x7f07001e
-			public const int Adjustment = 2131165214;
+			// aapt resource value: 0x7f070028
+			public const int Adjustment = 2131165224;
 			
 			// aapt resource value: 0x7f070009
 			public const int BPicker = 2131165193;
@@ -175,32 +175,35 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f07002b
 			public const int Centi = 2131165227;
 			
-			// aapt resource value: 0x7f07001c
-			public const int Circle = 2131165212;
+			// aapt resource value: 0x7f070026
+			public const int Circle = 2131165222;
 			
-			// aapt resource value: 0x7f070018
-			public const int Clear = 2131165208;
+			// aapt resource value: 0x7f070022
+			public const int Clear = 2131165218;
 			
 			// aapt resource value: 0x7f070006
 			public const int ColorIndicator = 2131165190;
 			
-			// aapt resource value: 0x7f070021
-			public const int ColorSample = 2131165217;
-			
-			// aapt resource value: 0x7f070020
-			public const int Editcanvas = 2131165216;
-			
-			// aapt resource value: 0x7f070023
-			public const int FillColor = 2131165219;
-			
-			// aapt resource value: 0x7f07002a
-			public const int FillRule = 2131165226;
+			// aapt resource value: 0x7f070015
+			public const int ColorSample = 2131165205;
 			
 			// aapt resource value: 0x7f070029
-			public const int FillRuleSample = 2131165225;
+			public const int Drawing = 2131165225;
 			
-			// aapt resource value: 0x7f07001a
-			public const int Freehand = 2131165210;
+			// aapt resource value: 0x7f07002a
+			public const int Editcanvas = 2131165226;
+			
+			// aapt resource value: 0x7f070017
+			public const int FillColor = 2131165207;
+			
+			// aapt resource value: 0x7f07001e
+			public const int FillRule = 2131165214;
+			
+			// aapt resource value: 0x7f07001d
+			public const int FillRuleSample = 2131165213;
+			
+			// aapt resource value: 0x7f070024
+			public const int Freehand = 2131165220;
 			
 			// aapt resource value: 0x7f070008
 			public const int GPicker = 2131165192;
@@ -214,8 +217,8 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f07000f
 			public const int HText = 2131165199;
 			
-			// aapt resource value: 0x7f070015
-			public const int Header = 2131165205;
+			// aapt resource value: 0x7f07001f
+			public const int Header = 2131165215;
 			
 			// aapt resource value: 0x7f070014
 			public const int LSeekBar = 2131165204;
@@ -223,32 +226,29 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f070013
 			public const int LText = 2131165203;
 			
-			// aapt resource value: 0x7f07001b
-			public const int Line = 2131165211;
-			
-			// aapt resource value: 0x7f070026
-			public const int LineCap = 2131165222;
-			
 			// aapt resource value: 0x7f070025
-			public const int LineCapJoinSample = 2131165221;
+			public const int Line = 2131165221;
 			
-			// aapt resource value: 0x7f070022
-			public const int LineColor = 2131165218;
+			// aapt resource value: 0x7f07001a
+			public const int LineCap = 2131165210;
 			
-			// aapt resource value: 0x7f070027
-			public const int LineJoin = 2131165223;
+			// aapt resource value: 0x7f070019
+			public const int LineCapJoinSample = 2131165209;
 			
-			// aapt resource value: 0x7f070024
-			public const int LineWidth = 2131165220;
+			// aapt resource value: 0x7f070016
+			public const int LineColor = 2131165206;
 			
-			// aapt resource value: 0x7f070028
-			public const int MiterLimitDeci = 2131165224;
+			// aapt resource value: 0x7f07001b
+			public const int LineJoin = 2131165211;
+			
+			// aapt resource value: 0x7f070018
+			public const int LineWidth = 2131165208;
+			
+			// aapt resource value: 0x7f07001c
+			public const int MiterLimitDeci = 2131165212;
 			
 			// aapt resource value: 0x7f070005
 			public const int NRegularPolygon = 2131165189;
-			
-			// aapt resource value: 0x7f07001f
-			public const int Paint = 2131165215;
 			
 			// aapt resource value: 0x7f07002c
 			public const int Pers = 2131165228;
@@ -259,8 +259,8 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f07000b
 			public const int RSeekBar = 2131165195;
 			
-			// aapt resource value: 0x7f070017
-			public const int Redo = 2131165207;
+			// aapt resource value: 0x7f070021
+			public const int Redo = 2131165217;
 			
 			// aapt resource value: 0x7f070003
 			public const int RightAngleDivision = 2131165187;
@@ -271,8 +271,8 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f070011
 			public const int SText = 2131165201;
 			
-			// aapt resource value: 0x7f070019
-			public const int Save = 2131165209;
+			// aapt resource value: 0x7f070023
+			public const int Save = 2131165219;
 			
 			// aapt resource value: 0x7f07002d
 			public const int StartEdit = 2131165229;
@@ -280,11 +280,11 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f07002e
 			public const int SvgDialogText = 2131165230;
 			
-			// aapt resource value: 0x7f07001d
-			public const int Text = 2131165213;
+			// aapt resource value: 0x7f070027
+			public const int Text = 2131165223;
 			
-			// aapt resource value: 0x7f070016
-			public const int Undo = 2131165206;
+			// aapt resource value: 0x7f070020
+			public const int Undo = 2131165216;
 			
 			// aapt resource value: 0x7f070000
 			public const int XAdjustment = 2131165184;
@@ -315,10 +315,10 @@ namespace tegaki_hack
 			public const int ColorSetter = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Edit = 2130903043;
+			public const int DrawingDialog = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int PaintDialog = 2130903044;
+			public const int Edit = 2130903044;
 			
 			// aapt resource value: 0x7f030005
 			public const int SizeSetter = 2130903045;
@@ -357,6 +357,9 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f040001
 			public const int CoordinateAdjustments = 2130968577;
 			
+			// aapt resource value: 0x7f04000c
+			public const int DrawingOptions = 2130968588;
+			
 			// aapt resource value: 0x7f040007
 			public const int Edit = 2130968583;
 			
@@ -392,9 +395,6 @@ namespace tegaki_hack
 			
 			// aapt resource value: 0x7f04000b
 			public const int NRegularPolygon = 2130968587;
-			
-			// aapt resource value: 0x7f04000c
-			public const int PaintOptions = 2130968588;
 			
 			// aapt resource value: 0x7f040005
 			public const int PleaseWait = 2130968581;

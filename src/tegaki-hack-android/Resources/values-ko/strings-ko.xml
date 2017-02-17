@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="Enable">사용하다</string>
+  <string name="PleaseWait">잠시만뇨</string>
+  <string name="Edit">편집하다</string>
+  <string name="RoundToInteger">정수로 반올림하다</string>
+  <string name="Colors">색</string>
+  <string name="CircleFamilyOptions">원계통 옵션</string>
+  <string name="NRegularPolygon">정다각형의 정점의 수</string>
+  <string-array name="Perses">
+    <item>그리드</item>
+    <item>픽셀</item>
+  </string-array>
+</resources>

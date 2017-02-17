@@ -1,6 +1,5 @@
 using Android.Graphics;
 using NativeColor = Android.Graphics.Color;
-using NativePaint = Android.Graphics.Paint;
 
 namespace tegaki_hack
 {
@@ -15,48 +14,48 @@ namespace tegaki_hack
         public NativeColor ToNative() { return new NativeColor(R, G, B, A); }
     }
 
-    public partial class Paint
+    public partial class Drawing
     {
-        public NativePaint.Cap NativeLineCap
+        public Paint.Cap NativeLineCap
         {
             get
             {
                 switch (LineCap)
                 {
                     case LineCap.Butt:
-                        return NativePaint.Cap.Butt;
+                        return Paint.Cap.Butt;
                     case LineCap.Round:
-                        return NativePaint.Cap.Round;
+                        return Paint.Cap.Round;
                     case LineCap.Square:
-                        return NativePaint.Cap.Square;
+                        return Paint.Cap.Square;
                     default:
                         throw InvalidLineCap();
                 }
             }
         }
 
-        public NativePaint.Join NativeLineJoin
+        public Paint.Join NativeLineJoin
         {
             get
             {
                 switch (LineJoin)
                 {
                     case LineJoin.Miter:
-                        return NativePaint.Join.Miter;
+                        return Paint.Join.Miter;
                     case LineJoin.Round:
-                        return NativePaint.Join.Round;
+                        return Paint.Join.Round;
                     case LineJoin.Bevel:
-                        return NativePaint.Join.Bevel;
+                        return Paint.Join.Bevel;
                     default:
                         throw InvalidLineJoin();
                 }
             }
         }
 
-        public NativePaint StrokePaint(Transform<Internal, External> transform)
+        public Paint StrokeDrawing(Transform<Internal, External> transform)
         {
-            var res = new NativePaint();
-            res.SetStyle(NativePaint.Style.Stroke);
+            var res = new Paint();
+            res.SetStyle(Paint.Style.Stroke);
             res.Color = LineColor.ToNative();
             res.StrokeWidth = LineWidth.Transform(transform);
             res.StrokeCap = NativeLineCap;
@@ -65,10 +64,10 @@ namespace tegaki_hack
             return res;
         }
 
-        public NativePaint FillPaint(Transform<Internal, External> transform)
+        public Paint FillDrawing(Transform<Internal, External> transform)
         {
-            var res = new NativePaint();
-            res.SetStyle(NativePaint.Style.Fill);
+            var res = new Paint();
+            res.SetStyle(Paint.Style.Fill);
             res.Color = FillColor.ToNative();
             return res;
         }

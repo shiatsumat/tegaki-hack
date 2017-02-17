@@ -157,7 +157,7 @@ namespace tegaki_hack
     public enum LineCap { Butt, Round, Square }
     public enum LineJoin { Miter, Round, Bevel }
     public enum FillRule { EvenOdd, Nonzero }
-    public partial class Paint
+    public partial class Drawing
     {
         public Color LineColor;
         public Color FillColor;
@@ -199,19 +199,19 @@ namespace tegaki_hack
 
         static Exception InvalidLineCap()
         {
-            return new InvalidOperationException("Invalid Line Cap for Paint");
+            return new InvalidOperationException("Invalid Line Cap for Drawing");
         }
         static Exception InvalidLineJoin()
         {
-            return new InvalidOperationException("Invalid Line Join for Paint");
+            return new InvalidOperationException("Invalid Line Join for Drawing");
         }
         static Exception InvalidFillRule()
         {
-            return new InvalidOperationException("Invalid Fill Rule for Paint");
+            return new InvalidOperationException("Invalid Fill Rule for Drawing");
         }
 
-        public Paint() { }
-        public Paint(Color lineColor, Color fillColor,
+        public Drawing() { }
+        public Drawing(Color lineColor, Color fillColor,
             SizeEither lineWidth,
             LineCap lineCap = LineCap.Butt, LineJoin lineJoin = LineJoin.Miter, float miterLimit = 4,
             FillRule fillRule = FillRule.EvenOdd)
@@ -221,29 +221,29 @@ namespace tegaki_hack
             LineCap = lineCap; LineJoin = lineJoin; MiterLimit = miterLimit;
             FillRule = fillRule;
         }
-        public Paint(Paint paint)
-            : this(paint.LineColor, paint.FillColor,
-                  paint.LineWidth,
-                  paint.LineCap, paint.LineJoin, paint.MiterLimit,
-                  paint.FillRule)
+        public Drawing(Drawing drawing)
+            : this(drawing.LineColor, drawing.FillColor,
+                  drawing.LineWidth,
+                  drawing.LineCap, drawing.LineJoin, drawing.MiterLimit,
+                  drawing.FillRule)
         { }
 
-        bool Equals(Paint paint)
+        bool Equals(Drawing drawing)
         {
             return
-                LineColor.Equals(paint.LineColor) &&
-                LineWidth.Equals(paint.LineWidth) &&
-                FillColor.Equals(paint.FillColor) &&
-                LineCap == paint.LineCap &&
-                LineJoin == paint.LineJoin &&
-                MiterLimit == paint.MiterLimit &&
-                FillRule == paint.FillRule;
+                LineColor.Equals(drawing.LineColor) &&
+                LineWidth.Equals(drawing.LineWidth) &&
+                FillColor.Equals(drawing.FillColor) &&
+                LineCap == drawing.LineCap &&
+                LineJoin == drawing.LineJoin &&
+                MiterLimit == drawing.MiterLimit &&
+                FillRule == drawing.FillRule;
         }
 
         /* internally W 100 x H 100 */
         public IShape ColorSample()
         {
-            return new Circle(new Paint(LineColor, FillColor, new SizeEither(10.0f, true)),
+            return new Circle(new Drawing(LineColor, FillColor, new SizeEither(10.0f, true)),
                 new Point<Internal>(50, 50), new SizeEither(40, true));
         }
 
@@ -257,10 +257,10 @@ namespace tegaki_hack
                 new Point<Internal>(90, 10),
                 new Point<Internal>(140, 10));
             var polylineBack = new Polyline(
-                new Paint(Color.ByRgba(0x808080FF), Color.Transparent, new SizeEither(10.0f, true), LineCap, LineJoin),
+                new Drawing(Color.ByRgba(0x808080FF), Color.Transparent, new SizeEither(10.0f, true), LineCap, LineJoin),
                 points);
             var polylineFront = new Polyline(
-                new Paint(Color.ByRgba(0xFFFFFFFF), Color.Transparent, new SizeEither(1.0f, true)),
+                new Drawing(Color.ByRgba(0xFFFFFFFF), Color.Transparent, new SizeEither(1.0f, true)),
                 points);
             return new ShapeGroup(new IShape[] { polylineBack, polylineFront });
         }
@@ -269,7 +269,7 @@ namespace tegaki_hack
         public IShape FillRuleSample()
         {
             return new Polyline(
-                new Paint(Color.ByRgba(0x404040FF), Color.ByRgba(0x808080FF), new SizeEither(3.0f, true), fillRule: FillRule),
+                new Drawing(Color.ByRgba(0x404040FF), Color.ByRgba(0x808080FF), new SizeEither(3.0f, true), fillRule: FillRule),
                 Util.NewList<Point<Internal>>(
                 new Point<Internal>(10, 90),
                 new Point<Internal>(50, 10),
@@ -283,19 +283,19 @@ namespace tegaki_hack
 
     public static partial class Drawdata
     {
-        public static XElement AddSvg(this XElement element, Paint paint, bool fill, Transform<Internal, External> transform)
+        public static XElement AddSvg(this XElement element, Drawing drawing, bool fill, Transform<Internal, External> transform)
         {
             element.Add(
-                new XAttribute("stroke", paint.LineColor.RgbaFunctionString()),
-                new XAttribute("stroke-width", paint.LineWidth.Transform(transform).ToString()),
-                new XAttribute("stroke-linecap", paint.LineCap.ToString().ToLower()),
-                new XAttribute("stroke-linejoin", paint.LineJoin.ToString().ToLower()),
-                new XAttribute("stroke-miterlimit", paint.MiterLimit));
+                new XAttribute("stroke", drawing.LineColor.RgbaFunctionString()),
+                new XAttribute("stroke-width", drawing.LineWidth.Transform(transform).ToString()),
+                new XAttribute("stroke-linecap", drawing.LineCap.ToString().ToLower()),
+                new XAttribute("stroke-linejoin", drawing.LineJoin.ToString().ToLower()),
+                new XAttribute("stroke-miterlimit", drawing.MiterLimit));
             if (fill)
             {
                 element.Add(
-                    new XAttribute("fill", paint.FillColor.RgbaFunctionString()),
-                    new XAttribute("fill-rule", paint.FillRule.ToString().ToLower()));
+                    new XAttribute("fill", drawing.FillColor.RgbaFunctionString()),
+                    new XAttribute("fill-rule", drawing.FillRule.ToString().ToLower()));
             }
             else
             {

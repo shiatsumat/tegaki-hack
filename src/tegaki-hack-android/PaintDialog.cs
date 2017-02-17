@@ -6,11 +6,11 @@ using Android.Views;
 
 namespace tegaki_hack
 {
-    public class PaintDialog
+    public class DrawingDialog
     {
         View view;
         AlertDialog dialog;
-        Paint paint;
+        Drawing drawing;
 
         ExtensibleView colorSample;
         ColorSetter lineColor, fillColor;
@@ -23,7 +23,7 @@ namespace tegaki_hack
         ExtensibleView fillRuleSample;
         Spinner fillRule;
 
-        public PaintDialog(Activity activity, Action<Paint> ok)
+        public DrawingDialog(Activity activity, Action<Drawing> ok)
         {
             InitializeView(activity);
             InitializeColors();
@@ -34,26 +34,26 @@ namespace tegaki_hack
         }
         void InitializeView(Activity activity)
         {
-            view = activity.LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
+            view = activity.LayoutInflater.Inflate(Resource.Layout.DrawingDialog, null);
         }
         void InitializeColors()
         {
             colorSample = view.FindViewById<ExtensibleView>(Resource.Id.ColorSample);
-            colorSample.Drawing += (canvas) =>
+            colorSample.Draw += (canvas) =>
             {
-                paint.ColorSample().Draw(canvas,
+                drawing.ColorSample().Draw(canvas,
                     new Transform<Internal, External>(canvas.Width / 100.0f));
             };
             lineColor = view.FindViewById<ColorSetter>(Resource.Id.LineColor);
             lineColor.ColorChanged += () =>
             {
-                paint.LineColor = lineColor.Color;
+                drawing.LineColor = lineColor.Color;
                 colorSample.Invalidate();
             };
             fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
             fillColor.ColorChanged += () =>
             {
-                paint.FillColor = fillColor.Color;
+                drawing.FillColor = fillColor.Color;
                 colorSample.Invalidate();
             };
         }
@@ -62,27 +62,27 @@ namespace tegaki_hack
             lineWidth = view.FindViewById<SizeSetter>(Resource.Id.LineWidth);
             lineWidth.SizeChanged += () =>
             {
-                paint.LineWidth = lineWidth.Size;
+                drawing.LineWidth = lineWidth.Size;
             };
         }
         void InitializeLineCapJoin()
         {
             lineCapJoinSample = view.FindViewById<ExtensibleView>(Resource.Id.LineCapJoinSample);
-            lineCapJoinSample.Drawing += (canvas) =>
+            lineCapJoinSample.Draw += (canvas) =>
             {
-                paint.LineCapJoinSample().Draw(canvas,
+                drawing.LineCapJoinSample().Draw(canvas,
                     new Transform<Internal, External>(canvas.Width / 150.0f));
             };
             lineCap = view.FindViewById<Spinner>(Resource.Id.LineCap);
             lineCap.ItemSelected += (o, e) =>
             {
-                paint.LineCap = (LineCap)lineCap.SelectedItemPosition;
+                drawing.LineCap = (LineCap)lineCap.SelectedItemPosition;
                 lineCapJoinSample.Invalidate();
             };
             lineJoin = view.FindViewById<Spinner>(Resource.Id.LineJoin);
             lineJoin.ItemSelected += (o, e) =>
             {
-                paint.LineJoin = (LineJoin)lineJoin.SelectedItemPosition;
+                drawing.LineJoin = (LineJoin)lineJoin.SelectedItemPosition;
                 lineCapJoinSample.Invalidate();
             };
             miterLimitDeci = view.FindViewById<NumberPicker>(Resource.Id.MiterLimitDeci);
@@ -97,40 +97,40 @@ namespace tegaki_hack
             miterLimitDeci.WrapSelectorWheel = false;
             miterLimitDeci.ValueChanged += (o, e) =>
             {
-                paint.MiterLimit = miterLimitDeci.Value / 10.0f;
+                drawing.MiterLimit = miterLimitDeci.Value / 10.0f;
             };
         }
         void InitializeFillRule()
         {
             fillRuleSample = view.FindViewById<ExtensibleView>(Resource.Id.FillRuleSample);
             fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);
-            fillRuleSample.Drawing += (canvas) =>
+            fillRuleSample.Draw += (canvas) =>
             {
-                paint.FillRuleSample().Draw(canvas,
+                drawing.FillRuleSample().Draw(canvas,
                     new Transform<Internal, External>(canvas.Width / 150.0f));
             };
             fillRule.ItemSelected += (o, e) =>
             {
-                paint.FillRule = (FillRule)fillRule.SelectedItemPosition;
+                drawing.FillRule = (FillRule)fillRule.SelectedItemPosition;
                 fillRuleSample.Invalidate();
             };
         }
-        void InitializeDialog(Activity activity, Action<Paint> ok)
+        void InitializeDialog(Activity activity, Action<Drawing> ok)
         {
-            dialog = Util.CreateDialog(activity, Resource.String.PaintOptions, view,
-                () => ok?.Invoke(paint), null);
+            dialog = Util.CreateDialog(activity, Resource.String.DrawingOptions, view,
+                () => ok?.Invoke(drawing), null);
         }
 
-        public void Show(Paint paint)
+        public void Show(Drawing drawing)
         {
-            this.paint = new Paint(paint);
-            lineColor.Color = paint.LineColor;
-            fillColor.Color = paint.FillColor;
-            lineWidth.Size = paint.LineWidth;
-            lineCap.SetSelection((int)paint.LineCap);
-            lineJoin.SetSelection((int)paint.LineJoin);
-            miterLimitDeci.Value = (int)Math.Round(paint.MiterLimit * 10.0f);
-            fillRule.SetSelection((int)paint.FillRule);
+            this.drawing = new Drawing(drawing);
+            lineColor.Color = drawing.LineColor;
+            fillColor.Color = drawing.FillColor;
+            lineWidth.Size = drawing.LineWidth;
+            lineCap.SetSelection((int)drawing.LineCap);
+            lineJoin.SetSelection((int)drawing.LineJoin);
+            miterLimitDeci.Value = (int)Math.Round(drawing.MiterLimit * 10.0f);
+            fillRule.SetSelection((int)drawing.FillRule);
 
             dialog.Show();
         }

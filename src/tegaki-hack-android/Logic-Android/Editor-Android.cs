@@ -18,10 +18,10 @@ namespace tegaki_hack
         ImageButton undoButton, redoButton, clearButton, saveButton;
         Dictionary<EShapeCreatorFamily, ImageButton> shapeButtons;
         Dictionary<EShapeCreator, int> icons;
-        ImageButton adjustmentButton, paintButton;
+        ImageButton adjustmentButton, drawingButton;
 
         AdjustmentDialog adjustmentDialog;
-        PaintDialog paintDialog;
+        DrawingDialog drawingDialog;
 
         Bitmap secondBitmap;
         Canvas secondCanvas;
@@ -41,7 +41,7 @@ namespace tegaki_hack
             InitializeShapes();
             InitializeCircle();
             InitializeAdjustment();
-            InitializePaint();
+            InitializeDrawing();
 
             InitializeLast();
 
@@ -80,7 +80,7 @@ namespace tegaki_hack
             {
                 DealWithLayoutChange(new DPoint<External>(editcanvas.Width, editcanvas.Height));
             };
-            editcanvas.Drawing += (canvas) =>
+            editcanvas.Draw += (canvas) =>
             {
                 Draw(canvas);
             };
@@ -199,18 +199,18 @@ namespace tegaki_hack
             });
             adjustmentButton.LongClick += (o, e) => adjustmentDialog.Show(settings.Adjustment);
         }
-        void InitializePaint()
+        void InitializeDrawing()
         {
-            paintButton = activity.FindViewById<ImageButton>(Resource.Id.Paint);
-            paintDialog = new PaintDialog(activity, (paint) =>
+            drawingButton = activity.FindViewById<ImageButton>(Resource.Id.Drawing);
+            drawingDialog = new DrawingDialog(activity, (drawing) =>
             {
-                if (!settings.Paint.Equals(paint))
+                if (!settings.Drawing.Equals(drawing))
                 {
-                    settings.Paint = paint;
+                    settings.Drawing = drawing;
                     ResetShapeCreator();
                 }
             });
-            paintButton.Click += (o, e) => paintDialog.Show(settings.Paint);
+            drawingButton.Click += (o, e) => drawingDialog.Show(settings.Drawing);
         }
 
         public void Destroy()

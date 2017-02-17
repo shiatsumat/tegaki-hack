@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PaintOptions">Opciones de dibujo</string>
+  <string name="DrawingOptions">Opciones de dibujo</string>
   <string name="LineColor">Color de línea</string>
   <string name="FillColor">Color de relleno</string>
   <string name="LineWidth">Anchura de línea</string>

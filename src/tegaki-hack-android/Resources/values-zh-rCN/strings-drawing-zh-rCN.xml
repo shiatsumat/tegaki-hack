@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PaintOptions">绘图选项</string>
+  <string name="DrawingOptions">绘图选项</string>
   <string name="LineColor">线色</string>
   <string name="FillColor">填色</string>
   <string name="LineWidth">线的宽度</string>

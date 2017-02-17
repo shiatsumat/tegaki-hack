@@ -94,8 +94,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter" />
                 <ImageButton
-                    android:id="@+id/Paint"
-                    android:src="@drawable/PaintIcon"
+                    android:id="@+id/Drawing"
+                    android:src="@drawable/DrawingIcon"
                     android:layout_width="@android:dimen/app_icon_size"
                     android:layout_height="@android:dimen/app_icon_size"
                     android:adjustViewBounds="true"

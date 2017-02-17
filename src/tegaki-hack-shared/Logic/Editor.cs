@@ -223,14 +223,14 @@ namespace tegaki_hack
         IShape Grid()
         {
             var shapes = new List<IShape>();
-            var paint = new Paint(Color.ByRgba(0xd3d3d3ff), Color.Transparent, new SizeEither(1, false));
+            var drawing = new Drawing(Color.ByRgba(0xd3d3d3ff), Color.Transparent, new SizeEither(1, false));
             for (float x = 0; x <= size.Dx; x++)
             {
-                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(x, 0), new Point<Internal>(x, size.Dy))));
+                shapes.Add(new Polyline(drawing, Util.NewList(new Point<Internal>(x, 0), new Point<Internal>(x, size.Dy))));
             }
             for (float y = 0; y <= size.Dy; y++)
             {
-                shapes.Add(new Polyline(paint, Util.NewList(new Point<Internal>(0, y), new Point<Internal>(size.Dx, y))));
+                shapes.Add(new Polyline(drawing, Util.NewList(new Point<Internal>(0, y), new Point<Internal>(size.Dx, y))));
             }
             return new ShapeGroup(shapes.ToArray());
         }

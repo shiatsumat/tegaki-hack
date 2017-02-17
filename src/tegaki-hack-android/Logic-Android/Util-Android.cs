@@ -14,7 +14,7 @@ namespace tegaki_hack
 
     public class ExtensibleView : View
     {
-        public event CanvasDelegate Drawing;
+        public new event CanvasDelegate Draw;
 
         public ExtensibleView(Context context, IAttributeSet attrs) :
             base(context, attrs)
@@ -26,7 +26,7 @@ namespace tegaki_hack
         protected override void OnDraw(Canvas canvas)
         {
             base.OnDraw(canvas);
-            Drawing?.Invoke(canvas);
+            Draw?.Invoke(canvas);
         }
     }
 
