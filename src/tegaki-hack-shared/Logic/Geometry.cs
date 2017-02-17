@@ -33,7 +33,7 @@ namespace tegaki_hack
         {
             return new DPoint<Pers>(p.Complex - q.Complex);
         }
-        public float distance(Point<Pers> p)
+        public float DistanceTo(Point<Pers> p)
         {
             return (this - p).Norm;
         }
@@ -260,8 +260,8 @@ namespace tegaki_hack
 
         static Point<Pers> InterpolateHelper<Pers>(Point<Pers> p, Point<Pers> q, Point<Pers> r)
         {
-            var dpq = p.distance(q);
-            var dqr = q.distance(r);
+            var dpq = p.DistanceTo(q);
+            var dqr = q.DistanceTo(r);
             var s = dpq + dqr;
             var t = s < Util.EPS ? 0 : 0.5f * dqr / s;
             var smooth_value = 1.0f;

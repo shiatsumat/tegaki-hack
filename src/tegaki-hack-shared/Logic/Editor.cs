@@ -27,7 +27,7 @@ namespace tegaki_hack
         {
             shapeDictionary = new Dictionary<EShapeCreatorFamily, EShapeCreator[]>();
             shapeDictionary[EShapeCreatorFamily.Freehand]
-                = new EShapeCreator[] { EShapeCreator.Freehand };
+                = new EShapeCreator[] { EShapeCreator.Freehand, EShapeCreator.ClosedFreehand };
             shapeDictionary[EShapeCreatorFamily.Line]
                 = new EShapeCreator[] { EShapeCreator.Line, EShapeCreator.Arc, EShapeCreator.Polyline };
             shapeDictionary[EShapeCreatorFamily.Circle]

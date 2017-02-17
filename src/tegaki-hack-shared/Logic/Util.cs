@@ -28,7 +28,7 @@ namespace tegaki_hack
 
         public static int LoopIndex<T>(this List<T> list, int index)
         {
-            return index < 0 ? index % list.Count : -((-index) % list.Count);
+            return index >= 0 ? index % list.Count : list.Count - (-index) % list.Count;
         }
         public static T LoopGet<T>(this List<T> list, int index)
         {

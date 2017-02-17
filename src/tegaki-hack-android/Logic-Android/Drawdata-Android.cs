@@ -57,7 +57,7 @@ namespace tegaki_hack
         {
             var res = new NativePaint();
             res.SetStyle(NativePaint.Style.Stroke);
-            res.Color = StrokeColor.ToNative();
+            res.Color = LineColor.ToNative();
             res.StrokeWidth = LineWidth.Transform(transform);
             res.StrokeCap = NativeLineCap;
             res.StrokeJoin = NativeLineJoin;

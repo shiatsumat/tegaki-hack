@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SizeSetter.cs" />
+    <Compile Include="ColorSetter.cs" />
     <Compile Include="CustomApplication.cs" />
     <Compile Include="EditActivity.cs" />
     <Compile Include="Logic-Android\Drawdata-Android.cs" />
@@ -262,6 +264,9 @@
     <AndroidResource Include="Resources\values-ru\strings-ru.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ClosedFreehandIcon.png" />
   </ItemGroup>
   <Import Project="..\tegaki-hack-shared\tegaki-hack-shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

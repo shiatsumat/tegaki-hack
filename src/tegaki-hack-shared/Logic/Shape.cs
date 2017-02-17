@@ -53,31 +53,33 @@ namespace tegaki_hack
         {
             if (Points.Count >= 2)
             {
-                var dString = "";
-                if (Bezier)
-                {
-                    var bezierinfo = Points.ToBezier(Closed).Transform(transform);
-                    dString += string.Format("M {0}", bezierinfo.from);
-                    foreach (var controlto in bezierinfo.controltos)
-                    {
-                        dString += string.Format(" C {0} {1} {2}", controlto.Con, controlto.Trol, controlto.To);
-                    }
-                }
-                else
-                {
-                    var ps = Points.Transform(transform);
-                    for (int i = 0; i < ps.Count; i++)
-                    {
-                        var p = ps[i];
-                        if (i == 0) dString += string.Format("M {0}", p);
-                        else dString += string.Format(" L {0}", p);
-                    }
-                }
-                if (Closed) dString += " Z";
+                var dString = Bezier ? BezierDString(transform) : NonBezierDString(transform);
                 element.Add(new XElement(Util.SvgName("path"),
                     new XAttribute("d", dString))
-                    .AddSvg(Paint, transform));
+                    .AddSvg(Paint, Closed, transform));
             }
+        }
+        string BezierDString(Transform<Internal, External> transform)
+        {
+            var bezierinfo = Points.ToBezier(Closed).Transform(transform);
+            var res = string.Format("M {0}", bezierinfo.from);
+            foreach (var controlto in bezierinfo.controltos)
+            {
+                res += string.Format(" C {0} {1} {2}", controlto.Con, controlto.Trol, controlto.To);
+            }
+            if (Closed) res += " Z";
+            return res;
+        }
+        string NonBezierDString(Transform<Internal, External> transform)
+        {
+            var ps = Points.Transform(transform);
+            var res = string.Format("M {0}", ps[0]);
+            for (int i = 1; i < ps.Count; i++)
+            {
+                res += string.Format(" L {0}", ps[i]);
+            }
+            if (Closed) res += " Z";
+            return res;
         }
     }
 
@@ -96,91 +98,9 @@ namespace tegaki_hack
         public void AddSvg(XElement element, Transform<Internal, External> transform)
         {
             element.Add(new XElement(Util.SvgName("circle"))
-                .AddSvg(Paint, transform)
+                .AddSvg(Paint, true, transform)
                 .AddSvg(Center, "cx", "cy", transform)
                 .AddSvg(Radius, "r", transform));
-        }
-    }
-
-    public partial class Ellipse : IShape
-    {
-        public Paint Paint;
-        public Point<Internal> Center;
-        DPoint<Internal> _radii;
-        public DPoint<Internal> Radii { get { return _radii; } set { _radii = new DPoint<Internal>(Math.Abs(value.Dx), Math.Abs(value.Dy)); } }
-
-        public Ellipse(Paint paint, Point<Internal> center, DPoint<Internal> radii)
-        {
-            Paint = paint; Center = center; Radii = radii;
-        }
-
-        public void AddSvg(XElement element, Transform<Internal, External> transform)
-        {
-            element.Add(new XElement(Util.SvgName("ellipse"))
-                .AddSvg(Paint, transform)
-                .AddSvg(Center, "cx", "cy", transform)
-                .AddSvg(Radii, "rx", "ry", transform));
-        }
-    }
-
-    public partial class EllipseArc : IShape
-    {
-        public Paint Paint;
-        public Point<Internal> Center;
-        DPoint<Internal> _radii;
-        public DPoint<Internal> Radii { get { return _radii; } set { _radii = new DPoint<Internal>(Math.Abs(value.Dx), Math.Abs(value.Dy)); } }
-        float _startAngle;
-        public float StartAngle
-        {
-            get { return _startAngle; }
-            set
-            {
-                if (value <= -180 || 180 < value) throw new InvalidOperationException("invalid startAngle for EllipseArc");
-                _startAngle = value;
-            }
-        }
-        float _sweepAngle;
-        public float SweepAngle
-        {
-            get { return _sweepAngle; }
-            set
-            {
-                if (value < 0 || 360 < value) throw new InvalidOperationException("invalid sweepAngle for EllipseArc");
-                _sweepAngle = value;
-            }
-        }
-        public bool UseCenter;
-        public Point<Internal> StartPoint
-        {
-            get
-            {
-                var polar = Complex.Polar(StartAngle);
-                return Center + new DPoint<Internal>(polar.Re * Radii.Dx, polar.Im * Radii.Dy);
-            }
-        }
-        public Point<Internal> EndPoint
-        {
-            get
-            {
-                var polar = Complex.Polar(StartAngle + SweepAngle);
-                return Center + new DPoint<Internal>(polar.Re * Radii.Dx, polar.Im * Radii.Dy);
-            }
-        }
-
-        public EllipseArc(Paint paint, Point<Internal> center, DPoint<Internal> radii, float startAngle, float sweepAngle, bool useCenter = true)
-        {
-            Paint = paint; Center = center; Radii = radii; StartAngle = startAngle; SweepAngle = sweepAngle; UseCenter = useCenter;
-        }
-
-        public void AddSvg(XElement element, Transform<Internal, External> transform)
-        {
-            var dString = string.Format("M {0} A {1} 0 {2} 0 {3}", StartPoint.Transform(transform), Radii.Transform(transform), SweepAngle >= 180 ? 1 : 0, EndPoint.Transform(transform));
-            if (UseCenter)
-            {
-                dString += string.Format(" L {0} L {1}", Center, StartPoint);
-            }
-            element.Add(new XElement(Util.SvgName("path"),
-                new XAttribute("d", dString)));
         }
     }
 }

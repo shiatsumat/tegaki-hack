@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="PaintOptions">Zeichnungsoptionen</string>
-  <string name="StrokeColor">Strichfarbe</string>
+  <string name="LineColor">Linienfarbe</string>
   <string name="FillColor">Füllfarbe</string>
-  <string name="LineWidth">Strichbreite</string>
-  <string name="LineCapJoin">Strichende und Strichecke</string>
-  <string name="LineCap">Strichende</string>
+  <string name="LineWidth">Linienbreite</string>
+  <string name="LineCapJoin">Linienende und Linienecke</string>
+  <string name="LineCap">Linienende</string>
   <string-array name="LineCaps">
     <item>Flach</item>
     <item>Abgerundet</item>
     <item>Quadratisch</item>
   </string-array>
-  <string name="LineJoin">Strichecke</string>
+  <string name="LineJoin">Linienecke</string>
   <string-array name="LineJoins">
     <item>Scharf</item>
     <item>Abgerundet</item>

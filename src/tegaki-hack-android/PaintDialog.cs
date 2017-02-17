@@ -2,17 +2,18 @@ using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.Widget;
+using Android.Views;
 
 namespace tegaki_hack
 {
     public class PaintDialog
     {
+        View view;
         AlertDialog dialog;
-
         Paint paint;
 
         ExtensibleView colorSample;
-        ColorSetter strokeColor, fillColor;
+        ColorSetter lineColor, fillColor;
         SizeSetter lineWidth;
 
         ExtensibleView lineCapJoinSample;
@@ -24,18 +25,29 @@ namespace tegaki_hack
 
         public PaintDialog(Activity activity, Action<Paint> ok)
         {
-            var view = activity.LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
-
+            InitializeView(activity);
+            InitializeColors();
+            InitializeLineWidth();
+            InitializeLineCapJoin();
+            InitializeFillRule();
+            InitializeDialog(activity, ok);
+        }
+        void InitializeView(Activity activity)
+        {
+            view = activity.LayoutInflater.Inflate(Resource.Layout.PaintDialog, null);
+        }
+        void InitializeColors()
+        {
             colorSample = view.FindViewById<ExtensibleView>(Resource.Id.ColorSample);
             colorSample.Drawing += (canvas) =>
             {
                 paint.ColorSample().Draw(canvas,
                     new Transform<Internal, External>(canvas.Width / 100.0f));
             };
-            strokeColor = view.FindViewById<ColorSetter>(Resource.Id.StrokeColor);
-            strokeColor.ColorChanged += () =>
+            lineColor = view.FindViewById<ColorSetter>(Resource.Id.LineColor);
+            lineColor.ColorChanged += () =>
             {
-                paint.StrokeColor = strokeColor.Color;
+                paint.LineColor = lineColor.Color;
                 colorSample.Invalidate();
             };
             fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
@@ -44,13 +56,17 @@ namespace tegaki_hack
                 paint.FillColor = fillColor.Color;
                 colorSample.Invalidate();
             };
-
+        }
+        void InitializeLineWidth()
+        {
             lineWidth = view.FindViewById<SizeSetter>(Resource.Id.LineWidth);
             lineWidth.SizeChanged += () =>
             {
                 paint.LineWidth = lineWidth.Size;
             };
-
+        }
+        void InitializeLineCapJoin()
+        {
             lineCapJoinSample = view.FindViewById<ExtensibleView>(Resource.Id.LineCapJoinSample);
             lineCapJoinSample.Drawing += (canvas) =>
             {
@@ -69,7 +85,6 @@ namespace tegaki_hack
                 paint.LineJoin = (LineJoin)lineJoin.SelectedItemPosition;
                 lineCapJoinSample.Invalidate();
             };
-
             miterLimitDeci = view.FindViewById<NumberPicker>(Resource.Id.MiterLimitDeci);
             miterLimitDeci.MinValue = 0;
             miterLimitDeci.MaxValue = 1000;
@@ -84,7 +99,9 @@ namespace tegaki_hack
             {
                 paint.MiterLimit = miterLimitDeci.Value / 10.0f;
             };
-
+        }
+        void InitializeFillRule()
+        {
             fillRuleSample = view.FindViewById<ExtensibleView>(Resource.Id.FillRuleSample);
             fillRule = view.FindViewById<Spinner>(Resource.Id.FillRule);
             fillRuleSample.Drawing += (canvas) =>
@@ -97,7 +114,9 @@ namespace tegaki_hack
                 paint.FillRule = (FillRule)fillRule.SelectedItemPosition;
                 fillRuleSample.Invalidate();
             };
-
+        }
+        void InitializeDialog(Activity activity, Action<Paint> ok)
+        {
             dialog = Util.CreateDialog(activity, Resource.String.PaintOptions, view,
                 () => ok?.Invoke(paint), null);
         }
@@ -105,7 +124,7 @@ namespace tegaki_hack
         public void Show(Paint paint)
         {
             this.paint = new Paint(paint);
-            strokeColor.Color = paint.StrokeColor;
+            lineColor.Color = paint.LineColor;
             fillColor.Color = paint.FillColor;
             lineWidth.Size = paint.LineWidth;
             lineCap.SetSelection((int)paint.LineCap);

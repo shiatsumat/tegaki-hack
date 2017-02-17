@@ -33,14 +33,14 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp">
                     <TextView
-                        android:text="@string/StrokeColor"
+                        android:text="@string/LineColor"
                         android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center" />
                     <tegaki_hack.ColorSetter
-                        android:id="@+id/StrokeColor"
+                        android:id="@+id/LineColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

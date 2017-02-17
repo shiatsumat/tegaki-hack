@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="PaintOptions">Paint options</string>
-  <string name="StrokeColor">Stroke color</string>
+  <string name="LineColor">Line color</string>
   <string name="FillColor">Fill color</string>
-  <string name="LineWidth">Stroke width</string>
+  <string name="LineWidth">Line width</string>
   <string name="LineCapJoin">Line cap and line join</string>
   <string name="LineCap">Line cap</string>
   <string-array name="LineCaps">
-    <item>Butt</item>
+    <item>Flat</item>
     <item>Round</item>
     <item>Square</item>
   </string-array>

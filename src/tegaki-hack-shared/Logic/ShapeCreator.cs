@@ -17,7 +17,9 @@ namespace tegaki_hack
                 case EShapeCreator.None:
                     return null;
                 case EShapeCreator.Freehand:
-                    return new FreehandCreator();
+                    return new FreehandCreator(false);
+                case EShapeCreator.ClosedFreehand:
+                    return new FreehandCreator(true);
                 case EShapeCreator.Line:
                     return new LineCreator();
                 case EShapeCreator.Polyline:
@@ -29,9 +31,9 @@ namespace tegaki_hack
                 case EShapeCreator.Ellipse:
                     return new EllipseCreator();
                 case EShapeCreator.Square:
-                    return new SquareCreator();
+                    return new RectangleCreator(true);
                 case EShapeCreator.Rectangle:
-                    return new RectangleCreator();
+                    return new RectangleCreator(false);
                 case EShapeCreator.RegularPolygon:
                     return new RegularPolygonCreator();
                 case EShapeCreator.Polygon:
@@ -49,7 +51,7 @@ namespace tegaki_hack
     public enum EShapeCreator
     {
         None,
-        Freehand,
+        Freehand, ClosedFreehand,
         Line, Polyline, Arc,
         Circle, Ellipse, Rectangle, Square, RegularPolygon, Polygon,
         Text, FancyText
@@ -81,34 +83,34 @@ namespace tegaki_hack
     public partial class Adjustment
     {
         public CoordinateAdjustment XAdjustment, YAdjustment;
-        public bool AdjustAngle;
+        public bool DoesAdjustAngle;
         public int RightAngleDivision;
-        public bool AdjustLength;
+        public bool DoesAdjustLength;
         public bool AngleAdjustmentAvailable =>
                 XAdjustment == CoordinateAdjustment.None ||
                 YAdjustment == CoordinateAdjustment.None;
         public bool LengthAdjustmentAvailable => Util.ZeroOrOne(
                 XAdjustment != CoordinateAdjustment.None,
                 YAdjustment != CoordinateAdjustment.None,
-                AdjustAngle);
+                DoesAdjustAngle);
 
         public Adjustment()
         {
             XAdjustment = CoordinateAdjustment.Integer;
             YAdjustment = CoordinateAdjustment.Integer;
-            AdjustAngle = false;
+            DoesAdjustAngle = false;
             RightAngleDivision = 6;
-            AdjustLength = false;
+            DoesAdjustLength = false;
         }
         public Adjustment(CoordinateAdjustment xAdjustment, CoordinateAdjustment yAdjustment,
             bool doesAdjustAngle, int rightAngleDivision, bool doesAdjustLength)
         {
             XAdjustment = xAdjustment; YAdjustment = yAdjustment;
-            AdjustAngle = doesAdjustAngle; RightAngleDivision = rightAngleDivision; AdjustLength = doesAdjustLength;
+            DoesAdjustAngle = doesAdjustAngle; RightAngleDivision = rightAngleDivision; DoesAdjustLength = doesAdjustLength;
         }
         public Adjustment(Adjustment adjustment)
             : this(adjustment.XAdjustment, adjustment.YAdjustment,
-                 adjustment.AdjustAngle, adjustment.RightAngleDivision, adjustment.AdjustLength)
+                 adjustment.DoesAdjustAngle, adjustment.RightAngleDivision, adjustment.DoesAdjustLength)
         { }
 
         public bool Equals(Adjustment adjustment)
@@ -116,9 +118,9 @@ namespace tegaki_hack
             return
                 XAdjustment == adjustment.XAdjustment &&
                 YAdjustment == adjustment.YAdjustment &&
-                AdjustAngle == adjustment.AdjustAngle &&
+                DoesAdjustAngle == adjustment.DoesAdjustAngle &&
                 RightAngleDivision == adjustment.RightAngleDivision &&
-                AdjustLength == adjustment.AdjustLength;
+                DoesAdjustLength == adjustment.DoesAdjustLength;
         }
 
         public Point<Internal> Adjust(Point<Internal> p)
@@ -136,51 +138,54 @@ namespace tegaki_hack
         public Point<Internal> Adjust(Point<Internal> p, Point<Internal> prev)
         {
             p = Adjust(p);
-            var v = p - prev;
-            if (v.Norm < Util.EPS) return p;
+            if (p.DistanceTo(prev) < Util.EPS) return p;
             if (XAdjustment == CoordinateAdjustment.None || YAdjustment == CoordinateAdjustment.None)
             {
-                if (AdjustAngle)
-                {
-                    var angleUnit = 90.0f / RightAngleDivision;
-                    var polar = Complex.Polar((float)Math.Round(v.Arg / angleUnit) * angleUnit);
-                    float ratio = 0;
-                    if (XAdjustment != CoordinateAdjustment.None)
-                    {
-                        if (polar.Re < Util.EPS) return p;
-                        ratio = v.Dx / polar.Re;
-                    }
-                    else if (YAdjustment != CoordinateAdjustment.None)
-                    {
-                        if (polar.Im < Util.EPS) return p;
-                        ratio = v.Dy / polar.Im;
-                    }
-                    else if (!AdjustLength) ratio = Math.Abs(v.Dx) > Math.Abs(v.Dy) ? v.Dx / polar.Re : v.Dy / polar.Im;
-                    else ratio = (float)Math.Round(v.Norm) / polar.Norm;
-                    return prev + new DPoint<Internal>(polar * ratio);
-                }
-                else if (AdjustLength)
-                {
-                    var l = (float)Math.Round(v.Norm);
-                    if (XAdjustment != CoordinateAdjustment.None)
-                    {
-                        if (Math.Abs(v.Dx) < l) l++;
-                        v.Dy = v.Dy.AdjustAbs((float)Math.Sqrt(l * l - v.Dx * v.Dx));
-                        return prev + v;
-                    }
-                    else if (YAdjustment != CoordinateAdjustment.None)
-                    {
-                        if (Math.Abs(v.Dy) < l) l++;
-                        v.Dx = v.Dx.AdjustAbs((float)Math.Sqrt(l * l - v.Dy * v.Dy));
-                        return prev + v;
-                    }
-                    else
-                    {
-                        return prev + v * l / v.Norm;
-                    }
-                }
+                if (DoesAdjustAngle) return AdjustAngle(p, prev);
+                else if (DoesAdjustLength) return AdjustLength(p, prev);
             }
             return p;
+        }
+        Point<Internal> AdjustAngle(Point<Internal> p, Point<Internal> prev)
+        {
+            var v = p - prev;
+            var angleUnit = 90.0f / RightAngleDivision;
+            var polar = Complex.Polar((float)Math.Round(v.Arg / angleUnit) * angleUnit);
+            float ratio = 0;
+            if (XAdjustment != CoordinateAdjustment.None)
+            {
+                if (polar.Re < Util.EPS) return p;
+                ratio = v.Dx / polar.Re;
+            }
+            else if (YAdjustment != CoordinateAdjustment.None)
+            {
+                if (polar.Im < Util.EPS) return p;
+                ratio = v.Dy / polar.Im;
+            }
+            else if (!DoesAdjustLength) ratio = Math.Abs(v.Dx) > Math.Abs(v.Dy) ? v.Dx / polar.Re : v.Dy / polar.Im;
+            else ratio = (float)Math.Round(v.Norm) / polar.Norm;
+            return prev + new DPoint<Internal>(polar * ratio);
+        }
+        Point<Internal> AdjustLength(Point<Internal> p, Point<Internal> prev)
+        {
+            var v = p - prev;
+            var l = (float)Math.Round(v.Norm);
+            if (XAdjustment != CoordinateAdjustment.None)
+            {
+                if (Math.Abs(v.Dx) < l) l++;
+                v.Dy = v.Dy.AdjustAbs((float)Math.Sqrt(l * l - v.Dx * v.Dx));
+                return prev + v;
+            }
+            else if (YAdjustment != CoordinateAdjustment.None)
+            {
+                if (Math.Abs(v.Dy) < l) l++;
+                v.Dx = v.Dx.AdjustAbs((float)Math.Sqrt(l * l - v.Dy * v.Dy));
+                return prev + v;
+            }
+            else
+            {
+                return prev + v * l / v.Norm;
+            }
         }
     }
 
@@ -211,12 +216,12 @@ namespace tegaki_hack
                         prev = p;
                         StartDrag(p);
                     }
-                    else if (prev.distance(p) > Util.EPS) MoveDrag(p);
+                    else if (prev.DistanceTo(p) > Util.EPS) MoveDrag(p);
                     break;
                 case TouchEvent.Up:
                     if (dragging)
                     {
-                        if (prev.distance(p) > Util.EPS) MoveDrag(p);
+                        if (prev.DistanceTo(p) > Util.EPS) MoveDrag(p);
                         dragging = false;
                         EndDrag();
                     }
@@ -253,14 +258,20 @@ namespace tegaki_hack
 
     public partial class FreehandCreator : AShapeCreator
     {
+        bool closed;
         Polyline polyline;
 
+        public FreehandCreator(bool closed)
+        {
+            this.closed = closed;
+        }
         protected override IShape Finish()
         {
             if (polyline == null) return null;
-            var oldpolyline = polyline;
+            var res = polyline;
             polyline = null;
-            return oldpolyline.Points.Count >= 2 ? oldpolyline : null;
+            res.Closed = closed;
+            return res.Points.Count >= 2 ? res : null;
         }
         protected override void StartDrag(Point<Internal> p)
         {
@@ -396,7 +407,7 @@ namespace tegaki_hack
         {
             if (from != null && to != null)
             {
-                circle = new Circle(Settings.Paint, from.Value, new SizeEither(from.Value.distance(to.Value), true));
+                circle = new Circle(Settings.Paint, from.Value, new SizeEither(from.Value.DistanceTo(to.Value), true));
             }
         }
         public override void Draw(Canvas canvas, Transform<Internal, External> transform)
@@ -434,37 +445,15 @@ namespace tegaki_hack
         }
     }
 
-    public partial class SquareCreator : TwoPointCreator
-    {
-        Polyline polyline;
-
-        protected override IShape Finish()
-        {
-            return Util.Nulling(ref polyline);
-        }
-        protected override void Set()
-        {
-            if (from != null && to != null)
-            {
-                var upperleft = from.Value;
-                var v = to.Value - from.Value;
-                float l = Math.Max(Math.Abs(v.Dx), Math.Abs(v.Dy));
-                var lowerright = from.Value + new DPoint<Internal>(v.Dx.AdjustAbs(l), v.Dy.AdjustAbs(l));
-                var lowerleft = new Point<Internal>(upperleft.X, lowerright.Y);
-                var upperright = new Point<Internal>(lowerright.X, upperleft.Y);
-                polyline = new Polyline(Settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);
-            }
-        }
-        public override void Draw(Canvas canvas, Transform<Internal, External> transform)
-        {
-            polyline?.Draw(canvas, transform);
-        }
-    }
-
     public partial class RectangleCreator : TwoPointCreator
     {
+        bool square;
         Polyline polyline;
 
+        public RectangleCreator(bool square)
+        {
+            this.square = square;
+        }
         protected override IShape Finish()
         {
             return Util.Nulling(ref polyline);
@@ -474,7 +463,14 @@ namespace tegaki_hack
             if (from != null && to != null)
             {
                 var upperleft = from.Value;
-                var lowerright = to.Value;
+                Point<Internal> lowerright;
+                if (!square) lowerright = to.Value;
+                else
+                {
+                    var v = to.Value - from.Value;
+                    float l = Math.Max(Math.Abs(v.Dx), Math.Abs(v.Dy));
+                    lowerright = from.Value + new DPoint<Internal>(v.Dx.AdjustAbs(l), v.Dy.AdjustAbs(l));
+                }
                 var lowerleft = new Point<Internal>(upperleft.X, lowerright.Y);
                 var upperright = new Point<Internal>(lowerright.X, upperleft.Y);
                 polyline = new Polyline(Settings.Paint, Util.NewList(upperleft, lowerleft, lowerright, upperright), true);

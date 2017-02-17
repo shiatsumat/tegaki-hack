@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="PaintOptions">Options de peinture</string>
-  <string name="StrokeColor">Couleur du trait</string>
+  <string name="LineColor">Couleur du ligne</string>
   <string name="FillColor">Couleur de remplissage</string>
-  <string name="LineWidth">Largeur du trait</string>
+  <string name="LineWidth">Largeur du ligne</string>
   <string name="LineCapJoin">Bout et coin de ligne</string>
   <string name="LineCap">Bout de ligne</string>
   <string-array name="LineCaps">

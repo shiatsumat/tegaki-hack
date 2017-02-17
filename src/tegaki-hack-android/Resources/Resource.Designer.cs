@@ -85,55 +85,58 @@ namespace tegaki_hack
 			public const int ClearIcon = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int DashedCircumference = 2130837508;
+			public const int ClosedFreehandIcon = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int Ellipse = 2130837509;
+			public const int DashedCircumference = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int EllipseIcon = 2130837510;
+			public const int Ellipse = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int FancyTextIcon = 2130837511;
+			public const int EllipseIcon = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int FreehandIcon = 2130837512;
+			public const int FancyTextIcon = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int Icon = 2130837513;
+			public const int FreehandIcon = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int LineIcon = 2130837514;
+			public const int Icon = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int PaintIcon = 2130837515;
+			public const int LineIcon = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int PolygonIcon = 2130837516;
+			public const int PaintIcon = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int PolylineIcon = 2130837517;
+			public const int PolygonIcon = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int RectangleIcon = 2130837518;
+			public const int PolylineIcon = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int RedoIcon = 2130837519;
+			public const int RectangleIcon = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int RegularPolygonIcon = 2130837520;
+			public const int RedoIcon = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int SaveIcon = 2130837521;
+			public const int RegularPolygonIcon = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int SquareIcon = 2130837522;
+			public const int SaveIcon = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int TextIcon = 2130837523;
+			public const int SquareIcon = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int UndoIcon = 2130837524;
+			public const int TextIcon = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int UndoIcon = 2130837525;
 			
 			static Drawable()
 			{
@@ -229,6 +232,9 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f070025
 			public const int LineCapJoinSample = 2131165221;
 			
+			// aapt resource value: 0x7f070022
+			public const int LineColor = 2131165218;
+			
 			// aapt resource value: 0x7f070027
 			public const int LineJoin = 2131165223;
 			
@@ -270,9 +276,6 @@ namespace tegaki_hack
 			
 			// aapt resource value: 0x7f07002d
 			public const int StartEdit = 2131165229;
-			
-			// aapt resource value: 0x7f070022
-			public const int StrokeColor = 2131165218;
 			
 			// aapt resource value: 0x7f07002e
 			public const int SvgDialogText = 2131165230;
@@ -375,6 +378,9 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f040010
 			public const int LineCapJoin = 2130968592;
 			
+			// aapt resource value: 0x7f04000d
+			public const int LineColor = 2130968589;
+			
 			// aapt resource value: 0x7f040012
 			public const int LineJoin = 2130968594;
 			
@@ -395,9 +401,6 @@ namespace tegaki_hack
 			
 			// aapt resource value: 0x7f040008
 			public const int RoundToInteger = 2130968584;
-			
-			// aapt resource value: 0x7f04000d
-			public const int StrokeColor = 2130968589;
 			
 			// aapt resource value: 0x7f040003
 			public const int UnitOfAngle = 2130968579;

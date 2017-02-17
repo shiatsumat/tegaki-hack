@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="PaintOptions">Opciones de pintura</string>
-  <string name="StrokeColor">Color del trazo</string>
+  <string name="LineColor">Color de línea</string>
   <string name="FillColor">Color de relleno</string>
-  <string name="LineWidth">Anchura del trazo</string>
+  <string name="LineWidth">Anchura de línea</string>
   <string name="LineCapJoin">Extremo et esquina de línea</string>
   <string name="LineCap">Extremo de línea</string>
   <string-array name="LineCaps">

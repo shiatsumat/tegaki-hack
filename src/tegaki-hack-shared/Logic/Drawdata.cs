@@ -159,7 +159,7 @@ namespace tegaki_hack
     public enum FillRule { EvenOdd, Nonzero }
     public partial class Paint
     {
-        public Color StrokeColor;
+        public Color LineColor;
         public Color FillColor;
 
         public SizeEither LineWidth;
@@ -211,18 +211,18 @@ namespace tegaki_hack
         }
 
         public Paint() { }
-        public Paint(Color strokeColor, Color fillColor,
+        public Paint(Color lineColor, Color fillColor,
             SizeEither lineWidth,
             LineCap lineCap = LineCap.Butt, LineJoin lineJoin = LineJoin.Miter, float miterLimit = 4,
             FillRule fillRule = FillRule.EvenOdd)
         {
-            StrokeColor = strokeColor; FillColor = fillColor;
+            LineColor = lineColor; FillColor = fillColor;
             LineWidth = lineWidth;
             LineCap = lineCap; LineJoin = lineJoin; MiterLimit = miterLimit;
             FillRule = fillRule;
         }
         public Paint(Paint paint)
-            : this(paint.StrokeColor, paint.FillColor,
+            : this(paint.LineColor, paint.FillColor,
                   paint.LineWidth,
                   paint.LineCap, paint.LineJoin, paint.MiterLimit,
                   paint.FillRule)
@@ -231,7 +231,7 @@ namespace tegaki_hack
         bool Equals(Paint paint)
         {
             return
-                StrokeColor.Equals(paint.StrokeColor) &&
+                LineColor.Equals(paint.LineColor) &&
                 LineWidth.Equals(paint.LineWidth) &&
                 FillColor.Equals(paint.FillColor) &&
                 LineCap == paint.LineCap &&
@@ -243,7 +243,7 @@ namespace tegaki_hack
         /* internally W 100 x H 100 */
         public IShape ColorSample()
         {
-            return new Circle(new Paint(StrokeColor, FillColor, new SizeEither(10.0f, true)),
+            return new Circle(new Paint(LineColor, FillColor, new SizeEither(10.0f, true)),
                 new Point<Internal>(50, 50), new SizeEither(40, true));
         }
 
@@ -283,16 +283,24 @@ namespace tegaki_hack
 
     public static partial class Drawdata
     {
-        public static XElement AddSvg(this XElement element, Paint paint, Transform<Internal, External> transform)
+        public static XElement AddSvg(this XElement element, Paint paint, bool fill, Transform<Internal, External> transform)
         {
             element.Add(
-                new XAttribute("stroke", paint.StrokeColor.RgbaFunctionString()),
+                new XAttribute("stroke", paint.LineColor.RgbaFunctionString()),
                 new XAttribute("stroke-width", paint.LineWidth.Transform(transform).ToString()),
-                new XAttribute("fill", paint.FillColor.RgbaFunctionString()),
                 new XAttribute("stroke-linecap", paint.LineCap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", paint.LineJoin.ToString().ToLower()),
-                new XAttribute("stroke-miterlimit", paint.MiterLimit),
-                new XAttribute("fill-rule", paint.FillRule.ToString().ToLower()));
+                new XAttribute("stroke-miterlimit", paint.MiterLimit));
+            if (fill)
+            {
+                element.Add(
+                    new XAttribute("fill", paint.FillColor.RgbaFunctionString()),
+                    new XAttribute("fill-rule", paint.FillRule.ToString().ToLower()));
+            }
+            else
+            {
+                element.Add(new XAttribute("fill", "none"));
+            }
             return element;
         }
     }

@@ -19,33 +19,37 @@ namespace tegaki_hack
         {
             if (Points.Count >= 2)
             {
-                var path = Paint.NewPath();
-                if (Bezier)
-                {
-                    var bezierinfo = Points.ToBezier(Closed).Transform(transform);
-                    path.MoveTo(bezierinfo.from.X, bezierinfo.from.Y);
-                    foreach (var controlto in bezierinfo.controltos)
-                    {
-                        path.CubicTo(
-                            controlto.Con.X, controlto.Con.Y,
-                            controlto.Trol.X, controlto.Trol.Y,
-                            controlto.To.X, controlto.To.Y);
-                    }
-                }
-                else
-                {
-                    var ps = Points.Transform(transform);
-                    for (int i = 0; i < ps.Count; i++)
-                    {
-                        var p = ps[i];
-                        if (i == 0) path.MoveTo(p.X, p.Y);
-                        else path.LineTo(p.X, p.Y);
-                    }
-                }
-                if (Closed) path.Close();
+                var path = Bezier ? BezierPath(transform) : NonBezierPath(transform);
                 if (Closed) canvas.DrawPath(path, Paint.FillPaint(transform));
                 canvas.DrawPath(path, Paint.StrokePaint(transform));
             }
+        }
+        Path BezierPath(Transform<Internal, External> transform)
+        {
+            var res = Paint.NewPath();
+            var bezierinfo = Points.ToBezier(Closed).Transform(transform);
+            res.MoveTo(bezierinfo.from.X, bezierinfo.from.Y);
+            foreach (var controlto in bezierinfo.controltos)
+            {
+                res.CubicTo(
+                    controlto.Con.X, controlto.Con.Y,
+                    controlto.Trol.X, controlto.Trol.Y,
+                    controlto.To.X, controlto.To.Y);
+            }
+            if (Closed) res.Close();
+            return res;
+        }
+        Path NonBezierPath(Transform<Internal, External> transform)
+        {
+            var ps = Points.Transform(transform);
+            var res = Paint.NewPath();
+            res.MoveTo(ps[0].X, ps[0].Y);
+            for (int i = 1; i < ps.Count; i++)
+            {
+                res.LineTo(ps[i].X, ps[i].Y);
+            }
+            if (Closed) res.Close();
+            return res;
         }
     }
 
@@ -57,28 +61,6 @@ namespace tegaki_hack
             var r = Radius.Transform(transform);
             canvas.DrawCircle(p.X, p.Y, r, Paint.FillPaint(transform));
             canvas.DrawCircle(p.X, p.Y, r, Paint.StrokePaint(transform));
-        }
-    }
-
-    public partial class Ellipse : IShape
-    {
-        public void Draw(Canvas canvas, Transform<Internal, External> transform)
-        {
-            var p = Center.Transform(transform);
-            var r = Radii.Transform(transform);
-            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.FillPaint(transform));
-            canvas.DrawOval(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, Paint.StrokePaint(transform));
-        }
-    }
-
-    public partial class EllipseArc : IShape
-    {
-        public void Draw(Canvas canvas, Transform<Internal, External> transform)
-        {
-            var p = Center.Transform(transform);
-            var r = Radii.Transform(transform);
-            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.FillPaint(transform));
-            canvas.DrawArc(p.X - r.Dx, p.Y - r.Dy, p.X + r.Dx, p.Y + r.Dy, StartAngle, SweepAngle, UseCenter, Paint.StrokePaint(transform));
         }
     }
 }

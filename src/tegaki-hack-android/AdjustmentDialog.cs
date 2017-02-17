@@ -2,14 +2,15 @@ using System;
 using Android.App;
 using Android.Widget;
 using Android.Content.Res;
+using Android.Views;
 using NativeColor = Android.Graphics.Color;
 
 namespace tegaki_hack
 {
     public class AdjustmentDialog
     {
+        View view;
         AlertDialog dialog;
-
         Adjustment adjustment;
 
         Spinner xAdjustment, yAdjustment;
@@ -19,8 +20,18 @@ namespace tegaki_hack
 
         public AdjustmentDialog(Activity activity, Action<Adjustment> ok)
         {
-            var view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
-
+            InitializeView(activity);
+            InitializeCoordinateAdjustments();
+            InitializeAngleAdjustment();
+            InitializeLengthAdjustment();
+            InitializeDialog(activity, ok);
+        }
+        void InitializeView(Activity activity)
+        {
+            view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
+        }
+        void InitializeCoordinateAdjustments()
+        {
             xAdjustment = view.FindViewById<Spinner>(Resource.Id.XAdjustment);
             xAdjustment.ItemSelected += (o, e) =>
             {
@@ -33,14 +44,15 @@ namespace tegaki_hack
                 adjustment.YAdjustment = (CoordinateAdjustment)yAdjustment.SelectedItemPosition;
                 SetAvailability();
             };
-
+        }
+        void InitializeAngleAdjustment()
+        {
             adjustAngle = view.FindViewById<CheckBox>(Resource.Id.AdjustAngle);
             adjustAngle.CheckedChange += (o, e) =>
             {
-                adjustment.AdjustAngle = adjustAngle.Checked;
+                adjustment.DoesAdjustAngle = adjustAngle.Checked;
                 SetAvailability();
             };
-
             rightAngleDivision = view.FindViewById<NumberPicker>(Resource.Id.RightAngleDivision);
             rightAngleDivision.MinValue = 1;
             rightAngleDivision.MaxValue = 90;
@@ -49,18 +61,21 @@ namespace tegaki_hack
             {
                 adjustment.RightAngleDivision = rightAngleDivision.Value;
             };
-
+        }
+        void InitializeLengthAdjustment()
+        {
             adjustLength = view.FindViewById<CheckBox>(Resource.Id.AdjustLength);
             adjustLength.CheckedChange += (o, e) =>
             {
-                adjustment.AdjustLength = adjustLength.Checked;
+                adjustment.DoesAdjustLength = adjustLength.Checked;
                 SetAvailability();
             };
-
+        }
+        void InitializeDialog(Activity activity,Action<Adjustment> ok)
+        {
             dialog = Util.CreateDialog(activity, Resource.String.AdjustmentOptions, view,
                () => ok(adjustment), null);
         }
-
         void SetAvailability()
         {
             adjustAngle.SetTextColor(adjustment.AngleAdjustmentAvailable ?
@@ -74,9 +89,9 @@ namespace tegaki_hack
             this.adjustment = new Adjustment(adjustment);
             xAdjustment.SetSelection((int)adjustment.XAdjustment);
             yAdjustment.SetSelection((int)adjustment.YAdjustment);
-            adjustAngle.Checked = adjustment.AdjustAngle;
+            adjustAngle.Checked = adjustment.DoesAdjustAngle;
             rightAngleDivision.Value = adjustment.RightAngleDivision;
-            adjustLength.Checked = adjustment.AdjustLength;
+            adjustLength.Checked = adjustment.DoesAdjustLength;
 
             dialog.Show();
         }

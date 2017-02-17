@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="PaintOptions">Параметр рисунка</string>
-  <string name="StrokeColor">Цвет обводки</string>
+  <string name="LineColor">Цвет линии</string>
   <string name="FillColor">Цвет заливки</string>
   <string name="LineWidth">Ширина линии</string>
   <string name="LineCapJoin">Конец и угол линии</string>

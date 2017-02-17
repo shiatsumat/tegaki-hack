@@ -20,6 +20,9 @@ namespace tegaki_hack
         Dictionary<EShapeCreator, int> icons;
         ImageButton adjustmentButton, paintButton;
 
+        AdjustmentDialog adjustmentDialog;
+        PaintDialog paintDialog;
+
         Bitmap secondBitmap;
         Canvas secondCanvas;
 
@@ -124,6 +127,7 @@ namespace tegaki_hack
             icons = new Dictionary<EShapeCreator, int>();
 
             icons[EShapeCreator.Freehand] = Resource.Drawable.FreehandIcon;
+            icons[EShapeCreator.ClosedFreehand] = Resource.Drawable.ClosedFreehandIcon;
 
             icons[EShapeCreator.Line] = Resource.Drawable.LineIcon;
             icons[EShapeCreator.Arc] = Resource.Drawable.ArcIcon;
@@ -189,16 +193,16 @@ namespace tegaki_hack
                 adjustmentButton.Activate(settings.DoesAdjust);
             };
 
-            var dialog = new AdjustmentDialog(activity, (adjustment) =>
+            adjustmentDialog = new AdjustmentDialog(activity, (adjustment) =>
             {
                 settings.Adjustment = adjustment;
             });
-            adjustmentButton.LongClick += (o, e) => dialog.Show(settings.Adjustment);
+            adjustmentButton.LongClick += (o, e) => adjustmentDialog.Show(settings.Adjustment);
         }
         void InitializePaint()
         {
             paintButton = activity.FindViewById<ImageButton>(Resource.Id.Paint);
-            var dialog = new PaintDialog(activity, (paint) =>
+            paintDialog = new PaintDialog(activity, (paint) =>
             {
                 if (!settings.Paint.Equals(paint))
                 {
@@ -206,7 +210,7 @@ namespace tegaki_hack
                     ResetShapeCreator();
                 }
             });
-            paintButton.Click += (o, e) => dialog.Show(settings.Paint);
+            paintButton.Click += (o, e) => paintDialog.Show(settings.Paint);
         }
 
         public void Destroy()
