@@ -4,18 +4,18 @@
   <string name="LineColor">線の色</string>
   <string name="FillColor">塗りつぶしの色</string>
   <string name="LineWidth">線の幅</string>
-  <string name="LineCapJoin">端点と頂点</string>
-  <string name="LineCap">端点</string>
+  <string name="LineCapJoin">端と角</string>
+  <string name="LineCap">端</string>
   <string-array name="LineCaps">
     <item>平ら</item>
     <item>丸</item>
     <item>正方形</item>
   </string-array>
-  <string name="LineJoin">頂点</string>
+  <string name="LineJoin">角</string>
   <string-array name="LineJoins">
     <item>鋭角</item>
     <item>丸</item>
-    <item>面取り</item>
+    <item>切る</item>
   </string-array>
   <string name="MiterLimit">鋭角限界長</string>
   <string name="FillRule">塗りつぶしの方法</string>

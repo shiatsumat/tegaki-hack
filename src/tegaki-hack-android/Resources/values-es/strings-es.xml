@@ -6,7 +6,7 @@
   <string name="RoundToInteger">Ronda a entero</string>
   <string name="Colors">Colores</string>
   <string name="CircleFamilyOptions">Opciones de familia de círculo</string>
-  <string name="NRegularPolygon">Número de vértices del polígono regular</string>
+  <string name="NRegularPolygon">Número de vértices de polígono regular</string>
   <string-array name="Perses">
     <item>Rejillas</item>
     <item>Píxeles</item>

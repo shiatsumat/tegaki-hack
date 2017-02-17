@@ -7,7 +7,7 @@
     <item>Inteiro</item>
     <item>Pontos existentes</item>
   </string-array>
-  <string name="AngleAdjustment">Ajuste do ângulo</string>
+  <string name="AngleAdjustment">Ajuste de ângulo</string>
   <string name="UnitOfAngle">Unidade de ângulo</string>
   <string name="LengthAdjustment">Ajuste de comprimento</string>
 </resources>

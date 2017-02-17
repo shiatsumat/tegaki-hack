@@ -6,7 +6,7 @@
   <string name="RoundToInteger">Arrondir à l\'entier</string>
   <string name="Colors">Couleurs</string>
   <string name="CircleFamilyOptions">Options de la famille de circle</string>
-  <string name="NRegularPolygon">Nombre de vertices du polygone régulier</string>
+  <string name="NRegularPolygon">Nombre de vertices de polygone régulier</string>
   <string-array name="Perses">
     <item>Grilles</item>
     <item>Pixels</item>

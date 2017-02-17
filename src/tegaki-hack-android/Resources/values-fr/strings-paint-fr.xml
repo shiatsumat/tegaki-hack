@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PaintOptions">Options de peinture</string>
-  <string name="LineColor">Couleur du ligne</string>
+  <string name="PaintOptions">Options de dessin</string>
+  <string name="LineColor">Couleur de ligne</string>
   <string name="FillColor">Couleur de remplissage</string>
-  <string name="LineWidth">Largeur du ligne</string>
-  <string name="LineCapJoin">Bout et coin de ligne</string>
-  <string name="LineCap">Bout de ligne</string>
+  <string name="LineWidth">Largeur de ligne</string>
+  <string name="LineCapJoin">Bout et coin</string>
+  <string name="LineCap">Bout</string>
   <string-array name="LineCaps">
     <item>Plat</item>
     <item>Rond</item>
     <item>Carré</item>
   </string-array>
-  <string name="LineJoin">Coin de ligne</string>
+  <string name="LineJoin">Coin</string>
   <string-array name="LineJoins">
     <item>Aigu</item>
     <item>Rond</item>

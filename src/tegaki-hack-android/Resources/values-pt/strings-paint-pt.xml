@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PaintOptions">Opções de pintura</string>
+  <string name="PaintOptions">Opções de desenho</string>
   <string name="LineColor">Cor de linha</string>
   <string name="FillColor">Cor de preenchimento</string>
   <string name="LineWidth">Largura de linha</string>
-  <string name="LineCapJoin">Tampa e canto de linha</string>
-  <string name="LineCap">Tampa de linha</string>
+  <string name="LineCapJoin">Tampa e canto</string>
+  <string name="LineCap">Tampa</string>
   <string-array name="LineCaps">
     <item>Plana</item>
     <item>Redonda</item>
     <item>Quadrada </item>
   </string-array>
-  <string name="LineJoin">Canto de linha</string>
+  <string name="LineJoin">Canto</string>
   <string-array name="LineJoins">
     <item>Agudo</item>
     <item>Redondo</item>

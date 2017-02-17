@@ -4,14 +4,14 @@
   <string name="LineColor">Linienfarbe</string>
   <string name="FillColor">Füllfarbe</string>
   <string name="LineWidth">Linienbreite</string>
-  <string name="LineCapJoin">Linienende und Linienecke</string>
-  <string name="LineCap">Linienende</string>
+  <string name="LineCapJoin">Ende und Ecke</string>
+  <string name="LineCap">Ende</string>
   <string-array name="LineCaps">
     <item>Flach</item>
     <item>Abgerundet</item>
     <item>Quadratisch</item>
   </string-array>
-  <string name="LineJoin">Linienecke</string>
+  <string name="LineJoin">Ecke</string>
   <string-array name="LineJoins">
     <item>Scharf</item>
     <item>Abgerundet</item>

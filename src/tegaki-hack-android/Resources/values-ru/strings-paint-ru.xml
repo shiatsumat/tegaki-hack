@@ -4,14 +4,14 @@
   <string name="LineColor">Цвет линии</string>
   <string name="FillColor">Цвет заливки</string>
   <string name="LineWidth">Ширина линии</string>
-  <string name="LineCapJoin">Конец и угол линии</string>
-  <string name="LineCap">Конец линии</string>
+  <string name="LineCapJoin">Конец и угол</string>
+  <string name="LineCap">Конец</string>
   <string-array name="LineCaps">
     <item>Плоский</item>
     <item>Круглый</item>
     <item>Квадратный</item>
   </string-array>
-  <string name="LineJoin">Угол линии</string>
+  <string name="LineJoin">Угол</string>
   <string-array name="LineJoins">
     <item>Острый</item>
     <item>Круглый</item>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="PleaseWait">Attendere prego</string>
+  <string name="Enable">Abilitare</string>
+  <string name="Edit">Modificare</string>
+  <string name="RoundToInteger">Arrotondato al numero intero</string>
+  <string name="Colors">Colori</string>
+  <string name="CircleFamilyOptions">Opzioni di famiglia di cerchio</string>
+  <string name="NRegularPolygon">Numero di vertici di poligono regolare</string>
+  <string-array name="Perses">
+    <item>Griglie</item>
+    <item>Pixel</item>
+  </string-array>
+</resources>

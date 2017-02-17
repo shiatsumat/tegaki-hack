@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PaintOptions">Paint options</string>
+  <string name="PaintOptions">Drawing options</string>
   <string name="LineColor">Line color</string>
   <string name="FillColor">Fill color</string>
   <string name="LineWidth">Line width</string>
-  <string name="LineCapJoin">Line cap and line join</string>
-  <string name="LineCap">Line cap</string>
+  <string name="LineCapJoin">End and corner</string>
+  <string name="LineCap">End</string>
   <string-array name="LineCaps">
     <item>Flat</item>
     <item>Round</item>
     <item>Square</item>
   </string-array>
-  <string name="LineJoin">Line join</string>
+  <string name="LineJoin">Corner</string>
   <string-array name="LineJoins">
     <item>Miter</item>
     <item>Round</item>

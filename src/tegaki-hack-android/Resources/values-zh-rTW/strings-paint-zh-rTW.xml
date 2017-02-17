@@ -4,7 +4,7 @@
   <string name="LineColor">線色</string>
   <string name="FillColor">填色</string>
   <string name="LineWidth">線的寬度</string>
-  <string name="LineCapJoin">線帽和邊角</string>
+  <string name="LineCapJoin">線端和邊角</string>
   <string name="LineCap">線帽</string>
   <string-array name="LineCaps">
     <item>平直</item>
