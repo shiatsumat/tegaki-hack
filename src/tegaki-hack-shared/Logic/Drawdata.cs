@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace tegaki_hack
@@ -257,12 +258,45 @@ namespace tegaki_hack
                 new Point<Internal>(90, 10),
                 new Point<Internal>(140, 10));
             var polylineBack = new Polyline(
-                new Drawing(Color.ByRgba(0x808080FF), Color.Transparent, new SizeEither(10.0f, true), LineCap, LineJoin),
+                new Drawing(Color.ByRgba(0x808080FF), Color.Transparent, new SizeEither(10.0f, true),
+                    LineCap, LineJoin),
                 points);
             var polylineFront = new Polyline(
                 new Drawing(Color.ByRgba(0xFFFFFFFF), Color.Transparent, new SizeEither(1.0f, true)),
                 points);
             return new ShapeGroup(new IShape[] { polylineBack, polylineFront });
+        }
+
+        /* internally W 150 x H 150 */
+        public IShape MiterLimitSample()
+        {
+            var pointss = new List<Point<Internal>>[]
+            {
+                Util.NewList<Point<Internal>>(
+                    new Point<Internal>(10, 10),
+                    new Point<Internal>(50, 25),
+                    new Point<Internal>(10, 40)),
+                Util.NewList<Point<Internal>>(
+                    new Point<Internal>(10, 60),
+                    new Point<Internal>(75, 75),
+                    new Point<Internal>(10, 90)),
+                Util.NewList<Point<Internal>>(
+                    new Point<Internal>(10, 110),
+                    new Point<Internal>(100, 125),
+                    new Point<Internal>(10, 140))
+            };
+            var shapes = new List<IShape>();
+            foreach (var points in pointss)
+            {
+                shapes.Add(new Polyline(
+                    new Drawing(Color.ByRgba(0x808080FF), Color.Transparent, new SizeEither(15.0f, true),
+                        LineCap.Butt, LineJoin.Miter, MiterLimit),
+                    points));
+                shapes.Add(new Polyline(
+                    new Drawing(Color.ByRgba(0xFFFFFFFF), Color.Transparent, new SizeEither(1.0f, true)),
+                    points));
+            }
+            return new ShapeGroup(shapes.ToArray());
         }
 
         /* internally W 150 x H 100 */
@@ -285,22 +319,27 @@ namespace tegaki_hack
     {
         public static XElement AddSvg(this XElement element, Drawing drawing, bool fill, Transform<Internal, External> transform)
         {
+            element.AddStrokeSvg(drawing, transform);
+            element.AddFillSvg(drawing, fill);
+            return element;
+        }
+        static XElement AddStrokeSvg(this XElement element, Drawing drawing, Transform<Internal, External> transform)
+        {
             element.Add(
                 new XAttribute("stroke", drawing.LineColor.RgbaFunctionString()),
                 new XAttribute("stroke-width", drawing.LineWidth.Transform(transform).ToString()),
                 new XAttribute("stroke-linecap", drawing.LineCap.ToString().ToLower()),
                 new XAttribute("stroke-linejoin", drawing.LineJoin.ToString().ToLower()),
                 new XAttribute("stroke-miterlimit", drawing.MiterLimit));
+            return element;
+        }
+        static XElement AddFillSvg(this XElement element, Drawing drawing, bool fill)
+        {
             if (fill)
-            {
                 element.Add(
                     new XAttribute("fill", drawing.FillColor.RgbaFunctionString()),
                     new XAttribute("fill-rule", drawing.FillRule.ToString().ToLower()));
-            }
-            else
-            {
-                element.Add(new XAttribute("fill", "none"));
-            }
+            else element.Add(new XAttribute("fill", "none"));
             return element;
         }
     }

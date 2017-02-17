@@ -15,9 +15,9 @@
   <string-array name="LineJoins">
     <item>Aguda</item>
     <item>Redonda</item>
-    <item>Biselada</item>
+    <item>Obtusa</item>
   </string-array>
-  <string name="MiterLimit">Longitud máxima de inglete</string>
+  <string name="MiterLimit">Longitud máxima de espina</string>
   <string name="FillRule">Regla de relleno</string>
   <string-array name="FillRules">
     <item>Par-impar</item>

@@ -118,12 +118,26 @@ namespace tegaki_hack
         }
         void InitializeShapes()
         {
+            InitializeShapeButtons();
+            InitializeIcons();
+        }
+        void InitializeShapeButtons()
+        {
             shapeButtons = new Dictionary<EShapeCreatorFamily, ImageButton>();
             shapeButtons[EShapeCreatorFamily.Freehand] = activity.FindViewById<ImageButton>(Resource.Id.Freehand);
             shapeButtons[EShapeCreatorFamily.Line] = activity.FindViewById<ImageButton>(Resource.Id.Line);
             shapeButtons[EShapeCreatorFamily.Circle] = activity.FindViewById<ImageButton>(Resource.Id.Circle);
             shapeButtons[EShapeCreatorFamily.Text] = activity.FindViewById<ImageButton>(Resource.Id.Text);
-
+            foreach (var key in shapeButtons.Keys)
+            {
+                shapeButtons[key].Click += (o, e) =>
+                {
+                    ToggleShapeCreatorFamily(key);
+                };
+            }
+        }
+        void InitializeIcons()
+        {
             icons = new Dictionary<EShapeCreator, int>();
 
             icons[EShapeCreator.Freehand] = Resource.Drawable.FreehandIcon;
@@ -142,14 +156,6 @@ namespace tegaki_hack
 
             icons[EShapeCreator.Text] = Resource.Drawable.TextIcon;
             icons[EShapeCreator.FancyText] = Resource.Drawable.FancyTextIcon;
-
-            foreach (var key in shapeButtons.Keys)
-            {
-                shapeButtons[key].Click += (o, e) =>
-                {
-                    ToggleShapeCreatorFamily(key);
-                };
-            }
         }
         void InitializeCircle()
         {

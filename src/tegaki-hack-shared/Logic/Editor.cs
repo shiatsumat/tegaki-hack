@@ -25,6 +25,13 @@ namespace tegaki_hack
 
         void InitializeFirst()
         {
+            InitializeShapeDictionary();
+            InitializeLists();
+            InitializeStates();
+            InitializeSettings();
+        }
+        void InitializeShapeDictionary()
+        {
             shapeDictionary = new Dictionary<EShapeCreatorFamily, EShapeCreator[]>();
             shapeDictionary[EShapeCreatorFamily.Freehand]
                 = new EShapeCreator[] { EShapeCreator.Freehand, EShapeCreator.ClosedFreehand };
@@ -34,11 +41,27 @@ namespace tegaki_hack
                 = new EShapeCreator[] { EShapeCreator.Circle, EShapeCreator.Ellipse, EShapeCreator.Square, EShapeCreator.Rectangle, EShapeCreator.RegularPolygon, EShapeCreator.Polygon };
             shapeDictionary[EShapeCreatorFamily.Text]
                 = new EShapeCreator[] { EShapeCreator.Text, EShapeCreator.FancyText };
-
+        }
+        void InitializeLists()
+        {
             drawnShapes = new List<IShape>();
             undrawnShapes = application.savedShapes == null ? new List<IShape>() : application.savedShapes;
             redoShapes = new List<IShape>();
+        }
+        void InitializeStates()
+        {
+            shapes = new Dictionary<EShapeCreatorFamily, int>();
+            shapes[EShapeCreatorFamily.Freehand] = 0;
+            shapes[EShapeCreatorFamily.Line] = 0;
+            shapes[EShapeCreatorFamily.Circle] = 0;
+            shapes[EShapeCreatorFamily.Text] = 0;
+            eShapeCreatorFamily = EShapeCreatorFamily.Freehand;
+            ChangeShapeCreator(EShapeCreator.Freehand);
 
+            size = new DPoint<Internal>(30, 30);
+        }
+        void InitializeSettings()
+        {
             settings = new ShapeCreatorSettings(() =>
             {
                 redoShapes.Clear();
@@ -53,16 +76,6 @@ namespace tegaki_hack
                 }
                 Redisplay();
             });
-
-            shapes = new Dictionary<EShapeCreatorFamily, int>();
-            shapes[EShapeCreatorFamily.Freehand] = 0;
-            shapes[EShapeCreatorFamily.Line] = 0;
-            shapes[EShapeCreatorFamily.Circle] = 0;
-            shapes[EShapeCreatorFamily.Text] = 0;
-            eShapeCreatorFamily = EShapeCreatorFamily.Freehand;
-            ChangeShapeCreator(EShapeCreator.Freehand);
-
-            size = new DPoint<Internal>(10, 10);
         }
 
         void InitializeLast()

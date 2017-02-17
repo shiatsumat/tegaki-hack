@@ -15,9 +15,9 @@
   <string-array name="LineJoins">
     <item>Острый</item>
     <item>Круглый</item>
-    <item>Скошенный</item>
+    <item>Тупой</item>
   </string-array>
-  <string name="MiterLimit">Максимальная длина митры</string>
+  <string name="MiterLimit">Максимальная длина шипа</string>
   <string name="FillRule">Правило заливки</string>
   <string-array name="FillRules">
     <item>Даже-нечетное</item>

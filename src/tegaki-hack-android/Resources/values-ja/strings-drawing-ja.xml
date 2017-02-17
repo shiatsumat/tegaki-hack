@@ -8,16 +8,16 @@
   <string name="LineCap">端</string>
   <string-array name="LineCaps">
     <item>平ら</item>
-    <item>丸</item>
+    <item>丸い</item>
     <item>正方形</item>
   </string-array>
   <string name="LineJoin">角</string>
   <string-array name="LineJoins">
-    <item>鋭角</item>
-    <item>丸</item>
-    <item>切る</item>
+    <item>鋭い</item>
+    <item>丸い</item>
+    <item>鈍い</item>
   </string-array>
-  <string name="MiterLimit">鋭角限界長</string>
+  <string name="MiterLimit">トゲの最大長</string>
   <string name="FillRule">塗りつぶしの方法</string>
   <string-array name="FillRules">
     <item>偶奇</item>

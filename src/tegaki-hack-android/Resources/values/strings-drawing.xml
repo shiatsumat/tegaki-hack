@@ -13,11 +13,11 @@
   </string-array>
   <string name="LineJoin">Corner</string>
   <string-array name="LineJoins">
-    <item>Miter</item>
+    <item>Sharp</item>
     <item>Round</item>
-    <item>Bevel</item>
+    <item>Obtuse</item>
   </string-array>
-  <string name="MiterLimit">Maximum length of miter</string>
+  <string name="MiterLimit">Maximum length of thorn</string>
   <string name="FillRule">Fill rule</string>
   <string-array name="FillRules">
     <item>Even-odd</item>

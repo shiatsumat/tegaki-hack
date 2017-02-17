@@ -15,9 +15,9 @@
   <string-array name="LineJoins">
     <item>Agudo</item>
     <item>Redondo</item>
-    <item>Recortado</item>
+    <item>Obtuso</item>
   </string-array>
-  <string name="MiterLimit">Comprimento máximo de esquadria</string>
+  <string name="MiterLimit">Comprimento máximo de espinho</string>
   <string name="FillRule">Regra de preenchimento</string>
   <string-array name="FillRules">
     <item>Par-ímpar</item>

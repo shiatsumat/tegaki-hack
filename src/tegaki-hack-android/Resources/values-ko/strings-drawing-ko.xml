@@ -15,9 +15,9 @@
   <string-array name="LineJoins">
     <item>날카롭</item>
     <item>둥글</item>
-    <item>사선</item>
+    <item>둔</item>
   </string-array>
-  <string name="MiterLimit">최대 이음 길이</string>
+  <string name="MiterLimit">가시의 최대 길이</string>
   <string name="FillRule">채우기 규칙</string>
   <string-array name="FillRules">
     <item>짝수 홀수</item>

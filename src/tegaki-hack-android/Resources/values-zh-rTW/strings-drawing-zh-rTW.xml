@@ -15,9 +15,9 @@
   <string-array name="LineJoins">
     <item>尖角</item>
     <item>圓角</item>
-    <item>切角</item>
+    <item>鈍角</item>
   </string-array>
-  <string name="MiterLimit">最大斜接長度</string>
+  <string name="MiterLimit">最大刺的長度</string>
   <string name="FillRule">填充規則</string>
   <string-array name="FillRules">
     <item>奇偶</item>

@@ -26,19 +26,19 @@ namespace tegaki_hack
             return temp;
         }
 
-        public static int LoopIndex<T>(this List<T> list, int index)
+        public static int LoopIndex<T>(this IList<T> list, int index)
         {
             return index >= 0 ? index % list.Count : list.Count - (-index) % list.Count;
         }
-        public static T LoopGet<T>(this List<T> list, int index)
+        public static T LoopGet<T>(this IList<T> list, int index)
         {
             return list[list.LoopIndex(index)];
         }
-        public static void LoopSet<T>(this List<T> list, int index, T value)
+        public static void LoopSet<T>(this IList<T> list, int index, T value)
         {
             list[list.LoopIndex(index)] = value;
         }
-        public static T Pop<T>(this List<T> list)
+        public static T Pop<T>(this IList<T> list)
         {
             var res = list[list.Count - 1];
             list.RemoveAt(list.Count - 1);

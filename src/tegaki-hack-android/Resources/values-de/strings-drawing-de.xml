@@ -8,16 +8,16 @@
   <string name="LineCap">Ende</string>
   <string-array name="LineCaps">
     <item>Flach</item>
-    <item>Abgerundet</item>
+    <item>Rund</item>
     <item>Quadratisch</item>
   </string-array>
   <string name="LineJoin">Ecke</string>
   <string-array name="LineJoins">
     <item>Scharf</item>
-    <item>Abgerundet</item>
-    <item>Abgeschrägt</item>
+    <item>Rund</item>
+    <item>Stumpf</item>
   </string-array>
-  <string name="MiterLimit">Maximale Gehrung Länge</string>
+  <string name="MiterLimit">Maximale Dornlänge</string>
   <string name="FillRule">Füllregel</string>
   <string-array name="FillRules">
     <item>Gerade-ungerade</item>

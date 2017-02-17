@@ -18,6 +18,7 @@ namespace tegaki_hack
 
         ExtensibleView lineCapJoinSample;
         Spinner lineCap, lineJoin;
+        ExtensibleView miterLimitSample;
         NumberPicker miterLimitDeci;
 
         ExtensibleView fillRuleSample;
@@ -38,18 +39,30 @@ namespace tegaki_hack
         }
         void InitializeColors()
         {
+            InitializeColorSample();
+            InitializeLineColor();
+            InitializeFillColor();
+        }
+        void InitializeColorSample()
+        {
             colorSample = view.FindViewById<ExtensibleView>(Resource.Id.ColorSample);
             colorSample.Draw += (canvas) =>
             {
                 drawing.ColorSample().Draw(canvas,
                     new Transform<Internal, External>(canvas.Width / 100.0f));
             };
+        }
+        void InitializeLineColor()
+        {
             lineColor = view.FindViewById<ColorSetter>(Resource.Id.LineColor);
             lineColor.ColorChanged += () =>
             {
                 drawing.LineColor = lineColor.Color;
                 colorSample.Invalidate();
             };
+        }
+        void InitializeFillColor()
+        {
             fillColor = view.FindViewById<ColorSetter>(Resource.Id.FillColor);
             fillColor.ColorChanged += () =>
             {
@@ -67,24 +80,54 @@ namespace tegaki_hack
         }
         void InitializeLineCapJoin()
         {
+            InitializeLineCapJoinSample();
+            InitializeLineCap();
+            InitializeLineJoin();
+            InitializeMiterLimit();
+        }
+        void InitializeLineCapJoinSample()
+        {
             lineCapJoinSample = view.FindViewById<ExtensibleView>(Resource.Id.LineCapJoinSample);
             lineCapJoinSample.Draw += (canvas) =>
             {
                 drawing.LineCapJoinSample().Draw(canvas,
                     new Transform<Internal, External>(canvas.Width / 150.0f));
             };
+        }
+        void InitializeLineCap()
+        {
             lineCap = view.FindViewById<Spinner>(Resource.Id.LineCap);
             lineCap.ItemSelected += (o, e) =>
             {
                 drawing.LineCap = (LineCap)lineCap.SelectedItemPosition;
                 lineCapJoinSample.Invalidate();
             };
+        }
+        void InitializeLineJoin()
+        {
             lineJoin = view.FindViewById<Spinner>(Resource.Id.LineJoin);
             lineJoin.ItemSelected += (o, e) =>
             {
                 drawing.LineJoin = (LineJoin)lineJoin.SelectedItemPosition;
                 lineCapJoinSample.Invalidate();
             };
+        }
+        void InitializeMiterLimit()
+        {
+            InitializeMiterLimitSample();
+            InitializeMiterLimitDeci();
+        }
+        void InitializeMiterLimitSample()
+        {
+            miterLimitSample = view.FindViewById<ExtensibleView>(Resource.Id.MiterLimitSample);
+            miterLimitSample.Draw += (canvas) =>
+            {
+                drawing.MiterLimitSample().Draw(canvas,
+                    new Transform<Internal, External>(canvas.Width / 150.0f));
+            };
+        }
+        void InitializeMiterLimitDeci()
+        {
             miterLimitDeci = view.FindViewById<NumberPicker>(Resource.Id.MiterLimitDeci);
             miterLimitDeci.MinValue = 0;
             miterLimitDeci.MaxValue = 1000;
@@ -98,6 +141,7 @@ namespace tegaki_hack
             miterLimitDeci.ValueChanged += (o, e) =>
             {
                 drawing.MiterLimit = miterLimitDeci.Value / 10.0f;
+                miterLimitSample.Invalidate();
             };
         }
         void InitializeFillRule()

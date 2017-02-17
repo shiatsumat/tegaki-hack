@@ -2,195 +2,202 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
+      <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dp">
+        <TextView
+            android:text="@string/Colors"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <tegaki_hack.ExtensibleView
+            android:id="@+id/ColorSample"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <TextView
-                    android:text="@string/Colors"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <tegaki_hack.ExtensibleView
-                    android:id="@+id/ColorSample"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center" />
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="@string/LineColor"
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center" />
-                    <tegaki_hack.ColorSetter
-                        android:id="@+id/LineColor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="@string/FillColor"
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center" />
-                    <tegaki_hack.ColorSetter
-                        android:id="@+id/FillColor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <TextView
-                    android:text="@string/LineWidth"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <tegaki_hack.SizeSetter
-                    android:id="@+id/LineWidth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <TextView
-                    android:text="@string/LineCapJoin"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <tegaki_hack.ExtensibleView
-                    android:id="@+id/LineCapJoinSample"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:layout_gravity="center" />
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="@string/LineCap"
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center" />
-                    <Spinner
-                        android:id="@+id/LineCap"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:entries="@array/LineCaps" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="@string/LineJoin"
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center" />
-                    <Spinner
-                        android:id="@+id/LineJoin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:entries="@array/LineJoins" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
-                    <TextView
-                        android:text="@string/MiterLimit"
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center" />
-                    <NumberPicker
-                        android:id="@+id/MiterLimitDeci"
-                        android:layout_width="50dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:entries="@array/LineJoins" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <TextView
-                    android:text="@string/FillRule"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <tegaki_hack.ExtensibleView
-                    android:id="@+id/FillRuleSample"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:background="@android:color/transparent"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center" />
-                <Spinner
-                    android:id="@+id/FillRule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:entries="@array/FillRules" />
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+          <TextView
+              android:text="@string/LineColor"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center" />
+          <tegaki_hack.ColorSetter
+              android:id="@+id/LineColor"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_gravity="center" />
         </LinearLayout>
-    </FrameLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+          <TextView
+              android:text="@string/FillColor"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center" />
+          <tegaki_hack.ColorSetter
+              android:id="@+id/FillColor"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_gravity="center" />
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dp">
+        <TextView
+            android:text="@string/LineWidth"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <tegaki_hack.SizeSetter
+            android:id="@+id/LineWidth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+      </LinearLayout>
+      <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dp">
+        <TextView
+            android:text="@string/LineCapJoin"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <tegaki_hack.ExtensibleView
+            android:id="@+id/LineCapJoinSample"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+          <TextView
+              android:text="@string/LineCap"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center" />
+          <Spinner
+              android:id="@+id/LineCap"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="5dp"
+              android:entries="@array/LineCaps" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+          <TextView
+              android:text="@string/LineJoin"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center" />
+          <Spinner
+              android:id="@+id/LineJoin"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="5dp"
+              android:entries="@array/LineJoins" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+          <TextView
+              android:text="@string/MiterLimit"
+              android:textSize="18dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center" />
+          <tegaki_hack.ExtensibleView
+              android:id="@+id/MiterLimitSample"
+              android:layout_width="150dp"
+              android:layout_height="150dp"
+              android:layout_marginTop="10dp"
+              android:background="@android:color/transparent"
+              android:layout_gravity="center" />
+          <NumberPicker
+              android:id="@+id/MiterLimitDeci"
+              android:layout_width="50dp"
+              android:layout_height="120dp"
+              android:layout_gravity="center"
+              android:layout_marginTop="5dp"
+              android:entries="@array/LineJoins" />
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dp">
+        <TextView
+            android:text="@string/FillRule"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <tegaki_hack.ExtensibleView
+            android:id="@+id/FillRuleSample"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center" />
+        <Spinner
+            android:id="@+id/FillRule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:entries="@array/FillRules" />
+      </LinearLayout>
+    </LinearLayout>
+  </FrameLayout>
 </ScrollView>

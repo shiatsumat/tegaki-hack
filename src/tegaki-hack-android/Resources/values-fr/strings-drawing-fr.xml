@@ -15,9 +15,9 @@
   <string-array name="LineJoins">
     <item>Aigu</item>
     <item>Rond</item>
-    <item>Biseauté</item>
+    <item>Obtus</item>
   </string-array>
-  <string name="MiterLimit">Longueur maximale d\'onglet</string>
+  <string name="MiterLimit">Longueur maximale d\'épine</string>
   <string name="FillRule">Règle de remplissage</string>
   <string-array name="FillRules">
     <item>Pair-impair</item>

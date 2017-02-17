@@ -17,10 +17,10 @@
     <item>Rotondo</item>
     <item>Smussato</item>
   </string-array>
-  <string name="MiterLimit">Lunghezza massima mitra</string>
+  <string name="MiterLimit">Lunghezza massima di spina</string>
   <string name="FillRule">Regola di riempimento</string>
   <string-array name="FillRules">
     <item>Pari-dispari</item>
-    <item>Diverso da zero</item>
+    <item>Diverso-da-zero</item>
   </string-array>
 </resources>
