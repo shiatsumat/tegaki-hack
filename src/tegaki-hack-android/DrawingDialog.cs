@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Android.App;
 using Android.Widget;
@@ -12,6 +13,9 @@ namespace tegaki_hack
         AlertDialog dialog;
         Drawing drawing;
 
+        Activity activity;
+        Action<Drawing> ok;
+
         ExtensibleView colorSample;
         ColorSetter lineColor, fillColor;
         SizeSetter lineWidth;
@@ -24,18 +28,42 @@ namespace tegaki_hack
         ExtensibleView fillRuleSample;
         Spinner fillRule;
 
+        public static Task<DrawingDialog> AsyncNew(Activity activity, Action<Drawing> ok)
+        {
+            return Task.Run<DrawingDialog>(() => new DrawingDialog(activity, ok));
+        }
         public DrawingDialog(Activity activity, Action<Drawing> ok)
         {
-            InitializeView(activity);
+            this.activity = activity; this.ok = ok;
+            view = activity.LayoutInflater.Inflate(Resource.Layout.DrawingDialog, null);
+        }
+
+        public void Show(Drawing drawing)
+        {
+            if (dialog == null) Initialize();
+            SetDrawing(drawing);
+            dialog.Show();
+        }
+
+        void SetDrawing(Drawing drawing)
+        {
+            this.drawing = new Drawing(drawing);
+            lineColor.Color = drawing.LineColor;
+            fillColor.Color = drawing.FillColor;
+            lineWidth.Size = drawing.LineWidth;
+            lineCap.SetSelection((int)drawing.LineCap);
+            lineJoin.SetSelection((int)drawing.LineJoin);
+            miterLimitDeci.Value = (int)Math.Round(drawing.MiterLimit * 10.0f);
+            fillRule.SetSelection((int)drawing.FillRule);
+        }
+
+        void Initialize()
+        {
             InitializeColors();
             InitializeLineWidth();
             InitializeLineCapJoin();
             InitializeFillRule();
             InitializeDialog(activity, ok);
-        }
-        void InitializeView(Activity activity)
-        {
-            view = activity.LayoutInflater.Inflate(Resource.Layout.DrawingDialog, null);
         }
         void InitializeColors()
         {
@@ -163,20 +191,6 @@ namespace tegaki_hack
         {
             dialog = Util.CreateDialog(activity, Resource.String.DrawingOptions, view,
                 () => ok?.Invoke(drawing), null);
-        }
-
-        public void Show(Drawing drawing)
-        {
-            this.drawing = new Drawing(drawing);
-            lineColor.Color = drawing.LineColor;
-            fillColor.Color = drawing.FillColor;
-            lineWidth.Size = drawing.LineWidth;
-            lineCap.SetSelection((int)drawing.LineCap);
-            lineJoin.SetSelection((int)drawing.LineJoin);
-            miterLimitDeci.Value = (int)Math.Round(drawing.MiterLimit * 10.0f);
-            fillRule.SetSelection((int)drawing.FillRule);
-
-            dialog.Show();
         }
     }
 }

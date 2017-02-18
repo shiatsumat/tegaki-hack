@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Widget;
 using Android.Content.Res;
@@ -7,28 +8,54 @@ using NativeColor = Android.Graphics.Color;
 
 namespace tegaki_hack
 {
+
     public class AdjustmentDialog
     {
         View view;
         AlertDialog dialog;
         Adjustment adjustment;
 
+        Activity activity;
+        Action<Adjustment> ok;
+
         Spinner xAdjustment, yAdjustment;
         CheckBox adjustAngle;
         NumberPicker rightAngleDivision;
         CheckBox adjustLength;
 
+        public static Task<AdjustmentDialog> AsyncNew(Activity activity, Action<Adjustment> ok)
+        {
+            return Task.Run<AdjustmentDialog>(() => new AdjustmentDialog(activity, ok));
+        }
         public AdjustmentDialog(Activity activity, Action<Adjustment> ok)
         {
-            InitializeView(activity);
+            this.activity = activity; this.ok = ok;
+            view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
+        }
+
+        public void Show(Adjustment adjustment)
+        {
+            if (dialog == null) Initialize();
+            SetAdjustment(adjustment);
+            dialog.Show();
+        }
+
+        void SetAdjustment(Adjustment adjustment)
+        {
+            this.adjustment = new Adjustment(adjustment);
+            xAdjustment.SetSelection((int)adjustment.XAdjustment);
+            yAdjustment.SetSelection((int)adjustment.YAdjustment);
+            adjustAngle.Checked = adjustment.DoesAdjustAngle;
+            rightAngleDivision.Value = adjustment.RightAngleDivision;
+            adjustLength.Checked = adjustment.DoesAdjustLength;
+        }
+
+        void Initialize()
+        {
             InitializeCoordinateAdjustments();
             InitializeAngleAdjustment();
             InitializeLengthAdjustment();
             InitializeDialog(activity, ok);
-        }
-        void InitializeView(Activity activity)
-        {
-            view = activity.LayoutInflater.Inflate(Resource.Layout.AdjustmentDialog, null);
         }
         void InitializeCoordinateAdjustments()
         {
@@ -71,7 +98,7 @@ namespace tegaki_hack
                 SetAvailability();
             };
         }
-        void InitializeDialog(Activity activity,Action<Adjustment> ok)
+        void InitializeDialog(Activity activity, Action<Adjustment> ok)
         {
             dialog = Util.CreateDialog(activity, Resource.String.AdjustmentOptions, view,
                () => ok(adjustment), null);
@@ -82,18 +109,6 @@ namespace tegaki_hack
                 ColorStateList.ValueOf(NativeColor.Black) : ColorStateList.ValueOf(NativeColor.LightGray));
             adjustLength.SetTextColor(adjustment.LengthAdjustmentAvailable ?
                 ColorStateList.ValueOf(NativeColor.Black) : ColorStateList.ValueOf(NativeColor.LightGray));
-        }
-
-        public void Show(Adjustment adjustment)
-        {
-            this.adjustment = new Adjustment(adjustment);
-            xAdjustment.SetSelection((int)adjustment.XAdjustment);
-            yAdjustment.SetSelection((int)adjustment.YAdjustment);
-            adjustAngle.Checked = adjustment.DoesAdjustAngle;
-            rightAngleDivision.Value = adjustment.RightAngleDivision;
-            adjustLength.Checked = adjustment.DoesAdjustLength;
-
-            dialog.Show();
         }
     }
 }

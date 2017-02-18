@@ -3,10 +3,10 @@
   <string name="PleaseWait">请稍候</string>
   <string name="Enable">啟用</string>
   <string name="Edit">編輯</string>
+  <string name="RoundToInteger">四捨五入取整</string>
   <string name="CircleFamilyOptions">圓系統的選項</string>
   <string name="Colors">顏色</string>
   <string name="NRegularPolygon">正多邊形的頂點數</string>
-  <string name="RoundToInteger">舍入到最接近的整數</string>
   <string-array name="Perses">
     <item>網格</item>
     <item>像素</item>

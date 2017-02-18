@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Android.Graphics;
 using Android.Widget;
 using Android.Views;
@@ -20,8 +21,8 @@ namespace tegaki_hack
         Dictionary<EShapeCreator, int> icons;
         ImageButton adjustmentButton, drawingButton;
 
-        AdjustmentDialog adjustmentDialog;
-        DrawingDialog drawingDialog;
+        Task<AdjustmentDialog> adjustmentDialogTask;
+        Task<DrawingDialog> drawingDialogTask;
 
         Bitmap secondBitmap;
         Canvas secondCanvas;
@@ -199,24 +200,26 @@ namespace tegaki_hack
                 adjustmentButton.Activate(settings.DoesAdjust);
             };
 
-            adjustmentDialog = new AdjustmentDialog(activity, (adjustment) =>
-            {
-                settings.Adjustment = adjustment;
-            });
-            adjustmentButton.LongClick += (o, e) => adjustmentDialog.Show(settings.Adjustment);
+            adjustmentDialogTask = AdjustmentDialog.AsyncNew(activity, (adjustment) =>
+                {
+                    settings.Adjustment = adjustment;
+                });
+            adjustmentButton.LongClick += async (o, e) =>
+                (await adjustmentDialogTask).Show(settings.Adjustment);
         }
         void InitializeDrawing()
         {
             drawingButton = activity.FindViewById<ImageButton>(Resource.Id.Drawing);
-            drawingDialog = new DrawingDialog(activity, (drawing) =>
-            {
-                if (!settings.Drawing.Equals(drawing))
+            drawingDialogTask = DrawingDialog.AsyncNew(activity, (drawing) =>
                 {
-                    settings.Drawing = drawing;
-                    ResetShapeCreator();
-                }
-            });
-            drawingButton.Click += (o, e) => drawingDialog.Show(settings.Drawing);
+                    if (!settings.Drawing.Equals(drawing))
+                    {
+                        settings.Drawing = drawing;
+                        ResetShapeCreator();
+                    }
+                });
+            drawingButton.Click += async (o, e) =>
+                (await drawingDialogTask).Show(settings.Drawing);
         }
 
         public void Destroy()

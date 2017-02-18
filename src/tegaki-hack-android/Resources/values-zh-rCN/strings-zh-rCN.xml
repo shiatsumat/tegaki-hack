@@ -3,7 +3,7 @@
   <string name="PleaseWait">请稍候</string>
   <string name="Enable">启用</string>
   <string name="Edit">编辑</string>
-  <string name="RoundToInteger">取整</string>
+  <string name="RoundToInteger">四舍五入取整</string>
   <string name="Colors">颜色</string>
   <string name="CircleFamilyOptions">圆系统的选项</string>
   <string name="NRegularPolygon">正多边形的顶点数</string>
