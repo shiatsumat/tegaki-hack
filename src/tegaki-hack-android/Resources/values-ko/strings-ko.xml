@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="Enable">사용하다</string>
-  <string name="PleaseWait">잠시만뇨</string>
-  <string name="Edit">편집하다</string>
-  <string name="RoundToInteger">정수로 반올림하다</string>
+  <string name="Adjustments">조정</string>
+  <string name="All">모든</string>
+  <string name="Alternate">번갈아</string>
+  <string name="Angle">각도</string>
+  <string name="CircleFamily">원계통</string>
   <string name="Colors">색</string>
-  <string name="CircleFamilyOptions">원계통 옵션</string>
-  <string name="NRegularPolygon">정다각형의 정점의 수</string>
-  <string-array name="Perses">
-    <item>그리드</item>
-    <item>픽셀</item>
-  </string-array>
+  <string name="Coordinates">좌표</string>
+  <string name="Corner">모서리</string>
+  <string name="CornerBlunt">둔</string>
+  <string name="CornerRound">둥글</string>
+  <string name="CornerSharp">날카롭</string>
+  <string name="Drawing">그림</string>
+  <string name="Edit">편집하다</string>
+  <string name="Enable">사용하다</string>
+  <string name="End">끝</string>
+  <string name="EndFlat">평평</string>
+  <string name="EndRound">둥글</string>
+  <string name="EndSquare">사각형</string>
+  <string name="EndAndCorner">끝와 모서리</string>
+  <string name="ExistingPoints">기존 점</string>
+  <string name="Fill">채움</string>
+  <string name="HowToFill">채우는 법</string>
+  <string name="Integer">정수</string>
+  <string name="Length">길이</string>
+  <string name="Line">선</string>
+  <string name="LineWidth">선의 폭</string>
+  <string name="MaximumLengthOfThorn">가시의 최대 길이</string>
+  <string name="None">없음</string>
+  <string name="NumberOfVertices">정점의 수</string>
+  <string name="PleaseWait">잠시만뇨</string>
+  <string name="Unit">단위</string>
+  <string name="UnitGrids">그리드</string>
+  <string name="UnitPixels">픽셀</string>
 </resources>

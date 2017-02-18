@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Attendere prego</string>
-  <string name="Enable">Abilitare</string>
-  <string name="Edit">Modificare</string>
-  <string name="RoundToInteger">Arrotondato al numero intero</string>
+  <string name="Adjustments">Adattamenti</string>
+  <string name="All">Tutto</string>
+  <string name="Alternate">Alterno</string>
+  <string name="Angle">Angolo</string>
+  <string name="CircleFamily">Famiglia di cerchio</string>
   <string name="Colors">Colori</string>
-  <string name="CircleFamilyOptions">Opzioni di famiglia di cerchio</string>
-  <string name="NRegularPolygon">Numero di vertici di poligono regolare</string>
-  <string-array name="Perses">
-    <item>Griglie</item>
-    <item>Pixel</item>
-  </string-array>
+  <string name="Coordinates">Coordinate</string>
+  <string name="Corner">Angolo</string>
+  <string name="CornerBlunt">Smussato</string>
+  <string name="CornerRound">Rotondo</string>
+  <string name="CornerSharp">Acuto</string>
+  <string name="Drawing">Disegno</string>
+  <string name="Edit">Modificare</string>
+  <string name="Enable">Abilitare</string>
+  <string name="End">Fine</string>
+  <string name="EndFlat">Piatto</string>
+  <string name="EndRound">Rotondo</string>
+  <string name="EndSquare">Quadrata</string>
+  <string name="EndAndCorner">Fine e angolo</string>
+  <string name="ExistingPoints">Punti esistenti</string>
+  <string name="Fill">Riempimento</string>
+  <string name="HowToFill">Come riempire</string>
+  <string name="Integer">Numero intero</string>
+  <string name="Length">Lunghezza</string>
+  <string name="Line">Linea</string>
+  <string name="LineWidth">Larghezza di linea</string>
+  <string name="MaximumLengthOfThorn">Lunghezza massima di spina</string>
+  <string name="None">Nessuna</string>
+  <string name="NumberOfVertices">Numero di vertici</string>
+  <string name="PleaseWait">Attendere prego</string>
+  <string name="Unit">Unità</string>
+  <string name="UnitGrids">Griglie</string>
+  <string name="UnitPixels">Pixel</string>
 </resources>

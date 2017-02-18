@@ -173,7 +173,7 @@ namespace tegaki_hack
                 nRegularPolygon = nRegularPolygonPicker.Value;
             };
 
-            var dialog = Util.CreateDialog(activity, Resource.String.CircleFamilyOptions, view, () =>
+            var dialog = Util.CreateDialog(activity, Resource.String.CircleFamily, view, () =>
                  {
                      if (nRegularPolygon != settings.NRegularPolygon)
                      {

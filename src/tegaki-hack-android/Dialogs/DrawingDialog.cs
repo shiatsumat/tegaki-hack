@@ -189,7 +189,7 @@ namespace tegaki_hack
         }
         void InitializeDialog(Activity activity, Action<Drawing> ok)
         {
-            dialog = Util.CreateDialog(activity, Resource.String.DrawingOptions, view,
+            dialog = Util.CreateDialog(activity, Resource.String.Drawing, view,
                 () => ok?.Invoke(drawing), null);
         }
     }

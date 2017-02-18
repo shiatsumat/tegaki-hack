@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Por favor espera</string>
-  <string name="Enable">Habilitar</string>
-  <string name="Edit">Editar</string>
-  <string name="RoundToInteger">Ronda a entero</string>
+  <string name="Adjustments">Ajustes</string>
+  <string name="All">Todos</string>
+  <string name="Alternate">Alterno</string>
+  <string name="Angle">Ángulo</string>
+  <string name="CircleFamily">Familia de círculo</string>
   <string name="Colors">Colores</string>
-  <string name="CircleFamilyOptions">Opciones de familia de círculo</string>
-  <string name="NRegularPolygon">Número de vértices de polígono regular</string>
-  <string-array name="Perses">
-    <item>Rejillas</item>
-    <item>Píxeles</item>
-  </string-array>
+  <string name="Coordinates">Coordinates</string>
+  <string name="Corner">Esquina</string>
+  <string name="CornerBlunt">Embotada</string>
+  <string name="CornerRound">Redonda</string>
+  <string name="CornerSharp">Aguda</string>
+  <string name="Drawing">Dibujo</string>
+  <string name="Edit">Editar</string>
+  <string name="Enable">Habilitar</string>
+  <string name="End">Extremo</string>
+  <string name="EndFlat">Plano</string>
+  <string name="EndRound">Redondo</string>
+  <string name="EndSquare">Cuadrado</string>
+  <string name="EndAndCorner">Extremo et esquina</string>
+  <string name="ExistingPoints">Puntos existentes</string>
+  <string name="Fill">Relleno</string>
+  <string name="HowToFill">Cómo rellenar</string>
+  <string name="Integer">Número entero</string>
+  <string name="Length">Longitud</string>
+  <string name="Line">Línea</string>
+  <string name="LineWidth">Anchura de línea</string>
+  <string name="MaximumLengthOfThorn">Longitud máxima de espina</string>
+  <string name="None">Ninguno</string>
+  <string name="NumberOfVertices">Número de vértices</string>
+  <string name="PleaseWait">Por favor espera</string>
+  <string name="Unit">Unidad</string>
+  <string name="UnitGrids">Rejillas</string>
+  <string name="UnitPixels">Píxeles</string>
 </resources>

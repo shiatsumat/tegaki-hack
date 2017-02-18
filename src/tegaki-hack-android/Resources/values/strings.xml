@@ -1,14 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Please wait</string>
-  <string name="Enable">Enable</string>
-  <string name="Edit">Edit</string>
-  <string name="RoundToInteger">Round to integer</string>
+  <string name="Adjustments">Adjustments</string>
+  <string name="All">All</string>
+  <string name="Alternate">Alternate</string>
+  <string name="Angle">Angle</string>
+  <string name="CircleFamily">Circle family</string>
   <string name="Colors">Colors</string>
-  <string name="CircleFamilyOptions">Cirlce family options</string>
-  <string name="NRegularPolygon">Number of vertices of regular polygon</string>
+  <string name="Coordinates">Coordinates</string>
+  <string name="Corner">Corner</string>
+  <string name="CornerBlunt">Blunt</string>
+  <string name="CornerRound">Round</string>
+  <string name="CornerSharp">Sharp</string>
+  <string name="Drawing">Drawing</string>
+  <string name="Edit">Edit</string>
+  <string name="Enable">Enable</string>
+  <string name="End">End</string>
+  <string name="EndFlat">Flat</string>
+  <string name="EndRound">Round</string>
+  <string name="EndSquare">Square</string>
+  <string name="EndAndCorner">End and corner</string>
+  <string name="ExistingPoints">Existing Points</string>
+  <string name="Fill">Fill</string>
+  <string name="HowToFill">How to fill</string>
+  <string name="Integer">Integer</string>
+  <string name="Length">Length</string>
+  <string name="Line">Line</string>
+  <string name="LineWidth">Line width</string>
+  <string name="MaximumLengthOfThorn">Maximum length of thorn</string>
+  <string name="None">None</string>
+  <string name="NumberOfVertices">Number of vertices</string>
+  <string name="PleaseWait">Please wait</string>
+  <string name="Unit">Unit</string>
+  <string name="UnitGrids">Grids</string>
+  <string name="UnitPixels">Pixels</string>
+  <string-array name="CoordinateAdjustments">
+    <item>@string/None</item>
+    <item>@string/Integer</item>
+    <item>@string/ExistingPoints</item>
+  </string-array>
+  <string-array name="Corner">
+    <item>@string/CornerSharp</item>
+    <item>@string/CornerRound</item>
+    <item>@string/CornerBlunt</item>
+  </string-array>
+  <string-array name="End">
+    <item>@string/EndFlat</item>
+    <item>@string/EndRound</item>
+    <item>@string/EndSquare</item>
+  </string-array>
+  <string-array name="HowToFill">
+    <item>@string/Alternate</item>
+    <item>@string/All</item>
+  </string-array>
   <string-array name="Perses">
-    <item>Grids</item>
-    <item>Pixels</item>
+    <item>@string/UnitGrids</item>
+    <item>@string/UnitPixels</item>
   </string-array>
 </resources>

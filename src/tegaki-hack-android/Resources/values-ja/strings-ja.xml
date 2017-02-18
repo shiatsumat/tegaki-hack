@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="Enable">有効にする</string>
-  <string name="PleaseWait">お待ちください</string>
-  <string name="Edit">編集する</string>
-  <string name="RoundToInteger">整数に丸める</string>
+  <string name="Adjustments">調節</string>
+  <string name="All">すべて</string>
+  <string name="Alternate">交互</string>
+  <string name="Angle">角度</string>
+  <string name="CircleFamily">円系統</string>
   <string name="Colors">色</string>
-  <string name="CircleFamilyOptions">円系統のオプション</string>
-  <string name="NRegularPolygon">正多角形の頂点数</string>
-  <string-array name="Perses">
-    <item>グリッド</item>
-    <item>ピクセル</item>
-  </string-array>
+  <string name="Coordinates">座標</string>
+  <string name="Corner">角</string>
+  <string name="CornerBlunt">鈍い</string>
+  <string name="CornerRound">丸い</string>
+  <string name="CornerSharp">鋭い</string>
+  <string name="Drawing">描画</string>
+  <string name="Edit">編集する</string>
+  <string name="Enable">有効にする</string>
+  <string name="End">端</string>
+  <string name="EndFlat">平ら</string>
+  <string name="EndRound">丸い</string>
+  <string name="EndSquare">正方形</string>
+  <string name="EndAndCorner">端と角</string>
+  <string name="ExistingPoints">既存の点</string>
+  <string name="Fill">塗り</string>
+  <string name="HowToFill">塗り方</string>
+  <string name="Integer">整数</string>
+  <string name="Length">長さ</string>
+  <string name="Line">線</string>
+  <string name="LineWidth">線の幅</string>
+  <string name="MaximumLengthOfThorn">トゲの最大長</string>
+  <string name="None">なし</string>
+  <string name="NumberOfVertices">頂点数</string>
+  <string name="PleaseWait">お待ちください</string>
+  <string name="Unit">単位</string>
+  <string name="UnitGrids">グリッド</string>
+  <string name="UnitPixels">ピクセル</string>
 </resources>

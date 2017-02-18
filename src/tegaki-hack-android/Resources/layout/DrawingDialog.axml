@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp">
           <TextView
-              android:text="@string/LineColor"
+              android:text="@string/Line"
               android:textSize="18dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp">
           <TextView
-              android:text="@string/FillColor"
+              android:text="@string/Fill"
               android:textSize="18dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
           android:layout_height="wrap_content"
           android:padding="10dp">
         <TextView
-            android:text="@string/LineCapJoin"
+            android:text="@string/EndAndCorner"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp">
           <TextView
-              android:text="@string/LineCap"
+              android:text="@string/End"
               android:textSize="18dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:layout_marginTop="5dp"
-              android:entries="@array/LineCaps" />
+              android:entries="@array/End" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp">
           <TextView
-              android:text="@string/LineJoin"
+              android:text="@string/Corner"
               android:textSize="18dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:layout_marginTop="5dp"
-              android:entries="@array/LineJoins" />
+              android:entries="@array/Corner" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
           <TextView
-              android:text="@string/MiterLimit"
+              android:text="@string/MaximumLengthOfThorn"
               android:textSize="18dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -167,8 +167,7 @@
               android:layout_width="50dp"
               android:layout_height="120dp"
               android:layout_gravity="center"
-              android:layout_marginTop="5dp"
-              android:entries="@array/LineJoins" />
+              android:layout_marginTop="5dp" />
         </LinearLayout>
       </LinearLayout>
       <LinearLayout
@@ -177,7 +176,7 @@
           android:layout_height="wrap_content"
           android:padding="10dp">
         <TextView
-            android:text="@string/FillRule"
+            android:text="@string/HowToFill"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -196,7 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:entries="@array/FillRules" />
+            android:entries="@array/HowToFill" />
       </LinearLayout>
     </LinearLayout>
   </FrameLayout>

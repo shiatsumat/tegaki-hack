@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Patientez</string>
-  <string name="Enable">Activer</string>
-  <string name="Edit">Modifier</string>
-  <string name="RoundToInteger">Arrondir à l\'entier</string>
+  <string name="Adjustments">Ajustements</string>
+  <string name="All">Tout</string>
+  <string name="Alternate">Alternatif</string>
+  <string name="Angle">Angle</string>
+  <string name="CircleFamily">Famille de circle</string>
   <string name="Colors">Couleurs</string>
-  <string name="CircleFamilyOptions">Options de la famille de circle</string>
-  <string name="NRegularPolygon">Nombre de vertices de polygone régulier</string>
-  <string-array name="Perses">
-    <item>Grilles</item>
-    <item>Pixels</item>
-  </string-array>
+  <string name="Coordinates">Coordonnées</string>
+  <string name="Corner">Coin</string>
+  <string name="CornerBlunt">Émoussé</string>
+  <string name="CornerRound">Rond</string>
+  <string name="CornerSharp">Aigu</string>
+  <string name="Drawing">Dessin</string>
+  <string name="Edit">Modifier</string>
+  <string name="Enable">Activer</string>
+  <string name="End">Bout</string>
+  <string name="EndFlat">Plat</string>
+  <string name="EndRound">Rond</string>
+  <string name="EndSquare">Carré</string>
+  <string name="EndAndCorner">Bout et coin</string>
+  <string name="ExistingPoints">Points existants</string>
+  <string name="Fill">Remplissage</string>
+  <string name="HowToFill">Comment remplir</string>
+  <string name="Integer">Nombre entier</string>
+  <string name="Length">Longueur</string>
+  <string name="Line">Ligne</string>
+  <string name="LineWidth">Largeur de ligne</string>
+  <string name="MaximumLengthOfThorn">Longueur maximale d\'épine</string>
+  <string name="None">Aucun</string>
+  <string name="NumberOfVertices">Nombre de vertices</string>
+  <string name="PleaseWait">Patientez</string>
+  <string name="Unit">Unité</string>
+  <string name="UnitGrids">Grilles</string>
+  <string name="UnitPixels">Pixels</string>
 </resources>

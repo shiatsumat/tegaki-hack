@@ -51,18 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SizeSetter.cs" />
-    <Compile Include="ColorSetter.cs" />
+    <Compile Include="Controls\SizeSetter.cs" />
+    <Compile Include="Controls\ColorSetter.cs" />
     <Compile Include="CustomApplication.cs" />
-    <Compile Include="EditActivity.cs" />
+    <Compile Include="Activities\EditActivity.cs" />
     <Compile Include="Logic-Android\Drawdata-Android.cs" />
     <Compile Include="Logic-Android\Editor-Android.cs" />
     <Compile Include="Logic-Android\Shape-Android.cs" />
-    <Compile Include="AdjustmentDialog.cs" />
-    <Compile Include="DrawingDialog.cs" />
+    <Compile Include="Dialogs\AdjustmentDialog.cs" />
+    <Compile Include="Dialogs\DrawingDialog.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartActivity.cs" />
+    <Compile Include="Activities\StartActivity.cs" />
     <Compile Include="Logic-Android\Util-Android.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,8 +122,12 @@
     <AndroidResource Include="Resources\drawable\UndoIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\AdjustmentDialog.axml" />
-    <AndroidResource Include="Resources\layout\CircleDialog.axml" />
+    <AndroidResource Include="Resources\layout\AdjustmentDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CircleDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\ColorSetter.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -161,43 +165,7 @@
     <AndroidResource Include="Resources\drawable\SquareIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-zh-rCN\strings-drawing-zh-rCN.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\strings-drawing.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\strings-adjustment.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-ja\strings-adjustment-ja.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-ja\strings-drawing-ja.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values-zh-rCN\strings-zh-rCN.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-zh-rCN\strings-adjustment-zh-rCN.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-zh-rTW\strings-adjustment-zh-rTW.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-zh-rTW\strings-drawing-zh-rTW.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -207,18 +175,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-fr\strings-adjustment-fr.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-fr\strings-drawing-fr.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values-fr\strings-fr.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-es\strings-adjustment-es.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-es\strings-es.xml">
@@ -226,26 +185,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-es\strings-drawing-es.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-pt\strings-adjustment-pt.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-pt\strings-drawing-pt.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values-pt\strings-pt.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-de\strings-adjustment-de.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-de\strings-drawing-de.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -253,12 +193,6 @@
     <AndroidResource Include="Resources\values-de\strings-de.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-ru\strings-adjustment-ru.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-ru\strings-drawing-ru.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-ru\strings-ru.xml">
@@ -269,28 +203,12 @@
     <AndroidResource Include="Resources\drawable\ClosedFreehandIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-it\strings-adjustment-it.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-it\strings-drawing-it.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values-it\strings-it.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values-ko\strings-adjustment-ko.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values-ko\strings-ko.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values-ko\strings-drawing-ko.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

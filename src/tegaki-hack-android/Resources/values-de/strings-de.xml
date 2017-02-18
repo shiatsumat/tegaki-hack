@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Warten Sie mal</string>
-  <string name="Enable">Aktivieren</string>
-  <string name="Edit">Bearbeiten</string>
-  <string name="RoundToInteger">Runden zu integer</string>
+  <string name="Adjustments">Anpassungen</string>
+  <string name="All">Alle</string>
+  <string name="Alternate">Abwechselnd</string>
+  <string name="Angle">Winkel</string>
+  <string name="CircleFamily">Kreisfamilie</string>
   <string name="Colors">Farben</string>
-  <string name="CircleFamilyOptions">Kreisfamilieoptionen</string>
-  <string name="NRegularPolygon">Anzahl der Ecken von Regular Polygon</string>
-  <string-array name="Perses">
-    <item>Gitter</item>
-    <item>Pixel</item>
-  </string-array>
+  <string name="Coordinates">Koordinaten</string>
+  <string name="Corner">Ecke</string>
+  <string name="CornerBlunt">Stumpf</string>
+  <string name="CornerRound">Rund</string>
+  <string name="CornerSharp">Scharf</string>
+  <string name="Drawing">Zeichnung</string>
+  <string name="Edit">Bearbeiten</string>
+  <string name="Enable">Aktivieren</string>
+  <string name="End">Ende</string>
+  <string name="EndFlat">Flach</string>
+  <string name="EndRound">Rund</string>
+  <string name="EndSquare">Quadratisch</string>
+  <string name="EndAndCorner">Ende und Ecke</string>
+  <string name="ExistingPoints">Bestehenden Punkten</string>
+  <string name="Fill">Füll</string>
+  <string name="HowToFill">Wie zu füllen</string>
+  <string name="Integer">Ganzzahl</string>
+  <string name="Length">Länge</string>
+  <string name="Line">Linie</string>
+  <string name="LineWidth">Linienbreite</string>
+  <string name="MaximumLengthOfThorn">Maximale Dornlänge</string>
+  <string name="None">Keiner</string>
+  <string name="NumberOfVertices">Anzahl der Ecken</string>
+  <string name="PleaseWait">Warten Sie mal</string>
+  <string name="Unit">Einheit</string>
+  <string name="UnitGrids">Gitter</string>
+  <string name="UnitPixels">Pixel</string>
 </resources>

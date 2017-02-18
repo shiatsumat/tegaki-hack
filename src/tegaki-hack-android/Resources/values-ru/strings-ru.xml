@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">Пожалуйста, подождите</string>
-  <string name="Enable">Включить</string>
-  <string name="Edit">Править</string>
-  <string name="RoundToInteger">Округлить до целого числа</string>
+  <string name="Adjustments">Регулировки</string>
+  <string name="All">Все</string>
+  <string name="Alternate">Чередующийся</string>
+  <string name="Angle">Угол</string>
+  <string name="CircleFamily">Семья круга</string>
   <string name="Colors">Цвета</string>
-  <string name="CircleFamilyOptions">Параметры семьи круга</string>
-  <string name="NRegularPolygon">Число вершин правильного многоугольника</string>
-  <string-array name="Perses">
-    <item>Сетки</item>
-    <item>Пиксели</item>
-  </string-array>
+  <string name="Coordinates">Координаты</string>
+  <string name="Corner">Угол</string>
+  <string name="CornerBlunt">Тупой</string>
+  <string name="CornerRound">Круглый</string>
+  <string name="CornerSharp">Острый</string>
+  <string name="Drawing">Рисунок</string>
+  <string name="Edit">Править</string>
+  <string name="Enable">Включить</string>
+  <string name="End">Конец</string>
+  <string name="EndFlat">Плоский</string>
+  <string name="EndRound">Круглый</string>
+  <string name="EndSquare">Квадратный</string>
+  <string name="EndAndCorner">Конец и угол</string>
+  <string name="ExistingPoints">Существующие точки</string>
+  <string name="Fill">Заливка</string>
+  <string name="HowToFill">Как заполнять</string>
+  <string name="Integer">Целое число</string>
+  <string name="Length">Длина</string>
+  <string name="Line">Линия</string>
+  <string name="LineWidth">Ширина линии</string>
+  <string name="MaximumLengthOfThorn">Максимальная длина шипа</string>
+  <string name="None">Никто</string>
+  <string name="NumberOfVertices">Число вершин</string>
+  <string name="PleaseWait">Пожалуйста, подождите</string>
+  <string name="Unit">Единица</string>
+  <string name="UnitGrids">Сетки</string>
+  <string name="UnitPixels">Пиксели</string>
 </resources>

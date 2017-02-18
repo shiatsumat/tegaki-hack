@@ -34,17 +34,17 @@ namespace tegaki_hack
 			// aapt resource value: 0x7f050000
 			public const int CoordinateAdjustments = 2131034112;
 			
-			// aapt resource value: 0x7f050004
-			public const int FillRules = 2131034116;
+			// aapt resource value: 0x7f050001
+			public const int Corner = 2131034113;
 			
 			// aapt resource value: 0x7f050002
-			public const int LineCaps = 2131034114;
+			public const int End = 2131034114;
 			
 			// aapt resource value: 0x7f050003
-			public const int LineJoins = 2131034115;
+			public const int HowToFill = 2131034115;
 			
-			// aapt resource value: 0x7f050001
-			public const int Perses = 2131034113;
+			// aapt resource value: 0x7f050004
+			public const int Perses = 2131034116;
 			
 			static Array()
 			{
@@ -346,67 +346,103 @@ namespace tegaki_hack
 		{
 			
 			// aapt resource value: 0x7f040000
-			public const int AdjustmentOptions = 2130968576;
-			
-			// aapt resource value: 0x7f040002
-			public const int AngleAdjustment = 2130968578;
-			
-			// aapt resource value: 0x7f04000a
-			public const int CircleFamilyOptions = 2130968586;
-			
-			// aapt resource value: 0x7f040009
-			public const int Colors = 2130968585;
+			public const int Adjustments = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int CoordinateAdjustments = 2130968577;
+			public const int All = 2130968577;
 			
-			// aapt resource value: 0x7f04000c
-			public const int DrawingOptions = 2130968588;
-			
-			// aapt resource value: 0x7f040007
-			public const int Edit = 2130968583;
-			
-			// aapt resource value: 0x7f040006
-			public const int Enable = 2130968582;
-			
-			// aapt resource value: 0x7f04000e
-			public const int FillColor = 2130968590;
-			
-			// aapt resource value: 0x7f040014
-			public const int FillRule = 2130968596;
-			
-			// aapt resource value: 0x7f040004
-			public const int LengthAdjustment = 2130968580;
-			
-			// aapt resource value: 0x7f040011
-			public const int LineCap = 2130968593;
-			
-			// aapt resource value: 0x7f040010
-			public const int LineCapJoin = 2130968592;
-			
-			// aapt resource value: 0x7f04000d
-			public const int LineColor = 2130968589;
-			
-			// aapt resource value: 0x7f040012
-			public const int LineJoin = 2130968594;
-			
-			// aapt resource value: 0x7f04000f
-			public const int LineWidth = 2130968591;
-			
-			// aapt resource value: 0x7f040013
-			public const int MiterLimit = 2130968595;
-			
-			// aapt resource value: 0x7f04000b
-			public const int NRegularPolygon = 2130968587;
-			
-			// aapt resource value: 0x7f040005
-			public const int PleaseWait = 2130968581;
-			
-			// aapt resource value: 0x7f040008
-			public const int RoundToInteger = 2130968584;
+			// aapt resource value: 0x7f040002
+			public const int Alternate = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int UnitOfAngle = 2130968579;
+			public const int Angle = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int CircleFamily = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int Colors = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int Coordinates = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int Corner = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int CornerBlunt = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int CornerRound = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int CornerSharp = 2130968586;
+			
+			// aapt resource value: 0x7f04000b
+			public const int Drawing = 2130968587;
+			
+			// aapt resource value: 0x7f04000c
+			public const int Edit = 2130968588;
+			
+			// aapt resource value: 0x7f04000d
+			public const int Enable = 2130968589;
+			
+			// aapt resource value: 0x7f04000e
+			public const int End = 2130968590;
+			
+			// aapt resource value: 0x7f040012
+			public const int EndAndCorner = 2130968594;
+			
+			// aapt resource value: 0x7f04000f
+			public const int EndFlat = 2130968591;
+			
+			// aapt resource value: 0x7f040010
+			public const int EndRound = 2130968592;
+			
+			// aapt resource value: 0x7f040011
+			public const int EndSquare = 2130968593;
+			
+			// aapt resource value: 0x7f040013
+			public const int ExistingPoints = 2130968595;
+			
+			// aapt resource value: 0x7f040014
+			public const int Fill = 2130968596;
+			
+			// aapt resource value: 0x7f040015
+			public const int HowToFill = 2130968597;
+			
+			// aapt resource value: 0x7f040016
+			public const int Integer = 2130968598;
+			
+			// aapt resource value: 0x7f040017
+			public const int Length = 2130968599;
+			
+			// aapt resource value: 0x7f040018
+			public const int Line = 2130968600;
+			
+			// aapt resource value: 0x7f040019
+			public const int LineWidth = 2130968601;
+			
+			// aapt resource value: 0x7f04001a
+			public const int MaximumLengthOfThorn = 2130968602;
+			
+			// aapt resource value: 0x7f04001b
+			public const int None = 2130968603;
+			
+			// aapt resource value: 0x7f04001c
+			public const int NumberOfVertices = 2130968604;
+			
+			// aapt resource value: 0x7f04001d
+			public const int PleaseWait = 2130968605;
+			
+			// aapt resource value: 0x7f04001e
+			public const int Unit = 2130968606;
+			
+			// aapt resource value: 0x7f04001f
+			public const int UnitGrids = 2130968607;
+			
+			// aapt resource value: 0x7f040020
+			public const int UnitPixels = 2130968608;
 			
 			static String()
 			{

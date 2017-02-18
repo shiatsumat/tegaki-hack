@@ -100,7 +100,7 @@ namespace tegaki_hack
         }
         void InitializeDialog(Activity activity, Action<Adjustment> ok)
         {
-            dialog = Util.CreateDialog(activity, Resource.String.AdjustmentOptions, view,
+            dialog = Util.CreateDialog(activity, Resource.String.Adjustments, view,
                () => ok(adjustment), null);
         }
         void SetAvailability()

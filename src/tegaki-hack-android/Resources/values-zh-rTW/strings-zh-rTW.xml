@@ -1,14 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="PleaseWait">请稍候</string>
-  <string name="Enable">啟用</string>
-  <string name="Edit">編輯</string>
-  <string name="RoundToInteger">四捨五入取整</string>
-  <string name="CircleFamilyOptions">圓系統的選項</string>
+  <string name="Adjustments">調整</string>
+  <string name="All">所有</string>
+  <string name="Alternate">交替</string>
+  <string name="Angle">角度</string>
+  <string name="CircleFamily">圓系統</string>
   <string name="Colors">顏色</string>
-  <string name="NRegularPolygon">正多邊形的頂點數</string>
-  <string-array name="Perses">
-    <item>網格</item>
-    <item>像素</item>
-  </string-array>
+  <string name="Coordinates">坐標</string>
+  <string name="Corner">邊角</string>
+  <string name="CornerBlunt">鈍角</string>
+  <string name="CornerRound">​​圓角</string>
+  <string name="CornerSharp">尖角</string>
+  <string name="Drawing">繪圖</string>
+  <string name="Edit">編輯</string>
+  <string name="Enable">啟用</string>
+  <string name="End">線端</string>
+  <string name="EndFlat">平直</string>
+  <string name="EndRound">​​圓形</string>
+  <string name="EndSquare">正方形</string>
+  <string name="EndAndCorner">線端和邊角</string>
+  <string name="ExistingPoints">現有點</string>
+  <string name="Fill">填充</string>
+  <string name="HowToFill">如何填</string>
+  <string name="Integer">整數</string>
+  <string name="Length">長度</string>
+  <string name="Line">線</string>
+  <string name="LineWidth">線的寬度</string>
+  <string name="MaximumLengthOfThorn">最大刺的長度</string>
+  <string name="None">無</string>
+  <string name="NumberOfVertices">頂點數</string>
+  <string name="PleaseWait">請稍候</string>
+  <string name="Unit">單位</string>
+  <string name="UnitGrids">網格</string>
+  <string name="UnitPixels">像素</string>
 </resources>
